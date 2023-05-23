@@ -1,26 +1,26 @@
-<script lang="tsx">
-import { createVNode, defineComponent } from 'vue'
+<script lang="ts" setup>
 import { useNamespace } from '@ehop/hooks'
-import type { Component } from 'vue'
-import { definePropType } from '@ehop/utils'
 import { useButton } from './use-button'
+import { buttonEmits, buttonProps } from './button'
 
-export default defineComponent({
-  name: 'EhButton',
-  props: {
-    tag: {
-      type: definePropType<string | Component>([String, Object]),
-      default: 'button',
-    },
-  },
-  setup(props, { slots, emit }) {
-    const ns = useNamespace('button')
-    const { shouldAddSpace, handleClick } = useButton(props, emit)
-    // const shouldAddSpace = t
+const props = defineProps(buttonProps)
+const emit = defineEmits(buttonEmits)
+const ns = useNamespace('button')
 
-    return () => createVNode(props.tag, { ref: '_ref', onClick: handleClick }, {
-      default: () => <span class={{ [ns.em('text', 'expand')]: shouldAddSpace }}>{slots.default?.()}</span>,
-    })
-  },
-})
+const { shouldAddSpace, handleClick }
+  = useButton(props, emit)
 </script>
+
+<template>
+  <component
+    :is="tag"
+    @click="handleClick"
+  >
+    <span
+      v-if="$slots.default"
+      :class="{ [ns.em('text', 'expand')]: shouldAddSpace }"
+    >
+      <slot />
+    </span>
+  </component>
+</template>
