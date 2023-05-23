@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "target": "ES2018",
+    "moduleResolution": "nodenext",
+    "baseUrl": ".",
+    "paths": {
+      "@ehop/*": ["packages/*"]
+    }
+  }
+}
