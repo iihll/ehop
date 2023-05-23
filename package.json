@@ -1,20 +1,33 @@
 {
-  "name": "ehop",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "play",
+    "docs"
+  ],
   "scripts": {
-    "dev": "pnpm -C play dev"
+    "dev": "pnpm -C play dev",
+    "stub": "pnpm run -r --parallel stub",
+    "postinstall": "pnpm stub"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@iihll/eslint-config": "^0.0.4",
+    "@ehop/build-utils": "workspace:*",
+    "@iihll/eslint-config": "^0.0.5",
     "@types/node": "^18.16.8",
-    "eslint": "^8.41.0"
+    "@vue/shared": "^3.3.4",
+    "eslint": "^8.41.0",
+    "type-fest": "^3.11.0"
   },
   "dependencies": {
+    "@ehop/components": "workspace:*",
+    "@ehop/constants": "workspace:*",
+    "@ehop/hooks": "workspace:*",
+    "@ehop/utils": "workspace:*",
+    "@element-plus/icons-vue": "^2.1.0",
+    "lodash-unified": "^1.0.3",
     "vue": "^3.3.4"
   }
 }
