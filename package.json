@@ -17,8 +17,12 @@
     "@ehop/build-utils": "workspace:*",
     "@iihll/eslint-config": "^0.0.5",
     "@types/node": "^18.16.8",
+    "@types/sass": "^1.45.0",
     "@vue/shared": "^3.3.4",
+    "chalk": "^5.2.0",
+    "consola": "^2.15.3",
     "eslint": "^8.41.0",
+    "sass": "^1.62.1",
     "type-fest": "^3.11.0"
   },
   "dependencies": {
@@ -27,6 +31,7 @@
     "@ehop/hooks": "workspace:*",
     "@ehop/icons-svg": "workspace:*",
     "@ehop/icons-vue": "workspace:*",
+    "@ehop/theme-chalk": "workspace:*",
     "@ehop/utils": "workspace:*",
     "lodash-unified": "^1.0.3",
     "vue": "^3.3.4"

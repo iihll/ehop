@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EhButton } from '@ehop/components'
+// import { EhButton } from '@ehop/components'
 import Icons from './components/Icons.vue'
 
 function onClick() {
@@ -9,8 +9,9 @@ function onClick() {
 
 <template>
   <Icons />
-  <EhButton @click="onClick">
+  <EhButton :loading="true" @click="onClick">
     test
   </EhButton>
-  <EhButton>test1</EhButton>
+  <EhButton icon="EhIconLoading"></EhButton>
+  <EhButton icon="EhIconLoading">test2</EhButton>
 </template>

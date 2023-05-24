@@ -25,6 +25,44 @@ export async function getPkgVersion(pkgName, defaultVersion) {
   }
 }
 
+export interface EhopResolverOptions {
+  /**
+   * import style css or sass with components
+   *
+   * @default 'css'
+   */
+  importStyle?: boolean | 'css' | 'sass'
+
+  /**
+   * use commonjs lib & source css or scss for ssr
+   */
+  ssr?: boolean
+
+  /**
+   * specify element-plus version to load style
+   *
+   * @default installed version
+   */
+  version?: string
+
+  /**
+   * auto import for directives
+   *
+   * @default true
+   */
+  directives?: boolean
+
+  /**
+   * exclude component name, if match do not resolve the name
+   */
+  exclude?: RegExp
+
+  /**
+   * a list of component names that have no styles, so resolving their styles file should be prevented
+   */
+  noStylesComponents?: string[]
+}
+
 /**
  * @deprecated
  * @param partialName
@@ -56,8 +94,8 @@ function getSideEffectsLegacy(
 
 function getSideEffects(dirName, options) {
   const { importStyle, ssr } = options
-  const themeFolder = 'element-plus/theme-chalk'
-  const esComponentsFolder = 'element-plus/es/components'
+  const themeFolder = 'ehop/theme-chalk'
+  const esComponentsFolder = 'ehop/es/components'
 
   if (importStyle === 'sass') {
     return ssr
@@ -75,40 +113,23 @@ function resolveComponent(name, options) {
   if (options.exclude && name.match(options.exclude))
     return
 
-  if (!name.match(/^El[A-Z]/))
+  if (!name.match(/^Eh[A-Z]/))
     return
 
-  if (name.match(/^ElIcon.+/)) {
+  if (name.match(/^EhIcon.+/)) {
     return {
-      name: name.replace(/^ElIcon/, ''),
-      from: '@element-plus/icons-vue',
+      name: name.replace(/^EhIcon/, ''),
+      from: '@ehop/icons-vue',
     }
   }
 
-  const partialName = kebabCase(name.slice(2))// ElTableColumn -> table-column
+  const partialName = kebabCase(name.slice(2))// EhTableColumn -> table-column
   const { version, ssr } = options
 
-  // >=1.1.0-beta.1
-  if (compare(version, '1.1.0-beta.1', '>=')) {
-    return {
-      name,
-      from: `element-plus/${ssr ? 'lib' : 'es'}`,
-      sideEffects: getSideEffects(partialName, options),
-    }
-  }
-  // >=1.0.2-beta.28
-  else if (compare(version, '1.0.2-beta.28', '>=')) {
-    return {
-      from: `element-plus/es/el-${partialName}`,
-      sideEffects: getSideEffectsLegacy(partialName, options),
-    }
-  }
-  // for <=1.0.1
-  else {
-    return {
-      from: `element-plus/lib/el-${partialName}`,
-      sideEffects: getSideEffectsLegacy(partialName, options),
-    }
+  return {
+    name,
+    from: `ehop/${ssr ? 'lib' : 'es'}`,
+    sideEffects: getSideEffects(partialName, options),
   }
 }
 
@@ -150,8 +171,8 @@ const noStylesComponents = ['ElAutoResizer']
  * @link https://element-plus.org/ for element-plus
  *
  */
-export function EHopResolver(
-  options = {},
+export function EhopResolver(
+  options: EhopResolverOptions = {},
 ) {
   let optionsResolved
 
@@ -160,7 +181,7 @@ export function EHopResolver(
       return optionsResolved
     optionsResolved = {
       ssr: false,
-      version: await getPkgVersion('element-plus', '2.2.2'),
+      version: await getPkgVersion('ehop', '0.0.0'),
       importStyle: 'css',
       directives: true,
       exclude: undefined,
@@ -175,7 +196,6 @@ export function EHopResolver(
       type: 'component',
       resolve: async (name) => {
         const options = await resolveOptions()
-        console.log('options', options)
 
         if ([...options.noStylesComponents, ...noStylesComponents].includes(name))
           return resolveComponent(name, { ...options, importStyle: false })
