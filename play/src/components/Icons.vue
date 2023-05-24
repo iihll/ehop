@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import { icons } from '@ehop/icons-vue/global'
-
-console.log('icons', icons)
 </script>
 
 <template>

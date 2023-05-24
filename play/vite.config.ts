@@ -16,34 +16,33 @@ function kebabCase(key: string) {
 export default defineConfig({
   plugins: [vue(), vueJsx(), Components({
     include: path.resolve(__dirname, '**'),
-    resolvers: [
-      [
-        {
-          type: 'component',
-          resolve: (name) => {
-            if (!name.match(/^Eh[A-Z]/))
-              return
+    // resolvers: [
+    //   [
+    //     {
+    //       type: 'component',
+    //       resolve: (name) => {
+    //         if (!name.match(/^Eh[A-Z]/))
+    //           return
 
-            if (name.match(/^EhIcon.+/)) {
-              console.log('name', name)
-              return {
-                name: name.replace(/^EhIcon/, ''),
-                from: '@ehop/icons-vue',
-              }
-            }
+    //         if (name.match(/^EhIcon.+/)) {
+    //           return {
+    //             name: name.replace(/^EhIcon/, ''),
+    //             from: '@ehop/icons-vue',
+    //           }
+    //         }
 
-            const dirName = kebabCase(name.slice(2))// EhTableColumn -> table-column
-            const esComponentsFolder = 'ehop/es/components'
+    //         const dirName = kebabCase(name.slice(2))// EhTableColumn -> table-column
+    //         const esComponentsFolder = 'ehop/es/components'
 
-            return {
-              name,
-              from: 'ehop/es',
-              sideEffects: [`${esComponentsFolder}/base/style/index`, `${esComponentsFolder}/${dirName}/style/index`],
-            }
-          },
-        },
-      ],
-    ],
+    //         return {
+    //           name,
+    //           from: 'ehop/es',
+    //           // sideEffects: [`${esComponentsFolder}/base/style/index`, `${esComponentsFolder}/${dirName}/style/index`],
+    //         }
+    //       },
+    //     },
+    //   ],
+    // ],
     dts: false,
   })],
   resolve: {

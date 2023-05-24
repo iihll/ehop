@@ -1,8 +1,10 @@
-import { computed, ref, useSlots } from 'vue'
+import { computed, inject, ref, useSlots } from 'vue'
 import type { SetupContext } from 'vue'
 import type { ButtonEmits, ButtonProps } from './button'
+import { buttonGroupContextKey } from './constants'
 
 export function useButton(props: ButtonProps, emit: SetupContext<ButtonEmits>['emit']) {
+  const buttonGroupContext = inject(buttonGroupContextKey, undefined)
   // TODO globalConfig
   const globalConfig = ref({ autoInsertSpace: false })
   const autoInsertSpace = computed(
@@ -10,6 +12,7 @@ export function useButton(props: ButtonProps, emit: SetupContext<ButtonEmits>['e
   )
   const slots = useSlots()
 
+  const _type = computed(() => props.type || buttonGroupContext?.type || '')
   // add space between two characters in Chinese
   const shouldAddSpace = computed(() => {
     const defaultSlot = slots.default?.()
@@ -28,6 +31,7 @@ export function useButton(props: ButtonProps, emit: SetupContext<ButtonEmits>['e
   }
 
   return {
+    _type,
     shouldAddSpace,
     handleClick,
   }

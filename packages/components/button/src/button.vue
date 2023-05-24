@@ -3,6 +3,7 @@ import { EhIcon } from '@ehop/components/icon'
 import { useNamespace } from '@ehop/hooks'
 import { useButton } from './use-button'
 import { buttonEmits, buttonProps } from './button'
+import '../style'
 
 const props = defineProps(buttonProps)
 
@@ -14,7 +15,7 @@ defineOptions({
 
 const ns = useNamespace('button')
 
-const { shouldAddSpace, handleClick }
+const { _type, shouldAddSpace, handleClick }
   = useButton(props, emit)
 </script>
 
@@ -23,6 +24,7 @@ const { shouldAddSpace, handleClick }
     :is="tag"
     :class="[
       ns.b(),
+      ns.m(_type),
       ns.is('loading', loading),
       ns.is('plain', plain),
       ns.is('round', round),
