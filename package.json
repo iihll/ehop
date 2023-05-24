@@ -25,8 +25,9 @@
     "@ehop/components": "workspace:*",
     "@ehop/constants": "workspace:*",
     "@ehop/hooks": "workspace:*",
+    "@ehop/icons-svg": "workspace:*",
+    "@ehop/icons-vue": "workspace:*",
     "@ehop/utils": "workspace:*",
-    "@element-plus/icons-vue": "^2.1.0",
     "lodash-unified": "^1.0.3",
     "vue": "^3.3.4"
   }

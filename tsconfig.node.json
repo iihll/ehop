@@ -11,8 +11,8 @@
     "internal/**/*.json",
     "scripts/**/*",
     "packages/theme-chalk/*",
-    "packages/element-plus/version.ts",
-    "packages/element-plus/package.json"
+    "packages/ehop/version.ts",
+    "packages/ehop/package.json"
   ],
   "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }
