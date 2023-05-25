@@ -11,6 +11,7 @@ import { icons } from '@ehop/icons-vue/global'
     :key="key"
     class="icon"
   />
+  <hr>
 </template>
 
 <style>

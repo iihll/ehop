@@ -27,12 +27,14 @@
   },
   "dependencies": {
     "@ehop/components": "workspace:*",
+    "@ehop/locale": "workspace:*",
     "@ehop/constants": "workspace:*",
     "@ehop/hooks": "workspace:*",
     "@ehop/icons-svg": "workspace:*",
     "@ehop/icons-vue": "workspace:*",
     "@ehop/theme-chalk": "workspace:*",
     "@ehop/utils": "workspace:*",
+    "@vueuse/core": "^10.1.2",
     "lodash-unified": "^1.0.3",
     "vue": "^3.3.4"
   }
