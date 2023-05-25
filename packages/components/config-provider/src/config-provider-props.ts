@@ -62,7 +62,7 @@ export const configProviderProps = buildProps({
    */
   namespace: {
     type: String,
-    default: 'el',
+    default: 'eh',
   },
 } as const)
 export type ConfigProviderProps = ExtractPropTypes<typeof configProviderProps>

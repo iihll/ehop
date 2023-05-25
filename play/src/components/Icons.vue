@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import { icons } from '@ehop/icons-vue/global'
+import { Loading } from '@ehop/icons-vue'
 </script>
 
 <template>
-  <component :is="Icon" v-for="(Icon, key) in icons" :key="key" class="icon" />
-  <hr>
-  <component
-    :is="`EhIcon${key}`"
-    v-for="key in Object.keys(icons)"
-    :key="key"
-    class="icon"
-  />
+  <component :is="Loading" class="icon" />
   <hr>
 </template>
 

@@ -2,14 +2,17 @@
 import { EhIcon } from '@ehop/components/icon'
 import { useNamespace } from '@ehop/hooks'
 import type { VNode } from 'vue'
+import { computed } from 'vue'
 import { useButton } from './use-button'
 import { buttonEmits, buttonProps } from './button'
-
-// import '../style'
+import '../style'
 
 const props = defineProps(buttonProps)
 
 const emit = defineEmits(buttonEmits)
+
+// if (true)
+//   import('../style')
 
 defineOptions({
   name: 'EhButton',
@@ -25,22 +28,27 @@ const ns = useNamespace('button')
 
 const { _type, shouldAddSpace, handleClick }
   = useButton(props, emit)
+
+const buttonKls = computed(() => {
+  const { loading, plain, round, circle, text, link, bg } = props
+  return [
+    ns.b(),
+    ns.m(_type.value),
+    ns.is('loading', loading),
+    ns.is('plain', plain),
+    ns.is('round', round),
+    ns.is('circle', circle),
+    ns.is('text', text),
+    ns.is('link', link),
+    ns.is('has-bg', bg),
+  ]
+})
 </script>
 
 <template>
   <component
     :is="tag"
-    :class="[
-      ns.b(),
-      ns.m(_type),
-      ns.is('loading', loading),
-      ns.is('plain', plain),
-      ns.is('round', round),
-      ns.is('circle', circle),
-      ns.is('text', text),
-      ns.is('link', link),
-      ns.is('has-bg', bg),
-    ]"
+    :class="buttonKls"
     @click="handleClick"
   >
     <template v-if="loading">

@@ -23,7 +23,9 @@
     "chalk": "^5.2.0",
     "consola": "^2.15.3",
     "eslint": "^8.41.0",
+    "npm-run-all": "^4.1.5",
     "plop": "^3.1.2",
+    "rimraf": "^5.0.1",
     "sass": "^1.62.1",
     "tsx": "^3.12.3",
     "type-fest": "^3.11.0"
@@ -37,7 +39,9 @@
     "@ehop/locale": "workspace:*",
     "@ehop/theme-chalk": "workspace:*",
     "@ehop/utils": "workspace:*",
+    "@vue/runtime-core": "^3.3.4",
     "@vueuse/core": "^10.1.2",
+    "ehop": "workspace:*",
     "lodash-unified": "^1.0.3",
     "vue": "^3.3.4"
   }

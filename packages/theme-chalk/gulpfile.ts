@@ -19,7 +19,7 @@ const distBundle = path.resolve(ehOutput, 'theme-chalk')
  */
 function buildThemeChalk() {
   const sass = gulpSass(dartSass)
-  const noElPrefixFile = /(index|base|display)/
+  const noEhPrefixFile = /(index|base|display)/
   return src(path.resolve(__dirname, 'src/*.scss'))
     .pipe(sass.sync())
     .pipe(autoprefixer({ cascade: false }))
@@ -34,8 +34,8 @@ function buildThemeChalk() {
     )
     .pipe(
       rename((path) => {
-        if (!noElPrefixFile.test(path.basename))
-          path.basename = `el-${path.basename}`
+        if (!noEhPrefixFile.test(path.basename))
+          path.basename = `eh-${path.basename}`
       }),
     )
     .pipe(dest(distFolder))

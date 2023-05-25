@@ -1,13 +1,14 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import ElIcons from '@ehop/icons-vue/global'
+
+// import Ehop from 'ehop'
 
 import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
 
-app.use(ElIcons)
+// app.use(Ehop)
 app.use(createPinia())
 app.use(router)
 

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "gulp --require @esbuild-kit/cjs-loader"
+    "build": "gulp --require @esbuild-kit/cjs-loader",
+    "stub": "pnpm run clean && pnpm run build"
   },
   "devDependencies": {
     "@esbuild-kit/cjs-loader": "^2.2.1",
