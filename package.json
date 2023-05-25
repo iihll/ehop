@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "dev": "pnpm -C play dev",
+    "p": "plop",
     "stub": "pnpm run -r --parallel stub",
     "postinstall": "pnpm stub"
   },
@@ -22,16 +23,18 @@
     "chalk": "^5.2.0",
     "consola": "^2.15.3",
     "eslint": "^8.41.0",
+    "plop": "^3.1.2",
     "sass": "^1.62.1",
+    "tsx": "^3.12.3",
     "type-fest": "^3.11.0"
   },
   "dependencies": {
     "@ehop/components": "workspace:*",
-    "@ehop/locale": "workspace:*",
     "@ehop/constants": "workspace:*",
     "@ehop/hooks": "workspace:*",
     "@ehop/icons-svg": "workspace:*",
     "@ehop/icons-vue": "workspace:*",
+    "@ehop/locale": "workspace:*",
     "@ehop/theme-chalk": "workspace:*",
     "@ehop/utils": "workspace:*",
     "@vueuse/core": "^10.1.2",
