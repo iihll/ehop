@@ -11,7 +11,7 @@ function onClick() {
   <Icons />
   <EhRow>
     <EhCol>
-      <EhButton @click="onClick">col1</EhButton>
+      <EhButton type="primary" @click="onClick">col1</EhButton>
     </EhCol>
     <EhCol>
       <EhButton @click="onClick">col2</EhButton>
