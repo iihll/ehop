@@ -1,9 +1,11 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { EhIcon } from '@ehop/components/icon'
 import { useNamespace } from '@ehop/hooks'
+import type { VNode } from 'vue'
 import { useButton } from './use-button'
 import { buttonEmits, buttonProps } from './button'
-import '../style'
+
+// import '../style'
 
 const props = defineProps(buttonProps)
 
@@ -12,6 +14,12 @@ const emit = defineEmits(buttonEmits)
 defineOptions({
   name: 'EhButton',
 })
+
+defineSlots<{
+  default?(props: {}): VNode[]
+  loading?(props: {}): VNode[]
+  icon?(props: {}): VNode[]
+}>()
 
 const ns = useNamespace('button')
 

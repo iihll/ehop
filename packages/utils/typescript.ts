@@ -13,4 +13,3 @@ export type Nullable<T> = T | null
 
 export type Arrayable<T> = T | T[]
 export type Awaitable<T> = Promise<T> | T
-export const isUndefined = (val: any): val is undefined => val === undefined

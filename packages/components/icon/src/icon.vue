@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { addUnit, isUndefined } from '@ehop/utils'
 import { useNamespace } from '@ehop/hooks'
