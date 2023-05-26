@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EhButton, EhCol, EhConfigProvider, EhLink, EhRow, EhScrollbar, EhText } from 'ehop'
+import { EhAside, EhButton, EhCol, EhConfigProvider, EhContainer, EhFooter, EhHeader, EhLink, EhMain, EhRow, EhScrollbar, EhText } from 'ehop'
 import Icons from './components/Icons.vue'
 
 function onClick() {
@@ -9,6 +9,20 @@ function onClick() {
 
 <template>
   <Icons />
+
+  <EhContainer>
+    <EhHeader>Header</EhHeader>
+    <EhContainer>
+      <EhAside width="200px">
+        Aside
+      </EhAside>
+      <EhContainer>
+        <EhMain>Main</EhMain>
+        <EhFooter>Footer</EhFooter>
+      </EhContainer>
+    </EhContainer>
+  </EhContainer>
+
   <EhConfigProvider size="large">
     <EhButton type="danger">
       EhConfigProvider

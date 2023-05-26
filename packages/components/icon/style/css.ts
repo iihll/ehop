@@ -1,2 +1,2 @@
-import '@element-plus/components/base/style/css'
-import '@element-plus/theme-chalk/el-icon.css'
+import '@ehop/components/base/style/css'
+import '@ehop/theme-chalk/eh-icon.css'

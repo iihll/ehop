@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue'
 import { useNamespace } from '@ehop/hooks'
-
 import type { Component, VNode } from 'vue'
+import '../style'
 
 const props = defineProps({
   /**
