@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { computed, inject, onBeforeUnmount, ref, toRef } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { isClient, throwError } from '@ehop/utils'
