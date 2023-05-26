@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EhButton, EhCol, EhConfigProvider, EhLink, EhRow, EhText } from 'ehop'
+import { EhButton, EhCol, EhConfigProvider, EhLink, EhRow, EhScrollbar, EhText } from 'ehop'
 import Icons from './components/Icons.vue'
 
 function onClick() {
@@ -31,7 +31,20 @@ function onClick() {
       </EhLink>
     </EhCol>
     <EhCol :span="1">
-      <EhText truncated type="warning">render ellipsis</EhText>
+      <EhText truncated type="warning">
+        render ellipsis
+      </EhText>
     </EhCol>
   </EhRow>
+  <EhScrollbar height="400px">
+    <p v-for="item in 20" :key="item">
+      {{ item }}
+    </p>
+  </EhScrollbar>
 </template>
+
+<style>
+body {
+  margin: 0;
+}
+</style>

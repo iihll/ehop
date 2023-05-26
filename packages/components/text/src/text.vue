@@ -1,7 +1,8 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace } from '@ehop/hooks'
 
+// TODO text useFormSize
 // import { useFormSize } from '@ehop/components/form'
 import { textProps } from './text'
 import '../style'

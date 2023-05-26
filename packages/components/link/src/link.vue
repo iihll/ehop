@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { EhIcon } from '@ehop/components/icon'
 import { useNamespace } from '@ehop/hooks'
