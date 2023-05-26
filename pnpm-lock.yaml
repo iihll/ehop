@@ -65,6 +65,9 @@ importers:
       consola:
         specifier: ^2.15.3
         version: 2.15.3
+      csstype:
+        specifier: ^3.1.2
+        version: 3.1.2
       eslint:
         specifier: ^8.41.0
         version: 8.41.0
