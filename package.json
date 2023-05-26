@@ -42,6 +42,7 @@
     "@ehop/utils": "workspace:*",
     "@vue/runtime-core": "^3.3.4",
     "@vueuse/core": "^10.1.2",
+    "async-validator": "^4.2.5",
     "ehop": "workspace:*",
     "lodash-unified": "^1.0.3",
     "vue": "^3.3.4"

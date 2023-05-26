@@ -1,6 +1,23 @@
 <script setup lang="ts">
-import { EhAside, EhButton, EhCol, EhConfigProvider, EhContainer, EhFooter, EhHeader, EhLink, EhMain, EhRow, EhScrollbar, EhSpace, EhText } from 'ehop'
+import { EhAside, EhButton, EhCol, EhConfigProvider, EhContainer, EhFooter, EhForm, EhFormItem, EhHeader, EhLink, EhMain, EhRow, EhScrollbar, EhSpace, EhText } from 'ehop'
+import { reactive } from 'vue'
 import Icons from './components/Icons.vue'
+
+// do not use same name with ref
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: '',
+})
+
+function onSubmit() {
+  console.log('submit!')
+}
 
 function onClick() {
   console.log('test')
@@ -60,6 +77,15 @@ function onClick() {
       {{ item }}
     </p>
   </EhScrollbar>
+
+  <EhForm :model="form" label-width="120px">
+    <EhFormItem label="操作">
+      <EhButton type="primary" @click="onSubmit">
+        Create
+      </EhButton>
+      <EhButton>Cancel</EhButton>
+    </EhFormItem>
+  </EhForm>
 </template>
 
 <style>

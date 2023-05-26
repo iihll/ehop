@@ -1,0 +1,201 @@
+<script lang="ts" setup>
+import { computed, provide, reactive, toRefs, watch } from 'vue'
+import { debugWarn, isFunction } from '@ehop/utils'
+import { useNamespace } from '@ehop/hooks'
+import type { ValidateFieldsError } from 'async-validator'
+import type { Arrayable } from '@ehop/utils'
+import type { FormItemProp } from '@ehop/components'
+import { useFormSize } from './hooks'
+import { formContextKey } from './constants'
+import { formEmits, formProps } from './form'
+import { filterFields, useFormLabelWidth } from './utils'
+import type {
+  FormContext,
+  FormItemContext,
+  FormValidateCallback,
+  FormValidationResult,
+} from './types'
+import '../style'
+
+const props = defineProps(formProps)
+const emit = defineEmits(formEmits)
+const COMPONENT_NAME = 'EhForm'
+defineOptions({
+  name: COMPONENT_NAME,
+})
+const fields: FormItemContext[] = []
+
+const formSize = useFormSize()
+const ns = useNamespace('form')
+const formClasses = computed(() => {
+  const { labelPosition, inline } = props
+  return [
+    ns.b(),
+    // todo: in v2.2.0, we can remove default
+    // in fact, remove it doesn't affect the final style
+    ns.m(formSize.value || 'default'),
+    {
+      [ns.m(`label-${labelPosition}`)]: labelPosition,
+      [ns.m('inline')]: inline,
+    },
+  ]
+})
+
+const addField: FormContext['addField'] = (field) => {
+  fields.push(field)
+}
+
+const removeField: FormContext['removeField'] = (field) => {
+  if (field.prop)
+    fields.splice(fields.indexOf(field), 1)
+}
+
+const resetFields: FormContext['resetFields'] = (properties = []) => {
+  if (!props.model) {
+    debugWarn(COMPONENT_NAME, 'model is required for resetFields to work.')
+    return
+  }
+  filterFields(fields, properties).forEach(field => field.resetField())
+}
+
+const clearValidate: FormContext['clearValidate'] = (props = []) => {
+  filterFields(fields, props).forEach(field => field.clearValidate())
+}
+
+const isValidatable = computed(() => {
+  const hasModel = !!props.model
+  if (!hasModel)
+    debugWarn(COMPONENT_NAME, 'model is required for validate to work.')
+
+  return hasModel
+})
+
+function obtainValidateFields(props: Arrayable<FormItemProp>) {
+  if (fields.length === 0)
+    return []
+
+  const filteredFields = filterFields(fields, props)
+  if (!filteredFields.length) {
+    debugWarn(COMPONENT_NAME, 'please pass correct props!')
+    return []
+  }
+  return filteredFields
+}
+
+async function doValidateField(props: Arrayable<FormItemProp> = []): Promise<boolean> {
+  if (!isValidatable.value)
+    return false
+
+  const fields = obtainValidateFields(props)
+  if (fields.length === 0)
+    return true
+
+  let validationErrors: ValidateFieldsError = {}
+  for (const field of fields) {
+    try {
+      await field.validate('')
+    }
+    catch (fields) {
+      validationErrors = {
+        ...validationErrors,
+        ...(fields as ValidateFieldsError),
+      }
+    }
+  }
+
+  if (Object.keys(validationErrors).length === 0)
+    return true
+  return Promise.reject(validationErrors)
+}
+
+const validateField: FormContext['validateField'] = async (
+  modelProps = [],
+  callback,
+) => {
+  const shouldThrow = !isFunction(callback)
+  try {
+    const result = await doValidateField(modelProps)
+    // When result is false meaning that the fields are not validatable
+    if (result === true)
+      callback?.(result)
+
+    return result
+  }
+  catch (e) {
+    if (e instanceof Error)
+      throw e
+
+    const invalidFields = e as ValidateFieldsError
+
+    if (props.scrollToError)
+      scrollToField(Object.keys(invalidFields)[0])
+
+    callback?.(false, invalidFields)
+    return shouldThrow && Promise.reject(invalidFields)
+  }
+}
+
+async function validate(callback?: FormValidateCallback): FormValidationResult {
+  return validateField(undefined, callback)
+}
+
+function scrollToField(prop: FormItemProp) {
+  const field = filterFields(fields, prop)[0]
+  if (field)
+    field.$el?.scrollIntoView(props.scrollIntoViewOptions)
+}
+
+watch(
+  () => props.rules,
+  () => {
+    if (props.validateOnRuleChange)
+      validate().catch(err => debugWarn(err))
+  },
+  { deep: true },
+)
+
+provide(
+  formContextKey,
+  reactive({
+    ...toRefs(props),
+    emit,
+
+    resetFields,
+    clearValidate,
+    validateField,
+    addField,
+    removeField,
+
+    ...useFormLabelWidth(),
+  }),
+)
+
+defineExpose({
+  /**
+   * @description Validate the whole form. Receives a callback or returns `Promise`.
+   */
+  validate,
+  /**
+   * @description Validate specified fields.
+   */
+  validateField,
+  /**
+   * @description Reset specified fields and remove validation result.
+   */
+  resetFields,
+  /**
+   * @description Clear validation message for specified fields.
+   */
+  clearValidate,
+  /**
+   * @description Scroll to the specified fields.
+   */
+  scrollToField,
+})
+</script>
+
+<template>
+  <form :class="formClasses">
+    <slot />
+  </form>
+</template>

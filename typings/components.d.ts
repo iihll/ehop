@@ -18,6 +18,8 @@ declare module '@vue/runtime-core' {
     EhText: typeof import('../packages/ehop')['EhText']
     EhScrollbar: typeof import('../packages/ehop')['EhScrollbar']
     EhSpace: typeof import('../packages/ehop')['EhSpace']
+    EhFormItem: typeof import('../packages/ehop')['EhFormItem']
+    EhForm: typeof import('../packages/ehop')['EhForm']
   }
 }
 
