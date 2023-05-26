@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { EhIcon } from '@ehop/components/icon'
 import { useNamespace } from '@ehop/hooks'
 import { linkEmits, linkProps } from './link'
+import '../style'
 
 const props = defineProps(linkProps)
 const emit = defineEmits(linkEmits)

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EhButton, EhCol, EhConfigProvider, EhRow } from 'ehop'
+import { EhButton, EhCol, EhConfigProvider, EhLink, EhRow } from 'ehop'
 import Icons from './components/Icons.vue'
 
 function onClick() {
@@ -24,6 +24,11 @@ function onClick() {
       <EhButton @click="onClick">
         col2
       </EhButton>
+    </EhCol>
+    <EhCol :span="9">
+      <EhLink href="https://baidu.com" target="_blank">
+        col2
+      </EhLink>
     </EhCol>
   </EhRow>
 </template>
