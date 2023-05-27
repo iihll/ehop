@@ -13,7 +13,7 @@ import {
   watch,
 } from 'vue'
 import AsyncValidator from 'async-validator'
-import { clone } from 'lodash-unified'
+import { clone, omit } from 'lodash-unified'
 import { refDebounced } from '@vueuse/core'
 import {
   addUnit,
@@ -192,8 +192,7 @@ function getFilteredRule(trigger: string) {
           return rule.trigger === trigger
       })
       // exclude trigger
-
-      .map(({ trigger, ...rule }): RuleItem => rule)
+      .map((item): RuleItem => omit(item, 'trigger'))
   )
 }
 
