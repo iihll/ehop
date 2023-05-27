@@ -1,5 +1,22 @@
 <script setup lang="ts">
-import { EhAside, EhButton, EhCol, EhConfigProvider, EhContainer, EhFooter, EhForm, EhFormItem, EhHeader, EhLink, EhMain, EhRow, EhScrollbar, EhSpace, EhText } from 'ehop'
+import {
+  EhAside,
+  EhButton,
+  EhCol,
+  EhConfigProvider,
+  EhContainer,
+  EhFooter,
+  EhForm,
+  EhFormItem,
+  EhHeader,
+  EhInput,
+  EhLink,
+  EhMain,
+  EhRow,
+  EhScrollbar,
+  EhSpace,
+  EhText,
+} from 'ehop'
 import { reactive } from 'vue'
 import Icons from './components/Icons.vue'
 
@@ -78,14 +95,21 @@ function onClick() {
     </p>
   </EhScrollbar>
 
-  <EhForm :model="form" label-width="120px">
-    <EhFormItem label="操作">
-      <EhButton type="primary" @click="onSubmit">
-        Create
-      </EhButton>
-      <EhButton>Cancel</EhButton>
-    </EhFormItem>
-  </EhForm>
+  <EhRow>
+    <EhCol :span="12">
+      <EhForm :model="form" label-width="120px">
+        <EhFormItem label="姓名">
+          <EhInput v-model="form.name" placeholder="请输入姓名" />
+        </EhFormItem>
+        <EhFormItem label="操作">
+          <EhButton type="primary" @click="onSubmit">
+            Create
+          </EhButton>
+          <EhButton>Cancel</EhButton>
+        </EhFormItem>
+      </EhForm>
+    </EhCol>
+  </EhRow>
 </template>
 
 <style>

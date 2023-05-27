@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     EhSpace: typeof import('../packages/ehop')['EhSpace']
     EhFormItem: typeof import('../packages/ehop')['EhFormItem']
     EhForm: typeof import('../packages/ehop')['EhForm']
+    EhInput: typeof import('../packages/ehop')['EhInput']
   }
 }
 
