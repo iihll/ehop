@@ -1,54 +1,57 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { EhIcon } from '@ehop/components/icon'
 import { useNamespace } from '@ehop/hooks'
-import type { VNode } from 'vue'
-import { computed } from 'vue'
 import { useButton } from './use-button'
 import { buttonEmits, buttonProps } from './button'
+import { useButtonCustomStyle } from './button-custom'
 import '../style'
 
 const props = defineProps(buttonProps)
 
 const emit = defineEmits(buttonEmits)
 
-// if (true)
-//   import('../style')
-
 defineOptions({
   name: 'EhButton',
 })
 
-defineSlots<{
-  default?(props: {}): VNode[]
-  loading?(props: {}): VNode[]
-  icon?(props: {}): VNode[]
-}>()
-
+const buttonStyle = useButtonCustomStyle(props)
 const ns = useNamespace('button')
-
-const { _type, shouldAddSpace, handleClick }
+const { _ref, _size, _type, _disabled, _props, shouldAddSpace, handleClick }
   = useButton(props, emit)
 
-const buttonKls = computed(() => {
-  const { loading, plain, round, circle, text, link, bg } = props
-  return [
-    ns.b(),
-    ns.m(_type.value),
-    ns.is('loading', loading),
-    ns.is('plain', plain),
-    ns.is('round', round),
-    ns.is('circle', circle),
-    ns.is('text', text),
-    ns.is('link', link),
-    ns.is('has-bg', bg),
-  ]
+defineExpose({
+  /** @description button html element */
+  ref: _ref,
+  /** @description button size */
+  size: _size,
+  /** @description button type */
+  type: _type,
+  /** @description button disabled */
+  disabled: _disabled,
+  /** @description whether adding space */
+  shouldAddSpace,
 })
 </script>
 
 <template>
   <component
     :is="tag"
-    :class="buttonKls"
+    ref="_ref"
+    v-bind="_props"
+    :class="[
+      ns.b(),
+      ns.m(_type),
+      ns.m(_size),
+      ns.is('disabled', _disabled),
+      ns.is('loading', loading),
+      ns.is('plain', plain),
+      ns.is('round', round),
+      ns.is('circle', circle),
+      ns.is('text', text),
+      ns.is('link', link),
+      ns.is('has-bg', bg),
+    ]"
+    :style="buttonStyle"
     @click="handleClick"
   >
     <template v-if="loading">

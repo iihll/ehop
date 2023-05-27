@@ -32,6 +32,7 @@
     "type-fest": "^3.11.0"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^3.6.0",
     "@ehop/components": "workspace:*",
     "@ehop/constants": "workspace:*",
     "@ehop/hooks": "workspace:*",

@@ -5,4 +5,4 @@ export const EhButton = withInstall(Button)
 export default EhButton
 
 export * from './src/button'
-export type { ButtonInstance } from './src/instance'
+export type ButtonInstance = InstanceType<typeof Button>
