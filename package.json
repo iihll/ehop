@@ -35,6 +35,7 @@
   "dependencies": {
     "@ctrl/tinycolor": "^3.6.0",
     "@ehop/components": "workspace:*",
+    "@ehop/directives": "workspace:*",
     "@ehop/constants": "workspace:*",
     "@ehop/hooks": "workspace:*",
     "@ehop/icons-svg": "workspace:*",
@@ -42,11 +43,13 @@
     "@ehop/locale": "workspace:*",
     "@ehop/theme-chalk": "workspace:*",
     "@ehop/utils": "workspace:*",
+    "@popperjs/core": "^2.11.8",
     "@vue/runtime-core": "^3.3.4",
     "@vueuse/core": "^10.1.2",
     "async-validator": "^4.2.5",
     "ehop": "workspace:*",
     "lodash-unified": "^1.0.3",
+    "normalize-wheel-es": "^1.2.0",
     "vue": "^3.3.4"
   }
 }

@@ -2,7 +2,7 @@ import type { Arrayable } from '@ehop/utils'
 import type { InjectionKey, Ref } from 'vue'
 import type { TooltipTriggerType } from './trigger'
 
-export type ElTooltipInjectionContext = {
+export interface EhTooltipInjectionContext {
   controlled: Ref<boolean>
   id: Ref<string>
   open: Ref<boolean>
@@ -17,5 +17,4 @@ export type ElTooltipInjectionContext = {
   updatePopper: () => void
 }
 
-export const TOOLTIP_INJECTION_KEY: InjectionKey<ElTooltipInjectionContext> =
-  Symbol('elTooltip')
+export const TOOLTIP_INJECTION_KEY: InjectionKey<EhTooltipInjectionContext> = Symbol('ehTooltip')

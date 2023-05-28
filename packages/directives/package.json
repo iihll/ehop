@@ -1,0 +1,13 @@
+{
+  "name": "@ehop/directives",
+  "version": "0.0.0",
+  "description": "Ehop directives",
+  "license": "MIT",
+  "main": "index.ts",
+  "module": "index.ts",
+  "unpkg": "index.js",
+  "jsdelivr": "index.js",
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  }
+}

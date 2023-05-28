@@ -12,10 +12,14 @@ import {
   EhInput,
   EhLink,
   EhMain,
+  EhOption,
   EhRow,
   EhScrollbar,
+  EhSelect,
   EhSpace,
+  EhTag,
   EhText,
+  EhTooltip,
 } from 'ehop'
 import { reactive } from 'vue'
 import Icons from './components/Icons.vue'
@@ -23,7 +27,7 @@ import Icons from './components/Icons.vue'
 // do not use same name with ref
 const form = reactive({
   name: '',
-  region: '',
+  region: 1,
   date1: '',
   date2: '',
   delivery: false,
@@ -106,6 +110,17 @@ function onClick() {
             Create
           </EhButton>
           <EhButton>Cancel</EhButton>
+        </EhFormItem>
+        <EhFormItem label="Tag">
+          <EhTooltip content="Top Left prompts info">
+            <EhTag>tag</EhTag>
+          </EhTooltip>
+        </EhFormItem>
+        <EhFormItem label="region">
+          <EhSelect v-model="form.region">
+            <EhOption :value="1" label="l1" />
+            <EhOption :value="2" label="l2" />
+          </EhSelect>
         </EhFormItem>
       </EhForm>
     </EhCol>

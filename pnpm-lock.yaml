@@ -13,6 +13,9 @@ importers:
       '@ehop/constants':
         specifier: workspace:*
         version: link:packages/constants
+      '@ehop/directives':
+        specifier: workspace:*
+        version: link:packages/directives
       '@ehop/hooks':
         specifier: workspace:*
         version: link:packages/hooks
@@ -31,6 +34,9 @@ importers:
       '@ehop/utils':
         specifier: workspace:*
         version: link:packages/utils
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
       '@vue/runtime-core':
         specifier: ^3.3.4
         version: 3.3.4
@@ -46,6 +52,9 @@ importers:
       lodash-unified:
         specifier: ^1.0.3
         version: 1.0.3(@types/lodash-es@4.17.7)(lodash-es@4.17.21)(lodash@4.17.21)
+      normalize-wheel-es:
+        specifier: ^1.2.0
+        version: 1.2.0
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -108,6 +117,12 @@ importers:
   packages/components: {}
 
   packages/constants: {}
+
+  packages/directives:
+    dependencies:
+      vue:
+        specifier: ^3.2.0
+        version: 3.3.4
 
   packages/ehop: {}
 
@@ -2182,6 +2197,10 @@ packages:
       write-file-atomic: 5.0.1
       write-yaml-file: 4.2.0
     dev: true
+
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
 
   /@rollup/plugin-alias@5.0.0(rollup@3.23.0):
     resolution: {integrity: sha512-l9hY5chSCjuFRPsnRm16twWBiSApl2uYFLsepQYwtBuAxNMQ/1dJqADld40P0Jkqm65GRTLy/AC6hnpVebtLsA==}
@@ -7591,6 +7610,10 @@ packages:
     resolution: {integrity: sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==}
     engines: {node: '>=10'}
     dev: true
+
+  /normalize-wheel-es@1.2.0:
+    resolution: {integrity: sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==}
+    dev: false
 
   /now-and-later@2.0.1:
     resolution: {integrity: sha512-KGvQ0cB70AQfg107Xvs/Fbu+dGmZoTRJp2TaPwcwQm3/7PteUyN2BCgk8KBMPGBUXZdVwyWS8fDCGFygBm19UQ==}
