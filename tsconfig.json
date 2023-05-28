@@ -1,9 +1,64 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.web.json" },
-    { "path": "./tsconfig.play.json" },
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.vite-config.json" }
+  "compilerOptions": {
+    "types": ["node"],
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ES2018"],
+    "importHelpers": true,
+    "composite": true,
+    "outDir": "dist",
+    "target": "ES2020",
+    "module": "esnext",
+    "baseUrl": ".",
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "rootDir": ".",
+    "paths": {
+      "@ehop/*": ["packages/*"]
+    }
+  },
+  "include": [
+    "internal/**/*",
+    "internal/**/*.json",
+    "scripts/**/*",
+    "packages/theme-chalk/*",
+    "packages/ehop/version.ts",
+    "packages/ehop/package.json",
+
+    "packages",
+    "typings/components.d.ts",
+    "typings/env.d.ts",
+
+    // playground
+    "play/main.ts",
+    "play/env.d.ts",
+    "play/src/**/*",
+    "**/vite.config.*",
+    "**/vitest.config.*",
+    "**/vite.init.*",
+    "packages",
+    "typings/components.d.ts",
+    "typings/env.d.ts",
+    "rollup.config.mjs"
+  ],
+  "exclude": [
+    "**/__tests__/**",
+    "**/tests/**",
+    "**/dist",
+    "docs",
+    "node_modules",
+    "**/dist",
+    "**/__tests__/**/*",
+    "**/gulpfile.ts",
+    "**/test-helper",
+    "packages/test-utils",
+    "**/*.md"
   ]
 }
