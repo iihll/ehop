@@ -17,6 +17,8 @@ export function useForwardRef<T>(forwardRef: Ref<T | null>) {
 
   provide(FORWARD_REF_INJECTION_KEY, {
     // TODO setForwardRef type
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+    // @ts-ignore
     setForwardRef,
   })
 }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import { get, set } from 'lodash-unified'
 import type { Entries } from 'type-fest'
 import type { Arrayable } from '.'

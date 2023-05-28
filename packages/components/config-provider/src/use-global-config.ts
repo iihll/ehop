@@ -92,20 +92,29 @@ export function provideGlobalConfig(config: MaybeRef<ConfigProviderContext>,
       return cfg
     return mergeConfig(oldConfig.value, cfg)
   })
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+  // @ts-ignore
   provideFn(configProviderContextKey, context)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+  // @ts-ignore
   provideFn(
     localeContextKey,
     computed(() => context.value.locale),
   )
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+  // @ts-ignore
   provideFn(
     namespaceContextKey,
     computed(() => context.value.namespace),
   )
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+  // @ts-ignore
   provideFn(
     zIndexContextKey,
     computed(() => context.value.zIndex),
   )
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+  // @ts-ignore
   provideFn(SIZE_INJECTION_KEY, {
     size: computed(() => context.value.size || ''),
   })

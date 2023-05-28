@@ -1,6 +1,5 @@
 import { provideGlobalConfig } from '@ehop/components/config-provider'
 import { INSTALLED_KEY } from '@ehop/constants'
-
 import type { App, Plugin } from 'vue'
 import type { ConfigProviderContext } from '@ehop/components/config-provider'
 
