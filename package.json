@@ -29,7 +29,8 @@
     "rimraf": "^5.0.1",
     "sass": "^1.62.1",
     "tsx": "^3.12.3",
-    "type-fest": "^3.11.0"
+    "type-fest": "^3.11.0",
+    "vue-router": "^4.2.0"
   },
   "dependencies": {
     "@ctrl/tinycolor": "^3.6.0",
