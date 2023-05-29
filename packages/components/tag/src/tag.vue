@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import ElIcon from '@ehop/components/icon'
+import EhIcon from '@ehop/components/icon'
 import { Close } from '@ehop/icons-vue'
 import { useNamespace } from '@ehop/hooks'
 import { useFormSize } from '@ehop/components/form'
@@ -47,9 +47,9 @@ function handleClick(event: MouseEvent) {
     <span :class="ns.e('content')">
       <slot />
     </span>
-    <ElIcon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
+    <EhIcon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
       <Close />
-    </ElIcon>
+    </EhIcon>
   </span>
   <transition v-else :name="`${ns.namespace.value}-zoom-in-center`" appear>
     <span
@@ -60,9 +60,9 @@ function handleClick(event: MouseEvent) {
       <span :class="ns.e('content')">
         <slot />
       </span>
-      <ElIcon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
+      <EhIcon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
         <Close />
-      </ElIcon>
+      </EhIcon>
     </span>
   </transition>
 </template>

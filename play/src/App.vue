@@ -20,6 +20,8 @@ import {
   EhScrollbar,
   EhSelect,
   EhSpace,
+  EhTable,
+  EhTableColumn,
   EhTag,
   EhText,
   EhTimePicker,
@@ -47,6 +49,29 @@ function onSubmit() {
 function onClick() {
   console.log('test')
 }
+
+const tableData = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+]
 </script>
 
 <template>
@@ -145,6 +170,13 @@ function onClick() {
           Option 2
         </EhRadio>
       </EhRadioGroup>
+    </EhCol>
+    <EhCol :span="24">
+      <EhTable :data="tableData" style="width: 100%">
+        <EhTableColumn prop="date" label="Date" width="180" />
+        <EhTableColumn prop="name" label="Name" width="180" />
+        <EhTableColumn prop="address" label="Address" />
+      </EhTable>
     </EhCol>
   </EhRow>
 </template>

@@ -6,7 +6,7 @@ import { onClickOutside } from '@vueuse/core'
 import { useLocale, useNamespace } from '@ehop/hooks'
 import { useFormItem, useFormSize } from '@ehop/components/form'
 import ElInput from '@ehop/components/input'
-import ElIcon from '@ehop/components/icon'
+import EhIcon from '@ehop/components/icon'
 import ElTooltip from '@ehop/components/tooltip'
 import { debugWarn, isArray } from '@ehop/utils'
 import { EVENT_CODE } from '@ehop/constants'
@@ -645,23 +645,23 @@ defineExpose({
         @click.stop
       >
         <template #prefix>
-          <ElIcon
+          <EhIcon
             v-if="triggerIcon"
             :class="nsInput.e('icon')"
             @mousedown.prevent="onMouseDownInput"
             @touchstart="onTouchStartInput"
           >
             <component :is="triggerIcon" />
-          </ElIcon>
+          </EhIcon>
         </template>
         <template #suffix>
-          <ElIcon
+          <EhIcon
             v-if="showClose && clearIcon"
             :class="`${nsInput.e('icon')} clear-icon`"
             @click.stop="onClearIconClick"
           >
             <component :is="clearIcon" />
-          </ElIcon>
+          </EhIcon>
         </template>
       </ElInput>
       <div
@@ -684,14 +684,14 @@ defineExpose({
         @touchstart="onTouchStartInput"
         @keydown="handleKeydownInput"
       >
-        <ElIcon
+        <EhIcon
           v-if="triggerIcon"
           :class="[nsInput.e('icon'), nsRange.e('icon')]"
           @mousedown.prevent="onMouseDownInput"
           @touchstart="onTouchStartInput"
         >
           <component :is="triggerIcon" />
-        </ElIcon>
+        </EhIcon>
         <input
           :id="id && id[0]"
           autocomplete="off"
@@ -725,7 +725,7 @@ defineExpose({
           @input="handleEndInput"
           @change="handleEndChange"
         >
-        <ElIcon
+        <EhIcon
           v-if="clearIcon"
           :class="[
             nsInput.e('icon'),
@@ -737,7 +737,7 @@ defineExpose({
           @click="onClearIconClick"
         >
           <component :is="clearIcon" />
-        </ElIcon>
+        </EhIcon>
       </div>
     </template>
     <template #content>

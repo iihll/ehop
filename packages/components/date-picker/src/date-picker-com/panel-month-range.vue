@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, toRef } from 'vue'
 import dayjs from 'dayjs'
-import ElIcon from '@ehop/components/icon'
+import EhIcon from '@ehop/components/icon'
 import { useLocale } from '@ehop/hooks'
 import { DArrowLeft, DArrowRight } from '@ehop/icons-vue'
 import type { Dayjs } from 'dayjs'
@@ -147,7 +147,7 @@ emit('setPickerOption', ['formatToString', formatToString])
               class="d-arrow-left"
               @click="leftPrevYear"
             >
-              <ElIcon><DArrowLeft /></ElIcon>
+              <EhIcon><DArrowLeft /></EhIcon>
             </button>
             <button
               v-if="unlinkPanels"
@@ -160,7 +160,7 @@ emit('setPickerOption', ['formatToString', formatToString])
               class="d-arrow-right"
               @click="leftNextYear"
             >
-              <ElIcon><DArrowRight /></ElIcon>
+              <EhIcon><DArrowRight /></EhIcon>
             </button>
             <div>{{ leftLabel }}</div>
           </div>
@@ -186,7 +186,7 @@ emit('setPickerOption', ['formatToString', formatToString])
               class="d-arrow-left"
               @click="rightPrevYear"
             >
-              <ElIcon><DArrowLeft /></ElIcon>
+              <EhIcon><DArrowLeft /></EhIcon>
             </button>
             <button
               type="button"
@@ -194,7 +194,7 @@ emit('setPickerOption', ['formatToString', formatToString])
               class="d-arrow-right"
               @click="rightNextYear"
             >
-              <ElIcon><DArrowRight /></ElIcon>
+              <EhIcon><DArrowRight /></EhIcon>
             </button>
             <div>{{ rightLabel }}</div>
           </div>

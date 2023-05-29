@@ -12,7 +12,7 @@ import {
   extractDateFormat,
   extractTimeFormat,
 } from '@ehop/components/time-picker'
-import ElIcon from '@ehop/components/icon'
+import EhIcon from '@ehop/components/icon'
 import {
   ArrowLeft,
   ArrowRight,
@@ -537,7 +537,7 @@ emit('setPickerOption', ['handleClear', handleClear])
             </span>
           </span>
           <span>
-            <ElIcon><ArrowRight /></ElIcon>
+            <EhIcon><ArrowRight /></EhIcon>
           </span>
           <span :class="drpNs.e('editors-wrap')" class="is-right">
             <span :class="drpNs.e('time-picker-wrap')">
@@ -588,7 +588,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="d-arrow-left"
               @click="leftPrevYear"
             >
-              <ElIcon><DArrowLeft /></ElIcon>
+              <EhIcon><DArrowLeft /></EhIcon>
             </button>
             <button
               type="button"
@@ -596,7 +596,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="arrow-left"
               @click="leftPrevMonth"
             >
-              <ElIcon><ArrowLeft /></ElIcon>
+              <EhIcon><ArrowLeft /></EhIcon>
             </button>
             <button
               v-if="unlinkPanels"
@@ -606,7 +606,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="d-arrow-right"
               @click="leftNextYear"
             >
-              <ElIcon><DArrowRight /></ElIcon>
+              <EhIcon><DArrowRight /></EhIcon>
             </button>
             <button
               v-if="unlinkPanels"
@@ -619,7 +619,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="arrow-right"
               @click="leftNextMonth"
             >
-              <ElIcon><ArrowRight /></ElIcon>
+              <EhIcon><ArrowRight /></EhIcon>
             </button>
             <div>{{ leftLabel }}</div>
           </div>
@@ -646,7 +646,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="d-arrow-left"
               @click="rightPrevYear"
             >
-              <ElIcon><DArrowLeft /></ElIcon>
+              <EhIcon><DArrowLeft /></EhIcon>
             </button>
             <button
               v-if="unlinkPanels"
@@ -659,7 +659,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="arrow-left"
               @click="rightPrevMonth"
             >
-              <ElIcon><ArrowLeft /></ElIcon>
+              <EhIcon><ArrowLeft /></EhIcon>
             </button>
             <button
               type="button"
@@ -667,7 +667,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="d-arrow-right"
               @click="rightNextYear"
             >
-              <ElIcon><DArrowRight /></ElIcon>
+              <EhIcon><DArrowRight /></EhIcon>
             </button>
             <button
               type="button"
@@ -675,7 +675,7 @@ emit('setPickerOption', ['handleClear', handleClear])
               class="arrow-right"
               @click="rightNextMonth"
             >
-              <ElIcon><ArrowRight /></ElIcon>
+              <EhIcon><ArrowRight /></EhIcon>
             </button>
             <div>{{ rightLabel }}</div>
           </div>
