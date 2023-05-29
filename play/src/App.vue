@@ -5,6 +5,7 @@ import {
   EhCol,
   EhConfigProvider,
   EhContainer,
+  EhDatePicker,
   EhFooter,
   EhForm,
   EhFormItem,
@@ -20,6 +21,7 @@ import {
   EhTag,
   EhText,
   EhTooltip,
+  EhTimePicker
 } from 'ehop'
 import { reactive } from 'vue'
 import Icons from './components/Icons.vue'
@@ -123,6 +125,16 @@ function onClick() {
           </EhSelect>
         </EhFormItem>
       </EhForm>
+    </EhCol>
+    <EhCol :span="12">
+      <EhDatePicker
+        type="date"
+        placeholder="Pick a day"
+      />
+      <EhTimePicker
+        arrow-control
+        placeholder="Arbitrary time"
+      />
     </EhCol>
   </EhRow>
 </template>

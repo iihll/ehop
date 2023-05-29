@@ -60,6 +60,7 @@
     "@vue/runtime-core": "^3.3.4",
     "@vueuse/core": "^10.1.2",
     "async-validator": "^4.2.5",
+    "dayjs": "^1.11.7",
     "ehop": "workspace:*",
     "lodash-unified": "^1.0.3",
     "normalize-wheel-es": "^1.2.0",
