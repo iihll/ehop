@@ -14,14 +14,16 @@ import {
   EhLink,
   EhMain,
   EhOption,
+  EhRadio,
+  EhRadioGroup,
   EhRow,
   EhScrollbar,
   EhSelect,
   EhSpace,
   EhTag,
   EhText,
+  EhTimePicker,
   EhTooltip,
-  EhTimePicker
 } from 'ehop'
 import { reactive } from 'vue'
 import Icons from './components/Icons.vue'
@@ -35,7 +37,7 @@ const form = reactive({
   delivery: false,
   type: [],
   resource: '',
-  desc: '',
+  desc: '1',
 })
 
 function onSubmit() {
@@ -135,6 +137,14 @@ function onClick() {
         arrow-control
         placeholder="Arbitrary time"
       />
+      <EhRadioGroup v-model="form.desc">
+        <EhRadio label="1" size="large">
+          Option 1
+        </EhRadio>
+        <EhRadio label="2" size="large">
+          Option 2
+        </EhRadio>
+      </EhRadioGroup>
     </EhCol>
   </EhRow>
 </template>

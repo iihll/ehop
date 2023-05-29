@@ -26,6 +26,9 @@ declare module '@vue/runtime-core' {
     EhSelect: typeof import('../packages/ehop')['EhSelect']
     EhTimePicker: typeof import('../packages/ehop')['EhTimePicker']
     EhDatePicker: typeof import('../packages/ehop')['EhDatePicker']
+    EhRadio: typeof import('../packages/ehop')['EhRadio']
+    EhRadioButton: typeof import('../packages/ehop')['EhRadioButton']
+    EhRadioGroup: typeof import('../packages/ehop')['EhRadioGroup']
   }
 }
 
