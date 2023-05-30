@@ -10,12 +10,15 @@
     "build": "rollup -c",
     "p": "plop",
     "stub": "pnpm run -r --parallel stub",
-    "postinstall": "pnpm stub"
+    "postinstall": "pnpm stub",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
     "@ehop/build-utils": "workspace:*",
     "@iihll/eslint-config": "^0.0.5",
     "@rollup/plugin-commonjs": "^25.0.0",
@@ -31,6 +34,7 @@
     "consola": "^2.15.3",
     "csstype": "^3.1.2",
     "eslint": "^8.41.0",
+    "husky": "^8.0.3",
     "npm-run-all": "^4.1.5",
     "plop": "^3.1.2",
     "rimraf": "^5.0.1",
