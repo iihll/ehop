@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
+import type { StyleValue } from 'vue'
 import {
   computed,
   nextTick,
@@ -51,10 +50,10 @@ function useStyle<T>(
   const footerScrollHeight = ref(0)
 
   watchEffect(() => {
-    layout.setHeight(props.height)
+    props.height && layout.setHeight(props.height)
   })
   watchEffect(() => {
-    layout.setMaxHeight(props.maxHeight)
+    props.maxHeight && layout.setMaxHeight(props.maxHeight)
   })
   watch(
     () => [props.currentRowKey, store.states.rowKey],
@@ -278,7 +277,7 @@ function useStyle<T>(
     return props.tableLayout
   })
 
-  const emptyBlockStyle = computed(() => {
+  const emptyBlockStyle = computed<StyleValue>(() => {
     if (props.data && props.data.length)
       return null
     let height = '100%'

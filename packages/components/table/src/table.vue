@@ -1,6 +1,4 @@
-<!-- eslint-disable @typescript-eslint/ban-ts-comment -->
 <script lang="ts">
-// @ts-nocheck
 import { computed, defineComponent, getCurrentInstance, provide } from 'vue'
 import { debounce } from 'lodash-unified'
 import { Mousewheel } from '@ehop/directives'
