@@ -65,20 +65,14 @@ const output = buildConfigEntries.map(([module, config]) => {
 })
 
 async function generateExternal(options) {
-  const { dependencies, peerDependencies } = getPackageDependencies(ehPackage)
+  const { dependencies, peerDependencies } = await getPackageDependencies(ehPackage)
+  const packages = [...peerDependencies]
+  packages.push('@vue', ...dependencies)
 
-  return (id) => {
-    const packages = [...peerDependencies]
-    if (!options.full)
-      packages.push('@vue', ...dependencies)
-
-    return [...new Set(packages)].some(
-      pkg => id === pkg || id.startsWith(`${pkg}/`),
-    )
-  }
+  return [...new Set(packages)]
 }
 
-function getPackageManifest(pkgPath) {
+async function getPackageManifest(pkgPath) {
   return import(pkgPath, {
     assert: {
       type: 'json',
@@ -86,9 +80,9 @@ function getPackageManifest(pkgPath) {
   })
 }
 
-function getPackageDependencies(pkgPath) {
-  const manifest = getPackageManifest(pkgPath)
-  const { dependencies = {}, peerDependencies = {} } = manifest
+async function getPackageDependencies(pkgPath) {
+  const manifest = await getPackageManifest(pkgPath)
+  const { dependencies = {}, peerDependencies = {} } = manifest.default
 
   return {
     dependencies: Object.keys(dependencies),
@@ -96,7 +90,9 @@ function getPackageDependencies(pkgPath) {
   }
 }
 
-export default [
+const external = await generateExternal({ full: true })
+
+const config = [
   {
     input: 'packages/ehop',
     output,
@@ -116,6 +112,10 @@ export default [
         },
       }),
     ],
-    external: await generateExternal({ full: true }),
+    external,
   },
 ]
+
+console.log('config', config)
+
+export default config
