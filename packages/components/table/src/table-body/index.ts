@@ -24,8 +24,7 @@ export default defineComponent({
     const instance = getCurrentInstance()
     const parent = inject(TABLE_INJECTION_KEY)
     const ns = useNamespace('table')
-    const { wrappedRowRender, tooltipContent, tooltipTrigger }
-      = useRender(props)
+    const { wrappedRowRender, tooltipContent, tooltipTrigger } = useRender(props)
     const { onColumnsChange, onScrollableChange } = useLayoutObserver(parent!)
 
     watch(props.store.states.hoverRow, (newVal: any, oldVal: any) => {
@@ -67,6 +66,9 @@ export default defineComponent({
   render() {
     const { wrappedRowRender, store } = this
     const data = store.states.data.value || []
+    console.log('data', data.reduce((acc: VNode[], row) => {
+      return acc.concat(wrappedRowRender(row, acc.length))
+    }, []))
     return h('tbody', {}, [
       data.reduce((acc: VNode[], row) => {
         return acc.concat(wrappedRowRender(row, acc.length))

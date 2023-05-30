@@ -4,7 +4,9 @@ import { useNamespace } from '@ehop/hooks'
 import { useButton } from './use-button'
 import { buttonEmits, buttonProps } from './button'
 import { useButtonCustomStyle } from './button-custom'
-import '../style'
+
+//
+import '../style/index.less'
 
 const props = defineProps(buttonProps)
 

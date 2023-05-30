@@ -171,14 +171,13 @@ const tableData = [
         </EhRadio>
       </EhRadioGroup>
     </EhCol>
-    <EhCol :span="24">
-      <EhTable :data="tableData" style="width: 100%">
-        <EhTableColumn prop="date" label="Date" width="180" />
-        <EhTableColumn prop="name" label="Name" width="180" />
-        <EhTableColumn prop="address" label="Address" />
-      </EhTable>
-    </EhCol>
   </EhRow>
+
+  <EhTable :data="tableData" style="width: 100%">
+    <EhTableColumn prop="date" label="Date" width="180" />
+    <EhTableColumn prop="name" label="Name" width="180" />
+    <EhTableColumn prop="address" label="Address" />
+  </EhTable>
 </template>
 
 <style>

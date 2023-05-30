@@ -5,7 +5,7 @@ import { computed, defineComponent, getCurrentInstance, provide } from 'vue'
 import { debounce } from 'lodash-unified'
 import { Mousewheel } from '@ehop/directives'
 import { useLocale, useNamespace } from '@ehop/hooks'
-import ElScrollbar from '@ehop/components/scrollbar'
+import EhScrollbar from '@ehop/components/scrollbar'
 import { createStore } from './store/helper'
 import TableLayout from './table-layout'
 import TableHeader from './table-header'
@@ -19,7 +19,6 @@ import { TABLE_INJECTION_KEY } from './tokens'
 import { hColgroup } from './h-helper'
 import { useScrollbar } from './composables/use-scrollbar'
 import type { Table } from './table/defaults'
-import '../style'
 
 let tableIdSeed = 1
 export default defineComponent({
@@ -31,7 +30,7 @@ export default defineComponent({
     TableHeader,
     TableBody,
     TableFooter,
-    ElScrollbar,
+    EhScrollbar,
     HColgroup: hColgroup,
   },
   props: defaultProps,
@@ -234,7 +233,7 @@ export default defineComponent({
         </table>
       </div>
       <div :class="ns.e('body-wrapper')">
-        <ElScrollbar
+        <EhScrollbar
           ref="scrollBarRef"
           :view-style="scrollbarViewStyle"
           :wrap-style="scrollbarStyle"
@@ -287,7 +286,7 @@ export default defineComponent({
           >
             <slot name="append" />
           </div>
-        </ElScrollbar>
+        </EhScrollbar>
       </div>
       <div
         v-if="showSummary"

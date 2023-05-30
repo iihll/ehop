@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { computed, h, inject } from 'vue'

@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
 import scss from 'rollup-plugin-scss'
+import less from 'rollup-plugin-less'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 
@@ -18,6 +19,7 @@ export default [
       entryFileNames: '[name].mjs',
     },
     plugins: [
+      less(),
       scss(),
       vue(),
       vueJsx(),

@@ -1,0 +1,37 @@
+@namespace: 'eh';
+@common-separator: '-';
+@element-separator: '__';
+@modifier-separator: '--';
+@state-prefix: 'is-';
+
+.b(@block, @content) {
+  @B: ~"@{namespace}-@{common-separator}@{block}";
+
+  .@{B} {
+    @content();
+  }
+}
+
+.eh-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  line-height: 1;
+  // min-height will expand when in flex
+  // height: map.get($input-height, 'default');
+  white-space: nowrap;
+  cursor: pointer;
+  // color: getCssVar('button', 'text-color');
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.1s;
+  // font-weight: getCssVar('button', 'font-weight');
+  user-select: none;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  // background-color: getCssVar('button', 'bg-color');
+  // border: getCssVar('border');
+  // border-color: getCssVar('button', 'border-color');
+}
