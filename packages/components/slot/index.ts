@@ -1,2 +1,2 @@
-export { OnlyChild as ElOnlyChild } from './src/only-child'
+export { OnlyChild as EhOnlyChild } from './src/only-child'
 export * from './src/only-child'

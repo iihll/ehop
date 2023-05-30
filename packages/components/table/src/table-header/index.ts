@@ -9,7 +9,7 @@ import {
   onMounted,
   ref,
 } from 'vue'
-import ElCheckbox from '@ehop/components/checkbox'
+import EhCheckbox from '@ehop/components/checkbox'
 import { useNamespace } from '@ehop/hooks'
 import type { ComponentInternalInstance, PropType, Ref } from 'vue'
 import FilterPanel from '../filter-panel.vue'
@@ -38,7 +38,7 @@ export interface TableHeaderProps<T> {
 export default defineComponent({
   name: 'EhTableHeader',
   components: {
-    ElCheckbox,
+    EhCheckbox,
   },
   props: {
     fixed: {

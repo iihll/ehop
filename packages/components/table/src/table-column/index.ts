@@ -168,7 +168,7 @@ export default defineComponent({
       if (Array.isArray(renderDefault)) {
         for (const childNode of renderDefault) {
           if (
-            childNode.type?.name === 'ElTableColumn'
+            childNode.type?.name === 'EhTableColumn'
             || childNode.shapeFlag & 2
           ) {
             children.push(childNode)

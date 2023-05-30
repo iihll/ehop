@@ -3,7 +3,7 @@ import { buildProps, definePropType } from '@ehop/utils'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Arrayable } from '@ehop/utils'
-import type { FormItemRule } from './types'
+import type { FormItemRule } from '@ehop/components/form/src/types'
 
 export const formItemValidateStates = [
   '',

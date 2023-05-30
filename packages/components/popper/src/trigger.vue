@@ -2,7 +2,7 @@
 import { computed, inject, onBeforeUnmount, onMounted, watch } from 'vue'
 import { isNil } from 'lodash-unified'
 import { unrefElement } from '@vueuse/core'
-import { ElOnlyChild } from '@ehop/components/slot'
+import { EhOnlyChild } from '@ehop/components/slot'
 import { useForwardRef } from '@ehop/hooks'
 import { isElement } from '@ehop/utils'
 import type { WatchStopHandle } from 'vue'
@@ -131,7 +131,7 @@ defineExpose({
 </script>
 
 <template>
-  <ElOnlyChild
+  <EhOnlyChild
     v-if="!virtualTriggering"
     v-bind="$attrs"
     :aria-controls="ariaControls"
@@ -140,5 +140,5 @@ defineExpose({
     :aria-haspopup="ariaHaspopup"
   >
     <slot />
-  </ElOnlyChild>
+  </EhOnlyChild>
 </template>

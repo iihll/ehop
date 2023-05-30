@@ -12,7 +12,7 @@ const spaceItemProps = buildProps({
 export type SpaceItemProps = ExtractPropTypes<typeof spaceItemProps>
 
 const SpaceItem = defineComponent({
-  name: 'ElSpaceItem',
+  name: 'EhSpaceItem',
 
   props: spaceItemProps,
 

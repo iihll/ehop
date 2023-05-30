@@ -28,7 +28,7 @@ export default defineComponent({
         ;(children as VNode[]).forEach((item) => {
           const name = ((item?.type || {}) as Component)?.name
 
-          if (name === 'ElOptionGroup') {
+          if (name === 'EhOptionGroup') {
             filterOptions(
               !isString(item.children)
                 && !Array.isArray(item.children)
@@ -37,7 +37,7 @@ export default defineComponent({
                 : item.children,
             )
           }
-          else if (name === 'ElOption') {
+          else if (name === 'EhOption') {
             filteredOptions.push(item.props?.label)
           }
           else if (Array.isArray(item.children)) {

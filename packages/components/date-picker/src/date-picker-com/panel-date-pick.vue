@@ -14,7 +14,7 @@ import dayjs from 'dayjs'
 import EhButton from '@ehop/components/button'
 import { ClickOutside as vClickOutside } from '@ehop/directives'
 import { useLocale, useNamespace } from '@ehop/hooks'
-import ElInput from '@ehop/components/input'
+import EhInput from '@ehop/components/input'
 import {
   TimePickPanel,
   extractDateFormat,
@@ -603,7 +603,7 @@ contextEmit('setPickerOption', ['handleFocusPicker', handleFocusPicker])
       <div :class="ppNs.e('body')">
         <div v-if="showTime" :class="dpNs.e('time-header')">
           <span :class="dpNs.e('editor-wrap')">
-            <ElInput
+            <EhInput
               :placeholder="t('eh.datepicker.selectDate')"
               :model-value="visibleDate"
               size="small"
@@ -616,7 +616,7 @@ contextEmit('setPickerOption', ['handleFocusPicker', handleFocusPicker])
             v-click-outside="handleTimePickClose"
             :class="dpNs.e('editor-wrap')"
           >
-            <ElInput
+            <EhInput
               :placeholder="t('eh.datepicker.selectTime')"
               :model-value="visibleTime"
               size="small"

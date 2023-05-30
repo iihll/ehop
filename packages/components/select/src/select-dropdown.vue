@@ -5,9 +5,9 @@ import { useNamespace } from '@ehop/hooks'
 import { selectKey } from './token'
 
 export default defineComponent({
-  name: 'ElSelectDropdown',
+  name: 'EhSelectDropdown',
 
-  componentName: 'ElSelectDropdown',
+  componentName: 'EhSelectDropdown',
 
   setup() {
     const select = inject(selectKey)!

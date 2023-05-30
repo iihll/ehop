@@ -10,7 +10,7 @@ import { useTooltipContentProps } from './content'
 const props = defineProps(useTooltipContentProps)
 
 defineOptions({
-  name: 'ElTooltipContent',
+  name: 'EhTooltipContent',
   inheritAttrs: false,
 })
 

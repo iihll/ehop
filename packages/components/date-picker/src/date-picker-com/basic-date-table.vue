@@ -8,7 +8,7 @@ import type { Dayjs } from 'dayjs'
 import { basicDateTableProps } from '../props/basic-date-table'
 import { buildPickerTable } from '../utils'
 import type { DateCell } from '../date-picker.type'
-import ElDatePickerCell from './basic-cell-render'
+import EhDatePickerCell from './basic-cell-render'
 
 const props = defineProps(basicDateTableProps)
 const emit = defineEmits(['changerange', 'pick', 'select'])
@@ -463,7 +463,7 @@ defineExpose({
           :tabindex="isSelectedCell(cell) ? 0 : -1"
           @focus="handleFocus"
         >
-          <ElDatePickerCell :cell="cell" />
+          <EhDatePickerCell :cell="cell" />
         </td>
       </tr>
     </tbody>

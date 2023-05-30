@@ -10,7 +10,7 @@ import '../style'
 const props = defineProps(textProps)
 
 defineOptions({
-  name: 'ElText',
+  name: 'EhText',
 })
 
 // const textSize = useFormSize()

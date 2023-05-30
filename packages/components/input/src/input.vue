@@ -44,7 +44,7 @@ type TargetElement = HTMLInputElement | HTMLTextAreaElement
 const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
 defineOptions({
-  name: 'ElInput',
+  name: 'EhInput',
   inheritAttrs: false,
 })
 const rawAttrs = useRawAttrs()
@@ -375,7 +375,7 @@ watch(
 onMounted(() => {
   if (!props.formatter && props.parser) {
     debugWarn(
-      'ElInput',
+      'EhInput',
       'If you set the parser, you also need to set the formatter.',
     )
   }

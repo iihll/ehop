@@ -5,7 +5,7 @@ import type { InjectionKey, Ref } from 'vue'
 import type { MaybeRef } from '@vueuse/core'
 import { useGetDerivedNamespace } from '../use-namespace'
 
-export interface ElIdInjectionContext {
+export interface EhIdInjectionContext {
   prefix: number
   current: number
 }
@@ -15,10 +15,10 @@ const defaultIdInjection = {
   current: 0,
 }
 
-export const ID_INJECTION_KEY: InjectionKey<ElIdInjectionContext>
+export const ID_INJECTION_KEY: InjectionKey<EhIdInjectionContext>
   = Symbol('elIdInjection')
 
-export function useIdInjection(): ElIdInjectionContext {
+export function useIdInjection(): EhIdInjectionContext {
   return getCurrentInstance()
     ? inject(ID_INJECTION_KEY, defaultIdInjection)
     : defaultIdInjection

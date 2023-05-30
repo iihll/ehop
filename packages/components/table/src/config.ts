@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { h } from 'vue'
-import ElCheckbox from '@ehop/components/checkbox'
+import EhCheckbox from '@ehop/components/checkbox'
 import { EhIcon } from '@ehop/components/icon'
 import { ArrowRight, Loading } from '@ehop/icons-vue'
 import { getProp } from '@ehop/utils'
@@ -51,7 +51,7 @@ export const cellForced = {
       function isDisabled() {
         return store.states.data.value && store.states.data.value.length === 0
       }
-      return h(ElCheckbox, {
+      return h(EhCheckbox, {
         'disabled': isDisabled(),
         'size': store.states.tableSize.value,
         'indeterminate':
@@ -72,7 +72,7 @@ export const cellForced = {
       store: Store<T>
       $index: string
     }) {
-      return h(ElCheckbox, {
+      return h(EhCheckbox, {
         disabled: column.selectable
           ? !column.selectable.call(null, row, $index)
           : false,

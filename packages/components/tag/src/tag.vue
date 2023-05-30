@@ -10,7 +10,7 @@ import '../style'
 const props = defineProps(tagProps)
 const emit = defineEmits(tagEmits)
 defineOptions({
-  name: 'ElTag',
+  name: 'EhTag',
 })
 const tagSize = useFormSize()
 const ns = useNamespace('tag')

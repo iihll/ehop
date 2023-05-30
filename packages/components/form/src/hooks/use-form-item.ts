@@ -55,7 +55,7 @@ export function useFormItemInputId(props: Partial<IUseFormItemInputCommonProps>,
     )
   })
 
-  // Generate id for ElFormItem label if not provided as prop
+  // Generate id for EhFormItem label if not provided as prop
   onMounted(() => {
     idUnwatch = watch(
       [toRef(props, 'id'), disableIdGeneration] as any,
@@ -65,7 +65,7 @@ export function useFormItemInputId(props: Partial<IUseFormItemInputCommonProps>,
           if (formItemContext?.removeInputId) {
             inputId.value && formItemContext.removeInputId(inputId.value)
             if (!disableIdManagement?.value && !disableIdGeneration && newId)
-              formItemContext.addInputId(newId)
+              formItemContext.addInputId?.(newId)
           }
           inputId.value = newId
         }

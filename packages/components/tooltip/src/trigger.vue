@@ -11,7 +11,7 @@ import { whenTrigger } from './utils'
 const props = defineProps(useTooltipTriggerProps)
 
 defineOptions({
-  name: 'ElTooltipTrigger',
+  name: 'EhTooltipTrigger',
 })
 
 const ns = useNamespace('tooltip')

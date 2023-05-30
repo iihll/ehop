@@ -19,7 +19,7 @@ import EhTag from '@ehop/components/tag'
 import EhIcon from '@ehop/components/icon'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 import { isIOS } from '@ehop/utils'
-import ElOption from './option.vue'
+import EhOption from './option.vue'
 import EhSelectMenu from './select-dropdown.vue'
 import { useSelect, useSelectStates } from './useSelect'
 import { selectKey } from './token'
@@ -35,7 +35,7 @@ export default defineComponent({
   components: {
     EhInput,
     EhSelectMenu,
-    ElOption,
+    EhOption,
     EhOptions,
     EhTag,
     EhScrollbar,
@@ -571,7 +571,7 @@ export default defineComponent({
               ),
             ]"
           >
-            <ElOption v-if="showNewOption" :value="query" :created="true" />
+            <EhOption v-if="showNewOption" :value="query" :created="true" />
             <EhOptions @update-options="onOptionsRendered">
               <slot />
             </EhOptions>

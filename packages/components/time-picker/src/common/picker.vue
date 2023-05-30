@@ -5,9 +5,9 @@ import { isEqual } from 'lodash-unified'
 import { onClickOutside } from '@vueuse/core'
 import { useLocale, useNamespace } from '@ehop/hooks'
 import { useFormItem, useFormSize } from '@ehop/components/form'
-import ElInput from '@ehop/components/input'
+import EhInput from '@ehop/components/input'
 import EhIcon from '@ehop/components/icon'
-import ElTooltip from '@ehop/components/tooltip'
+import EhTooltip from '@ehop/components/tooltip'
 import { debugWarn, isArray } from '@ehop/utils'
 import { EVENT_CODE } from '@ehop/constants'
 import { Calendar, Clock } from '@ehop/icons-vue'
@@ -592,7 +592,7 @@ defineExpose({
 </script>
 
 <template>
-  <ElTooltip
+  <EhTooltip
     ref="refPopper"
     :visible="pickerVisible"
     effect="light"
@@ -614,7 +614,7 @@ defineExpose({
     @hide="onHide"
   >
     <template #default>
-      <ElInput
+      <EhInput
         v-if="!isRangeInput"
         :id="(id as string | undefined)"
         ref="inputRef"
@@ -663,7 +663,7 @@ defineExpose({
             <component :is="clearIcon" />
           </EhIcon>
         </template>
-      </ElInput>
+      </EhInput>
       <div
         v-else
         ref="inputRef"
@@ -758,5 +758,5 @@ defineExpose({
         @mousedown.stop
       />
     </template>
-  </ElTooltip>
+  </EhTooltip>
 </template>

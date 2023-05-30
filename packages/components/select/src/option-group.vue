@@ -1,14 +1,5 @@
-<template>
-  <ul v-show="visible" :class="ns.be('group', 'wrap')">
-    <li :class="ns.be('group', 'title')">{{ label }}</li>
-    <li>
-      <ul :class="ns.b('group')">
-        <slot />
-      </ul>
-    </li>
-  </ul>
-</template>
-
+<!-- eslint-disable @typescript-eslint/no-use-before-define -->
+<!-- eslint-disable @typescript-eslint/ban-ts-comment -->
 <script lang="ts">
 // @ts-nocheck
 import {
@@ -27,8 +18,8 @@ import { useNamespace } from '@ehop/hooks'
 import { selectGroupKey, selectKey } from './token'
 
 export default defineComponent({
-  name: 'ElOptionGroup',
-  componentName: 'ElOptionGroup',
+  name: 'EhOptionGroup',
+  componentName: 'EhOptionGroup',
 
   props: {
     label: String,
@@ -47,7 +38,7 @@ export default defineComponent({
       selectGroupKey,
       reactive({
         ...toRefs(props),
-      })
+      }),
     )
 
     const select = inject(selectKey)
@@ -62,15 +53,14 @@ export default defineComponent({
       if (Array.isArray(node.children)) {
         node.children.forEach((child) => {
           if (
-            child.type &&
-            child.type.name === 'ElOption' &&
-            child.component &&
-            child.component.proxy
-          ) {
+            child.type
+            && child.type.name === 'EhOption'
+            && child.component
+            && child.component.proxy
+          )
             children.push(child.component.proxy)
-          } else if (child.children?.length) {
+          else if (child.children?.length)
             children.push(...flattedChildren(child))
-          }
         })
       }
       return children
@@ -80,9 +70,9 @@ export default defineComponent({
     watch(
       groupQueryChange,
       () => {
-        visible.value = children.value.some((option) => option.visible === true)
+        visible.value = children.value.some(option => option.visible === true)
       },
-      { flush: 'post' }
+      { flush: 'post' },
     )
 
     return {
@@ -92,3 +82,16 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <ul v-show="visible" :class="ns.be('group', 'wrap')">
+    <li :class="ns.be('group', 'title')">
+      {{ label }}
+    </li>
+    <li>
+      <ul :class="ns.b('group')">
+        <slot />
+      </ul>
+    </li>
+  </ul>
+</template>

@@ -32,7 +32,7 @@ import { useDeprecated, useLocale, useNamespace } from '@ehop/hooks'
 import { useFormItem, useFormSize } from '@ehop/components/form'
 
 import type { ComponentPublicInstance } from 'vue'
-import type ElTooltip from '@ehop/components/tooltip'
+import type EhTooltip from '@ehop/components/tooltip'
 import type { QueryChangeCtx, SelectOptionProxy } from './token'
 
 export function useSelectStates(props) {
@@ -90,7 +90,7 @@ export function useSelect(props, states: States, ctx) {
   }> | null>(null)
   const input = ref<HTMLInputElement | null>(null)
   const iOSInput = ref<HTMLInputElement | null>(null)
-  const tooltipRef = ref<InstanceType<typeof ElTooltip> | null>(null)
+  const tooltipRef = ref<InstanceType<typeof EhTooltip> | null>(null)
   const tags = ref<HTMLElement | null>(null)
   const selectWrapper = ref<HTMLElement | null>(null)
   const scrollbar = ref<{

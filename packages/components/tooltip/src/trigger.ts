@@ -28,6 +28,6 @@ export const useTooltipTriggerProps = buildProps({
   },
 } as const)
 
-export type ElTooltipTriggerProps = ExtractPropTypes<
+export type EhTooltipTriggerProps = ExtractPropTypes<
   typeof useTooltipTriggerProps
 >
