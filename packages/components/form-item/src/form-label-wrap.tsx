@@ -14,7 +14,7 @@ import { useResizeObserver } from '@vueuse/core'
 import { throwError } from '@ehop/utils'
 import { useNamespace } from '@ehop/hooks'
 import type { CSSProperties } from 'vue'
-import { formContextKey, formItemContextKey } from '@ehop/components'
+import { formContextKey, formItemContextKey } from '@ehop/components/form'
 
 const COMPONENT_NAME = 'EhLabelWrap'
 export default defineComponent({
