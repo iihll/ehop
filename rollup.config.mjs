@@ -8,6 +8,8 @@ import commonjs from '@rollup/plugin-commonjs'
 import glob from 'fast-glob'
 
 const pkgRoot = 'packages'
+export const ehRoot = resolve(pkgRoot, 'ehop')
+const ehPackage = resolve(ehRoot, 'package.json')
 
 function excludeFiles(files) {
   const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist', 'build']
@@ -62,6 +64,38 @@ const output = buildConfigEntries.map(([module, config]) => {
   }
 })
 
+async function generateExternal(options) {
+  const { dependencies, peerDependencies } = getPackageDependencies(ehPackage)
+
+  return (id) => {
+    const packages = [...peerDependencies]
+    if (!options.full)
+      packages.push('@vue', ...dependencies)
+
+    return [...new Set(packages)].some(
+      pkg => id === pkg || id.startsWith(`${pkg}/`),
+    )
+  }
+}
+
+function getPackageManifest(pkgPath) {
+  return import(pkgPath, {
+    assert: {
+      type: 'json',
+    },
+  })
+}
+
+function getPackageDependencies(pkgPath) {
+  const manifest = getPackageManifest(pkgPath)
+  const { dependencies = {}, peerDependencies = {} } = manifest
+
+  return {
+    dependencies: Object.keys(dependencies),
+    peerDependencies: Object.keys(peerDependencies),
+  }
+}
+
 export default [
   {
     input: 'packages/ehop',
@@ -82,5 +116,6 @@ export default [
         },
       }),
     ],
+    external: await generateExternal({ full: true }),
   },
 ]

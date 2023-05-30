@@ -195,6 +195,27 @@ importers:
 
   packages/ehop:
     dependencies:
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
+      '@vueuse/core':
+        specifier: ^10.1.2
+        version: 10.1.2(vue@3.3.4)
+      async-validator:
+        specifier: ^4.2.5
+        version: 4.2.5
+      dayjs:
+        specifier: ^1.11.7
+        version: 1.11.7
+      escape-html:
+        specifier: ^1.0.3
+        version: 1.0.3
+      lodash-unified:
+        specifier: ^1.0.3
+        version: 1.0.3(@types/lodash-es@4.17.7)(lodash-es@4.17.21)(lodash@4.17.21)
+      normalize-wheel-es:
+        specifier: ^1.2.0
+        version: 1.2.0
       vue:
         specifier: ^3.3.4
         version: 3.3.4

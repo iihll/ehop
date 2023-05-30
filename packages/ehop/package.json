@@ -9,5 +9,14 @@
   },
   "devDependencies": {
     "tslib": "^2.5.2"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@vueuse/core": "^10.1.2",
+    "async-validator": "^4.2.5",
+    "dayjs": "^1.11.7",
+    "escape-html": "^1.0.3",
+    "lodash-unified": "^1.0.3",
+    "normalize-wheel-es": "^1.2.0"
   }
 }
