@@ -1,32 +1,4 @@
 <script setup lang="ts">
-import {
-  EhAside,
-  EhButton,
-  EhCol,
-  EhConfigProvider,
-  EhContainer,
-  EhDatePicker,
-  EhFooter,
-  EhForm,
-  EhFormItem,
-  EhHeader,
-  EhInput,
-  EhLink,
-  EhMain,
-  EhOption,
-  EhRadio,
-  EhRadioGroup,
-  EhRow,
-  EhScrollbar,
-  EhSelect,
-  EhSpace,
-  EhTable,
-  EhTableColumn,
-  EhTag,
-  EhText,
-  EhTimePicker,
-  EhTooltip,
-} from 'ehop'
 import { reactive } from 'vue'
 import Icons from './components/Icons.vue'
 

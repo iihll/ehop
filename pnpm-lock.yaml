@@ -80,6 +80,9 @@ importers:
       '@iihll/eslint-config':
         specifier: ^0.0.5
         version: 0.0.5(eslint@8.41.0)(typescript@5.0.4)
+      '@pnpm/types':
+        specifier: ^9.1.0
+        version: 9.1.0
       '@rollup/plugin-commonjs':
         specifier: ^25.0.0
         version: 25.0.0(rollup@3.23.0)
@@ -2453,6 +2456,11 @@ packages:
   /@pnpm/types@8.10.0:
     resolution: {integrity: sha512-A4pcNNvFJdkMXArEjTCOIYNL2VxD4uBynWZ6cBIELXb5qJ0tUzwKsaSz4J953I0rQFqnsFpUYqaWIquI10W1sw==}
     engines: {node: '>=14.6'}
+    dev: true
+
+  /@pnpm/types@9.1.0:
+    resolution: {integrity: sha512-MMPDMLOY17bfNhLhR9Qmq6/2keoocnR5DWXZfZDC4dKXugrMsE1jB6RnuU8swJIo4zyCsMT/iVSAtl/XK+9Z+A==}
+    engines: {node: '>=16.14'}
     dev: true
 
   /@pnpm/util.lex-comparator@1.0.0:
