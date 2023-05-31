@@ -1,27 +1,12 @@
 import { resolve } from 'node:path'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import esbuild from 'rollup-plugin-esbuild'
-import scss from 'rollup-plugin-scss'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import glob from 'fast-glob'
+import manifest from './packages/ehop/package.json'
 
-const pkgRoot = resolve(__dirname, 'packages')
+const pkgRoot = 'packages'
 const ehRoot = resolve(pkgRoot, 'ehop')
 const ehPackage = resolve(ehRoot, 'package.json')
-
-function excludeFiles(files) {
-  const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist', 'build']
-  return files.filter(
-    path => !excludes.some(exclude => path.includes(exclude)),
-  )
-}
-const files = await glob('**/*.{js,ts,vue}', {
-  cwd: pkgRoot,
-  absolute: true,
-  onlyFiles: true,
-})
 
 const PKG_NAME = 'ehop'
 const buildConfig = {
@@ -81,8 +66,8 @@ async function getPackageManifest(pkgPath) {
 }
 
 async function getPackageDependencies(pkgPath) {
-  const manifest = await getPackageManifest(pkgPath)
-  const { dependencies = {}, peerDependencies = {} } = manifest.default
+  // const manifest = await getPackageManifest(pkgPath)
+  const { dependencies = {}, peerDependencies = {} } = manifest
 
   return {
     dependencies: Object.keys(dependencies),
@@ -92,30 +77,33 @@ async function getPackageDependencies(pkgPath) {
 
 const external = await generateExternal({ full: true })
 
-const config = [
-  {
-    input: 'packages/ehop',
-    output,
-    plugins: [
-      scss(),
-      vue(),
-      vueJsx(),
-      nodeResolve({
-        extensions: ['.mjs', '.js', '.json', '.ts'],
-      }),
-      commonjs(),
-      esbuild({
-        target: 'es2018',
-        sourceMap: true,
-        loaders: {
-          '.vue': 'ts',
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: 'packages/ehop/index.ts',
+      output: [
+        {
+          format: 'esm',
+          dir: resolve('./dist/ehop', 'es'),
+          preserveModules: true,
+          preserveModulesRoot: ehRoot,
+          entryFileNames: '[name].mjs',
         },
-      }),
-    ],
-    external,
+        {
+          format: 'cjs',
+          exports: 'named',
+          dir: resolve('./dist/ehop', 'lib'),
+          preserveModules: true,
+          preserveModulesRoot: ehRoot,
+          entryFileNames: '[name].js',
+        },
+      ],
+      preserveEntrySignatures: 'strict',
+      external,
+    },
   },
-]
-
-console.log('config', config)
-
-export default config
+  plugins: [
+    vue(),
+    vueJsx(),
+  ],
+})
