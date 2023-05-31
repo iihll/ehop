@@ -1,12 +1,14 @@
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
-import scss from 'rollup-plugin-scss'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import glob from 'fast-glob'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 const pkgRoot = resolve(__dirname, 'packages')
 const ehRoot = resolve(pkgRoot, 'ehop')
 const ehPackage = resolve(ehRoot, 'package.json')
@@ -22,6 +24,14 @@ const files = await glob('**/*.{js,ts,vue}', {
   absolute: true,
   onlyFiles: true,
 })
+
+const input = excludeFiles(
+  await glob('**/*.{js,ts,vue}', {
+    cwd: pkgRoot,
+    absolute: true,
+    onlyFiles: true,
+  }),
+)
 
 const PKG_NAME = 'ehop'
 const buildConfig = {
@@ -92,12 +102,32 @@ async function getPackageDependencies(pkgPath) {
 
 const external = await generateExternal({ full: true })
 
+function EhopThemeChalkAlias() {
+  const PKG_PREFIX = '@ehop'
+  const themeChalk = 'theme-chalk'
+  const sourceThemeChalk = `${PKG_PREFIX}/${themeChalk}`
+  const bundleThemeChalk = `${PKG_NAME}/${themeChalk}`
+
+  return {
+    name: 'ehop-theme-chalk-alias-plugin',
+    resolveId(id) {
+      if (!id.startsWith(sourceThemeChalk))
+        return
+      return {
+        id: id.replaceAll(sourceThemeChalk, bundleThemeChalk),
+        external: 'absolute',
+      }
+    },
+  }
+}
+
 const config = [
   {
-    input: 'packages/ehop',
+    input,
     output,
     plugins: [
-      scss(),
+      EhopThemeChalkAlias(),
+      // scss(),
       vue(),
       vueJsx(),
       nodeResolve({
@@ -113,9 +143,8 @@ const config = [
       }),
     ],
     external,
+    treeshake: false,
   },
 ]
-
-console.log('config', config)
 
 export default config
