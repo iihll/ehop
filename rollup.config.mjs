@@ -166,7 +166,7 @@ console.log('external', external)
 
 const config = [
   {
-    input: 'packages/ehop',
+    input,
     output,
     plugins: [
       EhopThemeChalkAlias(),
