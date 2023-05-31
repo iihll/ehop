@@ -3,7 +3,6 @@ import { computed, useSlots } from 'vue'
 import { useNamespace } from '@ehop/hooks'
 import { checkboxEmits, checkboxProps } from './checkbox'
 import { useCheckbox } from './composables'
-import '../style'
 
 const props = defineProps(checkboxProps)
 

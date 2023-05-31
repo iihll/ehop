@@ -21,7 +21,6 @@ import { TOOLTIP_INJECTION_KEY } from './constants'
 import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
 import EhTooltipTrigger from './trigger.vue'
 import EhTooltipContent from './content.vue'
-import '../style'
 
 const props = defineProps(useTooltipProps)
 

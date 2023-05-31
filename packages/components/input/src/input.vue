@@ -37,7 +37,7 @@ import { UPDATE_MODEL_EVENT } from '@ehop/constants'
 import type { StyleValue } from 'vue'
 import { calcTextareaHeight } from './utils'
 import { inputEmits, inputProps } from './input'
-import '../style'
+
 
 type TargetElement = HTMLInputElement | HTMLTextAreaElement
 

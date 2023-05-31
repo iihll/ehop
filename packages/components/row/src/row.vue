@@ -4,7 +4,6 @@ import { useNamespace } from '@ehop/hooks'
 import type { CSSProperties } from 'vue'
 import { rowContextKey } from './constants'
 import { rowProps } from './row'
-import '../style'
 
 const props = defineProps(rowProps)
 

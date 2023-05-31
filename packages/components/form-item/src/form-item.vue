@@ -32,7 +32,7 @@ import { formContextKey, formItemContextKey, useFormSize } from '@ehop/component
 import { formItemProps } from './form-item'
 import FormLabelWrap from './form-label-wrap'
 import type { FormItemValidateState } from './form-item'
-import '../style'
+
 
 const props = defineProps(formItemProps)
 defineOptions({

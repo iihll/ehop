@@ -28,7 +28,7 @@ import type { Arrayable } from '@ehop/utils'
 import type { Properties } from 'csstype'
 import { useSpace } from './use-space'
 import Item from './item'
-import '../style'
+
 
 export const spaceProps = buildProps({
   /**

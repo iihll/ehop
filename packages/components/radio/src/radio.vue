@@ -3,7 +3,6 @@ import { nextTick } from 'vue'
 import { useNamespace } from '@ehop/hooks'
 import { radioEmits, radioProps } from './radio'
 import { useRadio } from './use-radio'
-import '../style'
 
 const props = defineProps(radioProps)
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNamespace } from '@ehop/hooks'
-import '../style'
+
 
 defineOptions({
   name: 'EhMain',

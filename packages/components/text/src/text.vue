@@ -5,7 +5,7 @@ import { useNamespace } from '@ehop/hooks'
 // TODO text useFormSize
 // import { useFormSize } from '@ehop/components/form'
 import { textProps } from './text'
-import '../style'
+
 
 const props = defineProps(textProps)
 
