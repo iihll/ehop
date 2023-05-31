@@ -198,6 +198,9 @@ importers:
 
   packages/ehop:
     dependencies:
+      '@ctrl/tinycolor':
+        specifier: ^3.6.0
+        version: 3.6.0
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -219,13 +222,13 @@ importers:
       normalize-wheel-es:
         specifier: ^1.2.0
         version: 1.2.0
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
     devDependencies:
       tslib:
         specifier: ^2.5.2
         version: 2.5.2
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
 
   packages/hooks: {}
 

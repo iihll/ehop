@@ -12,6 +12,9 @@ const __dirname = dirname(__filename)
 const pkgRoot = resolve(__dirname, 'packages')
 const ehRoot = resolve(pkgRoot, 'ehop')
 const ehPackage = resolve(ehRoot, 'package.json')
+const projRoot = resolve(__dirname)
+const buildOutput = resolve(projRoot, 'dist')
+const ehOutput = resolve(buildOutput, 'ehop')
 
 function excludeFiles(files) {
   const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist', 'build']
@@ -74,6 +77,44 @@ const output = buildConfigEntries.map(([module, config]) => {
   }
 })
 
+function formatBundleFilename(
+  name,
+  minify,
+  ext,
+) {
+  return `${name}${minify ? '.min' : ''}.${ext}`
+}
+const minify = true
+const PKG_BRAND_NAME = 'Ehop'
+const PKG_CAMELCASE_NAME = 'Ehop'
+const version = '0.0.0-dev.1'
+const banner = `/*! ${PKG_BRAND_NAME} v${version} */\n`
+// output.push({
+//   format: 'umd',
+//   file: resolve(
+//     ehOutput,
+//     'dist',
+//     formatBundleFilename('index.full', minify, 'js'),
+//   ),
+//   exports: 'named',
+//   name: PKG_CAMELCASE_NAME,
+//   globals: {
+//     vue: 'Vue',
+//   },
+//   sourcemap: minify,
+//   banner,
+// },
+// {
+//   format: 'esm',
+//   file: resolve(
+//     ehOutput,
+//     'dist',
+//     formatBundleFilename('index.full', minify, 'mjs'),
+//   ),
+//   sourcemap: minify,
+//   banner,
+// })
+
 async function generateExternal(options) {
   const { dependencies, peerDependencies } = await getPackageDependencies(ehPackage)
   const packages = [...peerDependencies]
@@ -106,7 +147,7 @@ function EhopThemeChalkAlias() {
   const PKG_PREFIX = '@ehop'
   const themeChalk = 'theme-chalk'
   const sourceThemeChalk = `${PKG_PREFIX}/${themeChalk}`
-  const bundleThemeChalk = `${PKG_NAME}/${themeChalk}`
+  const bundleThemeChalk = `${PKG_PREFIX}/${themeChalk}`
 
   return {
     name: 'ehop-theme-chalk-alias-plugin',
@@ -121,9 +162,11 @@ function EhopThemeChalkAlias() {
   }
 }
 
+console.log('external', external)
+
 const config = [
   {
-    input,
+    input: 'packages/ehop',
     output,
     plugins: [
       EhopThemeChalkAlias(),
