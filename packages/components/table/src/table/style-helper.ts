@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-use-before-define */
+// @ts-nocheck
 import type { StyleValue } from 'vue'
 import {
   computed,

@@ -1,0 +1,44 @@
+{
+  "name": "@ehop/build",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Build Toolchain for Eehop",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "start": "gulp --require @esbuild-kit/cjs-loader -f gulpfile.ts",
+    "dev": "pnpm run stub",
+    "stub": "unbuild --stub"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.25"
+  },
+  "dependencies": {
+    "@ehop/build-constants": "workspace:*",
+    "@pnpm/find-workspace-packages": "^6.0.9",
+    "@pnpm/logger": "^5.0.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "chalk": "^5.2.0",
+    "components-helper": "^2.1.4",
+    "consola": "^3.1.0",
+    "esbuild": "^0.17.19",
+    "fast-glob": "^3.2.12",
+    "fs-extra": "^11.1.1",
+    "gulp": "^4.0.2",
+    "lodash": "^4.17.21",
+    "rollup": "^3.23.0",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "ts-morph": "^18.0.0",
+    "unplugin-vue-macros": "^2.2.1"
+  },
+  "devDependencies": {
+    "@esbuild-kit/cjs-loader": "^2.4.2",
+    "@pnpm/types": "^9.1.0",
+    "unbuild": "^1.2.1",
+    "vue": "^3.3.4"
+  }
+}

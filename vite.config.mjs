@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import glob from 'fast-glob'
 import manifest from './packages/ehop/package.json'
 
 const pkgRoot = 'packages'
@@ -77,10 +78,44 @@ async function getPackageDependencies(pkgPath) {
 
 const external = await generateExternal({ full: true })
 
+function EhopThemeChalkAlias() {
+  const PKG_PREFIX = '@ehop'
+  const themeChalk = 'theme-chalk'
+  const sourceThemeChalk = `${PKG_PREFIX}/${themeChalk}`
+  const bundleThemeChalk = `${PKG_PREFIX}/${themeChalk}`
+
+  return {
+    name: 'ehop-theme-chalk-alias-plugin',
+    resolveId(id) {
+      if (!id.startsWith(sourceThemeChalk))
+        return
+      console.log('id', id)
+      return {
+        id: id.replaceAll(sourceThemeChalk, bundleThemeChalk),
+        external: 'absolute',
+      }
+    },
+  }
+}
+
+function excludeFiles(files) {
+  const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist', 'build']
+  return files.filter(
+    path => !excludes.some(exclude => path.includes(exclude)),
+  )
+}
+const input = excludeFiles(
+  await glob('**/*.{js,ts,vue}', {
+    cwd: pkgRoot,
+    absolute: true,
+    onlyFiles: true,
+  }),
+)
+
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: 'packages/ehop/index.ts',
+      input,
       output: [
         {
           format: 'esm',
@@ -105,5 +140,6 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    EhopThemeChalkAlias(),
   ],
 })
