@@ -14,6 +14,7 @@
     "**/gulpfile.ts",
     "**/test-helper",
     "packages/test-utils",
+    "packages/icons-vue",
     "**/*.md"
   ]
 }

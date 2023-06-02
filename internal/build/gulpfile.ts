@@ -9,7 +9,7 @@ import {
   projRoot,
 } from '@ehop/build-utils'
 import type { TaskFunction } from 'gulp'
-import { buildConfig, run, runTask, withTaskName } from './src'
+import { buildConfig, run, withTaskName } from './src'
 import type { Module } from './src'
 
 export function copyFiles() {
@@ -47,21 +47,31 @@ export async function copyFullStyle() {
 export default series(
   withTaskName('clean', () => run('pnpm run clean')),
   withTaskName('createOutput', () => mkdir(ehOutput, { recursive: true })),
-
-  parallel(
-    // runTask('buildModules'),
-    runTask('buildFullBundle'),
-    // runTask('generateTypesDefinitions'),
-    // runTask('buildHelper'),
-    // series(
-    //   withTaskName('buildThemeChalk', () =>
-    //     run('pnpm run -C packages/theme-chalk build'),
-    //   ),
-    //   copyFullStyle,
-    // ),
+  withTaskName('buildModules', () => run('pnpm run build:modules')),
+  withTaskName('buildFullBundle', () => run('pnpm run build:fullBundle')),
+  withTaskName('generateTypesDefinitions', () => run('pnpm run gen:types')),
+  withTaskName('buildThemeChalk', () =>
+    run('pnpm run -C packages/theme-chalk build'),
   ),
+  withTaskName('copyFullStyle', () => copyFullStyle()),
+  // withTaskName('buildModules', () => buildModules()),
+  // runTask('buildModules'),
+  // runTask('generateTypesDefinitions'),
 
-  // parallel(copyTypesDefinitions, copyFiles),
+  // parallel(
+  // runTask('buildModules'),
+  // runTask('buildFullBundle'),
+  // runTask('generateTypesDefinitions'),
+  // runTask('buildHelper'),
+  // series(
+  //   withTaskName('buildThemeChalk', () =>
+  //     run('pnpm run -C packages/theme-chalk build'),
+  //   ),
+  //   copyFullStyle,
+  // ),
+  // ),
+
+  parallel(copyTypesDefinitions, copyFiles),
 )
 
 export * from './src'

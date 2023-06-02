@@ -8,7 +8,7 @@ import {
 } from '@ehop/utils'
 
 import type { ExtractPropTypes } from 'vue'
-import type { FormItemProp } from './form-item'
+import type { FormItemProp } from '@ehop/components/form-item'
 import type { FormRules } from './types'
 
 const formMetaProps = buildProps({

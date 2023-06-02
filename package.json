@@ -7,8 +7,11 @@
   ],
   "scripts": {
     "dev": "pnpm -C play dev",
-    "build": "rollup -c",
+    "build": "pnpm clean:dist && pnpm -C internal/build start",
     "p": "plop",
+    "build:modules": "rollup -c rollup.config.modules.mjs",
+    "build:fullBundle": "rollup -c rollup.config.fullBundle.mjs",
+    "gen:types": "vue-tsc -p tsconfig.web.json --declaration --emitDeclarationOnly --outDir dist/types",
     "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
     "clean:dist": "rimraf dist",
     "stub": "pnpm run -r --parallel stub",
