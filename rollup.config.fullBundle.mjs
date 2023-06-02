@@ -2,7 +2,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import esbuild from 'rollup-plugin-esbuild'
+import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import glob from 'fast-glob'
@@ -162,6 +162,7 @@ function EhopThemeChalkAlias() {
   }
 }
 
+const target = 'es2018'
 const config = [
   {
     input: resolve(ehRoot, 'index.ts'),
@@ -204,7 +205,7 @@ const config = [
       }),
       commonjs(),
       esbuild({
-        target: 'es2018',
+        target,
         exclude: [],
         sourceMap: minify,
         loaders: {
@@ -215,6 +216,10 @@ const config = [
         },
         treeShaking: true,
         legalComments: 'eof',
+      }),
+      minifyPlugin({
+        target,
+        sourceMap: true,
       }),
     ],
     external,

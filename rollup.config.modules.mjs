@@ -118,7 +118,7 @@ const banner = `/*! ${PKG_BRAND_NAME} v${version} */\n`
 async function generateExternal(options) {
   const { dependencies, peerDependencies } = await getPackageDependencies(ehPackage)
   const packages = [...peerDependencies]
-  packages.push('@vue', ...dependencies)
+  packages.push(...dependencies)
 
   return [...new Set(packages)]
 }
@@ -162,11 +162,30 @@ function EhopThemeChalkAlias() {
   }
 }
 
+function externalDayjs() {
+  const PKG_PREFIX = 'dayjs'
+
+  return {
+    name: 'external-dayjs',
+    resolveId(id) {
+      if (!id.startsWith(PKG_PREFIX))
+        return
+      return {
+        id,
+        external: 'absolute',
+      }
+    },
+  }
+}
+
+console.log('external', external)
+
 const config = [
   {
     input,
     output,
     plugins: [
+      externalDayjs(),
       EhopThemeChalkAlias(),
       // scss(),
       vue(),

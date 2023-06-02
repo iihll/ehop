@@ -307,6 +307,9 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
+      '@vue/shared':
+        specifier: ^3.3.4
+        version: 3.3.4
       '@vueuse/core':
         specifier: ^10.1.2
         version: 10.1.2(vue@3.3.4)
