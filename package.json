@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "pnpm -C play dev",
-    "build": "pnpm clean:dist && pnpm -C internal/build start",
+    "build": "pnpm -C internal/build start",
     "p": "plop",
     "build:modules": "rollup -c rollup.config.modules.mjs",
     "build:fullBundle": "rollup -c rollup.config.fullBundle.mjs",

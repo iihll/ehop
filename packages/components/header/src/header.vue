@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useNamespace } from '@ehop/hooks'
 import type { CSSProperties } from 'vue'
-
+import '../style'
 
 const props = defineProps({
   /**

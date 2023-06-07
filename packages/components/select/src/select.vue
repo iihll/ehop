@@ -26,7 +26,7 @@ import { selectKey } from './token'
 import EhOptions from './options'
 import type { SelectContext } from './token'
 import { selectProps } from './select'
-
+import '../style'
 
 const COMPONENT_NAME = 'EhSelect'
 export default defineComponent({

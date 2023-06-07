@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace } from '@ehop/hooks'
-
-// TODO text useFormSize
-// import { useFormSize } from '@ehop/components/form'
+import { useFormSize } from '@ehop/components/form'
 import { textProps } from './text'
-
+import '../style'
 
 const props = defineProps(textProps)
 
@@ -13,13 +11,13 @@ defineOptions({
   name: 'EhText',
 })
 
-// const textSize = useFormSize()
+const textSize = useFormSize()
 const ns = useNamespace('text')
 
 const textKls = computed(() => [
   ns.b(),
   ns.m(props.type),
-  // ns.m(textSize.value),
+  ns.m(textSize.value),
   ns.is('truncated', props.truncated),
 ])
 </script>

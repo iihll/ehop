@@ -19,7 +19,7 @@ import type { ScrollbarContext } from './constants'
 import { scrollbarContextKey } from './constants'
 import { scrollbarEmits, scrollbarProps } from './scrollbar'
 import type { BarInstance } from './bar'
-
+import '../style'
 
 const props = defineProps(scrollbarProps)
 

@@ -2,7 +2,7 @@ import { defineComponent, renderSlot, watch } from 'vue'
 import type { MessageConfigContext } from '@ehop/components/message'
 import { provideGlobalConfig } from './use-global-config'
 import { configProviderProps } from './config-provider-props'
-
+import '../style'
 
 export const messageConfig: MessageConfigContext = {}
 

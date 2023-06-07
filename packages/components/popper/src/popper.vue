@@ -3,8 +3,8 @@ import { computed, provide, ref } from 'vue'
 import type { Instance as PopperInstance } from '@popperjs/core'
 import { POPPER_INJECTION_KEY } from './constants'
 import { popperProps } from './popper'
-
 import type { EhPopperInjectionContext } from './constants'
+import '../style'
 
 const props = defineProps(popperProps)
 defineOptions({

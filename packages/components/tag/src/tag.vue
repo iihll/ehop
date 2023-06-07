@@ -5,7 +5,7 @@ import { Close } from '@ehop/icons-vue'
 import { useNamespace } from '@ehop/hooks'
 import { useFormSize } from '@ehop/components/form'
 import { tagEmits, tagProps } from './tag'
-
+import '../style'
 
 const props = defineProps(tagProps)
 const emit = defineEmits(tagEmits)

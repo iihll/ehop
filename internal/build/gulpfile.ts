@@ -9,7 +9,7 @@ import {
   projRoot,
 } from '@ehop/build-utils'
 import type { TaskFunction } from 'gulp'
-import { buildConfig, run, withTaskName } from './src'
+import { buildConfig, buildModules, run, runTask, withTaskName } from './src'
 import type { Module } from './src'
 
 export function copyFiles() {
@@ -30,7 +30,7 @@ export const copyTypesDefinitions: TaskFunction = (done) => {
   const src = path.resolve(buildOutput, 'types', 'packages')
   const copyTypes = (module: Module) =>
     withTaskName(`copyTypes:${module}`, () =>
-      copy(src, buildConfig[module].output.path, { recursive: true }),
+      copy(src, buildConfig[module].output.path, { overwrite: true }),
     )
 
   return parallel(copyTypes('esm'), copyTypes('cjs'))(done)
@@ -47,16 +47,16 @@ export async function copyFullStyle() {
 export default series(
   withTaskName('clean', () => run('pnpm run clean')),
   withTaskName('createOutput', () => mkdir(ehOutput, { recursive: true })),
-  withTaskName('buildModules', () => run('pnpm run build:modules')),
-  withTaskName('buildFullBundle', () => run('pnpm run build:fullBundle')),
-  withTaskName('generateTypesDefinitions', () => run('pnpm run gen:types')),
-  withTaskName('buildThemeChalk', () =>
-    run('pnpm run -C packages/theme-chalk build'),
-  ),
-  withTaskName('copyFullStyle', () => copyFullStyle()),
+  // withTaskName('buildModules', () => run('pnpm run build:modules')),
+  // withTaskName('buildFullBundle', () => run('pnpm run build:fullBundle')),
+  // withTaskName('generateTypesDefinitions', () => run('pnpm run gen:types')),
+  // withTaskName('buildThemeChalk', () =>
+  //   run('pnpm run -C packages/theme-chalk build'),
+  // ),
+  // withTaskName('copyFullStyle', () => copyFullStyle()),
   // withTaskName('buildModules', () => buildModules()),
   // runTask('buildModules'),
-  // runTask('generateTypesDefinitions'),
+  runTask('generateTypesDefinitions'),
 
   // parallel(
   // runTask('buildModules'),
@@ -71,7 +71,7 @@ export default series(
   // ),
   // ),
 
-  parallel(copyTypesDefinitions, copyFiles),
+  // parallel(copyTypesDefinitions),
 )
 
 export * from './src'

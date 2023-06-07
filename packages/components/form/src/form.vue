@@ -15,6 +15,7 @@ import type {
   FormValidateCallback,
   FormValidationResult,
 } from './types'
+import '../style'
 
 const props = defineProps(formProps)
 const emit = defineEmits(formEmits)

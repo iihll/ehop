@@ -4,6 +4,7 @@ import { addUnit, isUndefined } from '@ehop/utils'
 import { useNamespace } from '@ehop/hooks'
 import type { CSSProperties } from 'vue'
 import { iconProps } from './icon'
+import '../style'
 
 const props = defineProps(iconProps)
 defineOptions({

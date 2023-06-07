@@ -5,7 +5,7 @@ import { useNamespace } from '@ehop/hooks'
 import { rowContextKey } from '@ehop/components/row'
 import type { CSSProperties } from 'vue'
 import { colProps } from './col'
-
+import '../style'
 
 const props = defineProps(colProps)
 

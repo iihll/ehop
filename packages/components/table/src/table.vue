@@ -17,6 +17,7 @@ import { TABLE_INJECTION_KEY } from './tokens'
 import { hColgroup } from './h-helper'
 import { useScrollbar } from './composables/use-scrollbar'
 import type { Table } from './table/defaults'
+import '../style'
 
 let tableIdSeed = 1
 export default defineComponent({

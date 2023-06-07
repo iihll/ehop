@@ -5,6 +5,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+
+// import dts from 'rollup-plugin-dts'
 import glob from 'fast-glob'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -201,6 +203,7 @@ const config = [
           '.vue': 'ts',
         },
       }),
+      // dts(),
     ],
     external,
     treeshake: false,
