@@ -88,9 +88,22 @@ export async function generateTypesDefinitions() {
 
   // await Promise.all(tasks)
   await run('pnpm run gen:types')
-  const src = path.resolve(buildOutput, 'types', 'packages', 'ehop')
-  await copy(src, buildConfig.esm.output.path, { overwrite: true })
-  await copy(src, buildConfig.cjs.output.path, { overwrite: true })
+  const src = path.resolve(buildOutput, 'types', 'packages')
+  const srcEhop = path.resolve(buildOutput, 'types', 'packages', 'ehop')
+  await copy(srcEhop, src, { overwrite: true })
+  const filePaths = await glob(['**/*.d.ts'], {
+    cwd: src,
+    absolute: true,
+    onlyFiles: true,
+  })
+  filePaths.forEach(async (filepath) => {
+    const content = await readFile(filepath, 'utf-8')
+    await writeFile(
+      filepath,
+      pathRewriter('esm')(content),
+      'utf8',
+    )
+  })
 }
 
 async function addSourceFiles(project: Project) {

@@ -448,7 +448,11 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
 
-  packages/utils: {}
+  packages/utils:
+    dependencies:
+      vue:
+        specifier: ^3.2.0
+        version: 3.3.4
 
   play:
     dependencies:

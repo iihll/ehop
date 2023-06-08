@@ -9,7 +9,8 @@ import {
   projRoot,
 } from '@ehop/build-utils'
 import type { TaskFunction } from 'gulp'
-import { buildConfig, buildModules, run, runTask, withTaskName } from './src'
+import glob from 'fast-glob'
+import { buildConfig, run, runTask, withTaskName } from './src'
 import type { Module } from './src'
 
 export function copyFiles() {
@@ -49,7 +50,6 @@ export default series(
   withTaskName('createOutput', () => mkdir(ehOutput, { recursive: true })),
   withTaskName('buildModules', () => run('pnpm run build:modules')),
   withTaskName('buildFullBundle', () => run('pnpm run build:fullBundle')),
-  withTaskName('generateTypesDefinitions', () => run('pnpm run gen:types')),
   withTaskName('buildThemeChalk', () =>
     run('pnpm run -C packages/theme-chalk build'),
   ),
