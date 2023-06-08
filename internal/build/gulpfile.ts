@@ -47,16 +47,16 @@ export async function copyFullStyle() {
 export default series(
   withTaskName('clean', () => run('pnpm run clean')),
   withTaskName('createOutput', () => mkdir(ehOutput, { recursive: true })),
-  // withTaskName('buildModules', () => run('pnpm run build:modules')),
-  // withTaskName('buildFullBundle', () => run('pnpm run build:fullBundle')),
-  // withTaskName('generateTypesDefinitions', () => run('pnpm run gen:types')),
-  // withTaskName('buildThemeChalk', () =>
-  //   run('pnpm run -C packages/theme-chalk build'),
-  // ),
+  withTaskName('buildModules', () => run('pnpm run build:modules')),
+  withTaskName('buildFullBundle', () => run('pnpm run build:fullBundle')),
+  withTaskName('generateTypesDefinitions', () => run('pnpm run gen:types')),
+  withTaskName('buildThemeChalk', () =>
+    run('pnpm run -C packages/theme-chalk build'),
+  ),
   // withTaskName('copyFullStyle', () => copyFullStyle()),
   // withTaskName('buildModules', () => buildModules()),
   // runTask('buildModules'),
-  runTask('generateTypesDefinitions'),
+  // runTask('generateTypesDefinitions'),
 
   // parallel(
   // runTask('buildModules'),
@@ -71,7 +71,7 @@ export default series(
   // ),
   // ),
 
-  // parallel(copyTypesDefinitions),
+  parallel(copyTypesDefinitions, copyFiles),
 )
 
 export * from './src'
