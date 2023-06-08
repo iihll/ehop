@@ -53,10 +53,10 @@ export default series(
   withTaskName('buildThemeChalk', () =>
     run('pnpm run -C packages/theme-chalk build'),
   ),
-  // withTaskName('copyFullStyle', () => copyFullStyle()),
+  withTaskName('copyFullStyle', () => copyFullStyle()),
   // withTaskName('buildModules', () => buildModules()),
   // runTask('buildModules'),
-  // runTask('generateTypesDefinitions'),
+  runTask('generateTypesDefinitions'),
 
   // parallel(
   // runTask('buildModules'),

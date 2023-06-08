@@ -14,7 +14,9 @@ import {
   projRoot,
 } from '@ehop/build-utils'
 import type { CompilerOptions, SourceFile } from 'ts-morph'
-import { pathRewriter } from '../utils'
+import { pathRewriter, run } from '../utils'
+import { copy, readdir } from 'fs-extra'
+import { buildConfig } from '../build-info'
 
 const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.web.json')
 
@@ -24,67 +26,71 @@ const outDir = path.resolve(buildOutput, 'types')
  * fork = require( https://github.com/egoist/vue-dts-gen/blob/main/src/index.ts
  */
 export async function generateTypesDefinitions() {
-  const compilerOptions: CompilerOptions = {
-    emitDeclarationOnly: true,
-    outDir,
-    baseUrl: projRoot,
-    preserveSymlinks: true,
-    skipLibCheck: true,
-    noImplicitAny: false,
-  }
-  const project = new Project({
-    compilerOptions,
-    tsConfigFilePath: TSCONFIG_PATH,
-    skipAddingFilesFromTsConfig: true,
-  })
+  // const compilerOptions: CompilerOptions = {
+  //   emitDeclarationOnly: true,
+  //   outDir,
+  //   baseUrl: projRoot,
+  //   preserveSymlinks: true,
+  //   skipLibCheck: true,
+  //   noImplicitAny: false,
+  // }
+  // const project = new Project({
+  //   compilerOptions,
+  //   tsConfigFilePath: TSCONFIG_PATH,
+  //   skipAddingFilesFromTsConfig: true,
+  // })
 
-  const sourceFiles = await addSourceFiles(project)
+  // const sourceFiles = await addSourceFiles(project)
 
-  consola.success('Added source files')
+  // consola.success('Added source files')
 
-  typeCheck(project)
-  consola.success('Type check passed!')
+  // typeCheck(project)
+  // consola.success('Type check passed!')
 
-  await project.emit({
-    emitOnlyDtsFiles: true,
-  })
+  // await project.emit({
+  //   emitOnlyDtsFiles: true,
+  // })
 
-  const tasks = sourceFiles.map(async (sourceFile) => {
-    const relativePath = path.relative(pkgRoot, sourceFile.getFilePath())
-    consola.trace(
-      chalk.yellow(
-        `Generating definition for file: ${chalk.bold(relativePath)}`,
-      ),
-    )
+  // const tasks = sourceFiles.map(async (sourceFile) => {
+  //   const relativePath = path.relative(pkgRoot, sourceFile.getFilePath())
+  //   consola.trace(
+  //     chalk.yellow(
+  //       `Generating definition for file: ${chalk.bold(relativePath)}`,
+  //     ),
+  //   )
 
-    const emitOutput = sourceFile.getEmitOutput()
-    const emitFiles = emitOutput.getOutputFiles()
-    if (emitFiles.length === 0)
-      throw new Error(`Emit no file: ${chalk.bold(relativePath)}`)
+  //   const emitOutput = sourceFile.getEmitOutput()
+  //   const emitFiles = emitOutput.getOutputFiles()
+  //   if (emitFiles.length === 0)
+  //     throw new Error(`Emit no file: ${chalk.bold(relativePath)}`)
 
-    const subTasks = emitFiles.map(async (outputFile) => {
-      const filepath = outputFile.getFilePath()
-      await mkdir(path.dirname(filepath), {
-        recursive: true,
-      })
+  //   const subTasks = emitFiles.map(async (outputFile) => {
+  //     const filepath = outputFile.getFilePath()
+  //     await mkdir(path.dirname(filepath), {
+  //       recursive: true,
+  //     })
 
-      await writeFile(
-        filepath,
-        pathRewriter('esm')(outputFile.getText()),
-        'utf8',
-      )
+  //     await writeFile(
+  //       filepath,
+  //       pathRewriter('esm')(outputFile.getText()),
+  //       'utf8',
+  //     )
 
-      consola.success(
-        chalk.green(
-          `Definition for file: ${chalk.bold(relativePath)} generated`,
-        ),
-      )
-    })
+  //     consola.success(
+  //       chalk.green(
+  //         `Definition for file: ${chalk.bold(relativePath)} generated`,
+  //       ),
+  //     )
+  //   })
 
-    await Promise.all(subTasks)
-  })
+  //   await Promise.all(subTasks)
+  // })
 
-  await Promise.all(tasks)
+  // await Promise.all(tasks)
+  await run('pnpm run gen:types')
+  const src = path.resolve(buildOutput, 'types', 'packages', 'ehop')
+  await copy(src, buildConfig.esm.output.path, { overwrite: true })
+  await copy(src, buildConfig.cjs.output.path, { overwrite: true })
 }
 
 async function addSourceFiles(project: Project) {
@@ -98,7 +104,7 @@ async function addSourceFiles(project: Project) {
       onlyFiles: true,
     }),
   )
-  const epPaths = excludeFiles(
+  const ehPaths = excludeFiles(
     await glob(globSourceFile, {
       cwd: ehRoot,
       onlyFiles: true,
@@ -139,7 +145,7 @@ async function addSourceFiles(project: Project) {
         sourceFiles.push(sourceFile)
       }
     }),
-    ...epPaths.map(async (file) => {
+    ...ehPaths.map(async (file) => {
       const content = await readFile(path.resolve(ehRoot, file), 'utf-8')
       sourceFiles.push(
         project.createSourceFile(path.resolve(pkgRoot, file), content),
