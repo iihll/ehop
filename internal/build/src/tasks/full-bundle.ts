@@ -14,7 +14,7 @@ import {
   PKG_BRAND_NAME,
   PKG_CAMELCASE_LOCAL_NAME,
   PKG_CAMELCASE_NAME,
-} from '@element-plus/build-constants'
+} from '@ehop/build-constants'
 import { ehOutput, ehRoot, localeRoot } from '@ehop/build-utils'
 import type { Plugin } from 'rollup'
 import type Undertaker from 'undertaker'
