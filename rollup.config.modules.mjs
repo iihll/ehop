@@ -1,5 +1,5 @@
 import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
@@ -37,6 +37,7 @@ const input = excludeFiles(
     onlyFiles: true,
   }),
 )
+console.log('input', input)
 
 const PKG_NAME = 'ehop'
 const buildConfig = {
@@ -126,7 +127,8 @@ async function generateExternal(options) {
 }
 
 async function getPackageManifest(pkgPath) {
-  return import(pkgPath, {
+  const url = pathToFileURL(pkgPath)
+  return import(url, {
     assert: {
       type: 'json',
     },
