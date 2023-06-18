@@ -144,6 +144,11 @@ const tableData = [
       </EhRadioGroup>
     </EhCol>
   </EhRow>
+  <EhRow>
+    <EhCol>
+      <EhInputNumber />
+    </EhCol>
+  </EhRow>
 
   <EhTable :data="tableData" style="width: 100%">
     <EhTableColumn prop="date" label="Date" width="180" />
