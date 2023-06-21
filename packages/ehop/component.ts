@@ -24,4 +24,4 @@ export default [
   EhIcon,
   EhLink,
   EhRow,
-] satisfies Plugin[]
+] as Plugin[]

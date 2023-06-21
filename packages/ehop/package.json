@@ -1,9 +1,6 @@
 {
   "name": "ehop",
   "version": "0.0.0",
-  "scripts": {
-    "build": "rollup -c"
-  },
   "main": "lib/index.js",
   "module": "es/index.mjs",
   "types": "es/index.d.ts",
@@ -23,6 +20,14 @@
   },
   "unpkg": "dist/index.full.js",
   "jsdelivr": "dist/index.full.js",
+  "style": "dist/index.css",
+  "sideEffects": [
+    "dist/*",
+    "theme-chalk/**/*.css",
+    "theme-chalk/src/**/*.scss",
+    "es/components/*/style/*",
+    "lib/components/*/style/*"
+  ],
   "peerDependencies": {
     "vue": "^3.3.4"
   },
