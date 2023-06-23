@@ -1,8 +1,8 @@
 import { buildProps, definePropType } from '@ehop/utils'
+import { datePickerSharedProps, selectionModeWithDefault } from './shared'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'
-import { datePickerSharedProps, selectionModeWithDefault } from './shared'
 
 export const basicDateTableProps = buildProps({
   ...datePickerSharedProps,
@@ -15,10 +15,10 @@ export const basicDateTableProps = buildProps({
 
 export type BasicDateTableProps = ExtractPropTypes<typeof basicDateTableProps>
 
-export interface RangePickerEmits { minDate: Dayjs; maxDate: null }
+export type RangePickerEmits = { minDate: Dayjs; maxDate: null }
 export type DatePickerEmits = Dayjs
 export type DatesPickerEmits = Dayjs[]
-export interface WeekPickerEmits {
+export type WeekPickerEmits = {
   year: number
   week: number
   value: string

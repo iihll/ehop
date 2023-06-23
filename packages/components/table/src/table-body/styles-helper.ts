@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-call */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { inject } from 'vue'
 import { useNamespace } from '@ehop/hooks'
@@ -30,24 +28,24 @@ function useStyles<T>(props: Partial<TableBodyProps<T>>) {
   const getRowClass = (row: T, rowIndex: number) => {
     const classes = [ns.e('row')]
     if (
-      parent?.props.highlightCurrentRow
-      && row === props.store.states.currentRow.value
-    )
+      parent?.props.highlightCurrentRow &&
+      row === props.store.states.currentRow.value
+    ) {
       classes.push('current-row')
+    }
 
-    if (props.stripe && rowIndex % 2 === 1)
+    if (props.stripe && rowIndex % 2 === 1) {
       classes.push(ns.em('row', 'striped'))
-
+    }
     const rowClassName = parent?.props.rowClassName
     if (typeof rowClassName === 'string') {
       classes.push(rowClassName)
-    }
-    else if (typeof rowClassName === 'function') {
+    } else if (typeof rowClassName === 'function') {
       classes.push(
         rowClassName.call(null, {
           row,
           rowIndex,
-        }),
+        })
       )
     }
     return classes
@@ -57,7 +55,7 @@ function useStyles<T>(props: Partial<TableBodyProps<T>>) {
     rowIndex: number,
     columnIndex: number,
     row: T,
-    column: TableColumnCtx<T>,
+    column: TableColumnCtx<T>
   ) => {
     const cellStyle = parent?.props.cellStyle
     let cellStyles = cellStyle ?? {}
@@ -72,7 +70,7 @@ function useStyles<T>(props: Partial<TableBodyProps<T>>) {
     const fixedStyle = getFixedColumnOffset(
       columnIndex,
       props?.fixed,
-      props.store,
+      props.store
     )
     ensurePosition(fixedStyle, 'left')
     ensurePosition(fixedStyle, 'right')
@@ -84,7 +82,7 @@ function useStyles<T>(props: Partial<TableBodyProps<T>>) {
     columnIndex: number,
     row: T,
     column: TableColumnCtx<T>,
-    offset: number,
+    offset: number
   ) => {
     const fixedClasses = getFixedColumnsClass(
       ns.b(),
@@ -92,31 +90,30 @@ function useStyles<T>(props: Partial<TableBodyProps<T>>) {
       props?.fixed,
       props.store,
       undefined,
-      offset,
+      offset
     )
     const classes = [column.id, column.align, column.className, ...fixedClasses]
     const cellClassName = parent?.props.cellClassName
     if (typeof cellClassName === 'string') {
       classes.push(cellClassName)
-    }
-    else if (typeof cellClassName === 'function') {
+    } else if (typeof cellClassName === 'function') {
       classes.push(
         cellClassName.call(null, {
           rowIndex,
           columnIndex,
           row,
           column,
-        }),
+        })
       )
     }
     classes.push(ns.e('cell'))
-    return classes.filter(className => Boolean(className)).join(' ')
+    return classes.filter((className) => Boolean(className)).join(' ')
   }
   const getSpan = (
     row: T,
     column: TableColumnCtx<T>,
     rowIndex: number,
-    columnIndex: number,
+    columnIndex: number
   ) => {
     let rowspan = 1
     let colspan = 1
@@ -131,8 +128,7 @@ function useStyles<T>(props: Partial<TableBodyProps<T>>) {
       if (Array.isArray(result)) {
         rowspan = result[0]
         colspan = result[1]
-      }
-      else if (typeof result === 'object') {
+      } else if (typeof result === 'object') {
         rowspan = result.rowspan
         colspan = result.colspan
       }
@@ -142,16 +138,16 @@ function useStyles<T>(props: Partial<TableBodyProps<T>>) {
   const getColspanRealWidth = (
     columns: TableColumnCtx<T>[],
     colspan: number,
-    index: number,
+    index: number
   ): number => {
-    if (colspan < 1)
+    if (colspan < 1) {
       return columns[index].realWidth
-
+    }
     const widthArr = columns
       .map(({ realWidth, width }) => realWidth || width)
       .slice(index, index + colspan)
     return Number(
-      widthArr.reduce((acc, width) => Number(acc) + Number(width), -1),
+      widthArr.reduce((acc, width) => Number(acc) + Number(width), -1)
     )
   }
 

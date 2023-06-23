@@ -1,3 +1,16 @@
+<template>
+  <div
+    :id="groupId"
+    ref="radioGroupRef"
+    :class="ns.b('group')"
+    role="radiogroup"
+    :aria-label="!isLabeledByFormItem ? label || 'radio-group' : undefined"
+    :aria-labelledby="isLabeledByFormItem ? formItem!.labelId : undefined"
+  >
+    <slot />
+  </div>
+</template>
+
 <script lang="ts" setup>
 import {
   computed,
@@ -18,13 +31,12 @@ import { radioGroupKey } from './constants'
 
 import type { RadioGroupProps } from './radio-group'
 
-const props = defineProps(radioGroupProps)
-
-const emit = defineEmits(radioGroupEmits)
-
 defineOptions({
   name: 'EhRadioGroup',
 })
+
+const props = defineProps(radioGroupProps)
+const emit = defineEmits(radioGroupEmits)
 
 const ns = useNamespace('radio')
 const radioId = useId()
@@ -34,17 +46,18 @@ const { inputId: groupId, isLabeledByFormItem } = useFormItemInputId(props, {
   formItemContext: formItem,
 })
 
-function changeEvent(value: RadioGroupProps['modelValue']) {
+const changeEvent = (value: RadioGroupProps['modelValue']) => {
   emit(UPDATE_MODEL_EVENT, value)
   nextTick(() => emit('change', value))
 }
 
 onMounted(() => {
-  const radios
-    = radioGroupRef.value!.querySelectorAll<HTMLInputElement>('[type=radio]')
+  const radios =
+    radioGroupRef.value!.querySelectorAll<HTMLInputElement>('[type=radio]')
   const firstLabel = radios[0]
-  if (!Array.from(radios).some(radio => radio.checked) && firstLabel)
+  if (!Array.from(radios).some((radio) => radio.checked) && firstLabel) {
     firstLabel.tabIndex = 0
+  }
 })
 
 const name = computed(() => {
@@ -57,27 +70,15 @@ provide(
     ...toRefs(props),
     changeEvent,
     name,
-  }),
+  })
 )
 
 watch(
   () => props.modelValue,
   () => {
-    if (props.validateEvent)
-      formItem?.validate('change').catch(err => debugWarn(err))
-  },
+    if (props.validateEvent) {
+      formItem?.validate('change').catch((err) => debugWarn(err))
+    }
+  }
 )
 </script>
-
-<template>
-  <div
-    :id="groupId"
-    ref="radioGroupRef"
-    :class="ns.b('group')"
-    role="radiogroup"
-    :aria-label="!isLabeledByFormItem ? label || 'radio-group' : undefined"
-    :aria-labelledby="isLabeledByFormItem ? formItem!.labelId : undefined"
-  >
-    <slot />
-  </div>
-</template>

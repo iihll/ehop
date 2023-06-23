@@ -8,14 +8,14 @@ import {
   openBlock,
 } from 'vue'
 import { camelize, isArray } from '@vue/shared'
+import { hasOwn } from '../objects'
+import { debugWarn } from '../error'
 import type {
   VNode,
   VNodeArrayChildren,
   VNodeChild,
   VNodeNormalizedChildren,
 } from 'vue'
-import { hasOwn } from '../objects'
-import { debugWarn } from '../error'
 
 const SCOPE = 'utils/vue/vnode'
 
@@ -83,22 +83,24 @@ export function isValidElementNode(node: unknown): node is VNode {
  */
 function getChildren(
   node: VNodeNormalizedChildren | VNodeChild,
-  depth: number,
+  depth: number
 ): VNodeNormalizedChildren | VNodeChild {
-  if (isComment(node))
-    return
-  if (isFragment(node) || isTemplate(node))
+  if (isComment(node)) return
+  if (isFragment(node) || isTemplate(node)) {
     return depth > 0 ? getFirstValidNode(node.children, depth - 1) : undefined
-
+  }
   return node
 }
 
-export function getFirstValidNode(nodes: VNodeNormalizedChildren,
-  maxDepth = 3) {
-  if (Array.isArray(nodes))
+export const getFirstValidNode = (
+  nodes: VNodeNormalizedChildren,
+  maxDepth = 3
+) => {
+  if (Array.isArray(nodes)) {
     return getChildren(nodes[0], maxDepth)
-  else
+  } else {
     return getChildren(nodes, maxDepth)
+  }
 }
 
 export function renderIf(
@@ -109,10 +111,10 @@ export function renderIf(
 }
 
 export function renderBlock(...args: Parameters<typeof createBlock>) {
-  return (openBlock(), createBlock(...args))
+  return openBlock(), createBlock(...args)
 }
 
-export function getNormalizedProps(node: VNode) {
+export const getNormalizedProps = (node: VNode) => {
   if (!isVNode(node)) {
     debugWarn(SCOPE, '[getNormalizedProps] must be a VNode')
     return {}
@@ -123,8 +125,9 @@ export function getNormalizedProps(node: VNode) {
   const props: Record<string, any> = {}
 
   Object.keys(type).forEach((key) => {
-    if (hasOwn(type[key], 'default'))
+    if (hasOwn(type[key], 'default')) {
       props[key] = type[key].default
+    }
   })
 
   Object.keys(raw).forEach((key) => {
@@ -134,30 +137,31 @@ export function getNormalizedProps(node: VNode) {
   return props
 }
 
-export function ensureOnlyChild(children: VNodeArrayChildren | undefined) {
-  if (!isArray(children) || children.length > 1)
+export const ensureOnlyChild = (children: VNodeArrayChildren | undefined) => {
+  if (!isArray(children) || children.length > 1) {
     throw new Error('expect to receive a single Vue element child')
-
+  }
   return children[0]
 }
 
 export type FlattenVNodes = Array<VNodeChildAtom | RawSlots>
 
-export function flattedChildren(children: FlattenVNodes | VNode | VNodeNormalizedChildren): FlattenVNodes {
+export const flattedChildren = (
+  children: FlattenVNodes | VNode | VNodeNormalizedChildren
+): FlattenVNodes => {
   const vNodes = isArray(children) ? children : [children]
   const result: FlattenVNodes = []
 
   vNodes.forEach((child) => {
     if (isArray(child)) {
       result.push(...flattedChildren(child))
-    }
-    else if (isVNode(child) && isArray(child.children)) {
+    } else if (isVNode(child) && isArray(child.children)) {
       result.push(...flattedChildren(child.children))
-    }
-    else {
+    } else {
       result.push(child)
-      if (isVNode(child) && child.component?.subTree)
+      if (isVNode(child) && child.component?.subTree) {
         result.push(...flattedChildren(child.component.subTree))
+      }
     }
   })
   return result

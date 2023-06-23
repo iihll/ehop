@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 // @ts-nocheck
-import type { StyleValue } from 'vue'
 import {
   computed,
   nextTick,
@@ -14,16 +11,16 @@ import {
 import { useEventListener, useResizeObserver } from '@vueuse/core'
 import { useFormSize } from '@ehop/components/form'
 
+import type { Table, TableProps } from './defaults'
 import type { Store } from '../store'
 import type TableLayout from '../table-layout'
 import type { TableColumnCtx } from '../table-column/defaults'
-import type { Table, TableProps } from './defaults'
 
 function useStyle<T>(
   props: TableProps<T>,
   layout: TableLayout<T>,
   store: Store<T>,
-  table: Table<T>,
+  table: Table<T>
 ) {
   const isHidden = ref(false)
   const renderExpanded = ref(null)
@@ -50,23 +47,23 @@ function useStyle<T>(
   const bodyScrollHeight = ref(0)
   const headerScrollHeight = ref(0)
   const footerScrollHeight = ref(0)
+  const appendScrollHeight = ref(0)
 
   watchEffect(() => {
-    props.height && layout.setHeight(props.height)
+    layout.setHeight(props.height)
   })
   watchEffect(() => {
-    props.maxHeight && layout.setMaxHeight(props.maxHeight)
+    layout.setMaxHeight(props.maxHeight)
   })
   watch(
     () => [props.currentRowKey, store.states.rowKey],
     ([currentRowKey, rowKey]) => {
-      if (!unref(rowKey) || !unref(currentRowKey))
-        return
+      if (!unref(rowKey) || !unref(currentRowKey)) return
       store.setCurrentRowKey(`${currentRowKey}`)
     },
     {
       immediate: true,
-    },
+    }
   )
   watch(
     () => props.data,
@@ -76,31 +73,32 @@ function useStyle<T>(
     {
       immediate: true,
       deep: true,
-    },
+    }
   )
   watchEffect(() => {
-    if (props.expandRowKeys)
+    if (props.expandRowKeys) {
       store.setExpandRowKeysAdapter(props.expandRowKeys)
+    }
   })
 
   const handleMouseLeave = () => {
     table.store.commit('setHoverRow', null)
-    if (table.hoverState)
-      table.hoverState = null
+    if (table.hoverState) table.hoverState = null
   }
 
   const handleHeaderFooterMousewheel = (event, data) => {
     const { pixelX, pixelY } = data
-    if (Math.abs(pixelX) >= Math.abs(pixelY))
+    if (Math.abs(pixelX) >= Math.abs(pixelY)) {
       table.refs.bodyWrapper.scrollLeft += data.pixelX / 5
+    }
   }
 
   const shouldUpdateHeight = computed(() => {
     return (
-      props.height
-      || props.maxHeight
-      || store.states.fixedColumns.value.length > 0
-      || store.states.rightFixedColumns.value.length > 0
+      props.height ||
+      props.maxHeight ||
+      store.states.fixedColumns.value.length > 0 ||
+      store.states.rightFixedColumns.value.length > 0
     )
   })
 
@@ -111,9 +109,9 @@ function useStyle<T>(
   })
 
   const doLayout = () => {
-    if (shouldUpdateHeight.value)
+    if (shouldUpdateHeight.value) {
       layout.updateElsHeight()
-
+    }
     layout.updateColumnsWidth()
     requestAnimationFrame(syncPosition)
   }
@@ -151,10 +149,9 @@ function useStyle<T>(
     table.$ready = true
   })
   const setScrollClassByEl = (el: HTMLElement, className: string) => {
-    if (!el)
-      return
+    if (!el) return
     const classList = Array.from(el.classList).filter(
-      item => !item.startsWith('is-scrolling-'),
+      (item) => !item.startsWith('is-scrolling-')
     )
     classList.push(layout.scrollX.value ? className : 'is-scrolling-none')
     el.className = classList.join(' ')
@@ -168,38 +165,32 @@ function useStyle<T>(
     return !!(tableWrapper && tableWrapper.classList.contains(className))
   }
   const syncPosition = function () {
-    if (!table.refs.scrollBarRef)
-      return
+    if (!table.refs.scrollBarRef) return
     if (!layout.scrollX.value) {
       const scrollingNoneClass = 'is-scrolling-none'
-      if (!hasScrollClass(scrollingNoneClass))
+      if (!hasScrollClass(scrollingNoneClass)) {
         setScrollClass(scrollingNoneClass)
-
+      }
       return
     }
     const scrollContainer = table.refs.scrollBarRef.wrapRef
-    if (!scrollContainer)
-      return
+    if (!scrollContainer) return
     const { scrollLeft, offsetWidth, scrollWidth } = scrollContainer
     const { headerWrapper, footerWrapper } = table.refs
-    if (headerWrapper)
-      headerWrapper.scrollLeft = scrollLeft
-    if (footerWrapper)
-      footerWrapper.scrollLeft = scrollLeft
+    if (headerWrapper) headerWrapper.scrollLeft = scrollLeft
+    if (footerWrapper) footerWrapper.scrollLeft = scrollLeft
     const maxScrollLeftPosition = scrollWidth - offsetWidth - 1
-    if (scrollLeft >= maxScrollLeftPosition)
+    if (scrollLeft >= maxScrollLeftPosition) {
       setScrollClass('is-scrolling-right')
-
-    else if (scrollLeft === 0)
+    } else if (scrollLeft === 0) {
       setScrollClass('is-scrolling-left')
-
-    else
+    } else {
       setScrollClass('is-scrolling-middle')
+    }
   }
 
   const bindEvents = () => {
-    if (!table.refs.scrollBarRef)
-      return
+    if (!table.refs.scrollBarRef) return
     if (table.refs.scrollBarRef.wrapRef) {
       useEventListener(
         table.refs.scrollBarRef.wrapRef,
@@ -207,14 +198,14 @@ function useStyle<T>(
         syncPosition,
         {
           passive: true,
-        },
+        }
       )
     }
-    if (props.fit)
+    if (props.fit) {
       useResizeObserver(table.vnode.el as HTMLElement, resizeListener)
-
-    else
+    } else {
       useEventListener(window, 'resize', resizeListener)
+    }
 
     useResizeObserver(table.refs.bodyWrapper, () => {
       resizeListener()
@@ -223,8 +214,7 @@ function useStyle<T>(
   }
   const resizeListener = () => {
     const el = table.vnode.el
-    if (!table.$ready || !el)
-      return
+    if (!table.$ready || !el) return
 
     let shouldUpdateLayout = false
     const {
@@ -234,27 +224,32 @@ function useStyle<T>(
     } = resizeState.value
 
     const width = (tableWidth.value = el.offsetWidth)
-    if (oldWidth !== width)
+    if (oldWidth !== width) {
       shouldUpdateLayout = true
+    }
 
     const height = el.offsetHeight
-    if ((props.height || shouldUpdateHeight.value) && oldHeight !== height)
+    if ((props.height || shouldUpdateHeight.value) && oldHeight !== height) {
       shouldUpdateLayout = true
+    }
 
-    const tableHeader: HTMLElement
-      = props.tableLayout === 'fixed'
+    const tableHeader: HTMLElement =
+      props.tableLayout === 'fixed'
         ? table.refs.headerWrapper
         : table.refs.tableHeaderRef?.$el
-    if (props.showHeader && tableHeader?.offsetHeight !== oldHeaderHeight)
+    if (props.showHeader && tableHeader?.offsetHeight !== oldHeaderHeight) {
       shouldUpdateLayout = true
+    }
 
     tableScrollHeight.value = table.refs.tableWrapper?.scrollHeight || 0
     headerScrollHeight.value = tableHeader?.scrollHeight || 0
     footerScrollHeight.value = table.refs.footerWrapper?.offsetHeight || 0
-    bodyScrollHeight.value
-      = tableScrollHeight.value
-      - headerScrollHeight.value
-      - footerScrollHeight.value
+    appendScrollHeight.value = table.refs.appendWrapper?.offsetHeight || 0
+    bodyScrollHeight.value =
+      tableScrollHeight.value -
+      headerScrollHeight.value -
+      footerScrollHeight.value -
+      appendScrollHeight.value
 
     if (shouldUpdateLayout) {
       resizeState.value = {
@@ -274,18 +269,16 @@ function useStyle<T>(
   })
 
   const tableLayout = computed(() => {
-    if (props.maxHeight)
-      return 'fixed'
+    if (props.maxHeight) return 'fixed'
     return props.tableLayout
   })
 
-  const emptyBlockStyle = computed<StyleValue>(() => {
-    if (props.data && props.data.length)
-      return null
+  const emptyBlockStyle = computed(() => {
+    if (props.data && props.data.length) return null
     let height = '100%'
-    if (props.height && bodyScrollHeight.value)
+    if (props.height && bodyScrollHeight.value) {
       height = `${bodyScrollHeight.value}px`
-
+    }
     const width = tableWidth.value
     return {
       width: width ? `${width}px` : '',
@@ -319,19 +312,14 @@ function useStyle<T>(
     }
     if (props.maxHeight) {
       if (!Number.isNaN(Number(props.maxHeight))) {
-        const maxHeight = props.maxHeight
-        const reachMaxHeight = tableScrollHeight.value >= Number(maxHeight)
-        if (reachMaxHeight) {
-          return {
-            maxHeight: `${
-              tableScrollHeight.value
-              - headerScrollHeight.value
-              - footerScrollHeight.value
-            }px`,
-          }
+        return {
+          maxHeight: `${
+            props.maxHeight -
+            headerScrollHeight.value -
+            footerScrollHeight.value
+          }px`,
         }
-      }
-      else {
+      } else {
         return {
           maxHeight: `calc(${props.maxHeight} - ${
             headerScrollHeight.value + footerScrollHeight.value
@@ -350,18 +338,17 @@ function useStyle<T>(
     const bodyWrapper = table.refs.bodyWrapper
     if (Math.abs(data.spinY) > 0) {
       const currentScrollTop = bodyWrapper.scrollTop
-      if (data.pixelY < 0 && currentScrollTop !== 0)
+      if (data.pixelY < 0 && currentScrollTop !== 0) {
         event.preventDefault()
-
+      }
       if (
-        data.pixelY > 0
-        && bodyWrapper.scrollHeight - bodyWrapper.clientHeight > currentScrollTop
-      )
+        data.pixelY > 0 &&
+        bodyWrapper.scrollHeight - bodyWrapper.clientHeight > currentScrollTop
+      ) {
         event.preventDefault()
-
+      }
       bodyWrapper.scrollTop += Math.ceil(data.pixelY / 5)
-    }
-    else {
+    } else {
       bodyWrapper.scrollLeft += Math.ceil(data.pixelX / 5)
     }
   }

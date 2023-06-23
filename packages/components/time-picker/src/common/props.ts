@@ -1,11 +1,11 @@
 import { buildProps, definePropType } from '@ehop/utils'
 import { useSizeProp } from '@ehop/hooks'
 import { CircleClose } from '@ehop/icons-vue'
+import { disabledTimeListsProps } from '../props/shared'
 
 import type { Component, ExtractPropTypes } from 'vue'
 import type { Options } from '@popperjs/core'
 import type { Dayjs } from 'dayjs'
-import { disabledTimeListsProps } from '../props/shared'
 
 export type SingleOrRange<T> = T | [T, T]
 export type DateModelType = number | string | Date

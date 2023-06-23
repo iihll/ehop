@@ -1,11 +1,11 @@
 import { computed, getCurrentInstance, inject, unref } from 'vue'
 import { debugWarn, isClient } from '@ehop/utils'
+import { useGetDerivedNamespace } from '../use-namespace'
 
 import type { InjectionKey, Ref } from 'vue'
 import type { MaybeRef } from '@vueuse/core'
-import { useGetDerivedNamespace } from '../use-namespace'
 
-export interface EhIdInjectionContext {
+export type ElIdInjectionContext = {
   prefix: number
   current: number
 }
@@ -15,16 +15,16 @@ const defaultIdInjection = {
   current: 0,
 }
 
-export const ID_INJECTION_KEY: InjectionKey<EhIdInjectionContext>
-  = Symbol('elIdInjection')
+export const ID_INJECTION_KEY: InjectionKey<ElIdInjectionContext> =
+  Symbol('elIdInjection')
 
-export function useIdInjection(): EhIdInjectionContext {
+export const useIdInjection = (): ElIdInjectionContext => {
   return getCurrentInstance()
     ? inject(ID_INJECTION_KEY, defaultIdInjection)
     : defaultIdInjection
 }
 
-export function useId(deterministicId?: MaybeRef<string>): Ref<string> {
+export const useId = (deterministicId?: MaybeRef<string>): Ref<string> => {
   const idInjection = useIdInjection()
   if (!isClient && idInjection === defaultIdInjection) {
     debugWarn(
@@ -33,15 +33,15 @@ export function useId(deterministicId?: MaybeRef<string>): Ref<string> {
 usage: app.provide(ID_INJECTION_KEY, {
   prefix: number,
   current: number,
-})`,
+})`
     )
   }
 
   const namespace = useGetDerivedNamespace()
   const idRef = computed(
     () =>
-      unref(deterministicId)
-      || `${namespace.value}-id-${idInjection.prefix}-${idInjection.current++}`,
+      unref(deterministicId) ||
+      `${namespace.value}-id-${idInjection.prefix}-${idInjection.current++}`
   )
 
   return idRef

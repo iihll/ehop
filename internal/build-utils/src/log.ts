@@ -1,4 +1,4 @@
-import process from 'node:process'
+import process from 'process'
 import consola from 'consola'
 
 export function errorAndExit(err: Error): never {

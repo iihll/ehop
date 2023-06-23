@@ -1,9 +1,9 @@
 import { computed, inject, unref } from 'vue'
+import { componentSizes } from '@ehopts'
 import { buildProp } from '@ehop/utils'
-import { componentSizes } from '@ehop/constants'
 
 import type { InjectionKey, Ref } from 'vue'
-import type { ComponentSize } from '@ehop/constants'
+import type { ComponentSize } from '@ehopts'
 
 export const useSizeProp = buildProp({
   type: String,
@@ -21,7 +21,7 @@ export interface SizeContext {
 
 export const SIZE_INJECTION_KEY: InjectionKey<SizeContext> = Symbol('size')
 
-export function useGlobalSize() {
+export const useGlobalSize = () => {
   const injectedSize = inject(SIZE_INJECTION_KEY, {} as SizeContext)
 
   return computed<ComponentSize>(() => {

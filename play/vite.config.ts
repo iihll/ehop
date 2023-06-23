@@ -1,68 +1,86 @@
-import { URL, fileURLToPath } from 'node:url'
-
-import path from 'node:path'
-import { defineConfig } from 'vite'
+import path from 'path'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { ehRoot, pkgRoot } from '@ehop/build-utils'
 import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Inspect from 'vite-plugin-inspect'
+import mkcert from 'vite-plugin-mkcert'
+import glob from 'fast-glob'
+import VueMacros from 'unplugin-vue-macros/vite'
+import esbuild from 'rollup-plugin-esbuild'
+import {
+  epPackage,
+  epRoot,
+  getPackageDependencies,
+  pkgRoot,
+  projRoot,
+} from '@ehop/build-utils'
+import type { Plugin } from 'vite'
+import './vite.init'
 
-function kebabCase(key: string) {
-  const result = key.replace(/([A-Z])/g, ' $1').trim()
-  return result.split(' ').join('-').toLowerCase()
-}
+const esbuildPlugin = (): Plugin => ({
+  ...esbuild({
+    target: 'chrome64',
+    include: /\.vue$/,
+    loaders: {
+      '.vue': 'js',
+    },
+  }),
+  enforce: 'post',
+})
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    Components({
-      include: path.resolve(__dirname, '**'),
-      resolvers: [
-        [
-          {
-            type: 'component',
-            resolve: (name) => {
-              if (!name.match(/^Eh[A-Z]/))
-                return
+export default defineConfig(async ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  let { dependencies } = getPackageDependencies(epPackage)
+  dependencies = dependencies.filter((dep) => !dep.startsWith('@types/')) // exclude dts deps
+  const optimizeDeps = (
+    await glob(['dayjs/(locale|plugin)/*.js'], {
+      cwd: path.resolve(projRoot, 'node_modules'),
+    })
+  ).map((dep) => dep.replace(/\.js$/, ''))
 
-              if (name.match(/^EhIcon.+/)) {
-                return {
-                  name: name.replace(/^EhIcon/, ''),
-                  from: '@ehop/icons-vue',
-                }
-              }
-
-              const dirName = kebabCase(name.slice(2))// EhTableColumn -> table-column
-              const esComponentsFolder = 'ehop/es/components'
-
-              return {
-                name,
-                from: 'ehop/es',
-                sideEffects: [`${esComponentsFolder}/base/style/index`, `${esComponentsFolder}/${dirName}/style/index`],
-              }
-            },
-          },
-        ],
+  return {
+    resolve: {
+      alias: [
+        {
+          find: /^ehop(\/(es|lib))?$/,
+          replacement: path.resolve(epRoot, 'index.ts'),
+        },
+        {
+          find: /^ehop\/(es|lib)\/(.*)$/,
+          replacement: `${pkgRoot}/$2`,
+        },
       ],
-      dts: false,
-    }),
-  ],
-  resolve: {
-    alias: [
-      {
-        find: /^ehop(\/(es|lib))?$/,
-        replacement: path.resolve(ehRoot, 'index.ts'),
-      },
-      {
-        find: /^ehop\/(es|lib)\/(.*)$/,
-        replacement: `${pkgRoot}/$2`,
-      },
-      {
-        find: '@',
-        replacement: fileURLToPath(new URL('./src', import.meta.url)),
-      },
+    },
+    server: {
+      host: true,
+      https: !!env.HTTPS,
+    },
+    plugins: [
+      VueMacros({
+        setupComponent: false,
+        setupSFC: false,
+        plugins: {
+          vue: vue(),
+          vueJsx: vueJsx(),
+        },
+      }),
+      esbuildPlugin(),
+      Components({
+        include: `${__dirname}/**`,
+        resolvers: ElementPlusResolver({ importStyle: 'sass' }),
+        dts: false,
+      }),
+      mkcert(),
+      Inspect(),
     ],
-  },
+
+    optimizeDeps: {
+      include: ['vue', '@vue/shared', ...dependencies, ...optimizeDeps],
+    },
+    esbuild: {
+      target: 'chrome64',
+    },
+  }
 })

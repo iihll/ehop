@@ -1,8 +1,8 @@
 import { defineComponent, renderSlot, watch } from 'vue'
-import type { MessageConfigContext } from '@ehop/components/message'
-import { provideGlobalConfig } from './use-global-config'
+import { provideGlobalConfig } from './hooks/use-global-config'
 import { configProviderProps } from './config-provider-props'
-import '../style'
+
+import type { MessageConfigContext } from '@ehop/components/message'
 
 export const messageConfig: MessageConfigContext = {}
 
@@ -16,7 +16,7 @@ const ConfigProvider = defineComponent({
       (val) => {
         Object.assign(messageConfig, val ?? {})
       },
-      { immediate: true, deep: true },
+      { immediate: true, deep: true }
     )
     const config = provideGlobalConfig(props)
     return () => renderSlot(slots, 'default', { config: config?.value })

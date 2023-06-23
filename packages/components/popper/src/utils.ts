@@ -7,8 +7,10 @@ import type { Modifier } from '@popperjs/core'
 import type { Measurable } from './constants'
 import type { PopperCoreConfigProps } from './content'
 
-export function buildPopperOptions(props: PopperCoreConfigProps,
-  modifiers: Modifier<any, any>[] = []) {
+export const buildPopperOptions = (
+  props: PopperCoreConfigProps,
+  modifiers: Modifier<any, any>[] = []
+) => {
   const { placement, strategy, popperOptions } = props
   const options = {
     placement,
@@ -21,9 +23,10 @@ export function buildPopperOptions(props: PopperCoreConfigProps,
   return options
 }
 
-export function unwrapMeasurableEl($el: MaybeRef<Measurable | undefined | ComponentPublicInstance>) {
-  if (!isClient)
-    return
+export const unwrapMeasurableEl = (
+  $el: MaybeRef<Measurable | undefined | ComponentPublicInstance>
+) => {
+  if (!isClient) return
   return unrefElement($el as HTMLElement)
 }
 
@@ -65,8 +68,9 @@ function genModifiers(options: PopperCoreConfigProps) {
 
 function deriveExtraModifiers(
   options: any,
-  modifiers: PopperCoreConfigProps['popperOptions']['modifiers'],
+  modifiers: PopperCoreConfigProps['popperOptions']['modifiers']
 ) {
-  if (modifiers)
+  if (modifiers) {
     options.modifiers = [...options.modifiers, ...(modifiers ?? [])]
+  }
 }

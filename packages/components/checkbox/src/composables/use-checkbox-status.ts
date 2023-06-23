@@ -2,32 +2,32 @@ import { computed, inject, ref, toRaw } from 'vue'
 import { isEqual } from 'lodash-unified'
 import { useFormSize } from '@ehop/components/form'
 import { isArray, isBoolean, isObject } from '@ehop/utils'
-import type { ComponentInternalInstance } from 'vue'
 import { checkboxGroupContextKey } from '../constants'
 
+import type { ComponentInternalInstance } from 'vue'
 import type { CheckboxProps } from '../checkbox'
 import type { CheckboxModel } from '../composables'
 
-export function useCheckboxStatus(props: CheckboxProps,
+export const useCheckboxStatus = (
+  props: CheckboxProps,
   slots: ComponentInternalInstance['slots'],
-  { model }: Pick<CheckboxModel, 'model'>) {
+  { model }: Pick<CheckboxModel, 'model'>
+) => {
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
   const isFocused = ref(false)
   const isChecked = computed<boolean>(() => {
     const value = model.value
     if (isBoolean(value)) {
       return value
-    }
-    else if (isArray(value)) {
-      if (isObject(props.label))
-        return value.map(toRaw).some(o => isEqual(o, props.label))
-      else
+    } else if (isArray(value)) {
+      if (isObject(props.label)) {
+        return value.map(toRaw).some((o) => isEqual(o, props.label))
+      } else {
         return value.map(toRaw).includes(props.label)
-    }
-    else if (value !== null && value !== undefined) {
+      }
+    } else if (value !== null && value !== undefined) {
       return value === props.trueLabel
-    }
-    else {
+    } else {
       return !!value
     }
   })
@@ -36,7 +36,7 @@ export function useCheckboxStatus(props: CheckboxProps,
     computed(() => checkboxGroup?.size?.value),
     {
       prop: true,
-    },
+    }
   )
   const checkboxSize = useFormSize(computed(() => checkboxGroup?.size?.value))
 

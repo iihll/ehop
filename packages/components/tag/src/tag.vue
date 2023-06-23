@@ -1,17 +1,48 @@
+<template>
+  <span
+    v-if="disableTransitions"
+    :class="containerKls"
+    :style="{ backgroundColor: color }"
+    @click="handleClick"
+  >
+    <span :class="ns.e('content')">
+      <slot />
+    </span>
+    <el-icon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
+      <Close />
+    </el-icon>
+  </span>
+  <transition v-else :name="`${ns.namespace.value}-zoom-in-center`" appear>
+    <span
+      :class="containerKls"
+      :style="{ backgroundColor: color }"
+      @click="handleClick"
+    >
+      <span :class="ns.e('content')">
+        <slot />
+      </span>
+      <el-icon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
+        <Close />
+      </el-icon>
+    </span>
+  </transition>
+</template>
+
 <script lang="ts" setup>
 import { computed } from 'vue'
 import EhIcon from '@ehop/components/icon'
 import { Close } from '@ehop/icons-vue'
 import { useNamespace } from '@ehop/hooks'
 import { useFormSize } from '@ehop/components/form'
-import { tagEmits, tagProps } from './tag'
-import '../style'
 
-const props = defineProps(tagProps)
-const emit = defineEmits(tagEmits)
+import { tagEmits, tagProps } from './tag'
+
 defineOptions({
   name: 'EhTag',
 })
+const props = defineProps(tagProps)
+const emit = defineEmits(tagEmits)
+
 const tagSize = useFormSize()
 const ns = useNamespace('tag')
 const containerKls = computed(() => {
@@ -28,41 +59,11 @@ const containerKls = computed(() => {
 })
 
 // methods
-function handleClose(event: MouseEvent) {
+const handleClose = (event: MouseEvent) => {
   emit('close', event)
 }
 
-function handleClick(event: MouseEvent) {
+const handleClick = (event: MouseEvent) => {
   emit('click', event)
 }
 </script>
-
-<template>
-  <span
-    v-if="disableTransitions"
-    :class="containerKls"
-    :style="{ backgroundColor: color }"
-    @click="handleClick"
-  >
-    <span :class="ns.e('content')">
-      <slot />
-    </span>
-    <EhIcon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
-      <Close />
-    </EhIcon>
-  </span>
-  <transition v-else :name="`${ns.namespace.value}-zoom-in-center`" appear>
-    <span
-      :class="containerKls"
-      :style="{ backgroundColor: color }"
-      @click="handleClick"
-    >
-      <span :class="ns.e('content')">
-        <slot />
-      </span>
-      <EhIcon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
-        <Close />
-      </EhIcon>
-    </span>
-  </transition>
-</template>

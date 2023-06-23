@@ -6,7 +6,7 @@ const lastUserFocusTimestamp = ref<number>(0)
 const lastAutomatedFocusTimestamp = ref<number>(0)
 let focusReasonUserCount = 0
 
-export interface FocusLayer {
+export type FocusLayer = {
   paused: boolean
   pause: () => void
   resume: () => void
@@ -14,16 +14,18 @@ export interface FocusLayer {
 
 export type FocusStack = FocusLayer[]
 
-export function obtainAllFocusableElements(element: HTMLElement): HTMLElement[] {
+export const obtainAllFocusableElements = (
+  element: HTMLElement
+): HTMLElement[] => {
   const nodes: HTMLElement[] = []
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, {
     acceptNode: (
-      node: Element & {
+      node: Ehement & {
         disabled: boolean
         hidden: boolean
         type: string
         tabIndex: number
-      },
+      }
     ) => {
       const isHiddenInput = node.tagName === 'INPUT' && node.type === 'hidden'
       if (node.disabled || node.hidden || isHiddenInput)
@@ -38,54 +40,56 @@ export function obtainAllFocusableElements(element: HTMLElement): HTMLElement[] 
   return nodes
 }
 
-export function getVisibleElement(elements: HTMLElement[],
-  container: HTMLElement) {
+export const getVisibleElement = (
+  elements: HTMLElement[],
+  container: HTMLElement
+) => {
   for (const element of elements) {
-    if (!isHidden(element, container))
-      return element
+    if (!isHidden(element, container)) return element
   }
 }
 
-export function isHidden(element: HTMLElement, container: HTMLElement) {
-  if (process.env.NODE_ENV === 'test')
-    return false
-  if (getComputedStyle(element).visibility === 'hidden')
-    return true
+export const isHidden = (element: HTMLElement, container: HTMLElement) => {
+  if (process.env.NODE_ENV === 'test') return false
+  if (getComputedStyle(element).visibility === 'hidden') return true
 
   while (element) {
-    if (container && element === container)
-      return false
-    if (getComputedStyle(element).display === 'none')
-      return true
+    if (container && element === container) return false
+    if (getComputedStyle(element).display === 'none') return true
     element = element.parentElement as HTMLElement
   }
 
   return false
 }
 
-export function getEdges(container: HTMLElement) {
+export const getEdges = (container: HTMLElement) => {
   const focusable = obtainAllFocusableElements(container)
   const first = getVisibleElement(focusable, container)
   const last = getVisibleElement(focusable.reverse(), container)
   return [first, last]
 }
 
-function isSelectable(element: any): element is HTMLInputElement & { select: () => void } {
+const isSelectable = (
+  element: any
+): element is HTMLInputElement & { select: () => void } => {
   return element instanceof HTMLInputElement && 'select' in element
 }
 
-export function tryFocus(element?: HTMLElement | { focus: () => void } | null,
-  shouldSelect?: boolean) {
+export const tryFocus = (
+  element?: HTMLElement | { focus: () => void } | null,
+  shouldSelect?: boolean
+) => {
   if (element && element.focus) {
     const prevFocusedElement = document.activeElement
     element.focus({ preventScroll: true })
     lastAutomatedFocusTimestamp.value = window.performance.now()
     if (
-      element !== prevFocusedElement
-      && isSelectable(element)
-      && shouldSelect
-    )
+      element !== prevFocusedElement &&
+      isSelectable(element) &&
+      shouldSelect
+    ) {
       element.select()
+    }
   }
 }
 
@@ -94,20 +98,21 @@ function removeFromStack<T>(list: T[], item: T) {
 
   const idx = list.indexOf(item)
 
-  if (idx !== -1)
+  if (idx !== -1) {
     copy.splice(idx, 1)
-
+  }
   return copy
 }
 
-function createFocusableStack() {
+const createFocusableStack = () => {
   let stack = [] as FocusStack
 
   const push = (layer: FocusLayer) => {
     const currentLayer = stack[0]
 
-    if (currentLayer && layer !== currentLayer)
+    if (currentLayer && layer !== currentLayer) {
       currentLayer.pause()
+    }
 
     stack = removeFromStack(stack, layer)
     stack.unshift(layer)
@@ -124,37 +129,38 @@ function createFocusableStack() {
   }
 }
 
-export function focusFirstDescendant(elements: HTMLElement[],
-  shouldSelect = false) {
+export const focusFirstDescendant = (
+  elements: HTMLElement[],
+  shouldSelect = false
+) => {
   const prevFocusedElement = document.activeElement
   for (const element of elements) {
     tryFocus(element, shouldSelect)
-    if (document.activeElement !== prevFocusedElement)
-      return
+    if (document.activeElement !== prevFocusedElement) return
   }
 }
 
 export const focusableStack = createFocusableStack()
 
-export function isFocusCausedByUserEvent(): boolean {
+export const isFocusCausedByUserEvent = (): boolean => {
   return lastUserFocusTimestamp.value > lastAutomatedFocusTimestamp.value
 }
 
-function notifyFocusReasonPointer() {
+const notifyFocusReasonPointer = () => {
   focusReason.value = 'pointer'
   lastUserFocusTimestamp.value = window.performance.now()
 }
 
-function notifyFocusReasonKeydown() {
+const notifyFocusReasonKeydown = () => {
   focusReason.value = 'keyboard'
   lastUserFocusTimestamp.value = window.performance.now()
 }
 
-export function useFocusReason(): {
+export const useFocusReason = (): {
   focusReason: typeof focusReason
   lastUserFocusTimestamp: typeof lastUserFocusTimestamp
   lastAutomatedFocusTimestamp: typeof lastAutomatedFocusTimestamp
-} {
+} => {
   onMounted(() => {
     if (focusReasonUserCount === 0) {
       document.addEventListener('mousedown', notifyFocusReasonPointer)
@@ -180,7 +186,9 @@ export function useFocusReason(): {
   }
 }
 
-export function createFocusOutPreventedEvent(detail: CustomEventInit['detail']) {
+export const createFocusOutPreventedEvent = (
+  detail: CustomEventInit['detail']
+) => {
   return new CustomEvent(FOCUSOUT_PREVENTED, {
     ...FOCUSOUT_PREVENTED_OPTS,
     detail,

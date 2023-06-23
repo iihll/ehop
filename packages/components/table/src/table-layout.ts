@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { isRef, nextTick, ref } from 'vue'
 import { hasOwn, isClient } from '@ehop/utils'
-import type { Ref } from 'vue'
 import { parseHeight } from './util'
+import type { Ref } from 'vue'
 
 import type { TableColumnCtx } from './table-column/defaults'
 import type { TableHeader } from './table-header'
 import type { Table } from './table/defaults'
 import type { Store } from './store'
-
 class TableLayout<T> {
   observers: TableHeader[]
   table: Table<T>
@@ -45,18 +43,19 @@ class TableLayout<T> {
     this.gutterWidth = 0
     for (const name in options) {
       if (hasOwn(options, name)) {
-        if (isRef(this[name]))
+        if (isRef(this[name])) {
           this[name as string].value = options[name]
-
-        else
+        } else {
           this[name as string] = options[name]
+        }
       }
     }
-    if (!this.table)
+    if (!this.table) {
       throw new Error('Table is required for Table Layout')
-
-    if (!this.store)
+    }
+    if (!this.store) {
       throw new Error('Store is required for Table Layout')
+    }
   }
 
   updateScrollY() {
@@ -65,14 +64,13 @@ class TableLayout<T> {
      * When the height is not initialized, it is null.
      * After the table is initialized, when the height is not configured, the height is 0.
      */
-    if (height === null)
-      return false
+    if (height === null) return false
     const scrollBarRef = this.table.refs.scrollBarRef
     if (this.table.vnode.el && scrollBarRef?.wrapRef) {
       let scrollY = true
       const prevScrollY = this.scrollY.value
-      scrollY
-        = scrollBarRef.wrapRef.scrollHeight > scrollBarRef.wrapRef.clientHeight
+      scrollY =
+        scrollBarRef.wrapRef.scrollHeight > scrollBarRef.wrapRef.clientHeight
       this.scrollY.value = scrollY
       return prevScrollY !== scrollY
     }
@@ -80,8 +78,7 @@ class TableLayout<T> {
   }
 
   setHeight(value: string | number, prop = 'height') {
-    if (!isClient)
-      return
+    if (!isClient) return
     const el = this.table.vnode.el
     value = parseHeight(value)
     this.height.value = Number(value)
@@ -92,8 +89,7 @@ class TableLayout<T> {
     if (typeof value === 'number') {
       el.style[prop] = `${value}px`
       this.updateElsHeight()
-    }
-    else if (typeof value === 'string') {
+    } else if (typeof value === 'string') {
       el.style[prop] = value
       this.updateElsHeight()
     }
@@ -110,8 +106,7 @@ class TableLayout<T> {
       if (column.isColumnGroup) {
         // eslint-disable-next-line prefer-spread
         flattenColumns.push.apply(flattenColumns, column.columns)
-      }
-      else {
+      } else {
         flattenColumns.push(column)
       }
     })
@@ -125,28 +120,26 @@ class TableLayout<T> {
   }
 
   headerDisplayNone(elm: HTMLElement) {
-    if (!elm)
-      return true
+    if (!elm) return true
     let headerChild = elm
     while (headerChild.tagName !== 'DIV') {
-      if (getComputedStyle(headerChild).display === 'none')
+      if (getComputedStyle(headerChild).display === 'none') {
         return true
-
+      }
       headerChild = headerChild.parentElement
     }
     return false
   }
 
   updateColumnsWidth() {
-    if (!isClient)
-      return
+    if (!isClient) return
     const fit = this.fit
     const bodyWidth = this.table.vnode.el.clientWidth
     let bodyMinWidth = 0
 
     const flattenColumns = this.getFlattenColumns()
     const flexColumns = flattenColumns.filter(
-      column => typeof column.width !== 'number',
+      (column) => typeof column.width !== 'number'
     )
     flattenColumns.forEach((column) => {
       // Clean those columns whose width changed from flex to unflex
@@ -164,34 +157,31 @@ class TableLayout<T> {
         const totalFlexWidth = bodyWidth - bodyMinWidth
 
         if (flexColumns.length === 1) {
-          flexColumns[0].realWidth
-            = Number(flexColumns[0].minWidth || 80) + totalFlexWidth
-        }
-        else {
+          flexColumns[0].realWidth =
+            Number(flexColumns[0].minWidth || 80) + totalFlexWidth
+        } else {
           const allColumnsWidth = flexColumns.reduce(
             (prev, column) => prev + Number(column.minWidth || 80),
-            0,
+            0
           )
           const flexWidthPerPixel = totalFlexWidth / allColumnsWidth
           let noneFirstWidth = 0
 
           flexColumns.forEach((column, index) => {
-            if (index === 0)
-              return
+            if (index === 0) return
             const flexWidth = Math.floor(
-              Number(column.minWidth || 80) * flexWidthPerPixel,
+              Number(column.minWidth || 80) * flexWidthPerPixel
             )
             noneFirstWidth += flexWidth
             column.realWidth = Number(column.minWidth || 80) + flexWidth
           })
 
-          flexColumns[0].realWidth
-            = Number(flexColumns[0].minWidth || 80)
-            + totalFlexWidth
-            - noneFirstWidth
+          flexColumns[0].realWidth =
+            Number(flexColumns[0].minWidth || 80) +
+            totalFlexWidth -
+            noneFirstWidth
         }
-      }
-      else {
+      } else {
         // HAVE HORIZONTAL SCROLL BAR
         this.scrollX.value = true
         flexColumns.forEach((column) => {
@@ -201,15 +191,13 @@ class TableLayout<T> {
 
       this.bodyWidth.value = Math.max(bodyMinWidth, bodyWidth)
       this.table.state.resizeState.value.width = this.bodyWidth.value
-    }
-    else {
+    } else {
       flattenColumns.forEach((column) => {
-        if (!column.width && !column.minWidth)
+        if (!column.width && !column.minWidth) {
           column.realWidth = 80
-
-        else
+        } else {
           column.realWidth = Number(column.width || column.minWidth)
-
+        }
         bodyMinWidth += column.realWidth
       })
       this.scrollX.value = bodyMinWidth > bodyWidth
@@ -246,8 +234,9 @@ class TableLayout<T> {
 
   removeObserver(observer: TableHeader) {
     const index = this.observers.indexOf(observer)
-    if (index !== -1)
+    if (index !== -1) {
       this.observers.splice(index, 1)
+    }
   }
 
   notifyObservers(event: string) {

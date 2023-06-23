@@ -8,4 +8,4 @@ export default EhConfigProvider
 export * from './src/config-provider'
 export * from './src/config-provider-props'
 export * from './src/constants'
-export * from './src/use-global-config'
+export * from './src/hooks/use-global-config'

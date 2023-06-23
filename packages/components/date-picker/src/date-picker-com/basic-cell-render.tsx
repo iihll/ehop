@@ -17,8 +17,9 @@ export default defineComponent({
             item.patchFlag !== -2 && item.type.toString() !== 'Symbol(Comment)'
           )
         })
-        if (list.length)
+        if (list.length) {
           return list
+        }
       }
 
       return (

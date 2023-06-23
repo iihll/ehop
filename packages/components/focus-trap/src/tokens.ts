@@ -15,10 +15,10 @@ export const FOCUSOUT_PREVENTED_OPTS: EventInit = {
 export const ON_TRAP_FOCUS_EVT = 'focusAfterTrapped'
 export const ON_RELEASE_FOCUS_EVT = 'focusAfterReleased'
 
-export interface FocusTrapInjectionContext {
+export type FocusTrapInjectionContext = {
   focusTrapRef: Ref<HTMLElement | undefined>
   onKeydown: (e: KeyboardEvent) => void
 }
 
-export const FOCUS_TRAP_INJECTION_KEY: InjectionKey<FocusTrapInjectionContext>
-  = Symbol('elFocusTrap')
+export const FOCUS_TRAP_INJECTION_KEY: InjectionKey<FocusTrapInjectionContext> =
+  Symbol('elFocusTrap')

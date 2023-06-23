@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { h, inject, ref } from 'vue'
 import { debounce } from 'lodash-unified'
@@ -7,8 +6,8 @@ import { useZIndex } from '@ehop/hooks'
 import { createTablePopper, getCell, getColumnByCell } from '../util'
 import { TABLE_INJECTION_KEY } from '../tokens'
 import type { TableColumnCtx } from '../table-column/defaults'
-import type { TableOverflowTooltipOptions } from '../util'
 import type { TableBodyProps } from './defaults'
+import type { TableOverflowTooltipOptions } from '../util'
 
 function useEvents<T>(props: Partial<TableBodyProps<T>>) {
   const parent = inject(TABLE_INJECTION_KEY)
@@ -26,10 +25,11 @@ function useEvents<T>(props: Partial<TableBodyProps<T>>) {
           columns: props.store.states.columns.value,
         },
         cell,
-        namespace,
+        namespace
       )
-      if (column)
+      if (column) {
         table?.emit(`cell-${name}`, row, column, cell, event)
+      }
     }
     table?.emit(`row-${name}`, row, column, event)
   }
@@ -52,7 +52,7 @@ function useEvents<T>(props: Partial<TableBodyProps<T>>) {
   const handleCellMouseEnter = (
     event: MouseEvent,
     row: T,
-    tooltipOptions: TableOverflowTooltipOptions,
+    tooltipOptions: TableOverflowTooltipOptions
   ) => {
     const table = parent
     const cell = getCell(event)
@@ -63,7 +63,7 @@ function useEvents<T>(props: Partial<TableBodyProps<T>>) {
           columns: props.store.states.columns.value,
         },
         cell,
-        namespace,
+        namespace
       )
       const hoverState = (table.hoverState = { cell, column, row })
       table?.emit(
@@ -71,57 +71,57 @@ function useEvents<T>(props: Partial<TableBodyProps<T>>) {
         hoverState.row,
         hoverState.column,
         hoverState.cell,
-        event,
+        event
       )
     }
 
-    if (!tooltipOptions)
+    if (!tooltipOptions) {
       return
+    }
 
     // 判断是否text-overflow, 如果是就显示tooltip
     const cellChild = (event.target as HTMLElement).querySelector(
-      '.cell',
+      '.cell'
     ) as HTMLElement
     if (
       !(
-        hasClass(cellChild, `${namespace}-tooltip`)
-        && cellChild.childNodes.length
+        hasClass(cellChild, `${namespace}-tooltip`) &&
+        cellChild.childNodes.length
       )
-    )
+    ) {
       return
-
+    }
     // use range width instead of scrollWidth to determine whether the text is overflowing
     // to address a potential FireFox bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1074543#c3
     const range = document.createRange()
     range.setStart(cellChild, 0)
     range.setEnd(cellChild, cellChild.childNodes.length)
-    /** detail: https://github.com/element-plus/element-plus/issues/10790
+    /** detail: https://github.com/ehop/ehop/issues/10790
      *  What went wrong?
      *  UI > Browser > Zoom, In Blink/WebKit, getBoundingClientRect() sometimes returns inexact values, probably due to lost precision during internal calculations. In the example above:
      *    - Expected: 188
      *    - Actual: 188.00000762939453
      */
     const rangeWidth = Math.round(range.getBoundingClientRect().width)
-    const padding
-      = (Number.parseInt(getStyle(cellChild, 'paddingLeft'), 10) || 0)
-      + (Number.parseInt(getStyle(cellChild, 'paddingRight'), 10) || 0)
+    const padding =
+      (Number.parseInt(getStyle(cellChild, 'paddingLeft'), 10) || 0) +
+      (Number.parseInt(getStyle(cellChild, 'paddingRight'), 10) || 0)
     if (
-      rangeWidth + padding > cellChild.offsetWidth
-      || cellChild.scrollWidth > cellChild.offsetWidth
+      rangeWidth + padding > cellChild.offsetWidth ||
+      cellChild.scrollWidth > cellChild.offsetWidth
     ) {
       createTablePopper(
         parent?.refs.tableWrapper,
         cell,
         cell.innerText || cell.textContent,
         nextZIndex,
-        tooltipOptions,
+        tooltipOptions
       )
     }
   }
   const handleCellMouseLeave = (event) => {
     const cell = getCell(event)
-    if (!cell)
-      return
+    if (!cell) return
 
     const oldHoverState = parent?.hoverState
     parent?.emit(
@@ -129,7 +129,7 @@ function useEvents<T>(props: Partial<TableBodyProps<T>>) {
       oldHoverState?.row,
       oldHoverState?.column,
       oldHoverState?.cell,
-      event,
+      event
     )
   }
 

@@ -8,8 +8,9 @@ import {
   SuccessFilled,
   WarningFilled,
 } from '@ehop/icons-vue'
-import type { Component } from 'vue'
 import { definePropType } from './props'
+
+import type { Component } from 'vue'
 
 export const iconPropType = definePropType<string | Component>([
   String,

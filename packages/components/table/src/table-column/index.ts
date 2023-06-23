@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import {
   Fragment,
@@ -15,11 +14,12 @@ import EhCheckbox from '@ehop/components/checkbox'
 import { isString } from '@ehop/utils'
 import { cellStarts } from '../config'
 import { compose, mergeOptions } from '../util'
-import type { DefaultRow } from '../table/defaults'
 import useWatcher from './watcher-helper'
 import useRender from './render-helper'
 import defaultProps from './defaults'
 import type { TableColumn, TableColumnCtx } from './defaults'
+
+import type { DefaultRow } from '../table/defaults'
 
 let columnIdSeed = 1
 
@@ -34,15 +34,15 @@ export default defineComponent({
     const columnConfig = ref<Partial<TableColumnCtx<DefaultRow>>>({})
     const owner = computed(() => {
       let parent = instance.parent as any
-      while (parent && !parent.tableId)
+      while (parent && !parent.tableId) {
         parent = parent.parent
-
+      }
       return parent
     })
 
     const { registerNormalWatchers, registerComplexWatchers } = useWatcher(
       owner,
-      props,
+      props
     )
     const {
       columnId,
@@ -67,6 +67,8 @@ export default defineComponent({
 
       const type = props.type || 'default'
       const sortable = props.sortable === '' ? true : props.sortable
+      const showOverflowTooltip =
+        props.showOverflowTooltip || parent.props.showOverflowTooltip
       const defaults = {
         ...cellStarts[type],
         id: columnId.value,
@@ -74,7 +76,7 @@ export default defineComponent({
         property: props.prop || props.property,
         align: realAlign,
         headerAlign: realHeaderAlign,
-        showOverflowTooltip: props.showOverflowTooltip,
+        showOverflowTooltip,
         // filter 相关属性
         filterable: props.filters || props.filterMethod,
         filteredValue: [],
@@ -119,7 +121,7 @@ export default defineComponent({
       const chains = compose(
         setColumnRenders,
         setColumnWidth,
-        setColumnForcedProps,
+        setColumnForcedProps
       )
       column = chains(column)
       columnConfig.value = column
@@ -137,12 +139,12 @@ export default defineComponent({
         getColumnElIndex(children || [], instance.vnode.el)
       columnConfig.value.getColumnIndex = getColumnIndex
       const columnIndex = getColumnIndex()
-      columnIndex > -1
-        && owner.value.store.commit(
+      columnIndex > -1 &&
+        owner.value.store.commit(
           'insertColumn',
           columnConfig.value,
           isSubColumn.value ? parent.columnConfig.value : null,
-          updateColumnOrder,
+          updateColumnOrder
         )
     })
     onBeforeUnmount(() => {
@@ -150,12 +152,13 @@ export default defineComponent({
         'removeColumn',
         columnConfig.value,
         isSubColumn.value ? parent.columnConfig.value : null,
-        updateColumnOrder,
+        updateColumnOrder
       )
     })
     instance.columnId = columnId.value
 
     instance.columnConfig = columnConfig
+    return
   },
   render() {
     try {
@@ -168,27 +171,26 @@ export default defineComponent({
       if (Array.isArray(renderDefault)) {
         for (const childNode of renderDefault) {
           if (
-            childNode.type?.name === 'EhTableColumn'
-            || childNode.shapeFlag & 2
+            childNode.type?.name === 'EhTableColumn' ||
+            childNode.shapeFlag & 2
           ) {
             children.push(childNode)
-          }
-          else if (
-            childNode.type === Fragment
-            && Array.isArray(childNode.children)
+          } else if (
+            childNode.type === Fragment &&
+            Array.isArray(childNode.children)
           ) {
             childNode.children.forEach((vnode) => {
               // No rendering when vnode is dynamic slot or text
-              if (vnode?.patchFlag !== 1024 && !isString(vnode?.children))
+              if (vnode?.patchFlag !== 1024 && !isString(vnode?.children)) {
                 children.push(vnode)
+              }
             })
           }
         }
       }
       const vnode = h('div', children)
       return vnode
-    }
-    catch {
+    } catch {
       return h('div', [])
     }
   },

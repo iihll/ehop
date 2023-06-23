@@ -1,29 +1,3 @@
-<script lang="ts" setup>
-import { nextTick } from 'vue'
-import { useNamespace } from '@ehop/hooks'
-import { radioEmits, radioProps } from './radio'
-import { useRadio } from './use-radio'
-import '../style'
-
-const props = defineProps(radioProps)
-
-const emit = defineEmits(radioEmits)
-
-defineOptions({
-  name: 'EhRadio',
-})
-
-const ns = useNamespace('radio')
-const { radioRef, radioGroup, focus, size, disabled, modelValue } = useRadio(
-  props,
-  emit,
-)
-
-function handleChange() {
-  nextTick(() => emit('change', modelValue.value))
-}
-</script>
-
 <template>
   <label
     :class="[
@@ -53,7 +27,7 @@ function handleChange() {
         @focus="focus = true"
         @blur="focus = false"
         @change="handleChange"
-      >
+      />
       <span :class="ns.e('inner')" />
     </span>
     <span :class="ns.e('label')" @keydown.stop>
@@ -63,3 +37,27 @@ function handleChange() {
     </span>
   </label>
 </template>
+
+<script lang="ts" setup>
+import { nextTick } from 'vue'
+import { useNamespace } from '@ehop/hooks'
+import { radioEmits, radioProps } from './radio'
+import { useRadio } from './use-radio'
+
+defineOptions({
+  name: 'EhRadio',
+})
+
+const props = defineProps(radioProps)
+const emit = defineEmits(radioEmits)
+
+const ns = useNamespace('radio')
+const { radioRef, radioGroup, focus, size, disabled, modelValue } = useRadio(
+  props,
+  emit
+)
+
+function handleChange() {
+  nextTick(() => emit('change', modelValue.value))
+}
+</script>

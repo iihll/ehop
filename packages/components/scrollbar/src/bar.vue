@@ -1,4 +1,14 @@
-<script setup lang="ts">
+<template>
+  <thumb :move="moveX" :ratio="ratioX" :size="width" :always="always" />
+  <thumb
+    :move="moveY"
+    :ratio="ratioY"
+    :size="height"
+    vertical
+    :always="always"
+  />
+</template>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { GAP } from './util'
 import Thumb from './thumb.vue'
@@ -9,7 +19,7 @@ const props = defineProps(barProps)
 const moveX = ref(0)
 const moveY = ref(0)
 
-function handleScroll(wrap: HTMLDivElement) {
+const handleScroll = (wrap: HTMLDivElement) => {
   if (wrap) {
     const offsetHeight = wrap.offsetHeight - GAP
     const offsetWidth = wrap.offsetWidth - GAP
@@ -23,14 +33,3 @@ defineExpose({
   handleScroll,
 })
 </script>
-
-<template>
-  <Thumb :move="moveX" :ratio="ratioX" :size="width" :always="always" />
-  <Thumb
-    :move="moveY"
-    :ratio="ratioY"
-    :size="height"
-    vertical
-    :always="always"
-  />
-</template>

@@ -6,5 +6,5 @@ export interface ScrollbarContext {
 }
 
 export const scrollbarContextKey: InjectionKey<ScrollbarContext> = Symbol(
-  'scrollbarContextKey',
+  'scrollbarContextKey'
 )

@@ -15,22 +15,20 @@ function useStyle<T>(props: TableHeaderProps<T>) {
 
   const getHeaderRowStyle = (rowIndex: number) => {
     const headerRowStyle = parent?.props.headerRowStyle
-    if (typeof headerRowStyle === 'function')
-      // eslint-disable-next-line no-useless-call
+    if (typeof headerRowStyle === 'function') {
       return headerRowStyle.call(null, { rowIndex })
-
+    }
     return headerRowStyle
   }
 
   const getHeaderRowClass = (rowIndex: number): string => {
     const classes: string[] = []
     const headerRowClassName = parent?.props.headerRowClassName
-    if (typeof headerRowClassName === 'string')
+    if (typeof headerRowClassName === 'string') {
       classes.push(headerRowClassName)
-
-    else if (typeof headerRowClassName === 'function')
-      // eslint-disable-next-line no-useless-call
+    } else if (typeof headerRowClassName === 'function') {
       classes.push(headerRowClassName.call(null, { rowIndex }))
+    }
 
     return classes.join(' ')
   }
@@ -39,11 +37,10 @@ function useStyle<T>(props: TableHeaderProps<T>) {
     rowIndex: number,
     columnIndex: number,
     row: T,
-    column: TableColumnCtx<T>,
+    column: TableColumnCtx<T>
   ) => {
     let headerCellStyles = parent?.props.headerCellStyle ?? {}
     if (typeof headerCellStyles === 'function') {
-      // eslint-disable-next-line no-useless-call
       headerCellStyles = headerCellStyles.call(null, {
         rowIndex,
         columnIndex,
@@ -55,7 +52,7 @@ function useStyle<T>(props: TableHeaderProps<T>) {
       columnIndex,
       column.fixed,
       props.store,
-      row as unknown as TableColumnCtx<T>[],
+      row as unknown as TableColumnCtx<T>[]
     )
     ensurePosition(fixedStyle, 'left')
     ensurePosition(fixedStyle, 'right')
@@ -66,14 +63,14 @@ function useStyle<T>(props: TableHeaderProps<T>) {
     rowIndex: number,
     columnIndex: number,
     row: T,
-    column: TableColumnCtx<T>,
+    column: TableColumnCtx<T>
   ) => {
     const fixedClasses = getFixedColumnsClass<T>(
       ns.b(),
       columnIndex,
       column.fixed,
       props.store,
-      row as unknown as TableColumnCtx<T>[],
+      row as unknown as TableColumnCtx<T>[]
     )
     const classes = [
       column.id,
@@ -84,31 +81,31 @@ function useStyle<T>(props: TableHeaderProps<T>) {
       ...fixedClasses,
     ]
 
-    if (!column.children)
+    if (!column.children) {
       classes.push('is-leaf')
+    }
 
-    if (column.sortable)
+    if (column.sortable) {
       classes.push('is-sortable')
+    }
 
     const headerCellClassName = parent?.props.headerCellClassName
     if (typeof headerCellClassName === 'string') {
       classes.push(headerCellClassName)
-    }
-    else if (typeof headerCellClassName === 'function') {
+    } else if (typeof headerCellClassName === 'function') {
       classes.push(
-        // eslint-disable-next-line no-useless-call
         headerCellClassName.call(null, {
           rowIndex,
           columnIndex,
           row,
           column,
-        }),
+        })
       )
     }
 
     classes.push(ns.e('cell'))
 
-    return classes.filter(className => Boolean(className)).join(' ')
+    return classes.filter((className) => Boolean(className)).join(' ')
   }
 
   return {

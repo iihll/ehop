@@ -4,8 +4,8 @@ import {
   getFixedColumnOffset,
   getFixedColumnsClass,
 } from '../util'
-import type { TableColumnCtx } from '../table-column/defaults'
 import useMapState from './mapState-helper'
+import type { TableColumnCtx } from '../table-column/defaults'
 import type { TableFooter } from '.'
 
 function useStyle<T>(props: TableFooter<T>) {
@@ -21,12 +21,12 @@ function useStyle<T>(props: TableFooter<T>) {
       column.labelClassName,
       ...getFixedColumnsClass(ns.b(), cellIndex, column.fixed, props.store),
     ]
-    if (column.className)
+    if (column.className) {
       classes.push(column.className)
-
-    if (!column.children)
+    }
+    if (!column.children) {
       classes.push(ns.is('leaf'))
-
+    }
     return classes
   }
 
@@ -34,7 +34,7 @@ function useStyle<T>(props: TableFooter<T>) {
     const fixedStyle = getFixedColumnOffset(
       cellIndex,
       column.fixed,
-      props.store,
+      props.store
     )
     ensurePosition(fixedStyle, 'left')
     ensurePosition(fixedStyle, 'right')

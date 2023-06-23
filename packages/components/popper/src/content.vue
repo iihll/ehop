@@ -1,3 +1,29 @@
+<template>
+  <div
+    ref="contentRef"
+    v-bind="contentAttrs"
+    :style="contentStyle"
+    :class="contentClass"
+    tabindex="-1"
+    @mouseenter="(e) => $emit('mouseenter', e)"
+    @mouseleave="(e) => $emit('mouseleave', e)"
+  >
+    <el-focus-trap
+      :trapped="trapped"
+      :trap-on-focus-in="true"
+      :focus-trap-el="contentRef"
+      :focus-start-el="focusStartRef"
+      @focus-after-trapped="onFocusAfterTrapped"
+      @focus-after-released="onFocusAfterReleased"
+      @focusin="onFocusInTrap"
+      @focusout-prevented="onFocusoutPrevented"
+      @release-requested="onReleaseRequested"
+    >
+      <slot />
+    </el-focus-trap>
+  </div>
+</template>
+
 <script lang="ts" setup>
 import {
   inject,
@@ -13,7 +39,6 @@ import { isNil } from 'lodash-unified'
 import EhFocusTrap from '@ehop/components/focus-trap'
 import { formItemContextKey } from '@ehop/components/form'
 import { isElement } from '@ehop/utils'
-import type { WatchStopHandle } from 'vue'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
 import { popperContentEmits, popperContentProps } from './content'
 import {
@@ -22,13 +47,15 @@ import {
   usePopperContentFocusTrap,
 } from './composables'
 
-const props = defineProps(popperContentProps)
-
-const emit = defineEmits(popperContentEmits)
+import type { WatchStopHandle } from 'vue'
 
 defineOptions({
   name: 'EhPopperContent',
 })
+
+const emit = defineEmits(popperContentEmits)
+
+const props = defineProps(popperContentProps)
 
 const {
   focusStartRef,
@@ -41,8 +68,8 @@ const {
   onReleaseRequested,
 } = usePopperContentFocusTrap(props, emit)
 
-const { attributes, arrowRef, contentRef, styles, instanceRef, role, update }
-  = usePopperContent(props)
+const { attributes, arrowRef, contentRef, styles, instanceRef, role, update } =
+  usePopperContent(props)
 
 const {
   ariaModal,
@@ -66,7 +93,10 @@ provide(POPPER_CONTENT_INJECTION_KEY, {
   arrowOffset,
 })
 
-if (formItemContext && (formItemContext.addInputId || formItemContext.removeInputId)) {
+if (
+  formItemContext &&
+  (formItemContext.addInputId || formItemContext.removeInputId)
+) {
   // disallow auto-id from inside popper content
   provide(formItemContextKey, {
     ...formItemContext,
@@ -75,19 +105,20 @@ if (formItemContext && (formItemContext.addInputId || formItemContext.removeInpu
   })
 }
 
-let triggerTargetAriaStopWatch: WatchStopHandle | undefined
+let triggerTargetAriaStopWatch: WatchStopHandle | undefined = undefined
 
-function updatePopper(shouldUpdateZIndex = true) {
+const updatePopper = (shouldUpdateZIndex = true) => {
   update()
   shouldUpdateZIndex && updateZIndex()
 }
 
-function togglePopperAlive() {
+const togglePopperAlive = () => {
   updatePopper(false)
-  if (props.visible && props.focusOnShow)
+  if (props.visible && props.focusOnShow) {
     trapped.value = true
-  else if (props.visible === false)
+  } else if (props.visible === false) {
     trapped.value = false
+  }
 }
 
 onMounted(() => {
@@ -104,22 +135,22 @@ onMounted(() => {
         triggerTargetAriaStopWatch = watch(
           [role, () => props.ariaLabel, ariaModal, () => props.id],
           (watches) => {
-            ['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
+            ;['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
               isNil(watches[idx])
                 ? el.removeAttribute(key)
                 : el.setAttribute(key, watches[idx]!)
             })
           },
-          { immediate: true },
+          { immediate: true }
         )
       }
       if (prevEl !== el && isElement(prevEl)) {
-        ['role', 'aria-label', 'aria-modal', 'id'].forEach((key) => {
+        ;['role', 'aria-label', 'aria-modal', 'id'].forEach((key) => {
           prevEl.removeAttribute(key)
         })
       }
     },
-    { immediate: true },
+    { immediate: true }
   )
 
   watch(() => props.visible, togglePopperAlive, { immediate: true })
@@ -150,29 +181,3 @@ defineExpose({
   contentStyle,
 })
 </script>
-
-<template>
-  <div
-    ref="contentRef"
-    v-bind="contentAttrs"
-    :style="contentStyle"
-    :class="contentClass"
-    tabindex="-1"
-    @mouseenter="(e) => $emit('mouseenter', e)"
-    @mouseleave="(e) => $emit('mouseleave', e)"
-  >
-    <EhFocusTrap
-      :trapped="trapped"
-      :trap-on-focus-in="true"
-      :focus-trap-el="contentRef"
-      :focus-start-el="focusStartRef"
-      @focus-after-trapped="onFocusAfterTrapped"
-      @focus-after-released="onFocusAfterReleased"
-      @focusin="onFocusInTrap"
-      @focusout-prevented="onFocusoutPrevented"
-      @release-requested="onReleaseRequested"
-    >
-      <slot />
-    </EhFocusTrap>
-  </div>
-</template>

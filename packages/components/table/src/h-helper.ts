@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { h } from 'vue'
-
 export function hColgroup(props) {
   const isAuto = props.tableLayout === 'auto'
   let columns = props.columns || []
   if (isAuto) {
-    if (columns.every(column => column.width === undefined))
+    if (columns.every((column) => column.width === undefined)) {
       columns = []
+    }
   }
   const getPropsData = (column) => {
     const propsData = {
@@ -19,8 +18,7 @@ export function hColgroup(props) {
       propsData.style = {
         width: `${column.width}px`,
       }
-    }
-    else {
+    } else {
       propsData.name = column.id
     }
     return propsData
@@ -29,7 +27,7 @@ export function hColgroup(props) {
   return h(
     'colgroup',
     {},
-    columns.map(column => h('col', getPropsData(column))),
+    columns.map((column) => h('col', getPropsData(column)))
   )
 }
 

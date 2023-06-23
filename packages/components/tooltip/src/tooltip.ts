@@ -1,10 +1,11 @@
 import { buildProps } from '@ehop/utils'
 import { createModelToggleComposable } from '@ehop/hooks'
 import { popperArrowProps, popperProps } from '@ehop/components/popper'
-import type { ExtractPropTypes } from 'vue'
 import { useTooltipContentProps } from './content'
 import { useTooltipTriggerProps } from './trigger'
 import type Tooltip from './tooltip.vue'
+
+import type { ExtractPropTypes } from 'vue'
 
 export const {
   useModelToggleProps: useTooltipModelToggleProps,
@@ -29,8 +30,8 @@ export const useTooltipProps = buildProps({
 
 export const tooltipEmits = [
   ...useTooltipModelToggleEmits,
-  'beforeShow',
-  'beforeHide',
+  'before-show',
+  'before-hide',
   'show',
   'hide',
   'open',

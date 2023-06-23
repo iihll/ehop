@@ -1,3 +1,16 @@
+<template>
+  <component
+    :is="tag"
+    :id="groupId"
+    :class="ns.b('group')"
+    role="group"
+    :aria-label="!isLabeledByFormItem ? label || 'checkbox-group' : undefined"
+    :aria-labelledby="isLabeledByFormItem ? formItem?.labelId : undefined"
+  >
+    <slot />
+  </component>
+</template>
+
 <script lang="ts" setup>
 import { computed, nextTick, provide, toRefs, watch } from 'vue'
 import { pick } from 'lodash-unified'
@@ -10,14 +23,12 @@ import { checkboxGroupContextKey } from './constants'
 
 import type { CheckboxGroupValueType } from './checkbox-group'
 
-const props = defineProps(checkboxGroupProps)
-
-const emit = defineEmits(checkboxGroupEmits)
-
 defineOptions({
   name: 'EhCheckboxGroup',
 })
 
+const props = defineProps(checkboxGroupProps)
+const emit = defineEmits(checkboxGroupEmits)
 const ns = useNamespace('checkbox')
 
 const { formItem } = useFormItem()
@@ -25,7 +36,7 @@ const { inputId: groupId, isLabeledByFormItem } = useFormItemInputId(props, {
   formItemContext: formItem,
 })
 
-async function changeEvent(value: CheckboxGroupValueType) {
+const changeEvent = async (value: CheckboxGroupValueType) => {
   emit(UPDATE_MODEL_EVENT, value)
   await nextTick()
   emit('change', value)
@@ -57,21 +68,9 @@ provide(checkboxGroupContextKey, {
 watch(
   () => props.modelValue,
   () => {
-    if (props.validateEvent)
-      formItem?.validate('change').catch(err => debugWarn(err))
-  },
+    if (props.validateEvent) {
+      formItem?.validate('change').catch((err) => debugWarn(err))
+    }
+  }
 )
 </script>
-
-<template>
-  <component
-    :is="tag"
-    :id="groupId"
-    :class="ns.b('group')"
-    role="group"
-    :aria-label="!isLabeledByFormItem ? label || 'checkbox-group' : undefined"
-    :aria-labelledby="isLabeledByFormItem ? formItem?.labelId : undefined"
-  >
-    <slot />
-  </component>
-</template>

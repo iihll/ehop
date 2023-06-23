@@ -1,6 +1,6 @@
-import path from 'node:path'
+import path from 'path'
+import { epOutput } from '@ehoptils'
 import { PKG_NAME } from '@ehop/build-constants'
-import { ehOutput } from '@ehop/build-utils'
 
 import type { ModuleFormat } from 'rollup'
 
@@ -13,12 +13,12 @@ export interface BuildInfo {
   output: {
     /** e.g: `es` */
     name: string
-    /** e.g: `dist/element-plus/es` */
+    /** e.g: `dist/ehop/es` */
     path: string
   }
 
   bundle: {
-    /** e.g: `element-plus/es` */
+    /** e.g: `ehop/es` */
     path: string
   }
 }
@@ -30,7 +30,7 @@ export const buildConfig: Record<Module, BuildInfo> = {
     ext: 'mjs',
     output: {
       name: 'es',
-      path: path.resolve(ehOutput, 'es'),
+      path: path.resolve(epOutput, 'es'),
     },
     bundle: {
       path: `${PKG_NAME}/es`,
@@ -42,7 +42,7 @@ export const buildConfig: Record<Module, BuildInfo> = {
     ext: 'js',
     output: {
       name: 'lib',
-      path: path.resolve(ehOutput, 'lib'),
+      path: path.resolve(epOutput, 'lib'),
     },
     bundle: {
       path: `${PKG_NAME}/lib`,
@@ -50,7 +50,7 @@ export const buildConfig: Record<Module, BuildInfo> = {
   },
 }
 export const buildConfigEntries = Object.entries(
-  buildConfig,
+  buildConfig
 ) as BuildConfigEntries
 
 export type BuildConfig = typeof buildConfig

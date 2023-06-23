@@ -5,7 +5,7 @@ interface SelectGroupContext {
 }
 
 export interface QueryChangeCtx {
-  query: string | null
+  query: string
 }
 
 export interface SelectContext {
@@ -31,11 +31,12 @@ export interface SelectContext {
   setSelected(): void
   onOptionCreate(vm: SelectOptionProxy): void
   onOptionDestroy(key: number | string | Record<string, any>): void
-  handleOptionSelect(vm: unknown, byClick: boolean): void
+  handleOptionSelect(vm: unknown): void
 }
 
 // For individual build sharing injection key, we had to make `Symbol` to string
-export const selectGroupKey: InjectionKey<SelectGroupContext> = Symbol('EhSelectGroup')
+export const selectGroupKey: InjectionKey<SelectGroupContext> =
+  Symbol('EhSelectGroup')
 
 export const selectKey: InjectionKey<SelectContext> = Symbol('EhSelect')
 

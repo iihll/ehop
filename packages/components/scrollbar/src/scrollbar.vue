@@ -1,4 +1,28 @@
-<script setup lang="ts">
+<template>
+  <div ref="scrollbarRef" :class="ns.b()">
+    <div ref="wrapRef" :class="wrapKls" :style="style" @scroll="handleScroll">
+      <component
+        :is="tag"
+        ref="resizeRef"
+        :class="resizeKls"
+        :style="viewStyle"
+      >
+        <slot />
+      </component>
+    </div>
+    <template v-if="!native">
+      <bar
+        ref="barRef"
+        :height="sizeHeight"
+        :width="sizeWidth"
+        :always="always"
+        :ratio-x="ratioX"
+        :ratio-y="ratioY"
+      />
+    </template>
+  </div>
+</template>
+<script lang="ts" setup>
 import {
   computed,
   nextTick,
@@ -12,18 +36,12 @@ import {
 import { useEventListener, useResizeObserver } from '@vueuse/core'
 import { addUnit, debugWarn, isNumber, isObject } from '@ehop/utils'
 import { useNamespace } from '@ehop/hooks'
-import type { CSSProperties, StyleValue } from 'vue'
 import { GAP } from './util'
 import Bar from './bar.vue'
-import type { ScrollbarContext } from './constants'
 import { scrollbarContextKey } from './constants'
 import { scrollbarEmits, scrollbarProps } from './scrollbar'
 import type { BarInstance } from './bar'
-import '../style'
-
-const props = defineProps(scrollbarProps)
-
-const emit = defineEmits(scrollbarEmits)
+import type { CSSProperties, StyleValue } from 'vue'
 
 const COMPONENT_NAME = 'EhScrollbar'
 
@@ -31,10 +49,13 @@ defineOptions({
   name: COMPONENT_NAME,
 })
 
+const props = defineProps(scrollbarProps)
+const emit = defineEmits(scrollbarEmits)
+
 const ns = useNamespace('scrollbar')
 
-let stopResizeObserver: (() => void) | undefined
-let stopResizeListener: (() => void) | undefined
+let stopResizeObserver: (() => void) | undefined = undefined
+let stopResizeListener: (() => void) | undefined = undefined
 
 const scrollbarRef = ref<HTMLDivElement>()
 const wrapRef = ref<HTMLDivElement>()
@@ -48,10 +69,8 @@ const ratioX = ref(1)
 
 const style = computed<StyleValue>(() => {
   const style: CSSProperties = {}
-  if (props.height)
-    style.height = addUnit(props.height)
-  if (props.maxHeight)
-    style.maxHeight = addUnit(props.maxHeight)
+  if (props.height) style.height = addUnit(props.height)
+  if (props.maxHeight) style.maxHeight = addUnit(props.maxHeight)
   return [props.wrapStyle, style]
 })
 
@@ -67,7 +86,7 @@ const resizeKls = computed(() => {
   return [ns.e('view'), props.viewClass]
 })
 
-function handleScroll() {
+const handleScroll = () => {
   if (wrapRef.value) {
     barRef.value?.handleScroll(wrapRef.value)
 
@@ -79,17 +98,18 @@ function handleScroll() {
 }
 
 // TODO: refactor method overrides, due to script setup dts
-
+// @ts-nocheck
 function scrollTo(xCord: number, yCord?: number): void
 function scrollTo(options: ScrollToOptions): void
 function scrollTo(arg1: unknown, arg2?: number) {
-  if (isObject(arg1))
+  if (isObject(arg1)) {
     wrapRef.value!.scrollTo(arg1)
-  else if (isNumber(arg1) && isNumber(arg2))
+  } else if (isNumber(arg1) && isNumber(arg2)) {
     wrapRef.value!.scrollTo(arg1, arg2)
+  }
 }
 
-function setScrollTop(value: number) {
+const setScrollTop = (value: number) => {
   if (!isNumber(value)) {
     debugWarn(COMPONENT_NAME, 'value must be a number')
     return
@@ -97,7 +117,7 @@ function setScrollTop(value: number) {
   wrapRef.value!.scrollTop = value
 }
 
-function setScrollLeft(value: number) {
+const setScrollLeft = (value: number) => {
   if (!isNumber(value)) {
     debugWarn(COMPONENT_NAME, 'value must be a number')
     return
@@ -105,9 +125,8 @@ function setScrollLeft(value: number) {
   wrapRef.value!.scrollLeft = value
 }
 
-function update() {
-  if (!wrapRef.value)
-    return
+const update = () => {
+  if (!wrapRef.value) return
   const offsetHeight = wrapRef.value.offsetHeight - GAP
   const offsetWidth = wrapRef.value.offsetWidth - GAP
 
@@ -116,8 +135,14 @@ function update() {
   const height = Math.max(originalHeight, props.minSize)
   const width = Math.max(originalWidth, props.minSize)
 
-  ratioY.value = originalHeight / (offsetHeight - originalHeight) / (height / (offsetHeight - height))
-  ratioX.value = originalWidth / (offsetWidth - originalWidth) / (width / (offsetWidth - width))
+  ratioY.value =
+    originalHeight /
+    (offsetHeight - originalHeight) /
+    (height / (offsetHeight - height))
+  ratioX.value =
+    originalWidth /
+    (offsetWidth - originalWidth) /
+    (width / (offsetWidth - width))
 
   sizeHeight.value = height + GAP < offsetHeight ? `${height}px` : ''
   sizeWidth.value = width + GAP < offsetWidth ? `${width}px` : ''
@@ -129,26 +154,25 @@ watch(
     if (noresize) {
       stopResizeObserver?.()
       stopResizeListener?.()
-    }
-    else {
-      ({ stop: stopResizeObserver } = useResizeObserver(resizeRef, update))
+    } else {
+      ;({ stop: stopResizeObserver } = useResizeObserver(resizeRef, update))
       stopResizeListener = useEventListener('resize', update)
     }
   },
-  { immediate: true },
+  { immediate: true }
 )
 
 watch(
   () => [props.maxHeight, props.height],
   () => {
-    if (!props.native) {
+    if (!props.native)
       nextTick(() => {
         update()
-        if (wrapRef.value)
+        if (wrapRef.value) {
           barRef.value?.handleScroll(wrapRef.value)
+        }
       })
-    }
-  },
+  }
 )
 
 provide(
@@ -156,16 +180,14 @@ provide(
   reactive({
     scrollbarElement: scrollbarRef,
     wrapElement: wrapRef,
-    // TODO scrollbar provide value type
-  }) as ScrollbarContext,
+  })
 )
 
 onMounted(() => {
-  if (!props.native) {
+  if (!props.native)
     nextTick(() => {
       update()
     })
-  }
 })
 onUpdated(() => update())
 
@@ -184,28 +206,3 @@ defineExpose({
   handleScroll,
 })
 </script>
-
-<template>
-  <div ref="scrollbarRef" :class="ns.b()">
-    <div ref="wrapRef" :class="wrapKls" :style="style" @scroll="handleScroll">
-      <component
-        :is="tag"
-        ref="resizeRef"
-        :class="resizeKls"
-        :style="viewStyle"
-      >
-        <slot />
-      </component>
-    </div>
-    <template v-if="!native">
-      <Bar
-        ref="barRef"
-        :height="sizeHeight"
-        :width="sizeWidth"
-        :always="always"
-        :ratio-x="ratioX"
-        :ratio-y="ratioY"
-      />
-    </template>
-  </div>
-</template>

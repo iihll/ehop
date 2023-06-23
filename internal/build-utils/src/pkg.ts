@@ -1,24 +1,25 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import findWorkspacePackages from '@pnpm/find-workspace-packages'
-import type { ProjectManifest } from '@pnpm/types'
 import { projRoot } from './paths'
 
+import type { ProjectManifest } from '@pnpm/types'
+
 export const getWorkspacePackages = () => findWorkspacePackages(projRoot)
-export async function getWorkspaceNames(dir = projRoot) {
+export const getWorkspaceNames = async (dir = projRoot) => {
   const pkgs = await findWorkspacePackages(projRoot)
   return pkgs
-    .filter(pkg => pkg.dir.startsWith(dir))
-    .map(pkg => pkg.manifest.name)
+    .filter((pkg) => pkg.dir.startsWith(dir))
+    .map((pkg) => pkg.manifest.name)
     .filter((name): name is string => !!name)
 }
 
-export function getPackageManifest(pkgPath: string) {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+export const getPackageManifest = (pkgPath: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   return require(pkgPath) as ProjectManifest
 }
 
-export function getPackageDependencies(pkgPath: string): Record<'dependencies' | 'peerDependencies', string[]> {
+export const getPackageDependencies = (
+  pkgPath: string
+): Record<'dependencies' | 'peerDependencies', string[]> => {
   const manifest = getPackageManifest(pkgPath)
   const { dependencies = {}, peerDependencies = {} } = manifest
 
@@ -28,9 +29,9 @@ export function getPackageDependencies(pkgPath: string): Record<'dependencies' |
   }
 }
 
-export function excludeFiles(files: string[]) {
-  const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist', 'icons-vue', 'icons-svg']
+export const excludeFiles = (files: string[]) => {
+  const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
   return files.filter(
-    path => !excludes.some(exclude => path.includes(exclude)),
+    (path) => !excludes.some((exclude) => path.includes(exclude))
   )
 }

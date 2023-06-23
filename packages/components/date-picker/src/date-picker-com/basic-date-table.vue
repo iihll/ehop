@@ -1,14 +1,61 @@
+<template>
+  <table
+    role="grid"
+    :aria-label="t('eh.datepicker.dateTablePrompt')"
+    cellspacing="0"
+    cellpadding="0"
+    :class="[ns.b(), { 'is-week-mode': selectionMode === 'week' }]"
+    @click="handlePickDate"
+    @mousemove="handleMouseMove"
+    @mousedown.prevent="handleMouseDown"
+    @mouseup="handleMouseUp"
+  >
+    <tbody ref="tbodyRef">
+      <tr>
+        <th v-if="showWeekNumber" scope="col">{{ t('eh.datepicker.week') }}</th>
+        <th
+          v-for="(week, key) in WEEKS"
+          :key="key"
+          scope="col"
+          :aria-label="t('eh.datepicker.weeksFull.' + week)"
+        >
+          {{ t('eh.datepicker.weeks.' + week) }}
+        </th>
+      </tr>
+      <tr
+        v-for="(row, rowKey) in rows"
+        :key="rowKey"
+        :class="[ns.e('row'), { current: isWeekActive(row[1]) }]"
+      >
+        <td
+          v-for="(cell, columnKey) in row"
+          :key="`${rowKey}.${columnKey}`"
+          :ref="(el) => isSelectedCell(cell) && (currentCellRef = el as HTMLElement)"
+          :class="getCellClasses(cell)"
+          :aria-current="cell.isCurrent ? 'date' : undefined"
+          :aria-selected="cell.isCurrent"
+          :tabindex="isSelectedCell(cell) ? 0 : -1"
+          @focus="handleFocus"
+        >
+          <eh-date-picker-cell :cell="cell" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
 <script lang="ts" setup>
 import { computed, nextTick, ref, unref, watch } from 'vue'
 import dayjs from 'dayjs'
 import { flatten } from 'lodash-unified'
 import { useLocale, useNamespace } from '@ehop/hooks'
 import { castArray } from '@ehop/utils'
-import type { Dayjs } from 'dayjs'
 import { basicDateTableProps } from '../props/basic-date-table'
 import { buildPickerTable } from '../utils'
-import type { DateCell } from '../date-picker.type'
 import EhDatePickerCell from './basic-cell-render'
+
+import type { Dayjs } from 'dayjs'
+import type { DateCell } from '../date-picker.type'
 
 const props = defineProps(basicDateTableProps)
 const emit = defineEmits(['changerange', 'pick', 'select'])
@@ -32,7 +79,7 @@ const WEEKS_CONSTANT = props.date
   .locale('en')
   .localeData()
   .weekdaysShort()
-  .map(_ => _.toLowerCase())
+  .map((_) => _.toLowerCase())
 
 const offsetDay = computed(() => {
   // Sunday 7(0), cal the left and right offset days, 3217654, such as Monday is -1, the is to adjust the position of the first two rows of dates
@@ -47,12 +94,11 @@ const startDate = computed(() => {
 const WEEKS = computed(() => {
   return WEEKS_CONSTANT.concat(WEEKS_CONSTANT).slice(
     firstDayOfWeek,
-    firstDayOfWeek + 7,
+    firstDayOfWeek + 7
   )
 })
 
 const hasCurrent = computed<boolean>(() => {
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return flatten(rows.value).some((row) => {
     return row.isCurrent
   })
@@ -79,7 +125,8 @@ const selectedDate = computed(() => {
 })
 
 // Return value indicates should the counter be incremented
-function setDateText(cell: DateCell,
+const setDateText = (
+  cell: DateCell,
   {
     count,
     rowIndex,
@@ -88,34 +135,32 @@ function setDateText(cell: DateCell,
     count: number
     rowIndex: number
     columnIndex: number
-  }): boolean {
-  const { startOfMonthDay, dateCountOfMonth, dateCountOfLastMonth }
-    = unref(days)
+  }
+): boolean => {
+  const { startOfMonthDay, dateCountOfMonth, dateCountOfLastMonth } =
+    unref(days)
   const offset = unref(offsetDay)
   if (rowIndex >= 0 && rowIndex <= 1) {
-    const numberOfDaysFromPreviousMonth
-      = startOfMonthDay + offset < 0
+    const numberOfDaysFromPreviousMonth =
+      startOfMonthDay + offset < 0
         ? 7 + startOfMonthDay + offset
         : startOfMonthDay + offset
 
     if (columnIndex + rowIndex * 7 >= numberOfDaysFromPreviousMonth) {
       cell.text = count
       return true
-    }
-    else {
-      cell.text
-        = dateCountOfLastMonth
-        - (numberOfDaysFromPreviousMonth - (columnIndex % 7))
-        + 1
-        + rowIndex * 7
+    } else {
+      cell.text =
+        dateCountOfLastMonth -
+        (numberOfDaysFromPreviousMonth - (columnIndex % 7)) +
+        1 +
+        rowIndex * 7
       cell.type = 'prev-month'
     }
-  }
-  else {
+  } else {
     if (count <= dateCountOfMonth) {
       cell.text = count
-    }
-    else {
+    } else {
       cell.text = count - dateCountOfMonth
       cell.type = 'next-month'
     }
@@ -124,7 +169,8 @@ function setDateText(cell: DateCell,
   return false
 }
 
-function setCellMetadata(cell: DateCell,
+const setCellMetadata = (
+  cell: DateCell,
   {
     columnIndex,
     rowIndex,
@@ -132,14 +178,15 @@ function setCellMetadata(cell: DateCell,
     columnIndex: number
     rowIndex: number
   },
-  count: number) {
+  count: number
+) => {
   const { disabledDate, cellClassName } = props
   const _selectedDate = unref(selectedDate)
   const shouldIncrement = setDateText(cell, { count, rowIndex, columnIndex })
 
   const cellDate = cell.dayjs!.toDate()
   cell.selected = _selectedDate.find(
-    d => d.valueOf() === cell.dayjs!.valueOf(),
+    (d) => d.valueOf() === cell.dayjs!.valueOf()
   )
   cell.isSelected = !!cell.selected
   cell.isCurrent = isCurrent(cell)
@@ -148,7 +195,7 @@ function setCellMetadata(cell: DateCell,
   return shouldIncrement
 }
 
-function setRowMetadata(row: DateCell[]) {
+const setRowMetadata = (row: DateCell[]) => {
   if (props.selectionMode === 'week') {
     const [start, end] = props.showWeekNumber ? [1, 7] : [0, 6]
     const isActive = isWeekActive(row[start + 1])
@@ -182,17 +229,18 @@ const rows = computed(() => {
     startDate: minDate,
     columnIndexOffset: showWeekNumber ? 1 : 0,
     nextEndDate:
-      rangeState.endDate
-      || maxDate
-      || (rangeState.selecting && minDate)
-      || null,
+      rangeState.endDate ||
+      maxDate ||
+      (rangeState.selecting && minDate) ||
+      null,
     now: dayjs().locale(unref(lang)).startOf(dateUnit),
     unit: dateUnit,
     relativeDateGetter: (idx: number) =>
       startDate.value.add(idx - offset, dateUnit),
     setCellMetadata: (...args) => {
-      if (setCellMetadata(...args, count))
+      if (setCellMetadata(...args, count)) {
         count += 1
+      }
     },
 
     setRowMetadata,
@@ -208,98 +256,100 @@ watch(
       await nextTick()
       currentCellRef.value?.focus()
     }
-  },
+  }
 )
 
-async function focus() {
+const focus = async () => {
   currentCellRef.value?.focus()
 }
 
-function isNormalDay(type = '') {
+const isNormalDay = (type = '') => {
   return ['normal', 'today'].includes(type)
 }
 
-function isCurrent(cell: DateCell): boolean {
+const isCurrent = (cell: DateCell): boolean => {
   return (
-    props.selectionMode === 'date'
-    && isNormalDay(cell.type)
-    && cellMatchesDate(cell, props.parsedValue as Dayjs)
+    props.selectionMode === 'date' &&
+    isNormalDay(cell.type) &&
+    cellMatchesDate(cell, props.parsedValue as Dayjs)
   )
 }
 
-function cellMatchesDate(cell: DateCell, date: Dayjs) {
-  if (!date)
-    return false
+const cellMatchesDate = (cell: DateCell, date: Dayjs) => {
+  if (!date) return false
   return dayjs(date)
     .locale(lang.value)
     .isSame(props.date.date(Number(cell.text)), 'day')
 }
 
-function getCellClasses(cell: DateCell) {
+const getCellClasses = (cell: DateCell) => {
   const classes: string[] = []
   if (isNormalDay(cell.type) && !cell.disabled) {
     classes.push('available')
-    if (cell.type === 'today')
+    if (cell.type === 'today') {
       classes.push('today')
-  }
-  else {
+    }
+  } else {
     classes.push(cell.type!)
   }
 
-  if (isCurrent(cell))
+  if (isCurrent(cell)) {
     classes.push('current')
+  }
 
   if (
-    cell.inRange
-    && (isNormalDay(cell.type) || props.selectionMode === 'week')
+    cell.inRange &&
+    (isNormalDay(cell.type) || props.selectionMode === 'week')
   ) {
     classes.push('in-range')
 
-    if (cell.start)
+    if (cell.start) {
       classes.push('start-date')
+    }
 
-    if (cell.end)
+    if (cell.end) {
       classes.push('end-date')
+    }
   }
 
-  if (cell.disabled)
+  if (cell.disabled) {
     classes.push('disabled')
+  }
 
-  if (cell.selected)
+  if (cell.selected) {
     classes.push('selected')
+  }
 
-  if (cell.customClass)
+  if (cell.customClass) {
     classes.push(cell.customClass)
+  }
 
   return classes.join(' ')
 }
 
-function getDateOfCell(row: number, column: number) {
-  const offsetFromStart
-    = row * 7 + (column - (props.showWeekNumber ? 1 : 0)) - offsetDay.value
+const getDateOfCell = (row: number, column: number) => {
+  const offsetFromStart =
+    row * 7 + (column - (props.showWeekNumber ? 1 : 0)) - offsetDay.value
   return startDate.value.add(offsetFromStart, 'day')
 }
 
-function handleMouseMove(event: MouseEvent) {
-  if (!props.rangeState.selecting)
-    return
+const handleMouseMove = (event: MouseEvent) => {
+  if (!props.rangeState.selecting) return
 
   let target = event.target as HTMLElement
-  if (target.tagName === 'SPAN')
+  if (target.tagName === 'SPAN') {
     target = target.parentNode?.parentNode as HTMLElement
-
-  if (target.tagName === 'DIV')
+  }
+  if (target.tagName === 'DIV') {
     target = target.parentNode as HTMLElement
-
-  if (target.tagName !== 'TD')
-    return
+  }
+  if (target.tagName !== 'TD') return
 
   const row = (target.parentNode as HTMLTableRowElement).rowIndex - 1
   const column = (target as HTMLTableCellElement).cellIndex
 
   // can not select disabled date
-  if (rows.value[row][column].disabled)
-    return
+  if (rows.value[row][column].disabled) return
 
   // only update rangeState when mouse moves to a new cell
   // this avoids frequent Date object creation and improves performance
@@ -313,46 +363,44 @@ function handleMouseMove(event: MouseEvent) {
   }
 }
 
-function isSelectedCell(cell: DateCell) {
+const isSelectedCell = (cell: DateCell) => {
   return (
-    (!hasCurrent.value && cell?.text === 1 && cell.type === 'normal')
-    || cell.isCurrent
+    (!hasCurrent.value && cell?.text === 1 && cell.type === 'normal') ||
+    cell.isCurrent
   )
 }
 
-function handleFocus(event: FocusEvent) {
+const handleFocus = (event: FocusEvent) => {
   if (focusWithClick || hasCurrent.value || props.selectionMode !== 'date')
     return
   handlePickDate(event, true)
 }
 
-function handleMouseDown(event: MouseEvent) {
+const handleMouseDown = (event: MouseEvent) => {
   const target = (event.target as HTMLElement).closest('td')
-  if (!target)
-    return
+  if (!target) return
   focusWithClick = true
 }
 
-function handleMouseUp(event: MouseEvent) {
+const handleMouseUp = (event: MouseEvent) => {
   const target = (event.target as HTMLElement).closest('td')
-  if (!target)
-    return
+  if (!target) return
   focusWithClick = false
 }
 
-function handlePickDate(event: FocusEvent | MouseEvent,
-  isKeyboardMovement = false) {
+const handlePickDate = (
+  event: FocusEvent | MouseEvent,
+  isKeyboardMovement = false
+) => {
   const target = (event.target as HTMLElement).closest('td')
 
-  if (!target)
-    return
+  if (!target) return
 
   const row = (target.parentNode as HTMLTableRowElement).rowIndex - 1
   const column = (target as HTMLTableCellElement).cellIndex
   const cell = rows.value[row][column]
 
-  if (cell.disabled || cell.type === 'week')
-    return
+  if (cell.disabled || cell.type === 'week') return
 
   const newDate = getDateOfCell(row, column)
 
@@ -360,20 +408,17 @@ function handlePickDate(event: FocusEvent | MouseEvent,
     if (!props.rangeState.selecting || !props.minDate) {
       emit('pick', { minDate: newDate, maxDate: null })
       emit('select', true)
-    }
-    else {
-      if (newDate >= props.minDate)
+    } else {
+      if (newDate >= props.minDate) {
         emit('pick', { minDate: props.minDate, maxDate: newDate })
-      else
+      } else {
         emit('pick', { minDate: newDate, maxDate: props.minDate })
-
+      }
       emit('select', false)
     }
-  }
-  else if (props.selectionMode === 'date') {
+  } else if (props.selectionMode === 'date') {
     emit('pick', newDate, isKeyboardMovement)
-  }
-  else if (props.selectionMode === 'week') {
+  } else if (props.selectionMode === 'week') {
     const weekNumber = newDate.week()
     const value = `${newDate.year()}w${weekNumber}`
     emit('pick', {
@@ -382,27 +427,27 @@ function handlePickDate(event: FocusEvent | MouseEvent,
       value,
       date: newDate.startOf('week'),
     })
-  }
-  else if (props.selectionMode === 'dates') {
+  } else if (props.selectionMode === 'dates') {
     const newValue = cell.selected
       ? castArray(props.parsedValue).filter(
-        d => d?.valueOf() !== newDate.valueOf(),
-      )
+          (d) => d?.valueOf() !== newDate.valueOf()
+        )
       : castArray(props.parsedValue).concat([newDate])
     emit('pick', newValue)
   }
 }
 
-function isWeekActive(cell: DateCell) {
-  if (props.selectionMode !== 'week')
-    return false
+const isWeekActive = (cell: DateCell) => {
+  if (props.selectionMode !== 'week') return false
   let newDate = props.date.startOf('day')
 
-  if (cell.type === 'prev-month')
+  if (cell.type === 'prev-month') {
     newDate = newDate.subtract(1, 'month')
+  }
 
-  if (cell.type === 'next-month')
+  if (cell.type === 'next-month') {
     newDate = newDate.add(1, 'month')
+  }
 
   newDate = newDate.date(Number.parseInt(cell.text as any, 10))
 
@@ -421,51 +466,3 @@ defineExpose({
   focus,
 })
 </script>
-
-<template>
-  <table
-    role="grid"
-    :aria-label="t('eh.datepicker.dateTablePrompt')"
-    cellspacing="0"
-    cellpadding="0"
-    :class="[ns.b(), { 'is-week-mode': selectionMode === 'week' }]"
-    @click="handlePickDate"
-    @mousemove="handleMouseMove"
-    @mousedown.prevent="handleMouseDown"
-    @mouseup="handleMouseUp"
-  >
-    <tbody ref="tbodyRef">
-      <tr>
-        <th v-if="showWeekNumber" scope="col">
-          {{ t('eh.datepicker.week') }}
-        </th>
-        <th
-          v-for="(week, key) in WEEKS"
-          :key="key"
-          scope="col"
-          :aria-label="t(`eh.datepicker.weeksFull.${week}`)"
-        >
-          {{ t(`eh.datepicker.weeks.${week}`) }}
-        </th>
-      </tr>
-      <tr
-        v-for="(row, rowKey) in rows"
-        :key="rowKey"
-        :class="[ns.e('row'), { current: isWeekActive(row[1]) }]"
-      >
-        <td
-          v-for="(cell, columnKey) in row"
-          :key="`${rowKey}.${columnKey}`"
-          :ref="(el) => isSelectedCell(cell) && (currentCellRef = el as HTMLElement)"
-          :class="getCellClasses(cell)"
-          :aria-current="cell.isCurrent ? 'date' : undefined"
-          :aria-selected="cell.isCurrent"
-          :tabindex="isSelectedCell(cell) ? 0 : -1"
-          @focus="handleFocus"
-        >
-          <EhDatePickerCell :cell="cell" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</template>

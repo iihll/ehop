@@ -1,11 +1,11 @@
 import { isNil } from 'lodash-unified'
 import { useSizeProp } from '@ehop/hooks'
-import { buildProps, isNumber } from '@ehop/utils'
+import { buildProps, isNumber } from '@ehop
 import {
   CHANGE_EVENT,
   INPUT_EVENT,
   UPDATE_MODEL_EVENT,
-} from '@ehop/constants'
+} from '@ehopts'
 import type { ExtractPropTypes } from 'vue'
 import type InputNumber from './input-number.vue'
 

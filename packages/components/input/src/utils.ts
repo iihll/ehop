@@ -1,6 +1,6 @@
 import { isFirefox, isNumber } from '@ehop/utils'
 
-let hiddenTextarea: HTMLTextAreaElement | undefined
+let hiddenTextarea: HTMLTextAreaElement | undefined = undefined
 
 const HIDDEN_STYLE = `
   height:0 !important;
@@ -30,33 +30,33 @@ const CONTEXT_STYLE = [
   'box-sizing',
 ]
 
-interface NodeStyle {
+type NodeStyle = {
   contextStyle: string
   boxSizing: string
   paddingSize: number
   borderSize: number
 }
 
-interface TextAreaHeight {
+type TextAreaHeight = {
   height: string
   minHeight?: string
 }
 
-function calculateNodeStyling(targetElement: Element): NodeStyle {
+function calculateNodeStyling(targetElement: Ehement): NodeStyle {
   const style = window.getComputedStyle(targetElement)
 
   const boxSizing = style.getPropertyValue('box-sizing')
 
-  const paddingSize
-    = Number.parseFloat(style.getPropertyValue('padding-bottom'))
-    + Number.parseFloat(style.getPropertyValue('padding-top'))
+  const paddingSize =
+    Number.parseFloat(style.getPropertyValue('padding-bottom')) +
+    Number.parseFloat(style.getPropertyValue('padding-top'))
 
-  const borderSize
-    = Number.parseFloat(style.getPropertyValue('border-bottom-width'))
-    + Number.parseFloat(style.getPropertyValue('border-top-width'))
+  const borderSize =
+    Number.parseFloat(style.getPropertyValue('border-bottom-width')) +
+    Number.parseFloat(style.getPropertyValue('border-top-width'))
 
   const contextStyle = CONTEXT_STYLE.map(
-    name => `${name}:${style.getPropertyValue(name)}`,
+    (name) => `${name}:${style.getPropertyValue(name)}`
   ).join(';')
 
   return { contextStyle, paddingSize, borderSize, boxSizing }
@@ -65,15 +65,15 @@ function calculateNodeStyling(targetElement: Element): NodeStyle {
 export function calcTextareaHeight(
   targetElement: HTMLTextAreaElement,
   minRows = 1,
-  maxRows?: number,
+  maxRows?: number
 ): TextAreaHeight {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea')
     document.body.appendChild(hiddenTextarea)
   }
 
-  const { paddingSize, borderSize, boxSizing, contextStyle }
-    = calculateNodeStyling(targetElement)
+  const { paddingSize, borderSize, boxSizing, contextStyle } =
+    calculateNodeStyling(targetElement)
 
   hiddenTextarea.setAttribute('style', `${contextStyle};${HIDDEN_STYLE}`)
   hiddenTextarea.value = targetElement.value || targetElement.placeholder || ''
@@ -81,28 +81,28 @@ export function calcTextareaHeight(
   let height = hiddenTextarea.scrollHeight
   const result = {} as TextAreaHeight
 
-  if (boxSizing === 'border-box')
+  if (boxSizing === 'border-box') {
     height = height + borderSize
-
-  else if (boxSizing === 'content-box')
+  } else if (boxSizing === 'content-box') {
     height = height - paddingSize
+  }
 
   hiddenTextarea.value = ''
   const singleRowHeight = hiddenTextarea.scrollHeight - paddingSize
 
   if (isNumber(minRows)) {
     let minHeight = singleRowHeight * minRows
-    if (boxSizing === 'border-box')
+    if (boxSizing === 'border-box') {
       minHeight = minHeight + paddingSize + borderSize
-
+    }
     height = Math.max(minHeight, height)
     result.minHeight = `${minHeight}px`
   }
   if (isNumber(maxRows)) {
     let maxHeight = singleRowHeight * maxRows
-    if (boxSizing === 'border-box')
+    if (boxSizing === 'border-box') {
       maxHeight = maxHeight + paddingSize + borderSize
-
+    }
     height = Math.min(maxHeight, height)
   }
   result.height = `${height}px`

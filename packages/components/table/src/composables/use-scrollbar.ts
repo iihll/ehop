@@ -1,19 +1,21 @@
 import { ref } from 'vue'
 import { isNumber } from '@ehop/utils'
 
-export function useScrollbar() {
+export const useScrollbar = () => {
   const scrollBarRef = ref()
 
   const scrollTo = (options: ScrollToOptions | number, yCoord?: number) => {
     const scrollbar = scrollBarRef.value
-    if (scrollbar)
+    if (scrollbar) {
       scrollbar.scrollTo(options, yCoord)
+    }
   }
 
   const setScrollPosition = (position: 'Top' | 'Left', offset?: number) => {
     const scrollbar = scrollBarRef.value
-    if (scrollbar && isNumber(offset) && ['Top', 'Left'].includes(position))
+    if (scrollbar && isNumber(offset) && ['Top', 'Left'].includes(position)) {
       scrollbar[`setScroll${position}`](offset)
+    }
   }
 
   const setScrollTop = (top?: number) => setScrollPosition('Top', top)

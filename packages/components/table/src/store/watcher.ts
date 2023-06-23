@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { getCurrentInstance, ref, toRefs, unref, watch } from 'vue'
 import { hasOwn } from '@ehop/utils'
-import type { Ref } from 'vue'
 import {
   getColumnById,
   getColumnByKey,
@@ -12,36 +9,36 @@ import {
   orderBy,
   toggleRowStatus,
 } from '../util'
-import type { TableColumnCtx } from '../table-column/defaults'
-import type { Table, TableRefs } from '../table/defaults'
 import useExpand from './expand'
 import useCurrent from './current'
 import useTree from './tree'
 
+import type { Ref } from 'vue'
+import type { TableColumnCtx } from '../table-column/defaults'
+import type { Table, TableRefs } from '../table/defaults'
 import type { StoreFilter } from '.'
 
-function sortData(data, states) {
+const sortData = (data, states) => {
   const sortingColumn = states.sortingColumn
-  if (!sortingColumn || typeof sortingColumn.sortable === 'string')
+  if (!sortingColumn || typeof sortingColumn.sortable === 'string') {
     return data
-
+  }
   return orderBy(
     data,
     states.sortProp,
     states.sortOrder,
     sortingColumn.sortMethod,
-    sortingColumn.sortBy,
+    sortingColumn.sortBy
   )
 }
 
-function doFlattenColumns(columns) {
+const doFlattenColumns = (columns) => {
   const result = []
   columns.forEach((column) => {
-    if (column.children) {
+    if (column.children && column.children.length > 0) {
       // eslint-disable-next-line prefer-spread
       result.push.apply(result, doFlattenColumns(column.children))
-    }
-    else {
+    } else {
       result.push(column)
     }
   })
@@ -85,8 +82,7 @@ function useWatcher<T>() {
 
   // 检查 rowKey 是否存在
   const assertRowKey = () => {
-    if (!rowKey.value)
-      throw new Error('[EhTable] prop row-key is required')
+    if (!rowKey.value) throw new Error('[EhTable] prop row-key is required')
   }
 
   // 更新 fixed
@@ -103,22 +99,22 @@ function useWatcher<T>() {
       updateChildFixed(column)
     })
     fixedColumns.value = _columns.value.filter(
-      column => column.fixed === true || column.fixed === 'left',
+      (column) => column.fixed === true || column.fixed === 'left'
     )
     rightFixedColumns.value = _columns.value.filter(
-      column => column.fixed === 'right',
+      (column) => column.fixed === 'right'
     )
     if (
-      fixedColumns.value.length > 0
-      && _columns.value[0]
-      && _columns.value[0].type === 'selection'
-      && !_columns.value[0].fixed
+      fixedColumns.value.length > 0 &&
+      _columns.value[0] &&
+      _columns.value[0].type === 'selection' &&
+      !_columns.value[0].fixed
     ) {
       _columns.value[0].fixed = true
       fixedColumns.value.unshift(_columns.value[0])
     }
 
-    const notFixedColumns = _columns.value.filter(column => !column.fixed)
+    const notFixedColumns = _columns.value.filter((column) => !column.fixed)
     originColumns.value = []
       .concat(fixedColumns.value)
       .concat(notFixedColumns)
@@ -135,20 +131,20 @@ function useWatcher<T>() {
       .concat(fixedLeafColumns)
       .concat(leafColumns)
       .concat(rightFixedLeafColumns)
-    isComplex.value
-      = fixedColumns.value.length > 0 || rightFixedColumns.value.length > 0
+    isComplex.value =
+      fixedColumns.value.length > 0 || rightFixedColumns.value.length > 0
   }
 
   // 更新 DOM
   const scheduleLayout = (needUpdateColumns?: boolean, immediate = false) => {
-    if (needUpdateColumns)
+    if (needUpdateColumns) {
       updateColumns()
-
-    if (immediate)
+    }
+    if (immediate) {
       instance.state.doLayout()
-
-    else
+    } else {
       instance.state.debouncedUpdateLayout()
+    }
   }
 
   // 选择
@@ -172,16 +168,16 @@ function useWatcher<T>() {
       const selectedMap = getKeysMap(selection.value, rowKey.value)
       const dataMap = getKeysMap(data.value, rowKey.value)
       for (const key in selectedMap) {
-        if (hasOwn(selectedMap, key) && !dataMap[key])
+        if (hasOwn(selectedMap, key) && !dataMap[key]) {
           deleted.push(selectedMap[key].row)
+        }
       }
-    }
-    else {
-      deleted = selection.value.filter(item => !data.value.includes(item))
+    } else {
+      deleted = selection.value.filter((item) => !data.value.includes(item))
     }
     if (deleted.length) {
       const newSelection = selection.value.filter(
-        item => !deleted.includes(item),
+        (item) => !deleted.includes(item)
       )
       selection.value = newSelection
       instance.emit('selection-change', newSelection.slice())
@@ -195,15 +191,15 @@ function useWatcher<T>() {
   const toggleRowSelection = (
     row: T,
     selected = undefined,
-    emitChange = true,
+    emitChange = true
   ) => {
     const changed = toggleRowStatus(selection.value, row, selected)
     if (changed) {
       const newSelection = (selection.value || []).slice()
       // 调用 API 修改选中值，不触发 select 事件
-      if (emitChange)
+      if (emitChange) {
         instance.emit('select', newSelection, row)
-
+      }
       instance.emit('selection-change', newSelection)
     }
   }
@@ -223,14 +219,15 @@ function useWatcher<T>() {
       const rowIndex = index + childrenCount
       if (selectable.value) {
         if (
-          selectable.value.call(null, row, rowIndex)
-          && toggleRowStatus(selection.value, row, value)
-        )
+          selectable.value.call(null, row, rowIndex) &&
+          toggleRowStatus(selection.value, row, value)
+        ) {
           selectionChanged = true
-      }
-      else {
-        if (toggleRowStatus(selection.value, row, value))
+        }
+      } else {
+        if (toggleRowStatus(selection.value, row, value)) {
           selectionChanged = true
+        }
       }
       childrenCount += getChildrenCount(getRowIdentity(row, rowKey))
     })
@@ -238,7 +235,7 @@ function useWatcher<T>() {
     if (selectionChanged) {
       instance.emit(
         'selection-change',
-        selection.value ? selection.value.slice() : [],
+        selection.value ? selection.value.slice() : []
       )
     }
     instance.emit('select-all', selection.value)
@@ -249,8 +246,9 @@ function useWatcher<T>() {
     data.value.forEach((row) => {
       const rowId = getRowIdentity(row, rowKey.value)
       const rowInfo = selectedMap[rowId]
-      if (rowInfo)
+      if (rowInfo) {
         selection.value[rowInfo.index] = row
+      }
     })
   }
 
@@ -262,15 +260,15 @@ function useWatcher<T>() {
     }
 
     let selectedMap
-    if (rowKey.value)
+    if (rowKey.value) {
       selectedMap = getKeysMap(selection.value, rowKey.value)
-
+    }
     const isSelected = function (row) {
-      if (selectedMap)
+      if (selectedMap) {
         return !!selectedMap[getRowIdentity(row, rowKey.value)]
-
-      else
+      } else {
         return selection.value.includes(row)
+      }
     }
     let isAllSelected_ = true
     let selectedCount = 0
@@ -279,29 +277,26 @@ function useWatcher<T>() {
       const keyProp = instance?.store?.states?.rowKey.value
       const rowIndex = i + childrenCount
       const item = data.value[i]
-      const isRowSelectable
-        = selectable.value && selectable.value.call(null, item, rowIndex)
+      const isRowSelectable =
+        selectable.value && selectable.value.call(null, item, rowIndex)
       if (!isSelected(item)) {
         if (!selectable.value || isRowSelectable) {
           isAllSelected_ = false
           break
         }
-      }
-      else {
+      } else {
         selectedCount++
       }
       childrenCount += getChildrenCount(getRowIdentity(item, keyProp))
     }
 
-    if (selectedCount === 0)
-      isAllSelected_ = false
+    if (selectedCount === 0) isAllSelected_ = false
     isAllSelected.value = isAllSelected_
   }
 
   // gets the number of all child nodes by rowKey
   const getChildrenCount = (rowKey: string) => {
-    if (!instance || !instance.store)
-      return 0
+    if (!instance || !instance.store) return 0
     const { treeData } = instance.store.states
     let count = 0
     const children = treeData.value[rowKey]?.children
@@ -316,9 +311,9 @@ function useWatcher<T>() {
 
   // 过滤与排序
   const updateFilters = (columns, values) => {
-    if (!Array.isArray(columns))
+    if (!Array.isArray(columns)) {
       columns = [columns]
-
+    }
     const filters_ = {}
     columns.forEach((col) => {
       filters.value[col.id] = values
@@ -328,9 +323,9 @@ function useWatcher<T>() {
   }
 
   const updateSort = (column, prop, order) => {
-    if (sortingColumn.value && sortingColumn.value !== column)
+    if (sortingColumn.value && sortingColumn.value !== column) {
       sortingColumn.value.order = null
-
+    }
     sortingColumn.value = column
     sortProp.value = prop
     sortOrder.value = order
@@ -340,18 +335,17 @@ function useWatcher<T>() {
     let sourceData = unref(_data)
     Object.keys(filters.value).forEach((columnId) => {
       const values = filters.value[columnId]
-      if (!values || values.length === 0)
-        return
+      if (!values || values.length === 0) return
       const column = getColumnById(
         {
           columns: columns.value,
         },
-        columnId,
+        columnId
       )
       if (column && column.filterMethod) {
         sourceData = sourceData.filter((row) => {
-          return values.some(value =>
-            column.filterMethod.call(null, value, row, column),
+          return values.some((value) =>
+            column.filterMethod.call(null, value, row, column)
           )
         })
       }
@@ -370,38 +364,38 @@ function useWatcher<T>() {
 
   // 根据 filters 与 sort 去过滤 data
   const execQuery = (ignore = undefined) => {
-    if (!(ignore && ignore.filter))
+    if (!(ignore && ignore.filter)) {
       execFilter()
-
+    }
     execSort()
   }
 
   const clearFilter = (columnKeys) => {
     const { tableHeaderRef } = instance.refs as TableRefs
-    if (!tableHeaderRef)
-      return
+    if (!tableHeaderRef) return
     const panels = Object.assign({}, tableHeaderRef.filterPanels)
 
     const keys = Object.keys(panels)
-    if (!keys.length)
-      return
+    if (!keys.length) return
 
-    if (typeof columnKeys === 'string')
+    if (typeof columnKeys === 'string') {
       columnKeys = [columnKeys]
+    }
 
     if (Array.isArray(columnKeys)) {
-      const columns_ = columnKeys.map(key =>
+      const columns_ = columnKeys.map((key) =>
         getColumnByKey(
           {
             columns: columns.value,
           },
-          key,
-        ),
+          key
+        )
       )
       keys.forEach((key) => {
-        const column = columns_.find(col => col.id === key)
-        if (column)
+        const column = columns_.find((col) => col.id === key)
+        if (column) {
           column.filteredValue = []
+        }
       })
       instance.store.commit('filterChange', {
         column: columns_,
@@ -409,12 +403,12 @@ function useWatcher<T>() {
         silent: true,
         multi: true,
       })
-    }
-    else {
+    } else {
       keys.forEach((key) => {
-        const column = columns.value.find(col => col.id === key)
-        if (column)
+        const column = columns.value.find((col) => col.id === key)
+        if (column) {
           column.filteredValue = []
+        }
       })
 
       filters.value = {}
@@ -427,8 +421,7 @@ function useWatcher<T>() {
   }
 
   const clearSort = () => {
-    if (!sortingColumn.value)
-      return
+    if (!sortingColumn.value) return
 
     updateSort(null, null, null)
     instance.store.commit('changeSortCondition', {
@@ -474,11 +467,11 @@ function useWatcher<T>() {
   // 展开行与 TreeTable 都要使用
   const toggleRowExpansionAdapter = (row: T, expanded?: boolean) => {
     const hasExpandColumn = columns.value.some(({ type }) => type === 'expand')
-    if (hasExpandColumn)
+    if (hasExpandColumn) {
       toggleRowExpansion(row, expanded)
-
-    else
+    } else {
       toggleTreeExpansion(row, expanded)
+    }
   }
 
   return {

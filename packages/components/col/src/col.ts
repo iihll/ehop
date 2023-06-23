@@ -2,7 +2,7 @@ import { buildProps, definePropType, mutable } from '@ehop/utils'
 import type { ExtractPropTypes } from 'vue'
 import type Col from './col.vue'
 
-export interface ColSizeObject {
+export type ColSizeObject = {
   span?: number
   offset?: number
   pull?: number

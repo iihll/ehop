@@ -18,7 +18,7 @@ export const vRepeatClick: ObjectDirective<
   beforeMount(el, binding) {
     const value = binding.value
     const { interval = REPEAT_INTERVAL, delay = REPEAT_DELAY } = isFunction(
-      value,
+      value
     )
       ? {}
       : value
@@ -40,8 +40,7 @@ export const vRepeatClick: ObjectDirective<
     }
 
     el.addEventListener('mousedown', (evt: MouseEvent) => {
-      if (evt.button !== 0)
-        return
+      if (evt.button !== 0) return
       clear()
       handler()
 

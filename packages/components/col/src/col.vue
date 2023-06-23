@@ -1,26 +1,31 @@
+<template>
+  <component :is="tag" :class="colKls" :style="style">
+    <slot />
+  </component>
+</template>
+
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { isNumber, isObject } from '@ehop/utils'
-import { useNamespace } from '@ehop/hooks'
-import { rowContextKey } from '@ehop/components/row'
-import type { CSSProperties } from 'vue'
+import { useNamespace } from '@ehop
+import { rowContextKey } from '@ehopnts/row'
 import { colProps } from './col'
-import '../style'
-
-const props = defineProps(colProps)
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'EhCol',
 })
+
+const props = defineProps(colProps)
 
 const { gutter } = inject(rowContextKey, { gutter: computed(() => 0) })
 const ns = useNamespace('col')
 
 const style = computed(() => {
   const styles: CSSProperties = {}
-  if (gutter.value)
+  if (gutter.value) {
     styles.paddingLeft = styles.paddingRight = `${gutter.value / 2}px`
-
+  }
   return styles
 })
 
@@ -31,10 +36,8 @@ const colKls = computed(() => {
   pos.forEach((prop) => {
     const size = props[prop]
     if (isNumber(size)) {
-      if (prop === 'span')
-        classes.push(ns.b(`${props[prop]}`))
-      else if (size > 0)
-        classes.push(ns.b(`${prop}-${props[prop]}`))
+      if (prop === 'span') classes.push(ns.b(`${props[prop]}`))
+      else if (size > 0) classes.push(ns.b(`${prop}-${props[prop]}`))
     }
   })
 
@@ -42,28 +45,21 @@ const colKls = computed(() => {
   sizes.forEach((size) => {
     if (isNumber(props[size])) {
       classes.push(ns.b(`${size}-${props[size]}`))
-    }
-    else if (isObject(props[size])) {
+    } else if (isObject(props[size])) {
       Object.entries(props[size]).forEach(([prop, sizeProp]) => {
         classes.push(
           prop !== 'span'
             ? ns.b(`${size}-${prop}-${sizeProp}`)
-            : ns.b(`${size}-${sizeProp}`),
+            : ns.b(`${size}-${sizeProp}`)
         )
       })
     }
   })
 
   // this is for the fix
-  if (gutter.value)
+  if (gutter.value) {
     classes.push(ns.is('guttered'))
-
+  }
   return [ns.b(), classes]
 })
 </script>
-
-<template>
-  <component :is="tag" :class="colKls" :style="style">
-    <slot />
-  </component>
-</template>

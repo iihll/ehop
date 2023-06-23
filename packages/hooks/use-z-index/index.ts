@@ -6,10 +6,10 @@ import type { InjectionKey, Ref } from 'vue'
 const zIndex = ref(0)
 export const defaultInitialZIndex = 2000
 
-export const zIndexContextKey: InjectionKey<Ref<number | undefined>>
-  = Symbol('zIndexContextKey')
+export const zIndexContextKey: InjectionKey<Ref<number | undefined>> =
+  Symbol('zIndexContextKey')
 
-export function useZIndex(zIndexOverrides?: Ref<number>) {
+export const useZIndex = (zIndexOverrides?: Ref<number>) => {
   const zIndexInjection = zIndexOverrides || inject(zIndexContextKey, undefined)
   const initialZIndex = computed(() => {
     const zIndexFromInjection = unref(zIndexInjection)

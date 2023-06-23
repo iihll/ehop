@@ -16,6 +16,8 @@ import {
   isValidElementNode,
 } from '@ehop/utils'
 import { componentSizes } from '@ehop/constants'
+import Item from './item'
+import { useSpace } from './use-space'
 
 import type {
   ExtractPropTypes,
@@ -25,10 +27,7 @@ import type {
   VNodeChild,
 } from 'vue'
 import type { Arrayable } from '@ehop/utils'
-import type { Properties } from 'csstype'
-import { useSpace } from './use-space'
-import Item from './item'
-import '../style'
+import type { AlignItemsProperty } from 'csstype'
 
 export const spaceProps = buildProps({
   /**
@@ -61,7 +60,7 @@ export const spaceProps = buildProps({
    * @description Controls the alignment of items
    */
   alignment: {
-    type: definePropType<Properties['alignItems']>(String),
+    type: definePropType<AlignItemsProperty>(String),
     default: 'center',
   },
   /**
@@ -101,8 +100,8 @@ export const spaceProps = buildProps({
     values: componentSizes,
     validator: (val: unknown): val is [number, number] | number => {
       return (
-        isNumber(val)
-        || (isArray(val) && val.length === 2 && val.every(isNumber))
+        isNumber(val) ||
+        (isArray(val) && val.length === 2 && val.every(isNumber))
       )
     },
   },
@@ -123,7 +122,7 @@ const Space = defineComponent({
     function extractChildren(
       children: VNodeArrayChildren,
       parentKey = '',
-      extractedChildren: VNode[] = [],
+      extractedChildren: VNode[] = []
     ) {
       const { prefixCls } = props
       children.forEach((child, loopKey) => {
@@ -134,10 +133,9 @@ const Space = defineComponent({
                 extractChildren(
                   nested.children,
                   `${parentKey + key}-`,
-                  extractedChildren,
+                  extractedChildren
                 )
-              }
-              else {
+              } else {
                 extractedChildren.push(
                   createVNode(
                     Item,
@@ -150,16 +148,15 @@ const Space = defineComponent({
                       default: () => [nested],
                     },
                     PatchFlags.PROPS | PatchFlags.STYLE,
-                    ['style', 'prefixCls'],
-                  ),
+                    ['style', 'prefixCls']
+                  )
                 )
               }
             })
           }
           // if the current child is valid vnode, then append this current vnode
           // to item as child node.
-        }
-        else if (isValidElementNode(child)) {
+        } else if (isValidElementNode(child)) {
           extractedChildren.push(
             createVNode(
               Item,
@@ -172,8 +169,8 @@ const Space = defineComponent({
                 default: () => [child],
               },
               PatchFlags.PROPS | PatchFlags.STYLE,
-              ['style', 'prefixCls'],
-            ),
+              ['style', 'prefixCls']
+            )
           )
         }
       })
@@ -186,8 +183,7 @@ const Space = defineComponent({
 
       const children = renderSlot(slots, 'default', { key: 0 }, () => [])
 
-      if ((children.children ?? []).length === 0)
-        return null
+      if ((children.children ?? []).length === 0) return null
       // loop the children, if current children is rendered via `renderList` or `<v-for>`
       if (isArray(children.children)) {
         let extractedChildren = extractChildren(children.children)
@@ -222,13 +218,13 @@ const Space = defineComponent({
                         ? spacer
                         : createTextVNode(spacer as string, PatchFlags.TEXT),
                     ],
-                    PatchFlags.STYLE,
-                  ),
+                    PatchFlags.STYLE
+                  )
                 )
               }
               return children
             },
-            [],
+            []
           )
         }
 
@@ -240,7 +236,7 @@ const Space = defineComponent({
             style: containerStyle.value,
           },
           extractedChildren,
-          PatchFlags.STYLE | PatchFlags.CLASS,
+          PatchFlags.STYLE | PatchFlags.CLASS
         )
       }
 

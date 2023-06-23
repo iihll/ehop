@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { defineComponent, h } from 'vue'
 import { useNamespace } from '@ehop/hooks'
-import type { PropType } from 'vue'
 import { hColgroup } from '../h-helper'
+import useStyle from './style-helper'
 import type { Store } from '../store'
 
+import type { PropType } from 'vue'
 import type { DefaultRow, Sort, SummaryMethod } from '../table/defaults'
-import useStyle from './style-helper'
-
 export interface TableFooter<T> {
   fixed: string
   store: Store<T>
@@ -47,7 +45,7 @@ export default defineComponent({
   },
   setup(props) {
     const { getCellClasses, getCellStyles, columns } = useStyle(
-      props as TableFooter<DefaultRow>,
+      props as TableFooter<DefaultRow>
     )
     const ns = useNamespace('table')
     return {
@@ -73,14 +71,13 @@ export default defineComponent({
         columns,
         data,
       })
-    }
-    else {
+    } else {
       columns.forEach((column, index) => {
         if (index === 0) {
           sums[index] = sumText
           return
         }
-        const values = data.map(item => Number(item[column.property]))
+        const values = data.map((item) => Number(item[column.property]))
         const precisions = []
         let notNumber = true
         values.forEach((value) => {
@@ -96,15 +93,13 @@ export default defineComponent({
             const value = Number(curr)
             if (!Number.isNaN(+value)) {
               return Number.parseFloat(
-                (prev + curr).toFixed(Math.min(precision, 20)),
+                (prev + curr).toFixed(Math.min(precision, 20))
               )
-            }
-            else {
+            } else {
               return prev
             }
           }, 0)
-        }
-        else {
+        } else {
           sums[index] = ''
         }
       })
@@ -139,14 +134,14 @@ export default defineComponent({
                     {
                       class: ['cell', column.labelClassName],
                     },
-                    [sums[cellIndex]],
+                    [sums[cellIndex]]
                   ),
-                ],
-              ),
+                ]
+              )
             ),
           ]),
         ]),
-      ],
+      ]
     )
   },
 })

@@ -6,7 +6,7 @@ import type { Language } from '@ehop/locale'
 import type { ButtonConfigContext } from '@ehop/components/button'
 import type { MessageConfigContext } from '@ehop/components/message'
 
-export interface ExperimentalFeatures {
+export type ExperimentalFeatures = {
   // TO BE Defined
 }
 
@@ -58,7 +58,7 @@ export const configProviderProps = buildProps({
    */
   zIndex: Number,
   /**
-   * @description global component className prefix (cooperated with [$namespace](https://github.com/element-plus/element-plus/blob/dev/packages/theme-chalk/src/mixins/config.scss#L1)) | ^[string]
+   * @description global component className prefix (cooperated with [$namespace](https://github.com/ehop/ehop/blob/dev/packages/theme-chalk/src/mixins/config.scss#L1)) | ^[string]
    */
   namespace: {
     type: String,

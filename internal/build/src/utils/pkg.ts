@@ -4,7 +4,7 @@ import { buildConfig } from '../build-info'
 import type { Module } from '../build-info'
 
 /** used for type generator */
-export function pathRewriter(module: Module) {
+export const pathRewriter = (module: Module) => {
   const config = buildConfig[module]
 
   return (id: string) => {

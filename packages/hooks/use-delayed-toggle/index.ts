@@ -1,7 +1,8 @@
 import { unref } from 'vue'
 import { buildProps, isNumber } from '@ehop/utils'
-import type { ExtractPropTypes, ToRefs } from 'vue'
 import { useTimeout } from '../use-timeout'
+
+import type { ExtractPropTypes, ToRefs } from 'vue'
 
 export const useDelayedToggleProps = buildProps({
   /**
@@ -32,13 +33,13 @@ export type UseDelayedToggleProps = {
   close: (event?: Event) => void
 } & ToRefs<ExtractPropTypes<typeof useDelayedToggleProps>>
 
-export function useDelayedToggle({
+export const useDelayedToggle = ({
   showAfter,
   hideAfter,
   autoClose,
   open,
   close,
-}: UseDelayedToggleProps) {
+}: UseDelayedToggleProps) => {
   const { registerTimeout } = useTimeout()
   const {
     registerTimeout: registerTimeoutForAutoClose,

@@ -9,45 +9,43 @@ export default defineComponent({
     let cachedOptions: any[] = []
 
     function isSameOptions(a: any[], b: any[]) {
-      if (a.length !== b.length)
-        return false
+      if (a.length !== b.length) return false
       for (const [index] of a.entries()) {
-        if (a[index] !== b[index])
+        if (a[index] != b[index]) {
           return false
+        }
       }
       return true
     }
 
     return () => {
-      const children = slots.default?.()
+      const children = slots.default?.()!
       const filteredOptions: any[] = []
 
       function filterOptions(children?: VNodeNormalizedChildren) {
-        if (!Array.isArray(children))
-          return
+        if (!Array.isArray(children)) return
         ;(children as VNode[]).forEach((item) => {
           const name = ((item?.type || {}) as Component)?.name
 
           if (name === 'EhOptionGroup') {
             filterOptions(
-              !isString(item.children)
-                && !Array.isArray(item.children)
-                && isFunction(item.children?.default)
+              !isString(item.children) &&
+                !Array.isArray(item.children) &&
+                isFunction(item.children?.default)
                 ? item.children?.default()
-                : item.children,
+                : item.children
             )
-          }
-          else if (name === 'EhOption') {
+          } else if (name === 'EhOption') {
             filteredOptions.push(item.props?.label)
-          }
-          else if (Array.isArray(item.children)) {
+          } else if (Array.isArray(item.children)) {
             filterOptions(item.children)
           }
         })
       }
 
-      if (children?.length)
+      if (children.length) {
         filterOptions(children![0]?.children)
+      }
 
       if (!isSameOptions(filteredOptions, cachedOptions)) {
         cachedOptions = filteredOptions

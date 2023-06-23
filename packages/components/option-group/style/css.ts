@@ -1,2 +1,2 @@
 import '@ehop/components/base/style/css'
-import '@ehop/theme-chalk/eh-option-group.css'
+import '@ehop/theme-chalk/el-option-group.css'

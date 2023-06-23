@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import {
   computed,
@@ -32,15 +30,14 @@ function useLayoutObserver<T>(root: Table<T>) {
   })
   const tableLayout = computed(() => {
     const layout = root.layout as TableLayout<T>
-    if (!layout)
+    if (!layout) {
       throw new Error('Can not find table layout.')
-
+    }
     return layout
   })
   const onColumnsChange = (layout: TableLayout<T>) => {
     const cols = root.vnode.el?.querySelectorAll('colgroup > col') || []
-    if (!cols.length)
-      return
+    if (!cols.length) return
     const flattenColumns = layout.getFlattenColumns()
     const columnsMap = {}
     flattenColumns.forEach((column) => {
@@ -50,14 +47,15 @@ function useLayoutObserver<T>(root: Table<T>) {
       const col = cols[i]
       const name = col.getAttribute('name')
       const column = columnsMap[name]
-      if (column)
+      if (column) {
         col.setAttribute('width', column.realWidth || column.width)
+      }
     }
   }
 
   const onScrollableChange = (layout: TableLayout<T>) => {
-    const cols
-      = root.vnode.el?.querySelectorAll('colgroup > col[name=gutter]') || []
+    const cols =
+      root.vnode.el?.querySelectorAll('colgroup > col[name=gutter]') || []
     for (let i = 0, j = cols.length; i < j; i++) {
       const col = cols[i]
       col.setAttribute('width', layout.scrollY.value ? layout.gutterWidth : '0')

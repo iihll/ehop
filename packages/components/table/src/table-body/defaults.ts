@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import type { PropType } from 'vue'
 import type { Store } from '../store'

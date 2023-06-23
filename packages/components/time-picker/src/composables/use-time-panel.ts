@@ -6,22 +6,22 @@ import type {
   GetDisabledSecondsState,
 } from '../types'
 
-interface UseTimePanelProps {
+type UseTimePanelProps = {
   getAvailableHours: GetDisabledHoursState
   getAvailableMinutes: GetDisabledMinutesState
   getAvailableSeconds: GetDisabledSecondsState
 }
 
-export function useTimePanel({
+export const useTimePanel = ({
   getAvailableHours,
   getAvailableMinutes,
   getAvailableSeconds,
-}: UseTimePanelProps) {
+}: UseTimePanelProps) => {
   const getAvailableTime = (
     date: Dayjs,
     role: string,
     first: boolean,
-    compareDate?: Dayjs,
+    compareDate?: Dayjs
   ) => {
     const availableTimeGetters = {
       hour: getAvailableHours,
@@ -38,7 +38,7 @@ export function useTimePanel({
             availableTimeSlots = (method as typeof getAvailableMinutes)(
               result.hour(),
               role,
-              compareDate,
+              compareDate
             )
             break
           }
@@ -47,22 +47,22 @@ export function useTimePanel({
               result.hour(),
               result.minute(),
               role,
-              compareDate,
+              compareDate
             )
             break
           }
           default: {
             availableTimeSlots = (method as typeof getAvailableHours)(
               role,
-              compareDate,
+              compareDate
             )
             break
           }
         }
 
         if (
-          availableTimeSlots?.length
-          && !availableTimeSlots.includes(result[type]())
+          availableTimeSlots?.length &&
+          !availableTimeSlots.includes(result[type]())
         ) {
           const pos = first ? 0 : availableTimeSlots.length - 1
           result = result[type](availableTimeSlots[pos]) as unknown as Dayjs

@@ -12,7 +12,9 @@ interface Params {
 const DEFAULT_EXCLUDE_KEYS = ['class', 'style']
 const LISTENER_PREFIX = /^on[A-Z]/
 
-export function useAttrs(params: Params = {}): ComputedRef<Record<string, unknown>> {
+export const useAttrs = (
+  params: Params = {}
+): ComputedRef<Record<string, unknown>> => {
   const { excludeListeners = false, excludeKeys } = params
   const allExcludeKeys = computed<string[]>(() => {
     return (excludeKeys?.value || []).concat(DEFAULT_EXCLUDE_KEYS)
@@ -22,19 +24,18 @@ export function useAttrs(params: Params = {}): ComputedRef<Record<string, unknow
   if (!instance) {
     debugWarn(
       'use-attrs',
-      'getCurrentInstance() returned null. useAttrs() must be called at the top of a setup function',
+      'getCurrentInstance() returned null. useAttrs() must be called at the top of a setup function'
     )
     return computed(() => ({}))
   }
 
   return computed(() =>
     fromPairs(
-      // TODO non-null assertion
-      Object.entries(instance.proxy!.$attrs).filter(
+      Object.entries(instance.proxy?.$attrs!).filter(
         ([key]) =>
-          !allExcludeKeys.value.includes(key)
-          && !(excludeListeners && LISTENER_PREFIX.test(key)),
-      ),
-    ),
+          !allExcludeKeys.value.includes(key) &&
+          !(excludeListeners && LISTENER_PREFIX.test(key))
+      )
+    )
   )
 }

@@ -1,8 +1,8 @@
 import { buildProps, definePropType } from '@ehop/utils'
+import { timePanelSharedProps } from './shared'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'
-import { timePanelSharedProps } from './shared'
 
 export const panelTimePickerProps = buildProps({
   ...timePanelSharedProps,

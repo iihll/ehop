@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { computed, h, inject } from 'vue'
 import { merge } from 'lodash-unified'
 import { useNamespace } from '@ehop/hooks'
 import { getRowIdentity } from '../util'
 import { TABLE_INJECTION_KEY } from '../tokens'
-import type { RenderRowData, TableProps, TreeNode } from '../table/defaults'
 import useEvents from './events-helper'
 import useStyles from './styles-helper'
 import type { TableBodyProps } from './defaults'
+import type { RenderRowData, TableProps, TreeNode } from '../table/defaults'
 
 function useRender<T>(props: Partial<TableBodyProps<T>>) {
   const parent = inject(TABLE_INJECTION_KEY)
@@ -35,21 +33,21 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
   } = useStyles(props)
   const firstDefaultColumnIndex = computed(() => {
     return props.store.states.columns.value.findIndex(
-      ({ type }) => type === 'default',
+      ({ type }) => type === 'default'
     )
   })
   const getKeyOfRow = (row: T, index: number) => {
     const rowKey = (parent.props as Partial<TableProps<T>>).rowKey
-    if (rowKey)
+    if (rowKey) {
       return getRowIdentity(row, rowKey)
-
+    }
     return index
   }
   const rowRender = (
     row: T,
     $index: number,
     treeRowData?: TreeNode,
-    expanded = false,
+    expanded = false
   ) => {
     const { tooltipEffect, tooltipOptions, store } = props
     const { indent, columns } = store.states
@@ -70,22 +68,22 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
         style: [displayStyle, getRowStyle(row, $index)],
         class: rowClasses,
         key: getKeyOfRow(row, $index),
-        onDblclick: $event => handleDoubleClick($event, row),
-        onClick: $event => handleClick($event, row),
-        onContextmenu: $event => handleContextMenu($event, row),
+        onDblclick: ($event) => handleDoubleClick($event, row),
+        onClick: ($event) => handleClick($event, row),
+        onContextmenu: ($event) => handleContextMenu($event, row),
         onMouseenter: () => handleMouseEnter($index),
         onMouseleave: handleMouseLeave,
       },
       columns.value.map((column, cellIndex) => {
         const { rowspan, colspan } = getSpan(row, column, $index, cellIndex)
-        if (!rowspan || !colspan)
+        if (!rowspan || !colspan) {
           return null
-
+        }
         const columnData = { ...column }
         columnData.realWidth = getColspanRealWidth(
           columns.value,
           colspan,
-          cellIndex,
+          cellIndex
         )
         const data: RenderRowData<T> = {
           store: props.store,
@@ -104,24 +102,25 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
           if (typeof treeRowData.expanded === 'boolean') {
             data.treeNode.expanded = treeRowData.expanded
             // 表明是懒加载
-            if ('loading' in treeRowData)
+            if ('loading' in treeRowData) {
               data.treeNode.loading = treeRowData.loading
-
-            if ('noLazyChildren' in treeRowData)
+            }
+            if ('noLazyChildren' in treeRowData) {
               data.treeNode.noLazyChildren = treeRowData.noLazyChildren
+            }
           }
         }
         const baseKey = `${$index},${cellIndex}`
         const patchKey = columnData.columnKey || columnData.rawColumnKey || ''
         const tdChildren = cellChildren(cellIndex, column, data)
-        const mergedTooltipOptions
-          = column.showOverflowTooltip
-          && merge(
+        const mergedTooltipOptions =
+          column.showOverflowTooltip &&
+          merge(
             {
               effect: tooltipEffect,
             },
             tooltipOptions,
-            column.showOverflowTooltip,
+            column.showOverflowTooltip
           )
         return h(
           'td',
@@ -131,13 +130,13 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
             key: `${patchKey}${baseKey}`,
             rowspan,
             colspan,
-            onMouseenter: $event =>
+            onMouseenter: ($event) =>
               handleCellMouseEnter($event, row, mergedTooltipOptions),
             onMouseleave: handleCellMouseLeave,
           },
-          [tdChildren],
+          [tdChildren]
         )
-      }),
+      })
     )
   }
   const cellChildren = (cellIndex, column, data) => {
@@ -147,8 +146,8 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
   const wrappedRowRender = (row: T, $index: number) => {
     const store = props.store
     const { isRowExpanded, assertRowKey } = store
-    const { treeData, lazyTreeNodeMap, childrenColumnName, rowKey }
-      = store.states
+    const { treeData, lazyTreeNodeMap, childrenColumnName, rowKey } =
+      store.states
     const columns = store.states.columns.value
     const hasExpandColumn = columns.some(({ type }) => type === 'expand')
     if (hasExpandColumn) {
@@ -157,7 +156,7 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
       const renderExpanded = parent.renderExpanded
       if (expanded) {
         if (!renderExpanded) {
-          console.error('[Element Error]renderExpanded is required.')
+          console.error('[Ehement Error]renderExpanded is required.')
           return tr
         }
         // 使用二维数组，避免修改 $index
@@ -177,20 +176,18 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
                     colspan: columns.length,
                     class: `${ns.e('cell')} ${ns.e('expanded-cell')}`,
                   },
-                  [renderExpanded({ row, $index, store, expanded })],
+                  [renderExpanded({ row, $index, store, expanded })]
                 ),
-              ],
+              ]
             ),
           ],
         ]
-      }
-      else {
+      } else {
         // 使用二维数组，避免修改 $index
         // Use a two dimensional array avoid modifying $index
         return [[tr]]
       }
-    }
-    else if (Object.keys(treeData.value).length) {
+    } else if (Object.keys(treeData.value).length) {
       assertRowKey()
       // TreeTable 时，rowKey 必须由用户设定，不使用 getKeyOfRow 计算
       // 在调用 rowRender 函数时，仍然会计算 rowKey，不太好的操作
@@ -204,9 +201,9 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
           display: true,
         }
         if (typeof cur.lazy === 'boolean') {
-          if (typeof cur.loaded === 'boolean' && cur.loaded)
+          if (typeof cur.loaded === 'boolean' && cur.loaded) {
             treeRowData.noLazyChildren = !(cur.children && cur.children.length)
-
+          }
           treeRowData.loading = cur.loading
         }
       }
@@ -216,8 +213,7 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
         // currentRow 记录的是 index，所以还需主动增加 TreeTable 的 index
         let i = 0
         const traverse = (children, parent) => {
-          if (!(children && children.length && parent))
-            return
+          if (!(children && children.length && parent)) return
           children.forEach((node) => {
             // 父节点的 display 状态影响子节点的显示状态
             const innerTreeRowData = {
@@ -228,9 +224,9 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
               loading: false,
             }
             const childKey = getRowIdentity(node, rowKey.value)
-            if (childKey === undefined || childKey === null)
+            if (childKey === undefined || childKey === null) {
               throw new Error('For nested data item, row-key is required.')
-
+            }
             cur = { ...treeData.value[childKey] }
             // 对于当前节点，分成有无子节点两种情况。
             // 如果包含子节点的，设置 expanded 属性。
@@ -252,22 +248,21 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
             i++
             tmp.push(rowRender(node, $index + i, innerTreeRowData))
             if (cur) {
-              const nodes
-                = lazyTreeNodeMap.value[childKey]
-                || node[childrenColumnName.value]
+              const nodes =
+                lazyTreeNodeMap.value[childKey] ||
+                node[childrenColumnName.value]
               traverse(nodes, cur)
             }
           })
         }
         // 对于 root 节点，display 一定为 true
         cur.display = true
-        const nodes
-          = lazyTreeNodeMap.value[key] || row[childrenColumnName.value]
+        const nodes =
+          lazyTreeNodeMap.value[key] || row[childrenColumnName.value]
         traverse(nodes, cur)
       }
       return tmp
-    }
-    else {
+    } else {
       return rowRender(row, $index, undefined)
     }
   }

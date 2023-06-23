@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import {
   computed,
@@ -13,11 +11,7 @@ import {
 } from 'vue'
 import { isObject, toRawType } from '@vue/shared'
 import { get, isEqual, debounce as lodashDebounce } from 'lodash-unified'
-import {
-  CHANGE_EVENT,
-  EVENT_CODE,
-  UPDATE_MODEL_EVENT,
-} from '@ehop/constants'
+import { CHANGE_EVENT, EVENT_CODE, UPDATE_MODEL_EVENT } from '@ehop/constants'
 import {
   debugWarn,
   getComponentSize,
@@ -48,7 +42,6 @@ export function useSelectStates(props) {
     optionsCount: 0,
     filteredOptionsCount: 0,
     visible: false,
-    softFocus: false,
     selectedLabel: '',
     hoverIndex: -1,
     query: '',
@@ -58,16 +51,15 @@ export function useSelectStates(props) {
     currentPlaceholder: t('eh.select.placeholder') as string | (() => string),
     menuVisibleOnFocus: false,
     isOnComposition: false,
-    isSilentBlur: false,
     prefixWidth: 11,
-    tagInMultiLine: false,
     mouseEnter: false,
   })
 }
+let ignoreFocusEvent = false
 
 type States = ReturnType<typeof useSelectStates>
 
-export function useSelect(props, states: States, ctx) {
+export const useSelect = (props, states: States, ctx) => {
   const { t } = useLocale()
   const ns = useNamespace('select')
 
@@ -77,9 +69,9 @@ export function useSelect(props, states: States, ctx) {
       replacement: 'override style scheme',
       version: '2.3.0',
       scope: 'props',
-      ref: 'https://element-plus.org/en-US/component/select.html#select-attributes',
+      ref: 'https://ehop.org/en-US/component/select.html#select-attributes',
     },
-    computed(() => props.suffixTransition === false),
+    computed(() => props.suffixTransition === false)
   )
 
   // template refs
@@ -105,7 +97,7 @@ export function useSelect(props, states: States, ctx) {
   const { form, formItem } = useFormItem()
 
   const readonly = computed(
-    () => !props.filterable || props.multiple || !states.visible,
+    () => !props.filterable || props.multiple || !states.visible
   )
 
   const selectDisabled = computed(() => props.disabled || form?.disabled)
@@ -113,27 +105,27 @@ export function useSelect(props, states: States, ctx) {
   const showClose = computed(() => {
     const hasValue = props.multiple
       ? Array.isArray(props.modelValue) && props.modelValue.length > 0
-      : props.modelValue !== undefined
-        && props.modelValue !== null
-        && props.modelValue !== ''
+      : props.modelValue !== undefined &&
+        props.modelValue !== null &&
+        props.modelValue !== ''
 
-    const criteria
-      = props.clearable
-      && !selectDisabled.value
-      && states.inputHovering
-      && hasValue
+    const criteria =
+      props.clearable &&
+      !selectDisabled.value &&
+      states.inputHovering &&
+      hasValue
     return criteria
   })
   const iconComponent = computed(() =>
     props.remote && props.filterable && !props.remoteShowSuffix
       ? ''
-      : props.suffixIcon,
+      : props.suffixIcon
   )
   const iconReverse = computed(() =>
     ns.is(
       'reverse',
-      iconComponent.value && states.visible && props.suffixTransition,
-    ),
+      iconComponent.value && states.visible && props.suffixTransition
+    )
   )
 
   const debounce = computed(() => (props.remote ? 300 : 0))
@@ -141,20 +133,20 @@ export function useSelect(props, states: States, ctx) {
   const emptyText = computed(() => {
     if (props.loading) {
       return props.loadingText || t('eh.select.loading')
-    }
-    else {
+    } else {
       if (props.remote && states.query === '' && states.options.size === 0)
         return false
       if (
-        props.filterable
-        && states.query
-        && states.options.size > 0
-        && states.filteredOptionsCount === 0
-      )
+        props.filterable &&
+        states.query &&
+        states.options.size > 0 &&
+        states.filteredOptionsCount === 0
+      ) {
         return props.noMatchText || t('eh.select.noMatch')
-
-      if (states.options.size === 0)
+      }
+      if (states.options.size === 0) {
         return props.noDataText || t('eh.select.noData')
+      }
     }
     return null
   })
@@ -163,15 +155,16 @@ export function useSelect(props, states: States, ctx) {
     const list = Array.from(states.options.values())
     const newList = []
     optionList.value.forEach((item) => {
-      const index = list.findIndex(i => i.currentLabel === item)
-      if (index > -1)
+      const index = list.findIndex((i) => i.currentLabel === item)
+      if (index > -1) {
         newList.push(list[index])
+      }
     })
     return newList.length ? newList : list
   })
 
   const cachedOptionsArray = computed(() =>
-    Array.from(states.cachedOptions.values()),
+    Array.from(states.cachedOptions.values())
   )
 
   const showNewOption = computed(() => {
@@ -183,17 +176,17 @@ export function useSelect(props, states: States, ctx) {
         return option.currentLabel === states.query
       })
     return (
-      props.filterable
-      && props.allowCreate
-      && states.query !== ''
-      && !hasExistingOption
+      props.filterable &&
+      props.allowCreate &&
+      states.query !== '' &&
+      !hasExistingOption
     )
   })
 
   const selectSize = useFormSize()
 
   const collapseTagSize = computed(() =>
-    ['small'].includes(selectSize.value) ? 'small' : 'default',
+    ['small'].includes(selectSize.value) ? 'small' : 'default'
   )
 
   const dropMenuVisible = computed({
@@ -212,7 +205,7 @@ export function useSelect(props, states: States, ctx) {
       nextTick(() => {
         resetInputHeight()
       })
-    },
+    }
   )
 
   watch(
@@ -220,14 +213,15 @@ export function useSelect(props, states: States, ctx) {
     (val) => {
       states.cachedPlaceHolder = states.currentPlaceholder = val
 
-      const hasValue
-        = props.multiple
-        && Array.isArray(props.modelValue)
-        && props.modelValue.length > 0
+      const hasValue =
+        props.multiple &&
+        Array.isArray(props.modelValue) &&
+        props.modelValue.length > 0
 
-      if (hasValue)
+      if (hasValue) {
         states.currentPlaceholder = ''
-    },
+      }
+    }
   )
 
   watch(
@@ -235,27 +229,28 @@ export function useSelect(props, states: States, ctx) {
     (val, oldVal) => {
       if (props.multiple) {
         resetInputHeight()
-        if ((val && val.length > 0) || (input.value && states.query !== ''))
+        if ((val && val.length > 0) || (input.value && states.query !== '')) {
           states.currentPlaceholder = ''
-        else
+        } else {
           states.currentPlaceholder = states.cachedPlaceHolder
-
+        }
         if (props.filterable && !props.reserveKeyword) {
           states.query = ''
           handleQueryChange(states.query)
         }
       }
       setSelected()
-      if (props.filterable && !props.multiple)
+      if (props.filterable && !props.multiple) {
         states.inputLength = 20
-
-      if (!isEqual(val, oldVal) && props.validateEvent)
-        formItem?.validate('change').catch(err => debugWarn(err))
+      }
+      if (!isEqual(val, oldVal) && props.validateEvent) {
+        formItem?.validate('change').catch((err) => debugWarn(err))
+      }
     },
     {
       flush: 'post',
       deep: true,
-    },
+    }
   )
 
   watch(
@@ -263,11 +258,12 @@ export function useSelect(props, states: States, ctx) {
     (val) => {
       if (!val) {
         if (props.filterable) {
-          if (isFunction(props.filterMethod))
+          if (isFunction(props.filterMethod)) {
             props.filterMethod('')
-
-          if (isFunction(props.remoteMethod))
+          }
+          if (isFunction(props.remoteMethod)) {
             props.remoteMethod('')
+          }
         }
         input.value && input.value.blur()
         states.query = ''
@@ -278,34 +274,34 @@ export function useSelect(props, states: States, ctx) {
         resetHoverIndex()
         nextTick(() => {
           if (
-            input.value
-            && input.value.value === ''
-            && states.selected.length === 0
-          )
+            input.value &&
+            input.value.value === '' &&
+            states.selected.length === 0
+          ) {
             states.currentPlaceholder = states.cachedPlaceHolder
+          }
         })
 
         if (!props.multiple) {
           if (states.selected) {
             if (
-              props.filterable
-              && props.allowCreate
-              && states.createdSelected
-              && states.createdLabel
-            )
+              props.filterable &&
+              props.allowCreate &&
+              states.createdSelected &&
+              states.createdLabel
+            ) {
               states.selectedLabel = states.createdLabel
-            else
+            } else {
               states.selectedLabel = states.selected.currentLabel
-
-            if (props.filterable)
-              states.query = states.selectedLabel
+            }
+            if (props.filterable) states.query = states.selectedLabel
           }
 
-          if (props.filterable)
+          if (props.filterable) {
             states.currentPlaceholder = states.cachedPlaceHolder
+          }
         }
-      }
-      else {
+      } else {
         tooltipRef.value?.updatePopper?.()
 
         if (props.filterable) {
@@ -314,8 +310,7 @@ export function useSelect(props, states: States, ctx) {
           iOSInput.value?.focus?.()
           if (props.multiple) {
             input.value?.focus()
-          }
-          else {
+          } else {
             if (states.selectedLabel) {
               states.currentPlaceholder = `${states.selectedLabel}`
               states.selectedLabel = ''
@@ -331,7 +326,7 @@ export function useSelect(props, states: States, ctx) {
         }
       }
       ctx.emit('visible-change', val)
-    },
+    }
   )
 
   watch(
@@ -339,102 +334,98 @@ export function useSelect(props, states: States, ctx) {
     // https://github.com/vuejs/vue-next/issues/2116
     () => states.options.entries(),
     () => {
-      if (!isClient)
-        return
+      if (!isClient) return
       tooltipRef.value?.updatePopper?.()
-      if (props.multiple)
+      if (props.multiple) {
         resetInputHeight()
-
+      }
       const inputs = selectWrapper.value?.querySelectorAll('input') || []
       if (
         !Array.from(inputs).includes(document.activeElement as HTMLInputElement)
-      )
+      ) {
         setSelected()
-
+      }
       if (
-        props.defaultFirstOption
-        && (props.filterable || props.remote)
-        && states.filteredOptionsCount
-      )
+        props.defaultFirstOption &&
+        (props.filterable || props.remote) &&
+        states.filteredOptionsCount
+      ) {
         checkDefaultFirstOption()
+      }
     },
     {
       flush: 'post',
-    },
+    }
   )
 
   watch(
     () => states.hoverIndex,
     (val) => {
-      if (isNumber(val) && val > -1)
+      if (isNumber(val) && val > -1) {
         hoverOption.value = optionsArray.value[val] || {}
-      else
+      } else {
         hoverOption.value = {}
-
+      }
       optionsArray.value.forEach((option) => {
         option.hover = hoverOption.value === option
       })
-    },
+    }
   )
 
   // methods
   const resetInputHeight = () => {
     nextTick(() => {
-      if (!reference.value)
-        return
+      if (!reference.value) return
       const input = reference.value.$el.querySelector(
-        'input',
+        'input'
       ) as HTMLInputElement
-      originClientHeight
-        = originClientHeight
-        || (input.clientHeight > 0 ? input.clientHeight + 2 : 0)
+      originClientHeight =
+        originClientHeight ||
+        (input.clientHeight > 0 ? input.clientHeight + 2 : 0)
       const _tags = tags.value
       const gotSize = getComponentSize(selectSize.value || form?.size)
 
-      const sizeInMap
-        = selectSize.value
-        || gotSize === originClientHeight
-        || originClientHeight <= 0
+      const sizeInMap =
+        selectSize.value ||
+        gotSize === originClientHeight ||
+        originClientHeight <= 0
           ? gotSize
           : originClientHeight
 
       const isElHidden = input.offsetParent === null
 
       // it's an inner input so reduce it by 2px.
-      !isElHidden
-        && (input.style.height = `${
+      !isElHidden &&
+        (input.style.height = `${
           (states.selected.length === 0
             ? sizeInMap
             : Math.max(
                 _tags
-                  ? _tags.clientHeight
-                      + (_tags.clientHeight > sizeInMap ? 6 : 0)
+                  ? _tags.clientHeight +
+                      (_tags.clientHeight > sizeInMap ? 6 : 0)
                   : 0,
-                sizeInMap,
+                sizeInMap
               )) - 2
         }px`)
 
-      states.tagInMultiLine = Number.parseFloat(input.style.height) >= sizeInMap
-
-      if (states.visible && emptyText.value !== false)
+      if (states.visible && emptyText.value !== false) {
         tooltipRef.value?.updatePopper?.()
+      }
     })
   }
 
   const handleQueryChange = async (val) => {
-    if (states.previousQuery === val || states.isOnComposition)
-      return
+    if (states.previousQuery === val || states.isOnComposition) return
     if (
-      states.previousQuery === null
-      && (isFunction(props.filterMethod) || isFunction(props.remoteMethod))
+      states.previousQuery === null &&
+      (isFunction(props.filterMethod) || isFunction(props.remoteMethod))
     ) {
       states.previousQuery = val
       return
     }
     states.previousQuery = val
     nextTick(() => {
-      if (states.visible)
-        tooltipRef.value?.updatePopper?.()
+      if (states.visible) tooltipRef.value?.updatePopper?.()
     })
     states.hoverIndex = -1
     if (props.multiple && props.filterable) {
@@ -448,12 +439,10 @@ export function useSelect(props, states: States, ctx) {
     if (props.remote && isFunction(props.remoteMethod)) {
       states.hoverIndex = -1
       props.remoteMethod(val)
-    }
-    else if (isFunction(props.filterMethod)) {
+    } else if (isFunction(props.filterMethod)) {
       props.filterMethod(val)
       triggerRef(groupQueryChange)
-    }
-    else {
+    } else {
       states.filteredOptionsCount = states.optionsCount
       queryChange.value.query = val
 
@@ -461,9 +450,9 @@ export function useSelect(props, states: States, ctx) {
       triggerRef(groupQueryChange)
     }
     if (
-      props.defaultFirstOption
-      && (props.filterable || props.remote)
-      && states.filteredOptionsCount
+      props.defaultFirstOption &&
+      (props.filterable || props.remote) &&
+      states.filteredOptionsCount
     ) {
       await nextTick()
       checkDefaultFirstOption()
@@ -490,13 +479,13 @@ export function useSelect(props, states: States, ctx) {
    */
   const checkDefaultFirstOption = () => {
     const optionsInDropdown = optionsArray.value.filter(
-      n => n.visible && !n.disabled && !n.states.groupDisabled,
+      (n) => n.visible && !n.disabled && !n.states.groupDisabled
     )
-    const userCreatedOption = optionsInDropdown.find(n => n.created)
+    const userCreatedOption = optionsInDropdown.find((n) => n.created)
     const firstOriginOption = optionsInDropdown[0]
     states.hoverIndex = getValueIndex(
       optionsArray.value,
-      userCreatedOption || firstOriginOption,
+      userCreatedOption || firstOriginOption
     )
   }
 
@@ -506,17 +495,14 @@ export function useSelect(props, states: States, ctx) {
       if (option.props?.created) {
         states.createdLabel = option.props.value
         states.createdSelected = true
-      }
-      else {
+      } else {
         states.createdSelected = false
       }
       states.selectedLabel = option.currentLabel
       states.selected = option
-      if (props.filterable)
-        states.query = states.selectedLabel
+      if (props.filterable) states.query = states.selectedLabel
       return
-    }
-    else {
+    } else {
       states.selectedLabel = ''
     }
     const result: any[] = []
@@ -551,20 +537,19 @@ export function useSelect(props, states: States, ctx) {
         break
       }
     }
-    if (option)
-      return option
+    if (option) return option
     const label = isObjectValue
       ? value.label
       : !isNull && !isUndefined
-          ? value
-          : ''
+      ? value
+      : ''
     const newOption = {
       value,
       currentLabel: label,
     }
-    if (props.multiple)
-      (newOption as any).hitState = false
-
+    if (props.multiple) {
+      ;(newOption as any).hitState = false
+    }
     return newOption
   }
 
@@ -575,8 +560,7 @@ export function useSelect(props, states: States, ctx) {
         states.hoverIndex = optionsArray.value.findIndex((item) => {
           return getValueKey(item) === getValueKey(states.selected)
         })
-      }
-      else {
+      } else {
         if (states.selected.length > 0) {
           states.hoverIndex = Math.min.apply(
             null,
@@ -584,10 +568,9 @@ export function useSelect(props, states: States, ctx) {
               return optionsArray.value.findIndex((item) => {
                 return get(item, valueKey) === get(selected, valueKey)
               })
-            }),
+            })
           )
-        }
-        else {
+        } else {
           states.hoverIndex = -1
         }
       }
@@ -597,8 +580,7 @@ export function useSelect(props, states: States, ctx) {
   const handleResize = () => {
     resetInputWidth()
     tooltipRef.value?.updatePopper?.()
-    if (props.multiple)
-      resetInputHeight()
+    props.multiple && resetInputHeight()
   }
 
   const resetInputWidth = () => {
@@ -621,13 +603,13 @@ export function useSelect(props, states: States, ctx) {
   }, debounce.value)
 
   const emitChange = (val) => {
-    if (!isEqual(props.modelValue, val))
+    if (!isEqual(props.modelValue, val)) {
       ctx.emit(CHANGE_EVENT, val)
+    }
   }
 
   const deletePrevTag = (e) => {
-    if (e.code === EVENT_CODE.delete)
-      return
+    if (e.code === EVENT_CODE.delete) return
     if (e.target.value.length <= 0 && !toggleLastOptionHitState()) {
       const value = props.modelValue.slice()
       value.pop()
@@ -635,8 +617,9 @@ export function useSelect(props, states: States, ctx) {
       emitChange(value)
     }
 
-    if (e.target.value.length === 1 && props.modelValue.length === 0)
+    if (e.target.value.length === 1 && props.modelValue.length === 0) {
       states.currentPlaceholder = states.cachedPlaceHolder
+    }
   }
 
   const deleteTag = (event, tag) => {
@@ -656,8 +639,7 @@ export function useSelect(props, states: States, ctx) {
     const value: string | any[] = props.multiple ? [] : ''
     if (!isString(value)) {
       for (const item of states.selected) {
-        if (item.isDisabled)
-          value.push(item.value)
+        if (item.isDisabled) value.push(item.value)
       }
     }
     ctx.emit(UPDATE_MODEL_EVENT, value)
@@ -667,18 +649,18 @@ export function useSelect(props, states: States, ctx) {
     ctx.emit('clear')
   }
 
-  const handleOptionSelect = (option, byClick) => {
+  const handleOptionSelect = (option) => {
     if (props.multiple) {
       const value = (props.modelValue || []).slice()
       const optionIndex = getValueIndex(value, option.value)
-      if (optionIndex > -1)
+      if (optionIndex > -1) {
         value.splice(optionIndex, 1)
-      else if (
-        props.multipleLimit <= 0
-        || value.length < props.multipleLimit
-      )
+      } else if (
+        props.multipleLimit <= 0 ||
+        value.length < props.multipleLimit
+      ) {
         value.push(option.value)
-
+      }
       ctx.emit(UPDATE_MODEL_EVENT, value)
       emitChange(value)
       if (option.created) {
@@ -686,26 +668,22 @@ export function useSelect(props, states: States, ctx) {
         handleQueryChange('')
         states.inputLength = 20
       }
-      if (props.filterable)
-        input.value?.focus()
-    }
-    else {
+      if (props.filterable) input.value?.focus()
+    } else {
       ctx.emit(UPDATE_MODEL_EVENT, option.value)
       emitChange(option.value)
       states.visible = false
     }
-    states.isSilentBlur = byClick
+
     setSoftFocus()
-    if (states.visible)
-      return
+    if (states.visible) return
     nextTick(() => {
       scrollToOption(option)
     })
   }
 
   const getValueIndex = (arr: any[] = [], value) => {
-    if (!isObject(value))
-      return arr.indexOf(value)
+    if (!isObject(value)) return arr.indexOf(value)
 
     const valueKey = props.valueKey
     let index = -1
@@ -720,10 +698,10 @@ export function useSelect(props, states: States, ctx) {
   }
 
   const setSoftFocus = () => {
-    states.softFocus = true
     const _input = input.value || reference.value
-    if (_input)
+    if (_input) {
       _input?.focus()
+    }
   }
 
   const scrollToOption = (option) => {
@@ -732,18 +710,20 @@ export function useSelect(props, states: States, ctx) {
 
     if (targetOption?.value) {
       const options = optionsArray.value.filter(
-        item => item.value === targetOption.value,
+        (item) => item.value === targetOption.value
       )
-      if (options.length > 0)
+      if (options.length > 0) {
         target = options[0].$el
+      }
     }
 
     if (tooltipRef.value && target) {
       const menu = tooltipRef.value?.popperRef?.contentRef?.querySelector?.(
-        `.${ns.be('dropdown', 'wrap')}`,
+        `.${ns.be('dropdown', 'wrap')}`
       )
-      if (menu)
+      if (menu) {
         scrollIntoView(menu as HTMLElement, target)
+      }
     }
     scrollbar.value?.handleScroll()
   }
@@ -764,18 +744,15 @@ export function useSelect(props, states: States, ctx) {
   }
 
   const resetInputState = (e: KeyboardEvent) => {
-    if (e.code !== EVENT_CODE.backspace)
-      toggleLastOptionHitState(false)
+    if (e.code !== EVENT_CODE.backspace) toggleLastOptionHitState(false)
     states.inputLength = input.value!.value.length * 15 + 20
     resetInputHeight()
   }
 
   const toggleLastOptionHitState = (hit?: boolean) => {
-    if (!Array.isArray(states.selected))
-      return
+    if (!Array.isArray(states.selected)) return
     const option = states.selected[states.selected.length - 1]
-    if (!option)
-      return
+    if (!option) return
 
     if (hit === true || hit === false) {
       option.hitState = hit
@@ -791,8 +768,7 @@ export function useSelect(props, states: States, ctx) {
     if (event.type === 'compositionend') {
       states.isOnComposition = false
       nextTick(() => handleQueryChange(text))
-    }
-    else {
+    } else {
       const lastCharacter = text[text.length - 1] || ''
       states.isOnComposition = !isKorean(lastCharacter)
     }
@@ -803,17 +779,16 @@ export function useSelect(props, states: States, ctx) {
   }
 
   const handleFocus = (event: FocusEvent) => {
-    if (!states.softFocus) {
+    if (!ignoreFocusEvent) {
       if (props.automaticDropdown || props.filterable) {
-        if (props.filterable && !states.visible)
+        if (props.filterable && !states.visible) {
           states.menuVisibleOnFocus = true
-
+        }
         states.visible = true
       }
       ctx.emit('focus', event)
-    }
-    else {
-      states.softFocus = false
+    } else {
+      ignoreFocusEvent = false
     }
   }
 
@@ -824,14 +799,16 @@ export function useSelect(props, states: States, ctx) {
   }
 
   const handleBlur = (event: FocusEvent) => {
-    // https://github.com/ElemeFE/element/pull/10822
-    nextTick(() => {
-      if (states.isSilentBlur)
-        states.isSilentBlur = false
-      else
-        ctx.emit('blur', event)
+    setTimeout(() => {
+      // validate current focus event is inside el-tooltip-content
+      // if so, ignore the blur event and the next focus event
+      if (tooltipRef.value?.isFocusInsideContent()) {
+        ignoreFocusEvent = true
+        return
+      }
+      states.visible && handleClose()
+      ctx.emit('blur', event)
     })
-    states.softFocus = false
   }
 
   const handleClearClick = (event: Event) => {
@@ -842,7 +819,7 @@ export function useSelect(props, states: States, ctx) {
     states.visible = false
   }
 
-  const handleKeydownEscape = (event: KeyboardEvent | Event) => {
+  const handleKeydownEscape = (event: KeyboardEvent) => {
     if (states.visible) {
       event.preventDefault()
       event.stopPropagation()
@@ -850,30 +827,31 @@ export function useSelect(props, states: States, ctx) {
     }
   }
 
-  const toggleMenu = (e?: MouseEvent) => {
-    if (e && !states.mouseEnter)
+  const toggleMenu = (e?: PointerEvent) => {
+    if (e && !states.mouseEnter) {
       return
-
+    }
     if (!selectDisabled.value) {
       if (states.menuVisibleOnFocus) {
         states.menuVisibleOnFocus = false
-      }
-      else {
-        if (!tooltipRef.value || !tooltipRef.value.isFocusInsideContent())
+      } else {
+        if (!tooltipRef.value || !tooltipRef.value.isFocusInsideContent()) {
           states.visible = !states.visible
+        }
       }
-      if (states.visible)
-        (input.value || reference.value)?.focus()
+      if (states.visible) {
+        ;(input.value || reference.value)?.focus()
+      }
     }
   }
 
   const selectOption = () => {
     if (!states.visible) {
       toggleMenu()
-    }
-    else {
-      if (optionsArray.value[states.hoverIndex])
-        handleOptionSelect(optionsArray.value[states.hoverIndex], undefined)
+    } else {
+      if (optionsArray.value[states.hoverIndex]) {
+        handleOptionSelect(optionsArray.value[states.hoverIndex])
+      }
     }
   }
 
@@ -883,16 +861,16 @@ export function useSelect(props, states: States, ctx) {
 
   const optionsAllDisabled = computed(() =>
     optionsArray.value
-      .filter(option => option.visible)
-      .every(option => option.disabled),
+      .filter((option) => option.visible)
+      .every((option) => option.disabled)
   )
 
   const showTagList = computed(() =>
-    states.selected.slice(0, props.maxCollapseTags),
+    states.selected.slice(0, props.maxCollapseTags)
   )
 
   const collapseTagList = computed(() =>
-    states.selected.slice(props.maxCollapseTags),
+    states.selected.slice(props.maxCollapseTags)
   )
 
   const navigateOptions = (direction) => {
@@ -900,30 +878,29 @@ export function useSelect(props, states: States, ctx) {
       states.visible = true
       return
     }
-    if (states.options.size === 0 || states.filteredOptionsCount === 0)
-      return
-    if (states.isOnComposition)
-      return
+    if (states.options.size === 0 || states.filteredOptionsCount === 0) return
+    if (states.isOnComposition) return
 
     if (!optionsAllDisabled.value) {
       if (direction === 'next') {
         states.hoverIndex++
-        if (states.hoverIndex === states.options.size)
+        if (states.hoverIndex === states.options.size) {
           states.hoverIndex = 0
-      }
-      else if (direction === 'prev') {
+        }
+      } else if (direction === 'prev') {
         states.hoverIndex--
-        if (states.hoverIndex < 0)
+        if (states.hoverIndex < 0) {
           states.hoverIndex = states.options.size - 1
+        }
       }
       const option = optionsArray.value[states.hoverIndex]
       if (
-        option.disabled === true
-        || option.states.groupDisabled === true
-        || !option.visible
-      )
+        option.disabled === true ||
+        option.states.groupDisabled === true ||
+        !option.visible
+      ) {
         navigateOptions(direction)
-
+      }
       nextTick(() => scrollToOption(hoverOption.value))
     }
   }

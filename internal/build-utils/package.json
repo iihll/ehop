@@ -1,7 +1,12 @@
 {
   "name": "@ehop/build-utils",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "description": "Build utils for Ehop",
+  "keywords": [
+    "ehop"
+  ],
+  "license": "MIT",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -10,10 +15,12 @@
     "dev": "pnpm run stub",
     "stub": "unbuild --stub"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "@pnpm/find-workspace-packages": "^4.0.16",
+    "@pnpm/logger": "^4.0.0",
+    "consola": "^2.15.3"
+  },
   "devDependencies": {
-    "unbuild": "^1.2.1"
+    "unbuild": "^0.7.4"
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { getCurrentInstance, inject, ref } from 'vue'
 import {
@@ -9,24 +8,23 @@ import {
   removeClass,
 } from '@ehop/utils'
 import { TABLE_INJECTION_KEY } from '../tokens'
-import type { TableColumnCtx } from '../table-column/defaults'
 import type { TableHeaderProps } from '.'
+import type { TableColumnCtx } from '../table-column/defaults'
 
 function useEvent<T>(props: TableHeaderProps<T>, emit) {
   const instance = getCurrentInstance()
   const parent = inject(TABLE_INJECTION_KEY)
   const handleFilterClick = (event: Event) => {
     event.stopPropagation()
+    return
   }
 
   const handleHeaderClick = (event: Event, column: TableColumnCtx<T>) => {
-    if (!column.filters && column.sortable)
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    if (!column.filters && column.sortable) {
       handleSortClick(event, column, false)
-
-    else if (column.filterable && !column.sortable)
+    } else if (column.filterable && !column.sortable) {
       handleFilterClick(event)
-
+    }
     parent?.emit('header-click', column, event)
   }
 
@@ -37,10 +35,8 @@ function useEvent<T>(props: TableHeaderProps<T>, emit) {
   const dragging = ref(false)
   const dragState = ref({})
   const handleMouseDown = (event: MouseEvent, column: TableColumnCtx<T>) => {
-    if (!isClient)
-      return
-    if (column.children && column.children.length > 0)
-      return
+    if (!isClient) return
+    if (column.children && column.children.length > 0) return
     /* istanbul ignore if */
     if (draggingColumn.value && props.border) {
       dragging.value = true
@@ -72,8 +68,8 @@ function useEvent<T>(props: TableHeaderProps<T>, emit) {
       }
 
       const handleMouseMove = (event: MouseEvent) => {
-        const deltaLeft
-          = event.clientX - (dragState.value as any).startMouseLeft
+        const deltaLeft =
+          event.clientX - (dragState.value as any).startMouseLeft
         const proxyLeft = (dragState.value as any).startLeft + deltaLeft
 
         resizeProxy.style.left = `${Math.max(minLeft, proxyLeft)}px`
@@ -90,7 +86,7 @@ function useEvent<T>(props: TableHeaderProps<T>, emit) {
             column.width,
             startLeft - startColumnLeft,
             column,
-            event,
+            event
           )
           requestAnimationFrame(() => {
             props.store.scheduleLayout(false, true)
@@ -118,16 +114,14 @@ function useEvent<T>(props: TableHeaderProps<T>, emit) {
   }
 
   const handleMouseMove = (event: MouseEvent, column: TableColumnCtx<T>) => {
-    if (column.children && column.children.length > 0)
-      return
+    if (column.children && column.children.length > 0) return
     const el = event.target as HTMLElement
-    if (!isElement(el))
+    if (!isElement(el)) {
       return
-
+    }
     const target = el?.closest('th')
 
-    if (!column || !column.resizable)
-      return
+    if (!column || !column.resizable) return
 
     if (!dragging.value && props.border) {
       const rect = target.getBoundingClientRect()
@@ -135,40 +129,37 @@ function useEvent<T>(props: TableHeaderProps<T>, emit) {
       const bodyStyle = document.body.style
       if (rect.width > 12 && rect.right - event.pageX < 8) {
         bodyStyle.cursor = 'col-resize'
-        if (hasClass(target, 'is-sortable'))
+        if (hasClass(target, 'is-sortable')) {
           target.style.cursor = 'col-resize'
-
+        }
         draggingColumn.value = column
-      }
-      else if (!dragging.value) {
+      } else if (!dragging.value) {
         bodyStyle.cursor = ''
-        if (hasClass(target, 'is-sortable'))
+        if (hasClass(target, 'is-sortable')) {
           target.style.cursor = 'pointer'
-
+        }
         draggingColumn.value = null
       }
     }
   }
 
   const handleMouseOut = () => {
-    if (!isClient)
-      return
+    if (!isClient) return
     document.body.style.cursor = ''
   }
   const toggleOrder = ({ order, sortOrders }) => {
-    if (order === '')
-      return sortOrders[0]
+    if (order === '') return sortOrders[0]
     const index = sortOrders.indexOf(order || null)
     return sortOrders[index > sortOrders.length - 2 ? 0 : index + 1]
   }
   const handleSortClick = (
     event: Event,
     column: TableColumnCtx<T>,
-    givenOrder: string | boolean,
+    givenOrder: string | boolean
   ) => {
     event.stopPropagation()
-    const order
-      = column.order === givenOrder ? null : givenOrder || toggleOrder(column)
+    const order =
+      column.order === givenOrder ? null : givenOrder || toggleOrder(column)
 
     const target = (event.target as HTMLElement)?.closest('th')
 
@@ -179,8 +170,7 @@ function useEvent<T>(props: TableHeaderProps<T>, emit) {
       }
     }
 
-    if (!column.sortable)
-      return
+    if (!column.sortable) return
 
     const states = props.store.states
     let sortProp = states.sortProp.value
@@ -188,20 +178,20 @@ function useEvent<T>(props: TableHeaderProps<T>, emit) {
     const sortingColumn = states.sortingColumn.value
 
     if (
-      sortingColumn !== column
-      || (sortingColumn === column && sortingColumn.order === null)
+      sortingColumn !== column ||
+      (sortingColumn === column && sortingColumn.order === null)
     ) {
-      if (sortingColumn)
+      if (sortingColumn) {
         sortingColumn.order = null
-
+      }
       states.sortingColumn.value = column
       sortProp = column.property
     }
-    if (!order)
+    if (!order) {
       sortOrder = column.order = null
-
-    else
+    } else {
       sortOrder = column.order = order
+    }
 
     states.sortProp.value = sortProp
     states.sortOrder.value = sortOrder

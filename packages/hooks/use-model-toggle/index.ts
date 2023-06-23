@@ -6,7 +6,7 @@ import {
   isBoolean,
   isClient,
 } from '@ehop/utils'
-import type { ExtractPropType } from '@ehop/utils'
+import type { ExtractPropType } from '@ehop
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 import type { ComponentPublicInstance, ExtractPropTypes, Ref } from 'vue'
@@ -22,16 +22,16 @@ const _event = buildProp({
 export type UseModelTogglePropsRaw<T extends string> = {
   [K in T]: typeof _prop
 } & {
-  [K in `onUpdate:${T}`]: typeof _event
-}
+    [K in `onUpdate:${T}`]: typeof _event
+  }
 
 export type UseModelTogglePropsGeneric<T extends string> = {
   [K in T]: ExtractPropType<typeof _prop>
 } & {
-  [K in `onUpdate:${T}`]: ExtractPropType<typeof _event>
-}
+    [K in `onUpdate:${T}`]: ExtractPropType<typeof _event>
+  }
 
-export function createModelToggleComposable<T extends string>(name: T) {
+export const createModelToggleComposable = <T extends string>(name: T) => {
   const updateEventKey = `update:${name}` as const
   const updateEventKeyRaw = `onUpdate:${name}` as const
   const useModelToggleEmits = [updateEventKey]
@@ -55,7 +55,7 @@ export function createModelToggleComposable<T extends string>(name: T) {
       disabled: boolean
     }
     const hasUpdateHandler = computed(() =>
-      isFunction(props[updateEventKeyRaw]),
+      isFunction(props[updateEventKeyRaw])
     )
     // when it matches the default value we say this is absent
     // though this could be mistakenly passed from the user but we need to rule out that
@@ -63,85 +63,93 @@ export function createModelToggleComposable<T extends string>(name: T) {
     const isModelBindingAbsent = computed(() => props[name] === null)
 
     const doShow = (event?: Event) => {
-      if (indicator.value === true)
+      if (indicator.value === true) {
         return
+      }
 
       indicator.value = true
-      if (toggleReason)
+      if (toggleReason) {
         toggleReason.value = event
-
-      if (isFunction(onShow))
+      }
+      if (isFunction(onShow)) {
         onShow(event)
+      }
     }
 
     const doHide = (event?: Event) => {
-      if (indicator.value === false)
+      if (indicator.value === false) {
         return
+      }
 
       indicator.value = false
-      if (toggleReason)
+      if (toggleReason) {
         toggleReason.value = event
-
-      if (isFunction(onHide))
+      }
+      if (isFunction(onHide)) {
         onHide(event)
+      }
     }
 
     const show = (event?: Event) => {
       if (
-        props.disabled === true
-        || (isFunction(shouldProceed) && !shouldProceed())
+        props.disabled === true ||
+        (isFunction(shouldProceed) && !shouldProceed())
       )
         return
 
       const shouldEmit = hasUpdateHandler.value && isClient
 
-      if (shouldEmit)
+      if (shouldEmit) {
         emit(updateEventKey, true)
+      }
 
-      if (isModelBindingAbsent.value || !shouldEmit)
+      if (isModelBindingAbsent.value || !shouldEmit) {
         doShow(event)
+      }
     }
 
     const hide = (event?: Event) => {
-      if (props.disabled === true || !isClient)
-        return
+      if (props.disabled === true || !isClient) return
 
       const shouldEmit = hasUpdateHandler.value && isClient
 
-      if (shouldEmit)
+      if (shouldEmit) {
         emit(updateEventKey, false)
+      }
 
-      if (isModelBindingAbsent.value || !shouldEmit)
+      if (isModelBindingAbsent.value || !shouldEmit) {
         doHide(event)
+      }
     }
 
     const onChange = (val: boolean) => {
-      if (!isBoolean(val))
-        return
+      if (!isBoolean(val)) return
       if (props.disabled && val) {
-        if (hasUpdateHandler.value)
+        if (hasUpdateHandler.value) {
           emit(updateEventKey, false)
-      }
-      else if (indicator.value !== val) {
-        if (val)
+        }
+      } else if (indicator.value !== val) {
+        if (val) {
           doShow()
-        else
+        } else {
           doHide()
+        }
       }
     }
 
     const toggle = () => {
-      if (indicator.value)
+      if (indicator.value) {
         hide()
-      else
+      } else {
         show()
+      }
     }
 
     watch(() => props[name], onChange)
 
     if (
-      shouldHideWhenRouteChanges
-      && instance.appContext.config.globalProperties.$route !== undefined
+      shouldHideWhenRouteChanges &&
+      instance.appContext.config.globalProperties.$route !== undefined
     ) {
       watch(
         () => ({
@@ -152,9 +160,10 @@ export function createModelToggleComposable<T extends string>(name: T) {
           ).$route,
         }),
         () => {
-          if (shouldHideWhenRouteChanges.value && indicator.value)
+          if (shouldHideWhenRouteChanges.value && indicator.value) {
             hide()
-        },
+          }
+        }
       )
     }
 
@@ -177,14 +186,14 @@ export function createModelToggleComposable<T extends string>(name: T) {
   }
 }
 
-const { useModelToggle, useModelToggleProps, useModelToggleEmits }
-  = createModelToggleComposable('modelValue')
+const { useModelToggle, useModelToggleProps, useModelToggleEmits } =
+  createModelToggleComposable('modelValue')
 
 export { useModelToggle, useModelToggleEmits, useModelToggleProps }
 
 export type UseModelToggleProps = ExtractPropTypes<typeof useModelToggleProps>
 
-export interface ModelToggleParams {
+export type ModelToggleParams = {
   indicator: Ref<boolean>
   toggleReason?: Ref<Event | undefined>
   shouldHideWhenRouteChanges?: Ref<boolean>

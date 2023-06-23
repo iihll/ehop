@@ -5,7 +5,7 @@ import type { NormalizedWheelEvent } from 'normalize-wheel-es'
 
 const mousewheel = function (
   element: HTMLElement,
-  callback: (e: WheelEvent, normalized: NormalizedWheelEvent) => void,
+  callback: (e: WheelEvent, normalized: NormalizedWheelEvent) => void
 ) {
   if (element && element.addEventListener) {
     const fn = function (this: HTMLElement, event: WheelEvent) {

@@ -1,5 +1,5 @@
-import type { ExtractPropTypes, PropType } from 'vue'
 import type { epPropKey } from './runtime'
+import type { ExtractPropTypes, PropType } from 'vue'
 import type { IfNever, UnknownToNever, WritableArray } from './util'
 
 type Value<T> = T[keyof T]
@@ -58,12 +58,12 @@ export type EpPropMergeType<Type, Value, Validator> =
  */
 export type EpPropInputDefault<
   Required extends boolean,
-  Default,
+  Default
 > = Required extends true
   ? never
   : Default extends Record<string, unknown> | Array<any>
-    ? () => Default
-    : (() => Default) | Default
+  ? () => Default
+  : (() => Default) | Default
 
 /**
  * Native prop types, e.g: `BooleanConstructor`, `StringConstructor`, `null`, `undefined`, etc.
@@ -93,13 +93,13 @@ export type IfNativePropType<T, Y, N> = [T] extends [NativePropType] ? Y : N
     default?: undefined;
   }
  */
-export interface EpPropInput<
+export type EpPropInput<
   Type,
   Value,
   Validator,
   Default extends EpPropMergeType<Type, Value, Validator>,
-  Required extends boolean,
-> {
+  Required extends boolean
+> = {
   type?: Type
   required?: Required
   values?: readonly Value[]

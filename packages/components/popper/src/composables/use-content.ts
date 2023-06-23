@@ -1,19 +1,19 @@
 import { computed, inject, onMounted, ref, unref, watch } from 'vue'
 import { isUndefined } from 'lodash-unified'
 import { usePopper } from '@ehop/hooks'
-import type { Modifier } from '@popperjs/core'
-import type { PartialOptions } from '@ehop/hooks'
 import { POPPER_INJECTION_KEY } from '../constants'
 import { buildPopperOptions, unwrapMeasurableEl } from '../utils'
 
+import type { Modifier } from '@popperjs/core'
+import type { PartialOptions } from '@ehop/hooks'
 import type { PopperContentProps } from '../content'
 
 const DEFAULT_ARROW_OFFSET = 0
 
-export function usePopperContent(props: PopperContentProps) {
+export const usePopperContent = (props: PopperContentProps) => {
   const { popperInstanceRef, contentRef, triggerRef, role } = inject(
     POPPER_INJECTION_KEY,
-    undefined,
+    undefined
   )!
 
   const arrowRef = ref<HTMLElement>()
@@ -45,7 +45,6 @@ export function usePopperContent(props: PopperContentProps) {
   const options = computed<PartialOptions>(() => {
     return {
       onFirstUpdate: () => {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         update()
       },
       ...buildPopperOptions(props, [
@@ -56,20 +55,20 @@ export function usePopperContent(props: PopperContentProps) {
   })
 
   const computedReference = computed(
-    () => unwrapMeasurableEl(props.referenceEl) || unref(triggerRef),
+    () => unwrapMeasurableEl(props.referenceEl) || unref(triggerRef)
   )
 
-  const { attributes, state, styles, update, forceUpdate, instanceRef }
-    = usePopper(computedReference, contentRef, options)
+  const { attributes, state, styles, update, forceUpdate, instanceRef } =
+    usePopper(computedReference, contentRef, options)
 
-  watch(instanceRef, instance => (popperInstanceRef.value = instance))
+  watch(instanceRef, (instance) => (popperInstanceRef.value = instance))
 
   onMounted(() => {
     watch(
       () => unref(computedReference)?.getBoundingClientRect(),
       () => {
         update()
-      },
+      }
     )
   })
 

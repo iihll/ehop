@@ -1,2 +1,2 @@
 import '@ehop/components/base/style/css'
-import '@ehop/theme-chalk/eh-input.css'
+import '@ehop/theme-chalk/el-input.css'

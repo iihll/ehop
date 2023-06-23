@@ -1,5 +1,5 @@
 export const PKG_PREFIX = '@ehop'
 export const PKG_NAME = 'ehop'
-export const PKG_CAMELCASE_NAME = 'Ehop'
-export const PKG_CAMELCASE_LOCAL_NAME = 'EhopLocale'
+export const PKG_CAMELCASE_NAME = 'ElementPlus'
+export const PKG_CAMELCASE_LOCAL_NAME = 'ElementPlusLocale'
 export const PKG_BRAND_NAME = 'Ehop'

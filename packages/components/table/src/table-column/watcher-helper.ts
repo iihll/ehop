@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { getCurrentInstance, watch } from 'vue'
 import { hasOwn } from '@ehop/utils'
-import type { ComputedRef } from 'vue'
 import { parseMinWidth, parseWidth } from '../util'
 
+import type { ComputedRef } from 'vue'
 import type { TableColumn, TableColumnCtx, ValueOf } from './defaults'
 
 function getAllAliases(props, aliases) {
@@ -15,7 +14,7 @@ function getAllAliases(props, aliases) {
 }
 function useWatcher<T>(
   owner: ComputedRef<any>,
-  props_: Partial<TableColumnCtx<T>>,
+  props_: Partial<TableColumnCtx<T>>
 ) {
   const instance = getCurrentInstance() as TableColumn<T>
   const registerComplexWatchers = () => {
@@ -32,17 +31,17 @@ function useWatcher<T>(
           () => props_[columnKey],
           (newVal) => {
             let value: ValueOf<TableColumnCtx<T>> = newVal
-            if (columnKey === 'width' && key === 'realWidth')
+            if (columnKey === 'width' && key === 'realWidth') {
               value = parseWidth(newVal)
-
-            if (columnKey === 'minWidth' && key === 'realMinWidth')
+            }
+            if (columnKey === 'minWidth' && key === 'realMinWidth') {
               value = parseMinWidth(newVal)
-
+            }
             instance.columnConfig.value[columnKey as any] = value
             instance.columnConfig.value[key] = value
             const updateColumns = columnKey === 'fixed'
             owner.value.store.scheduleLayout(updateColumns)
-          },
+          }
         )
       }
     })
@@ -72,7 +71,7 @@ function useWatcher<T>(
           () => props_[columnKey],
           (newVal) => {
             instance.columnConfig.value[key] = newVal
-          },
+          }
         )
       }
     })

@@ -1,4 +1,4 @@
-import path from 'node:path'
+import path from 'path'
 import {
   arrayToRegExp,
   getTypeSymbol,
@@ -8,8 +8,8 @@ import {
   main,
 } from 'components-helper'
 import {
-  ehOutput,
-  ehPackage,
+  epOutput,
+  epPackage,
   getPackageManifest,
   projRoot,
 } from '@ehop/build-utils'
@@ -27,7 +27,7 @@ const typeMap = {
   vue: ['Component', 'VNode', 'CSSProperties', 'StyleValue'],
 }
 
-function removeTag(str: string) {
+const removeTag = (str: string) => {
   return str.replaceAll(/\^\([^)]*\)/g, '').trim()
 }
 
@@ -36,7 +36,7 @@ const reComponentName: ReComponentName = (title) => {
 }
 
 const reDocUrl: ReDocUrl = (fileName, header) => {
-  const docs = 'https://element-plus.org/en-US/component/'
+  const docs = 'https://ehop.org/en-US/component/'
   const _header = header
     ? removeTag(header).replaceAll(/\s+/g, '-').toLowerCase()
     : ''
@@ -63,26 +63,21 @@ const reAttribute: ReAttribute = (value, key) => {
 
   if (key === 'Name' && /^(-|—)$/.test(str)) {
     return 'default'
-  }
-  else if (str === '' || /^(-|—)$/.test(str)) {
+  } else if (str === '' || /^(-|—)$/.test(str)) {
     return undefined
-  }
-  else if (key === 'Name' && /v-model:(.+)/.test(str)) {
+  } else if (key === 'Name' && /v-model:(.+)/.test(str)) {
     const _str = str.match(/v-model:(.+)/)
     return _str ? _str[1] : undefined
-  }
-  else if (key === 'Name' && /v-model/.test(str)) {
+  } else if (key === 'Name' && /v-model/.test(str)) {
     return 'model-value'
-  }
-  else if (key === 'Name') {
+  } else if (key === 'Name') {
     return str
       .replaceAll(/\s*[\\*]\s*/g, '')
       .replaceAll(/\s*<.*>\s*/g, '')
       .replaceAll(/\s*\(.*\)\s*/g, '')
       .replaceAll(/\B([A-Z])/g, '-$1')
       .toLowerCase()
-  }
-  else if (key === 'Type') {
+  } else if (key === 'Type') {
     return rewriteType(str)
       .replaceAll(/\bfunction(\(.*\))?(:\s*\w+)?\b/gi, 'Function')
       .replaceAll(/\bdate\b/g, 'Date')
@@ -93,13 +88,11 @@ const reAttribute: ReAttribute = (value, key) => {
       .replaceAll(/(\b\w+)\s*\|/g, '$1 /')
       .replaceAll(/\|\s*(\b\w+)/g, '/ $1')
       .replaceAll(/=_0!/g, '|')
-  }
-  else if (key === 'Accepted Values') {
+  } else if (key === 'Accepted Values') {
     return /\[.+\]\(.+\)/.test(str) || /^\*$/.test(str)
       ? undefined
       : str.replaceAll(/`/g, '').replaceAll(/\([^)]*\)(?!\s*=>)/g, '')
-  }
-  else if (key === 'Subtags') {
+  } else if (key === 'Subtags') {
     return str
       ? `el-${str
           .replaceAll(/\s*\/\s*/g, '/el-')
@@ -107,8 +100,7 @@ const reAttribute: ReAttribute = (value, key) => {
           .replaceAll(/\s+/g, '-')
           .toLowerCase()}`
       : undefined
-  }
-  else {
+  } else {
     return str
   }
 }
@@ -125,8 +117,8 @@ const reWebTypesType: ReWebTypesType = (type) => {
     : { name: type, source: { symbol, module } }
 }
 
-function findModule(type: string): string | undefined {
-  let result: string | undefined
+const findModule = (type: string): string | undefined => {
+  let result: string | undefined = undefined
 
   for (const key in typeMap) {
     const regExp = arrayToRegExp(typeMap[key as keyof typeof typeMap])
@@ -141,15 +133,14 @@ function findModule(type: string): string | undefined {
   return result
 }
 
-function rewriteType(str: string): string {
+const rewriteType = (str: string): string => {
   if (/\^\[([^\]]*)\](`[^`]*`)?/.test(str)) {
     return str
       .replaceAll(/\^\[([^\]]*)\](`[^`]*`)?/g, (_, type, details) => {
         return details ? details.replace(/^`(.*)`$/, '$1') : type
       })
       .replaceAll(/\[[^\]]*\]\([^)]*\)/g, '')
-  }
-  else if (/<.*>/.test(str)) {
+  } else if (/<.*>/.test(str)) {
     const list = str.matchAll(/<(\w+)Type\s([^>]*)>/g)
 
     return Array.from(list, (item) => {
@@ -167,20 +158,19 @@ function rewriteType(str: string): string {
           return type.toLowerCase()
       }
     })
-      .filter(item => item)
+      .filter((item) => item)
       .join('|')
-  }
-  else {
+  } else {
     return str
   }
 }
 
-function transformEnum(str: string) {
+const transformEnum = (str: string) => {
   const result = str.match(/:values="\[([^\]]*)\]/)
   return result ? result[1].replaceAll(/,\s*/g, ' | ') : 'string'
 }
 
-function transformFunction(str: string) {
+const transformFunction = (str: string) => {
   const paramsStr = str.match(/:params="\[(.*)\]"/)
   const returnsStr = str.match(/:returns="(.*)"/)
   let params = ''
@@ -200,7 +190,7 @@ function transformFunction(str: string) {
 }
 
 export const buildHelper: TaskFunction = (done) => {
-  const { name, version } = getPackageManifest(ehPackage)
+  const { name, version } = getPackageManifest(epPackage)
 
   const tagVer = process.env.TAG_VERSION
   const _version = tagVer
@@ -214,9 +204,9 @@ export const buildHelper: TaskFunction = (done) => {
     version: _version,
     entry: `${path.resolve(
       projRoot,
-      'docs/en-US/component',
+      'docs/en-US/component'
     )}/!(datetime-picker|message-box|message).md`,
-    outDir: ehOutput,
+    outDir: epOutput,
     reComponentName,
     reDocUrl,
     reWebTypesSource,

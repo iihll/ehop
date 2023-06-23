@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Create new issue
+    url: https://issue.ehop.org/
+    about: The issue which is not created via https://issue.ehop.org/ will be closed immediately.

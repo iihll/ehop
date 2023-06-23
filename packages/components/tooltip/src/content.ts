@@ -2,8 +2,8 @@ import { buildProps, definePropType } from '@ehop/utils'
 import { popperContentProps } from '@ehop/components/popper'
 import { useDelayedToggleProps } from '@ehop/hooks'
 
-import type { ExtractPropTypes } from 'vue'
 import type TooltipContent from './content.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const useTooltipContentProps = buildProps({
   ...useDelayedToggleProps,

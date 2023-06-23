@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { getCurrentInstance, nextTick, unref } from 'vue'
 import { useNamespace } from '@ehop/hooks'
+import useWatcher from './watcher'
 
 import type { Ref } from 'vue'
 import type { TableColumnCtx } from '../table-column/defaults'
 import type { Filter, Sort, Table } from '../table/defaults'
-import useWatcher from './watcher'
 
 interface WatcherPropsData<T> {
   data: Ref<T[]>
@@ -15,15 +14,14 @@ interface WatcherPropsData<T> {
 
 function replaceColumn<T>(
   array: TableColumnCtx<T>[],
-  column: TableColumnCtx<T>,
+  column: TableColumnCtx<T>
 ) {
   return array.map((item) => {
-    if (item.id === column.id)
+    if (item.id === column.id) {
       return column
-
-    else if (item.children?.length)
+    } else if (item.children?.length) {
       item.children = replaceColumn(item.children, column)
-
+    }
     return item
   })
 }
@@ -31,8 +29,9 @@ function replaceColumn<T>(
 function sortColumn<T>(array: TableColumnCtx<T>[]) {
   array.forEach((item) => {
     item.no = item.getColumnIndex?.()
-    if (item.children?.length)
+    if (item.children?.length) {
       sortColumn(item.children)
+    }
   })
   array.sort((cur, pre) => cur.no - pre.no)
 }
@@ -53,40 +52,39 @@ function useStore<T>() {
       instance.store.updateCurrentRowData()
       instance.store.updateExpandRows()
       instance.store.updateTreeData(
-        instance.store.states.defaultExpandAll.value,
+        instance.store.states.defaultExpandAll.value
       )
       if (unref(states.reserveSelection)) {
         instance.store.assertRowKey()
         instance.store.updateSelectionByRowKey()
-      }
-      else {
-        if (dataInstanceChanged)
+      } else {
+        if (dataInstanceChanged) {
           instance.store.clearSelection()
-
-        else
+        } else {
           instance.store.cleanSelection()
+        }
       }
       instance.store.updateAllSelected()
-      if (instance.$ready)
+      if (instance.$ready) {
         instance.store.scheduleLayout()
+      }
     },
 
     insertColumn(
       states: StoreStates,
       column: TableColumnCtx<T>,
       parent: TableColumnCtx<T>,
-      updateColumnOrder: () => void,
+      updateColumnOrder: () => void
     ) {
       const array = unref(states._columns)
       let newColumns = []
       if (!parent) {
         array.push(column)
         newColumns = array
-      }
-      else {
-        if (parent && !parent.children)
+      } else {
+        if (parent && !parent.children) {
           parent.children = []
-
+        }
         parent.children.push(column)
         newColumns = replaceColumn(array, parent)
       }
@@ -105,35 +103,35 @@ function useStore<T>() {
 
     updateColumnOrder(states: StoreStates, column: TableColumnCtx<T>) {
       const newColumnIndex = column.getColumnIndex?.()
-      if (newColumnIndex === column.no)
-        return
+      if (newColumnIndex === column.no) return
 
       sortColumn(states._columns.value)
 
-      if (instance.$ready)
+      if (instance.$ready) {
         instance.store.updateColumns()
+      }
     },
 
     removeColumn(
       states: StoreStates,
       column: TableColumnCtx<T>,
       parent: TableColumnCtx<T>,
-      updateColumnOrder: () => void,
+      updateColumnOrder: () => void
     ) {
       const array = unref(states._columns) || []
       if (parent) {
         parent.children.splice(
-          parent.children.findIndex(item => item.id === column.id),
-          1,
+          parent.children.findIndex((item) => item.id === column.id),
+          1
         )
         // fix #10699, delete parent.children immediately will trigger again
         nextTick(() => {
-          if (parent.children?.length === 0)
+          if (parent.children?.length === 0) {
             delete parent.children
+          }
         })
         states._columns.value = replaceColumn(array, parent)
-      }
-      else {
+      } else {
         const index = array.indexOf(column)
         if (index > -1) {
           array.splice(index, 1)
@@ -154,7 +152,7 @@ function useStore<T>() {
       const { prop, order, init } = options
       if (prop) {
         const column = unref(states.columns).find(
-          column => column.property === prop,
+          (column) => column.property === prop
         )
         if (column) {
           column.order = order
@@ -165,12 +163,12 @@ function useStore<T>() {
     },
 
     changeSortCondition(states: StoreStates, options: Sort) {
-      // 修复 pr https://github.com/ElemeFE/element/pull/15012 导致的 bug
-      // https://github.com/element-plus/element-plus/pull/4640
+      // 修复 pr https://github.com/EhemeFE/element/pull/15012 导致的 bug
+      // https://github.com/ehop/ehop/pull/4640
       const { sortingColumn, sortProp, sortOrder } = states
-      const columnValue = unref(sortingColumn)
-      const propValue = unref(sortProp)
-      const orderValue = unref(sortOrder)
+      const columnValue = unref(sortingColumn),
+        propValue = unref(sortProp),
+        orderValue = unref(sortOrder)
       if (orderValue === null) {
         states.sortingColumn.value = null
         states.sortProp.value = null
@@ -194,9 +192,9 @@ function useStore<T>() {
       const newFilters = instance.store.updateFilters(column, values)
       instance.store.execQuery()
 
-      if (!silent)
+      if (!silent) {
         instance.emit('filter-change', newFilters)
-
+      }
       instance.store.updateTableScrollY()
     },
 
@@ -219,11 +217,11 @@ function useStore<T>() {
   }
   const commit = function (name: keyof typeof mutations, ...args) {
     const mutations = instance.store.mutations
-    if (mutations[name])
+    if (mutations[name]) {
       mutations[name].apply(instance, [instance.store.states].concat(args))
-
-    else
+    } else {
       throw new Error(`Action not found: ${name}`)
+    }
   }
   const updateTableScrollY = function () {
     nextTick(() => instance.layout.updateScrollY.apply(instance.layout))

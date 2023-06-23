@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { h } from 'vue'
 import EhCheckbox from '@ehop/components/checkbox'
@@ -40,7 +39,7 @@ export const cellStarts = {
   },
 }
 
-export function getDefaultClassName(type) {
+export const getDefaultClassName = (type) => {
   return defaultClassNames[type] || ''
 }
 
@@ -52,13 +51,13 @@ export const cellForced = {
         return store.states.data.value && store.states.data.value.length === 0
       }
       return h(EhCheckbox, {
-        'disabled': isDisabled(),
-        'size': store.states.tableSize.value,
-        'indeterminate':
-          store.states.selection.value.length > 0
-          && !store.states.isAllSelected.value,
+        disabled: isDisabled(),
+        size: store.states.tableSize.value,
+        indeterminate:
+          store.states.selection.value.length > 0 &&
+          !store.states.isAllSelected.value,
         'onUpdate:modelValue': store.toggleAllSelection,
-        'modelValue': store.states.isAllSelected.value,
+        modelValue: store.states.isAllSelected.value,
       })
     },
     renderCell<T>({
@@ -101,12 +100,11 @@ export const cellForced = {
       let i = $index + 1
       const index = column.index
 
-      if (typeof index === 'number')
+      if (typeof index === 'number') {
         i = $index + index
-
-      else if (typeof index === 'function')
+      } else if (typeof index === 'function') {
         i = index($index)
-
+      }
       return h('div', {}, [i])
     },
     sortable: false,
@@ -126,9 +124,9 @@ export const cellForced = {
     }) {
       const { ns } = store
       const classes = [ns.e('expand-icon')]
-      if (expanded)
+      if (expanded) {
         classes.push(ns.em('expand-icon', 'expanded'))
-
+      }
       const callback = function (e: Event) {
         e.stopPropagation()
         store.toggleRowExpansion(row)
@@ -149,7 +147,7 @@ export const cellForced = {
               }),
             ]
           },
-        },
+        }
       )
     },
     sortable: false,
@@ -168,9 +166,9 @@ export function defaultRenderCell<T>({
 }) {
   const property = column.property
   const value = property && getProp(row, property).value
-  if (column && column.formatter)
+  if (column && column.formatter) {
     return column.formatter(row, column, value, $index)
-
+  }
   return value?.toString?.() || ''
 }
 
@@ -184,7 +182,7 @@ export function treeCellPrefix<T>(
     treeNode: TreeNode
     store: Store<T>
   },
-  createPlaceholder = false,
+  createPlaceholder = false
 ) {
   const { ns } = store
   if (!treeNode) {
@@ -200,9 +198,9 @@ export function treeCellPrefix<T>(
   const ele: VNode[] = []
   const callback = function (e) {
     e.stopPropagation()
-    if (treeNode.loading)
+    if (treeNode.loading) {
       return
-
+    }
     store.loadOrToggle(row)
   }
   if (treeNode.indent) {
@@ -210,7 +208,7 @@ export function treeCellPrefix<T>(
       h('span', {
         class: ns.e('indent'),
         style: { 'padding-left': `${treeNode.indent}px` },
-      }),
+      })
     )
   }
   if (typeof treeNode.expanded === 'boolean' && !treeNode.noLazyChildren) {
@@ -219,8 +217,9 @@ export function treeCellPrefix<T>(
       treeNode.expanded ? ns.em('expand-icon', 'expanded') : '',
     ]
     let icon = ArrowRight
-    if (treeNode.loading)
+    if (treeNode.loading) {
       icon = Loading
+    }
 
     ele.push(
       h(
@@ -237,19 +236,18 @@ export function treeCellPrefix<T>(
                 { class: { [ns.is('loading')]: treeNode.loading } },
                 {
                   default: () => [h(icon)],
-                },
+                }
               ),
             ]
           },
-        },
-      ),
+        }
+      )
     )
-  }
-  else {
+  } else {
     ele.push(
       h('span', {
         class: ns.e('placeholder'),
-      }),
+      })
     )
   }
   return ele

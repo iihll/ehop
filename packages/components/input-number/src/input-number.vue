@@ -1,39 +1,67 @@
+<template>
+  <div :class="[
+    ns.b(),
+    ns.m(inputNumberSize),
+    ns.is('disabled', inputNumberDisabled),
+    ns.is('without-controls', !controls),
+    ns.is('controls-right', controlsAtRight),
+  ]" @dragstart.prevent>
+    <span v-if="controls" v-repeat-click="decrease" role="button" :aria-label="t('eh.inputNumber.decrease')"
+      :class="[ns.e('decrease'), ns.is('disabled', minDisabled)]" @keydown.enter="decrease">
+      <el-icon>
+        <arrow-down v-if="controlsAtRight" />
+        <minus v-else />
+      </el-icon>
+    </span>
+    <span v-if="controls" v-repeat-click="increase" role="button" :aria-label="t('eh.inputNumber.increase')"
+      :class="[ns.e('increase'), ns.is('disabled', maxDisabled)]" @keydown.enter="increase">
+      <el-icon>
+        <arrow-up v-if="controlsAtRight" />
+        <plus v-else />
+      </el-icon>
+    </span>
+    <el-input :id="id" ref="input" type="number" :step="step" :model-value="displayValue" :placeholder="placeholder"
+      :readonly="readonly" :disabled="inputNumberDisabled" :size="inputNumberSize" :max="max" :min="min" :name="name"
+      :label="label" :validate-event="false" @wheel.prevent @keydown.up.prevent="increase"
+      @keydown.down.prevent="decrease" @blur="handleBlur" @focus="handleFocus" @input="handleInput"
+      @change="handleInputChange" />
+  </div>
+</template>
 <script lang="ts" setup>
 import { computed, onMounted, onUpdated, reactive, ref, watch } from 'vue'
 import { isNil } from 'lodash-unified'
 import { EhInput } from '@ehop/components/input'
-import { EhIcon } from '@ehop/components/icon'
+import { EhIcon } from '@ehopnts/icon'
 import {
   useFormDisabled,
   useFormItem,
   useFormSize,
-} from '@ehop/components/form'
-import { vRepeatClick } from '@ehop/directives'
-import { useLocale, useNamespace } from '@ehop/hooks'
+} from '@ehopnts/form'
+import { vRepeatClick } from '@ehopves'
+import { useLocale, useNamespace } from '@ehop
 import {
   debugWarn,
   isNumber,
   isString,
   isUndefined,
   throwError,
-} from '@ehop/utils'
+} from '@ehop
 import { ArrowDown, ArrowUp, Minus, Plus } from '@ehop/icons-vue'
 import {
   CHANGE_EVENT,
   INPUT_EVENT,
   UPDATE_MODEL_EVENT,
-} from '@ehop/constants'
-import type { InputInstance } from '@ehop/components/input'
+} from '@ehopts'
 import { inputNumberEmits, inputNumberProps } from './input-number'
-import '../style'
 
-const props = defineProps(inputNumberProps)
-
-const emit = defineEmits(inputNumberEmits)
+import type { InputInstance } from '@ehopnts/input'
 
 defineOptions({
   name: 'EhInputNumber',
 })
+
+const props = defineProps(inputNumberProps)
+const emit = defineEmits(inputNumberEmits)
 
 const { t } = useLocale()
 const ns = useNamespace('input-number')
@@ -51,10 +79,10 @@ const data = reactive<Data>({
 const { formItem } = useFormItem()
 
 const minDisabled = computed(
-  () => isNumber(props.modelValue) && props.modelValue <= props.min,
+  () => isNumber(props.modelValue) && props.modelValue <= props.min
 )
 const maxDisabled = computed(
-  () => isNumber(props.modelValue) && props.modelValue >= props.max,
+  () => isNumber(props.modelValue) && props.modelValue >= props.max
 )
 
 const numPrecision = computed(() => {
@@ -63,12 +91,11 @@ const numPrecision = computed(() => {
     if (stepPrecision > props.precision) {
       debugWarn(
         'InputNumber',
-        'precision should not be less than the decimal places of step',
+        'precision should not be less than the decimal places of step'
       )
     }
     return props.precision
-  }
-  else {
+  } else {
     return Math.max(getPrecision(props.modelValue), stepPrecision)
   }
 })
@@ -80,148 +107,143 @@ const inputNumberSize = useFormSize()
 const inputNumberDisabled = useFormDisabled()
 
 const displayValue = computed(() => {
-  if (data.userInput !== null)
+  if (data.userInput !== null) {
     return data.userInput
-
+  }
   let currentValue: number | string | undefined | null = data.currentValue
-  if (isNil(currentValue))
-    return ''
+  if (isNil(currentValue)) return ''
   if (isNumber(currentValue)) {
-    if (Number.isNaN(currentValue))
-      return ''
-    if (!isUndefined(props.precision))
+    if (Number.isNaN(currentValue)) return ''
+    if (!isUndefined(props.precision)) {
       currentValue = currentValue.toFixed(props.precision)
+    }
   }
   return currentValue
 })
-function toPrecision(num: number, pre?: number) {
-  if (isUndefined(pre))
-    pre = numPrecision.value
-  if (pre === 0)
-    return Math.round(num)
+const toPrecision = (num: number, pre?: number) => {
+  if (isUndefined(pre)) pre = numPrecision.value
+  if (pre === 0) return Math.round(num)
   let snum = String(num)
   const pointPos = snum.indexOf('.')
-  if (pointPos === -1)
-    return num
+  if (pointPos === -1) return num
   const nums = snum.replace('.', '').split('')
   const datum = nums[pointPos + pre]
-  if (!datum)
-    return num
+  if (!datum) return num
   const length = snum.length
-  if (snum.charAt(length - 1) === '5')
+  if (snum.charAt(length - 1) === '5') {
     snum = `${snum.slice(0, Math.max(0, length - 1))}6`
-
+  }
   return Number.parseFloat(Number(snum).toFixed(pre))
 }
-function getPrecision(value: number | null | undefined) {
-  if (isNil(value))
-    return 0
+const getPrecision = (value: number | null | undefined) => {
+  if (isNil(value)) return 0
   const valueString = value.toString()
   const dotPosition = valueString.indexOf('.')
   let precision = 0
-  if (dotPosition !== -1)
+  if (dotPosition !== -1) {
     precision = valueString.length - dotPosition - 1
-
+  }
   return precision
 }
-function ensurePrecision(val: number, coefficient: 1 | -1 = 1) {
-  if (!isNumber(val))
-    return data.currentValue
+const ensurePrecision = (val: number, coefficient: 1 | -1 = 1) => {
+  if (!isNumber(val)) return data.currentValue
   // Solve the accuracy problem of JS decimal calculation by converting the value to integer.
   return toPrecision(val + props.step * coefficient)
 }
-function increase() {
-  if (props.readonly || inputNumberDisabled.value || maxDisabled.value)
-    return
+const increase = () => {
+  if (props.readonly || inputNumberDisabled.value || maxDisabled.value) return
   const value = Number(displayValue.value) || 0
   const newVal = ensurePrecision(value)
   setCurrentValue(newVal)
   emit(INPUT_EVENT, data.currentValue)
 }
-function decrease() {
-  if (props.readonly || inputNumberDisabled.value || minDisabled.value)
-    return
+const decrease = () => {
+  if (props.readonly || inputNumberDisabled.value || minDisabled.value) return
   const value = Number(displayValue.value) || 0
   const newVal = ensurePrecision(value, -1)
   setCurrentValue(newVal)
   emit(INPUT_EVENT, data.currentValue)
 }
-function verifyValue(value: number | string | null | undefined,
-  update?: boolean): number | null | undefined {
+const verifyValue = (
+  value: number | string | null | undefined,
+  update?: boolean
+): number | null | undefined => {
   const { max, min, step, precision, stepStrictly, valueOnClear } = props
-  if (max < min)
+  if (max < min) {
     throwError('InputNumber', 'min should not be greater than max.')
-
+  }
   let newVal = Number(value)
-  if (isNil(value) || Number.isNaN(newVal))
+  if (isNil(value) || Number.isNaN(newVal)) {
     return null
-
+  }
   if (value === '') {
-    if (valueOnClear === null)
+    if (valueOnClear === null) {
       return null
-
+    }
     newVal = isString(valueOnClear) ? { min, max }[valueOnClear] : valueOnClear
   }
-  if (stepStrictly)
+  if (stepStrictly) {
     newVal = toPrecision(Math.round(newVal / step) * step, precision)
-
-  if (!isUndefined(precision))
+  }
+  if (!isUndefined(precision)) {
     newVal = toPrecision(newVal, precision)
-
+  }
   if (newVal > max || newVal < min) {
     newVal = newVal > max ? max : min
     update && emit(UPDATE_MODEL_EVENT, newVal)
   }
   return newVal
 }
-function setCurrentValue(value: number | string | null | undefined,
-  emitChange = true) {
+const setCurrentValue = (
+  value: number | string | null | undefined,
+  emitChange = true
+) => {
   const oldVal = data.currentValue
   const newVal = verifyValue(value)
   if (!emitChange) {
     emit(UPDATE_MODEL_EVENT, newVal!)
     return
   }
-  if (oldVal === newVal)
-    return
+  if (oldVal === newVal) return
   data.userInput = null
   emit(UPDATE_MODEL_EVENT, newVal!)
   emit(CHANGE_EVENT, newVal!, oldVal!)
-  if (props.validateEvent)
-    formItem?.validate?.('change').catch(err => debugWarn(err))
-
+  if (props.validateEvent) {
+    formItem?.validate?.('change').catch((err) => debugWarn(err))
+  }
   data.currentValue = newVal
 }
-function handleInput(value: string) {
+const handleInput = (value: string) => {
   data.userInput = value
   const newVal = value === '' ? null : Number(value)
   emit(INPUT_EVENT, newVal)
   setCurrentValue(newVal, false)
 }
-function handleInputChange(value: string) {
+const handleInputChange = (value: string) => {
   const newVal = value !== '' ? Number(value) : ''
-  if ((isNumber(newVal) && !Number.isNaN(newVal)) || value === '')
+  if ((isNumber(newVal) && !Number.isNaN(newVal)) || value === '') {
     setCurrentValue(newVal)
-
+  }
   data.userInput = null
 }
 
-function focus() {
+const focus = () => {
   input.value?.focus?.()
 }
 
-function blur() {
+const blur = () => {
   input.value?.blur?.()
 }
 
-function handleFocus(event: MouseEvent | FocusEvent) {
+const handleFocus = (event: MouseEvent | FocusEvent) => {
   emit('focus', event)
 }
 
-function handleBlur(event: MouseEvent | FocusEvent) {
+const handleBlur = (event: MouseEvent | FocusEvent) => {
   emit('blur', event)
-  if (props.validateEvent)
-    formItem?.validate?.('blur').catch(err => debugWarn(err))
+  if (props.validateEvent) {
+    formItem?.validate?.('blur').catch((err) => debugWarn(err))
+  }
 }
 
 watch(
@@ -234,29 +256,29 @@ watch(
       data.userInput = null
     }
   },
-  { immediate: true },
+  { immediate: true }
 )
 onMounted(() => {
   const { min, max, modelValue } = props
   const innerInput = input.value?.input as HTMLInputElement
   innerInput.setAttribute('role', 'spinbutton')
-  if (Number.isFinite(max))
+  if (Number.isFinite(max)) {
     innerInput.setAttribute('aria-valuemax', String(max))
-  else
+  } else {
     innerInput.removeAttribute('aria-valuemax')
-
-  if (Number.isFinite(min))
+  }
+  if (Number.isFinite(min)) {
     innerInput.setAttribute('aria-valuemin', String(min))
-  else
+  } else {
     innerInput.removeAttribute('aria-valuemin')
-
+  }
   innerInput.setAttribute('aria-valuenow', String(data.currentValue))
   innerInput.setAttribute('aria-disabled', String(inputNumberDisabled.value))
   if (!isNumber(modelValue) && modelValue != null) {
     let val: number | null = Number(modelValue)
-    if (Number.isNaN(val))
+    if (Number.isNaN(val)) {
       val = null
-
+    }
     emit(UPDATE_MODEL_EVENT, val!)
   }
 })
@@ -271,66 +293,3 @@ defineExpose({
   blur,
 })
 </script>
-
-<template>
-  <div
-    :class="[
-      ns.b(),
-      ns.m(inputNumberSize),
-      ns.is('disabled', inputNumberDisabled),
-      ns.is('without-controls', !controls),
-      ns.is('controls-right', controlsAtRight),
-    ]"
-    @dragstart.prevent
-  >
-    <span
-      v-if="controls"
-      v-repeat-click="decrease"
-      role="button"
-      :aria-label="t('el.inputNumber.decrease')"
-      :class="[ns.e('decrease'), ns.is('disabled', minDisabled)]"
-      @keydown.enter="decrease"
-    >
-      <EhIcon>
-        <ArrowDown v-if="controlsAtRight" />
-        <Minus v-else />
-      </EhIcon>
-    </span>
-    <span
-      v-if="controls"
-      v-repeat-click="increase"
-      role="button"
-      :aria-label="t('el.inputNumber.increase')"
-      :class="[ns.e('increase'), ns.is('disabled', maxDisabled)]"
-      @keydown.enter="increase"
-    >
-      <EhIcon>
-        <ArrowUp v-if="controlsAtRight" />
-        <Plus v-else />
-      </EhIcon>
-    </span>
-    <EhInput
-      :id="id"
-      ref="input"
-      type="number"
-      :step="step"
-      :model-value="displayValue"
-      :placeholder="placeholder"
-      :readonly="readonly"
-      :disabled="inputNumberDisabled"
-      :size="inputNumberSize"
-      :max="max"
-      :min="min"
-      :name="name"
-      :label="label"
-      :validate-event="false"
-      @wheel.prevent
-      @keydown.up.prevent="increase"
-      @keydown.down.prevent="decrease"
-      @blur="handleBlur"
-      @focus="handleFocus"
-      @input="handleInput"
-      @change="handleInputChange"
-    />
-  </div>
-</template>

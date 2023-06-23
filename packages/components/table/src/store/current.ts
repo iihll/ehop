@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { getCurrentInstance, ref, unref } from 'vue'
-import type { Ref } from 'vue'
 import { getRowIdentity } from '../util'
 
+import type { Ref } from 'vue'
 import type { Table } from '../table/defaults'
 import type { WatcherPropsData } from '.'
 
@@ -28,7 +26,7 @@ function useCurrent<T>(watcherData: WatcherPropsData<T>) {
     let _currentRow = null
     if (rowKey.value) {
       _currentRow = (unref(data) || []).find(
-        item => getRowIdentity(item, rowKey.value) === key,
+        (item) => getRowIdentity(item, rowKey.value) === key
       )
     }
     currentRow.value = _currentRow
@@ -58,14 +56,13 @@ function useCurrent<T>(watcherData: WatcherPropsData<T>) {
       if (rowKey) {
         const currentRowKey = getRowIdentity(oldCurrentRow, rowKey)
         setCurrentRowByKey(currentRowKey)
-      }
-      else {
+      } else {
         currentRow.value = null
       }
-      if (currentRow.value === null)
+      if (currentRow.value === null) {
         instance.emit('current-change', null, oldCurrentRow)
-    }
-    else if (_currentRowKey.value) {
+      }
+    } else if (_currentRowKey.value) {
       // 把初始时下设置的 rowKey 转化成 rowData
       setCurrentRowByKey(_currentRowKey.value)
       restoreCurrentRowKey()

@@ -24,12 +24,11 @@ export const OnlyChild = defineComponent({
   setup(_, { slots, attrs }) {
     const forwardRefInjection = inject(FORWARD_REF_INJECTION_KEY)
     const forwardRefDirective = useForwardRefDirective(
-      forwardRefInjection?.setForwardRef ?? NOOP,
+      forwardRefInjection?.setForwardRef ?? NOOP
     )
     return () => {
       const defaultSlot = slots.default?.(attrs)
-      if (!defaultSlot)
-        return null
+      if (!defaultSlot) return null
 
       if (defaultSlot.length > 1) {
         debugWarn(NAME, 'requires exact only one valid child.')
@@ -50,8 +49,7 @@ export const OnlyChild = defineComponent({
 })
 
 function findFirstLegitChild(node: VNode[] | undefined): VNode | null {
-  if (!node)
-    return null
+  if (!node) return null
   const children = node as VNode[]
   for (const child of children) {
     /**
@@ -82,6 +80,6 @@ function wrapTextContent(s: string | VNode) {
   return <span class={ns.e('content')}>{s}</span>
 }
 
-export interface OnlyChildExpose {
+export type OnlyChildExpose = {
   forwardRef: Ref<HTMLElement>
 }

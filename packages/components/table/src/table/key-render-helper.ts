@@ -17,7 +17,7 @@ export default function useKeyRender(table: Table<[]>) {
   }
 
   onMounted(() => {
-    // fix https://github.com/element-plus/element-plus/issues/8528
+    // fix https://github.com/ehop/ehop/issues/8528
     initWatchDom()
   })
 

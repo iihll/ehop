@@ -1,16 +1,21 @@
+<template>
+  <slot />
+</template>
+
 <script lang="ts" setup>
 import { computed, provide, ref } from 'vue'
-import type { Instance as PopperInstance } from '@popperjs/core'
 import { POPPER_INJECTION_KEY } from './constants'
 import { popperProps } from './popper'
-import type { EhPopperInjectionContext } from './constants'
-import '../style'
 
-const props = defineProps(popperProps)
+import type { Instance as PopperInstance } from '@popperjs/core'
+import type { EhPopperInjectionContext } from './constants'
+
 defineOptions({
   name: 'EhPopper',
   inheritAttrs: false,
 })
+const props = defineProps(popperProps)
+
 const triggerRef = ref<HTMLElement>()
 const popperInstanceRef = ref<PopperInstance>()
 const contentRef = ref<HTMLElement>()
@@ -44,7 +49,3 @@ defineExpose(popperProvides)
 
 provide(POPPER_INJECTION_KEY, popperProvides)
 </script>
-
-<template>
-  <slot />
-</template>

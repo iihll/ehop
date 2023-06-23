@@ -1,14 +1,9 @@
 import { isString } from '@vue/shared'
-import {
-  buildProps,
-  definePropType,
-  iconPropType,
-  mutable,
-} from '@ehop/utils'
+import { buildProps, definePropType, iconPropType, mutable } from '@ehop/utils'
 import { UPDATE_MODEL_EVENT } from '@ehop/constants'
 import { useSizeProp } from '@ehop/hooks'
-import type { ExtractPropTypes, StyleValue } from 'vue'
 import type Input from './input.vue'
+import type { ExtractPropTypes, StyleValue } from 'vue'
 
 export type InputAutoSize = { minRows?: number; maxRows?: number } | boolean
 
@@ -179,7 +174,7 @@ export const inputEmits = {
   mouseleave: (evt: MouseEvent) => evt instanceof MouseEvent,
   mouseenter: (evt: MouseEvent) => evt instanceof MouseEvent,
   // NOTE: when autofill by browser, the keydown event is instanceof Event, not KeyboardEvent
-  // relative bug report https://github.com/element-plus/element-plus/issues/6665
+  // relative bug report https://github.com/ehop/ehop/issues/6665
   keydown: (evt: KeyboardEvent | Event) => evt instanceof Event,
   compositionstart: (evt: CompositionEvent) => evt instanceof CompositionEvent,
   compositionupdate: (evt: CompositionEvent) => evt instanceof CompositionEvent,

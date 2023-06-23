@@ -1,38 +1,3 @@
-<script lang="ts" setup>
-import { EhIcon } from '@ehop/components/icon'
-import { useNamespace } from '@ehop/hooks'
-import { useButton } from './use-button'
-import { buttonEmits, buttonProps } from './button'
-import { useButtonCustomStyle } from './button-custom'
-import '../style'
-
-const props = defineProps(buttonProps)
-
-const emit = defineEmits(buttonEmits)
-
-defineOptions({
-  name: 'EhButton',
-})
-
-const buttonStyle = useButtonCustomStyle(props)
-const ns = useNamespace('button')
-const { _ref, _size, _type, _disabled, _props, shouldAddSpace, handleClick }
-  = useButton(props, emit)
-
-defineExpose({
-  /** @description button html element */
-  ref: _ref,
-  /** @description button size */
-  size: _size,
-  /** @description button type */
-  type: _type,
-  /** @description button disabled */
-  disabled: _disabled,
-  /** @description whether adding space */
-  shouldAddSpace,
-})
-</script>
-
 <template>
   <component
     :is="tag"
@@ -56,14 +21,14 @@ defineExpose({
   >
     <template v-if="loading">
       <slot v-if="$slots.loading" name="loading" />
-      <EhIcon v-else :class="ns.is('loading')">
+      <eh-icon v-else :class="ns.is('loading')">
         <component :is="loadingIcon" />
-      </EhIcon>
+      </eh-icon>
     </template>
-    <EhIcon v-else-if="icon || $slots.icon">
+    <eh-icon v-else-if="icon || $slots.icon">
       <component :is="icon" v-if="icon" />
       <slot v-else name="icon" />
-    </EhIcon>
+    </eh-icon>
     <span
       v-if="$slots.default"
       :class="{ [ns.em('text', 'expand')]: shouldAddSpace }"
@@ -72,3 +37,36 @@ defineExpose({
     </span>
   </component>
 </template>
+
+<script lang="ts" setup>
+import { EhIcon } from '@ehop/components/icon'
+import { useNamespace } from '@ehop/hooks'
+import { useButton } from './use-button'
+import { buttonEmits, buttonProps } from './button'
+import { useButtonCustomStyle } from './button-custom'
+
+defineOptions({
+  name: 'EhButton',
+})
+
+const props = defineProps(buttonProps)
+const emit = defineEmits(buttonEmits)
+
+const buttonStyle = useButtonCustomStyle(props)
+const ns = useNamespace('button')
+const { _ref, _size, _type, _disabled, _props, shouldAddSpace, handleClick } =
+  useButton(props, emit)
+
+defineExpose({
+  /** @description button html element */
+  ref: _ref,
+  /** @description button size */
+  size: _size,
+  /** @description button type */
+  type: _type,
+  /** @description button disabled */
+  disabled: _disabled,
+  /** @description whether adding space */
+  shouldAddSpace,
+})
+</script>

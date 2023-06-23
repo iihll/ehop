@@ -1,7 +1,7 @@
 import { ref, watch } from 'vue'
-import type { Dayjs } from 'dayjs'
 import { makeList } from '../utils'
 
+import type { Dayjs } from 'dayjs'
 import type {
   GetDisabledHoursState,
   GetDisabledMinutesState,
@@ -13,7 +13,7 @@ import type {
   GetDisabledSeconds,
 } from '../props/shared'
 
-function makeAvailableArr(disabledList: boolean[]): number[] {
+const makeAvailableArr = (disabledList: boolean[]): number[] => {
   const trueOrNumber = (isDisabled: boolean, index: number) =>
     isDisabled || index
 
@@ -23,9 +23,11 @@ function makeAvailableArr(disabledList: boolean[]): number[] {
   return disabledList.map(trueOrNumber).filter(getNumber)
 }
 
-export function getTimeLists(disabledHours?: GetDisabledHours,
+export const getTimeLists = (
+  disabledHours?: GetDisabledHours,
   disabledMinutes?: GetDisabledMinutes,
-  disabledSeconds?: GetDisabledSeconds) {
+  disabledSeconds?: GetDisabledSeconds
+) => {
   const getHoursList = (role: string, compare?: Dayjs) => {
     return makeList(24, disabledHours && (() => disabledHours?.(role, compare)))
   }
@@ -33,7 +35,7 @@ export function getTimeLists(disabledHours?: GetDisabledHours,
   const getMinutesList = (hour: number, role: string, compare?: Dayjs) => {
     return makeList(
       60,
-      disabledMinutes && (() => disabledMinutes?.(hour, role, compare)),
+      disabledMinutes && (() => disabledMinutes?.(hour, role, compare))
     )
   }
 
@@ -41,11 +43,11 @@ export function getTimeLists(disabledHours?: GetDisabledHours,
     hour: number,
     minute: number,
     role: string,
-    compare?: Dayjs,
+    compare?: Dayjs
   ) => {
     return makeList(
       60,
-      disabledSeconds && (() => disabledSeconds?.(hour, minute, role, compare)),
+      disabledSeconds && (() => disabledSeconds?.(hour, minute, role, compare))
     )
   }
 
@@ -56,13 +58,15 @@ export function getTimeLists(disabledHours?: GetDisabledHours,
   }
 }
 
-export function buildAvailableTimeSlotGetter(disabledHours: GetDisabledHours,
+export const buildAvailableTimeSlotGetter = (
+  disabledHours: GetDisabledHours,
   disabledMinutes: GetDisabledMinutes,
-  disabledSeconds: GetDisabledSeconds) {
+  disabledSeconds: GetDisabledSeconds
+) => {
   const { getHoursList, getMinutesList, getSecondsList } = getTimeLists(
     disabledHours,
     disabledMinutes,
-    disabledSeconds,
+    disabledSeconds
   )
 
   const getAvailableHours: GetDisabledHoursState = (role, compare?) => {
@@ -72,7 +76,7 @@ export function buildAvailableTimeSlotGetter(disabledHours: GetDisabledHours,
   const getAvailableMinutes: GetDisabledMinutesState = (
     hour,
     role,
-    compare?,
+    compare?
   ) => {
     return makeAvailableArr(getMinutesList(hour, role, compare))
   }
@@ -81,7 +85,7 @@ export function buildAvailableTimeSlotGetter(disabledHours: GetDisabledHours,
     hour,
     minute,
     role,
-    compare?,
+    compare?
   ) => {
     return makeAvailableArr(getSecondsList(hour, minute, role, compare))
   }
@@ -93,18 +97,19 @@ export function buildAvailableTimeSlotGetter(disabledHours: GetDisabledHours,
   }
 }
 
-export function useOldValue(props: {
+export const useOldValue = (props: {
   parsedValue?: string | Dayjs | Dayjs[]
   visible: boolean
-}) {
+}) => {
   const oldValue = ref(props.parsedValue)
 
   watch(
     () => props.visible,
     (val) => {
-      if (!val)
+      if (!val) {
         oldValue.value = props.parsedValue
-    },
+      }
+    }
   )
 
   return oldValue

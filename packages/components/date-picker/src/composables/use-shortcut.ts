@@ -7,13 +7,13 @@ import type { useLocale } from '@ehop/hooks'
 import type { RangePickerSharedEmits } from '../props/shared'
 
 // FIXME: extract this to `date-picker.ts`
-export interface Shortcut {
+export type Shortcut = {
   text: string
   value: [Date, Date] | (() => [Date, Date])
   onClick?: (ctx: Omit<SetupContext<RangePickerSharedEmits>, 'expose'>) => void
 }
 
-export function useShortcut(lang: ReturnType<typeof useLocale>['lang']) {
+export const useShortcut = (lang: ReturnType<typeof useLocale>['lang']) => {
   const { emit } = getCurrentInstance()!
   const attrs = useAttrs()
   const slots = useSlots()

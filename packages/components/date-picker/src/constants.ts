@@ -6,4 +6,5 @@ interface DatePickerContext {
   pickerNs: UseNamespaceReturn
 }
 
-export const ROOT_PICKER_INJECTION_KEY: InjectionKey<DatePickerContext> = Symbol('EhDatePicker')
+export const ROOT_PICKER_INJECTION_KEY: InjectionKey<DatePickerContext> =
+  Symbol()

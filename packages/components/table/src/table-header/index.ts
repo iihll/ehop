@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import {
   defineComponent,
@@ -11,16 +10,15 @@ import {
 } from 'vue'
 import EhCheckbox from '@ehop/components/checkbox'
 import { useNamespace } from '@ehop/hooks'
-import type { ComponentInternalInstance, PropType, Ref } from 'vue'
 import FilterPanel from '../filter-panel.vue'
 import useLayoutObserver from '../layout-observer'
 import { TABLE_INJECTION_KEY } from '../tokens'
-import type { DefaultRow, Sort } from '../table/defaults'
-import type { Store } from '../store'
 import useEvent from './event-helper'
 import useStyle from './style.helper'
 import useUtils from './utils-helper'
-
+import type { ComponentInternalInstance, PropType, Ref } from 'vue'
+import type { DefaultRow, Sort } from '../table/defaults'
+import type { Store } from '../store'
 export interface TableHeader extends ComponentInternalInstance {
   state: {
     onColumnsChange
@@ -89,7 +87,7 @@ export default defineComponent({
       getHeaderCellClass,
     } = useStyle(props as TableHeaderProps<unknown>)
     const { isGroup, toggleAllSelection, columnRows } = useUtils(
-      props as TableHeaderProps<unknown>,
+      props as TableHeaderProps<unknown>
     )
 
     instance.state = {
@@ -152,9 +150,9 @@ export default defineComponent({
             style: getHeaderRowStyle(rowIndex),
           },
           subColumns.map((column, cellIndex) => {
-            if (column.rowSpan > rowSpan)
+            if (column.rowSpan > rowSpan) {
               rowSpan = column.rowSpan
-
+            }
             return h(
               'th',
               {
@@ -162,7 +160,7 @@ export default defineComponent({
                   rowIndex,
                   cellIndex,
                   subColumns,
-                  column,
+                  column
                 ),
                 colspan: column.colSpan,
                 key: `${column.id}-thead`,
@@ -171,13 +169,13 @@ export default defineComponent({
                   rowIndex,
                   cellIndex,
                   subColumns,
-                  column,
+                  column
                 ),
-                onClick: $event => handleHeaderClick($event, column),
-                onContextmenu: $event =>
+                onClick: ($event) => handleHeaderClick($event, column),
+                onContextmenu: ($event) =>
                   handleHeaderContextMenu($event, column),
-                onMousedown: $event => handleMouseDown($event, column),
-                onMousemove: $event => handleMouseMove($event, column),
+                onMousedown: ($event) => handleMouseDown($event, column),
+                onMousemove: ($event) => handleMouseMove($event, column),
                 onMouseout: handleMouseOut,
               },
               [
@@ -194,34 +192,34 @@ export default defineComponent({
                   [
                     column.renderHeader
                       ? column.renderHeader({
-                        column,
-                        $index: cellIndex,
-                        store,
-                        _self: $parent,
-                      })
+                          column,
+                          $index: cellIndex,
+                          store,
+                          _self: $parent,
+                        })
                       : column.label,
-                    column.sortable
-                      && h(
+                    column.sortable &&
+                      h(
                         'span',
                         {
-                          onClick: $event => handleSortClick($event, column),
+                          onClick: ($event) => handleSortClick($event, column),
                           class: 'caret-wrapper',
                         },
                         [
                           h('i', {
-                            onClick: $event =>
+                            onClick: ($event) =>
                               handleSortClick($event, column, 'ascending'),
                             class: 'sort-caret ascending',
                           }),
                           h('i', {
-                            onClick: $event =>
+                            onClick: ($event) =>
                               handleSortClick($event, column, 'descending'),
                             class: 'sort-caret descending',
                           }),
-                        ],
+                        ]
                       ),
-                    column.filterable
-                      && h(FilterPanel, {
+                    column.filterable &&
+                      h(FilterPanel, {
                         store,
                         placement: column.filterPlacement || 'bottom-start',
                         column,
@@ -229,13 +227,13 @@ export default defineComponent({
                           column[key] = value
                         },
                       }),
-                  ],
+                  ]
                 ),
-              ],
+              ]
             )
-          }),
-        ),
-      ),
+          })
+        )
+      )
     )
   },
 })

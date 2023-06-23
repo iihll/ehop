@@ -6,8 +6,6 @@ import Picker from './common/picker.vue'
 import TimePickPanel from './time-picker-com/panel-time-pick.vue'
 import TimeRangePanel from './time-picker-com/panel-time-range.vue'
 import { timePickerDefaultProps } from './common/props'
-import '../style'
-
 dayjs.extend(customParseFormat)
 
 export default defineComponent({
@@ -68,7 +66,7 @@ export default defineComponent({
           ref={commonPicker}
           type={type}
           format={format}
-          onUpdate:modelValue={modelUpdater}
+          onUpdate: modelValue={modelUpdater}
         >
           {{
             default: (props: any) => <Panel {...props} />,

@@ -1,36 +1,36 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { watch } from 'vue'
 import { debounce } from 'lodash-unified'
-import type { Table, TableProps } from '../table/defaults'
 import useStore from '.'
 
 import type { Store } from '.'
+import type { Table, TableProps } from '../table/defaults'
 
 const InitialStateMap = {
-  'rowKey': 'rowKey',
-  'defaultExpandAll': 'defaultExpandAll',
-  'selectOnIndeterminate': 'selectOnIndeterminate',
-  'indent': 'indent',
-  'lazy': 'lazy',
-  'data': 'data',
-  'treeProps.hasChildren': {
+  rowKey: 'rowKey',
+  defaultExpandAll: 'defaultExpandAll',
+  selectOnIndeterminate: 'selectOnIndeterminate',
+  indent: 'indent',
+  lazy: 'lazy',
+  data: 'data',
+  ['treeProps.hasChildren']: {
     key: 'lazyColumnIdentifier',
     default: 'hasChildren',
   },
-  'treeProps.children': {
+  ['treeProps.children']: {
     key: 'childrenColumnName',
     default: 'children',
   },
 }
 
 export function createStore<T>(table: Table<T>, props: TableProps<T>) {
-  if (!table)
+  if (!table) {
     throw new Error('Table is required.')
+  }
 
   const store = useStore<T>()
-  // fix https://github.com/ElemeFE/element/issues/14075
-  // related pr https://github.com/ElemeFE/element/pull/14146
+  // fix https://github.com/EhemeFE/element/issues/14075
+  // related pr https://github.com/EhemeFE/element/pull/14146
   store.toggleAllSelection = debounce(store._toggleAllSelection, 10)
   Object.keys(InitialStateMap).forEach((key) => {
     handleValue(getArrKeysValue(props, key), key, store)
@@ -45,7 +45,7 @@ function proxyTableProps<T>(store: Store<T>, props: TableProps<T>) {
       () => getArrKeysValue(props, key),
       (value) => {
         handleValue(value, key, store)
-      },
+      }
     )
   })
 }
@@ -68,8 +68,7 @@ function getArrKeysValue<T>(props: TableProps<T>, keys: string) {
       value = value[key]
     })
     return value
-  }
-  else {
+  } else {
     return props[keys]
   }
 }

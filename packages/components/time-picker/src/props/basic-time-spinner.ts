@@ -1,8 +1,8 @@
 import { buildProps, definePropType } from '@ehop/utils'
+import { disabledTimeListsProps } from '../props/shared'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'
-import { disabledTimeListsProps } from '../props/shared'
 
 export const basicTimeSpinnerProps = buildProps({
   role: {

@@ -1,13 +1,12 @@
 import { buildRoot } from '@ehop/build-utils'
-import type { TaskFunction } from 'gulp'
 import { run } from './process'
 
-export function withTaskName<T extends TaskFunction>(name: string, fn: T) {
-  return Object.assign(fn, { displayName: name })
-}
+import type { TaskFunction } from 'gulp'
 
-export function runTask(name: string) {
-  return withTaskName(`shellTask:${name}`, () =>
-    run(`pnpm run start ${name}`, buildRoot),
+export const withTaskName = <T extends TaskFunction>(name: string, fn: T) =>
+  Object.assign(fn, { displayName: name })
+
+export const runTask = (name: string) =>
+  withTaskName(`shellTask:${name}`, () =>
+    run(`pnpm run start ${name}`, buildRoot)
   )
-}

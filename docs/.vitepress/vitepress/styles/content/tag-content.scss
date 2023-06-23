@@ -1,0 +1,26 @@
+.vp-tag {
+  --vp-tag-color: var(--eh-color-primary);
+  --vp-tag-border-color: var(--eh-color-primary);
+
+  display: inline-block;
+  padding: 0 7px;
+  border-radius: 10px;
+  border: 1px solid var(--vp-tag-border-color);
+  font-size: var(--eh-font-size-extra-small);
+  color: var(--vp-tag-color);
+  line-height: 18px;
+  white-space: nowrap;
+
+  &.beta {
+    --vp-tag-color: var(--eh-color-danger);
+    --vp-tag-border-color: var(--eh-color-danger);
+  }
+  &.deprecated {
+    --vp-tag-color: var(--eh-color-warning);
+    --vp-tag-border-color: var(--eh-color-warning);
+  }
+  &.a11y {
+    --vp-tag-color: var(--purple-color);
+    --vp-tag-border-color: var(--purple-color-light);
+  }
+}

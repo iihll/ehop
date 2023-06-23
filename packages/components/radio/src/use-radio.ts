@@ -1,13 +1,15 @@
 import { computed, inject, ref } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@ehop/constants'
 import { useFormDisabled, useFormSize } from '@ehop/components/form'
-import type { SetupContext } from 'vue'
 import { radioGroupKey } from './constants'
 
+import type { SetupContext } from 'vue'
 import type { RadioEmits, RadioProps } from './radio'
 
-export function useRadio(props: { label: RadioProps['label']; modelValue?: RadioProps['modelValue'] },
-  emit?: SetupContext<RadioEmits>['emit']) {
+export const useRadio = (
+  props: { label: RadioProps['label']; modelValue?: RadioProps['modelValue'] },
+  emit?: SetupContext<RadioEmits>['emit']
+) => {
   const radioRef = ref<HTMLInputElement>()
   const radioGroup = inject(radioGroupKey, undefined)
   const isGroup = computed(() => !!radioGroup)
@@ -16,11 +18,11 @@ export function useRadio(props: { label: RadioProps['label']; modelValue?: Radio
       return isGroup.value ? radioGroup!.modelValue : props.modelValue!
     },
     set(val) {
-      if (isGroup.value)
+      if (isGroup.value) {
         radioGroup!.changeEvent(val)
-      else
+      } else {
         emit && emit(UPDATE_MODEL_EVENT, val)
-
+      }
       radioRef.value!.checked = props.modelValue === props.label
     },
   })

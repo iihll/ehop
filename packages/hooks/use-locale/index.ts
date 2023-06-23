@@ -1,34 +1,37 @@
 import { computed, inject, isRef, ref, unref } from 'vue'
 import { get } from 'lodash-unified'
-import Chinese from '@ehop/locale/lang/zh-cn'
+import English from '@ehop/locale/lang/en'
 
 import type { MaybeRef } from '@vueuse/core'
 import type { InjectionKey, Ref } from 'vue'
-import type { Language } from '@ehop/locale'
+import type { Language } from '@ehop
 
 export type TranslatorOption = Record<string, string | number>
 export type Translator = (path: string, option?: TranslatorOption) => string
-export interface LocaleContext {
+export type LocaleContext = {
   locale: Ref<Language>
   lang: Ref<string>
   t: Translator
 }
 
-export function buildTranslator(locale: MaybeRef<Language>): Translator {
-  return (path, option) =>
-    translate(path, option, unref(locale))
-}
+export const buildTranslator =
+  (locale: MaybeRef<Language>): Translator =>
+    (path, option) =>
+      translate(path, option, unref(locale))
 
-export function translate(path: string,
+export const translate = (
+  path: string,
   option: undefined | TranslatorOption,
-  locale: Language): string {
-  return (get(locale, path, path) as string).replace(
+  locale: Language
+): string =>
+  (get(locale, path, path) as string).replace(
     /\{(\w+)\}/g,
-    (_, key) => `${option?.[key] ?? `{${key}}`}`,
+    (_, key) => `${option?.[key] ?? `{${key}}`}`
   )
-}
 
-export function buildLocaleContext(locale: MaybeRef<Language>): LocaleContext {
+export const buildLocaleContext = (
+  locale: MaybeRef<Language>
+): LocaleContext => {
   const lang = computed(() => unref(locale).name)
   const localeRef = isRef(locale) ? locale : ref(locale)
   return {
@@ -38,9 +41,10 @@ export function buildLocaleContext(locale: MaybeRef<Language>): LocaleContext {
   }
 }
 
-export const localeContextKey: InjectionKey<Ref<Language | undefined>> = Symbol('localeContextKey')
+export const localeContextKey: InjectionKey<Ref<Language | undefined>> =
+  Symbol('localeContextKey')
 
-export function useLocale(localeOverrides?: Ref<Language | undefined>) {
+export const useLocale = (localeOverrides?: Ref<Language | undefined>) => {
   const locale = localeOverrides || inject(localeContextKey, ref())!
-  return buildLocaleContext(computed(() => locale.value || Chinese))
+  return buildLocaleContext(computed(() => locale.value || English))
 }

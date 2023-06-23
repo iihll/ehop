@@ -7,7 +7,7 @@ import type { DatePickType } from '@ehop/constants'
 
 const selectionModes = ['date', 'dates', 'year', 'month', 'week', 'range']
 
-export interface RangeState {
+export type RangeState = {
   endDate: null | Dayjs
   selecting: boolean
 }
@@ -53,7 +53,9 @@ export const panelRangeSharedProps = buildProps({
   },
 } as const)
 
-export function selectionModeWithDefault(mode: typeof selectionModes[number]) {
+export const selectionModeWithDefault = (
+  mode: typeof selectionModes[number]
+) => {
   return {
     type: String,
     values: selectionModes,

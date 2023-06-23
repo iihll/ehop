@@ -3,16 +3,18 @@ import { useNamespace, useZIndex } from '@ehop/hooks'
 
 import type { CSSProperties, StyleValue } from 'vue'
 import type { UsePopperReturn } from '@ehop/hooks'
-import type { PopperContentProps } from '../content'
 import type { UsePopperContentReturn } from './use-content'
+import type { PopperContentProps } from '../content'
 
-export function usePopperContentDOM(props: PopperContentProps,
+export const usePopperContentDOM = (
+  props: PopperContentProps,
   {
     attributes,
     styles,
     role,
   }: Pick<UsePopperReturn, 'attributes' | 'styles'> &
-  Pick<UsePopperContentReturn, 'role'>) {
+    Pick<UsePopperContentReturn, 'role'>
+) => {
   const { nextZIndex } = useZIndex()
   const ns = useNamespace('popper')
 
@@ -32,10 +34,10 @@ export function usePopperContentDOM(props: PopperContentProps,
     ]
   })
   const ariaModal = computed<string | undefined>(() =>
-    role.value === 'dialog' ? 'false' : undefined,
+    role.value === 'dialog' ? 'false' : undefined
   )
   const arrowStyle = computed(
-    () => (unref(styles).arrow || {}) as CSSProperties,
+    () => (unref(styles).arrow || {}) as CSSProperties
   )
 
   const updateZIndex = () => {

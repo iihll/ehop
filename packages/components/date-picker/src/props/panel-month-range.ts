@@ -1,6 +1,7 @@
 import { buildProps } from '@ehop/utils'
-import type { ExtractPropTypes } from 'vue'
 import { panelRangeSharedProps } from './shared'
+
+import type { ExtractPropTypes } from 'vue'
 
 export const panelMonthRangeProps = buildProps({
   ...panelRangeSharedProps,

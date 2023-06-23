@@ -1,7 +1,8 @@
 import { buildProps } from '@ehop/utils'
 import { componentSizes } from '@ehop/constants'
-import type { ExtractPropTypes } from 'vue'
 import type Text from './text.vue'
+
+import type { ExtractPropTypes } from 'vue'
 
 export const textProps = buildProps({
   /**

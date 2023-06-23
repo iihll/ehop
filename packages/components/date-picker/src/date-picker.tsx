@@ -13,11 +13,11 @@ import {
   CommonPicker,
   DEFAULT_FORMATS_DATE,
   DEFAULT_FORMATS_DATEPICKER,
-} from '@ehop/components/time-picker'
+} from '@ehopnts/time-picker'
 import { ROOT_PICKER_INJECTION_KEY } from './constants'
+
 import { datePickerProps } from './props/date-picker'
 import { getPanel } from './panel-utils'
-import '../style'
 
 dayjs.extend(localeData)
 dayjs.extend(advancedFormat)
@@ -64,9 +64,9 @@ export default defineComponent({
     return () => {
       // since props always have all defined keys on it, {format, ...props} will always overwrite format
       // pick props.format or provide default value here before spreading
-      const format
-        = props.format
-        ?? (DEFAULT_FORMATS_DATEPICKER[props.type] || DEFAULT_FORMATS_DATE)
+      const format =
+        props.format ??
+        (DEFAULT_FORMATS_DATEPICKER[props.type] || DEFAULT_FORMATS_DATE)
 
       const Component = getPanel(props.type)
 
@@ -76,10 +76,10 @@ export default defineComponent({
           format={format}
           type={props.type}
           ref={commonPicker}
-          onUpdate:modelValue={onModelValueUpdated}
+          onUpdate: modelValue={onModelValueUpdated}
         >
           {{
-            'default': (scopedProps: /** FIXME: remove any type */ any) => (
+            default: (scopedProps: /**FIXME: remove any type */ any) => (
               <Component {...scopedProps} />
             ),
             'range-separator': slots['range-separator'],

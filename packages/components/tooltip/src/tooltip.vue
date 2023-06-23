@@ -1,151 +1,6 @@
-<script lang="ts" setup>
-import {
-  computed,
-  onDeactivated,
-  provide,
-  readonly,
-  ref,
-  toRef,
-  unref,
-  watch,
-} from 'vue'
-import { EhPopper, EhPopperArrow } from '@ehop/components/popper'
-import { isBoolean } from '@ehop/utils'
-import {
-  useDelayedToggle,
-  useId,
-  usePopperContainer,
-} from '@ehop/hooks'
-import type { PopperInstance } from '@ehop/components/popper'
-import { TOOLTIP_INJECTION_KEY } from './constants'
-import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
-import EhTooltipTrigger from './trigger.vue'
-import EhTooltipContent from './content.vue'
-import '../style'
-
-const props = defineProps(useTooltipProps)
-
-const emit = defineEmits(tooltipEmits)
-
-defineOptions({
-  name: 'EhTooltip',
-})
-
-usePopperContainer()
-
-const id = useId()
-const popperRef = ref<PopperInstance>()
-// TODO any is temporary, replace with `TooltipContentInstance` later
-const contentRef = ref<any>()
-
-function updatePopper() {
-  const popperComponent = unref(popperRef)
-  if (popperComponent)
-    popperComponent.popperInstanceRef?.update()
-}
-const open = ref(false)
-const toggleReason = ref<Event>()
-
-const { show, hide, hasUpdateHandler } = useTooltipModelToggle({
-  indicator: open,
-  toggleReason,
-})
-
-const { onOpen, onClose } = useDelayedToggle({
-  showAfter: toRef(props, 'showAfter'),
-  hideAfter: toRef(props, 'hideAfter'),
-  autoClose: toRef(props, 'autoClose'),
-  open: show,
-  close: hide,
-})
-
-const controlled = computed(
-  () => isBoolean(props.visible) && !hasUpdateHandler.value,
-)
-
-provide(TOOLTIP_INJECTION_KEY, {
-  controlled,
-  id,
-  open: readonly(open),
-  trigger: toRef(props, 'trigger'),
-  onOpen: (event?: Event) => {
-    onOpen(event)
-  },
-  onClose: (event?: Event) => {
-    onClose(event)
-  },
-  onToggle: (event?: Event) => {
-    if (unref(open))
-      onClose(event)
-    else
-      onOpen(event)
-  },
-  onShow: () => {
-    emit('show', toggleReason.value)
-  },
-  onHide: () => {
-    emit('hide', toggleReason.value)
-  },
-  onBeforeShow: () => {
-    emit('beforeShow', toggleReason.value)
-  },
-  onBeforeHide: () => {
-    emit('beforeHide', toggleReason.value)
-  },
-  updatePopper,
-})
-
-watch(
-  () => props.disabled,
-  (disabled) => {
-    if (disabled && open.value)
-      open.value = false
-  },
-)
-
-function isFocusInsideContent() {
-  const popperContent: HTMLElement | undefined
-    = contentRef.value?.contentRef?.popperContentRef
-  return popperContent && popperContent.contains(document.activeElement)
-}
-
-onDeactivated(() => open.value && hide())
-
-defineExpose({
-  /**
-   * @description eh-popper component instance
-   */
-  popperRef,
-  /**
-   * @description eh-tooltip-content component instance
-   */
-  contentRef,
-  /**
-   * @description validate current focus event is trigger inside eh-tooltip-content
-   */
-  isFocusInsideContent,
-  /**
-   * @description update eh-popper component instance
-   */
-  updatePopper,
-  /**
-   * @description expose onOpen function to mange eh-tooltip open state
-   */
-  onOpen,
-  /**
-   * @description expose onOpen function to mange eh-tooltip open state
-   */
-  onClose,
-  /**
-   * @description expose hide function
-   */
-  hide,
-})
-</script>
-
 <template>
-  <EhPopper ref="popperRef" :role="role">
-    <EhTooltipTrigger
+  <el-popper ref="popperRef" :role="role">
+    <el-tooltip-trigger
       :disabled="disabled"
       :trigger="trigger"
       :trigger-keys="triggerKeys"
@@ -153,8 +8,8 @@ defineExpose({
       :virtual-triggering="virtualTriggering"
     >
       <slot v-if="$slots.default" />
-    </EhTooltipTrigger>
-    <EhTooltipContent
+    </el-tooltip-trigger>
+    <el-tooltip-content
       ref="contentRef"
       :aria-label="ariaLabel"
       :boundaries-padding="boundariesPadding"
@@ -187,7 +42,150 @@ defineExpose({
         <span v-if="rawContent" v-html="content" />
         <span v-else>{{ content }}</span>
       </slot>
-      <EhPopperArrow v-if="showArrow" :arrow-offset="arrowOffset" />
-    </EhTooltipContent>
-  </EhPopper>
+      <el-popper-arrow v-if="showArrow" :arrow-offset="arrowOffset" />
+    </el-tooltip-content>
+  </el-popper>
 </template>
+
+<script lang="ts" setup>
+import {
+  computed,
+  onDeactivated,
+  provide,
+  readonly,
+  ref,
+  toRef,
+  unref,
+  watch,
+} from 'vue'
+import { EhPopper, EhPopperArrow } from '@ehop/components/popper'
+
+import { isBoolean } from '@ehop/utils'
+import { useDelayedToggle, useId, usePopperContainer } from '@ehop/hooks'
+import { TOOLTIP_INJECTION_KEY } from './constants'
+import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
+import EhTooltipTrigger from './trigger.vue'
+import EhTooltipContent from './content.vue'
+import type { PopperInstance } from '@ehop/components/popper'
+
+defineOptions({
+  name: 'EhTooltip',
+})
+
+const props = defineProps(useTooltipProps)
+const emit = defineEmits(tooltipEmits)
+
+usePopperContainer()
+
+const id = useId()
+const popperRef = ref<PopperInstance>()
+// TODO any is temporary, replace with `TooltipContentInstance` later
+const contentRef = ref<any>()
+
+const updatePopper = () => {
+  const popperComponent = unref(popperRef)
+  if (popperComponent) {
+    popperComponent.popperInstanceRef?.update()
+  }
+}
+const open = ref(false)
+const toggleReason = ref<Event>()
+
+const { show, hide, hasUpdateHandler } = useTooltipModelToggle({
+  indicator: open,
+  toggleReason,
+})
+
+const { onOpen, onClose } = useDelayedToggle({
+  showAfter: toRef(props, 'showAfter'),
+  hideAfter: toRef(props, 'hideAfter'),
+  autoClose: toRef(props, 'autoClose'),
+  open: show,
+  close: hide,
+})
+
+const controlled = computed(
+  () => isBoolean(props.visible) && !hasUpdateHandler.value
+)
+
+provide(TOOLTIP_INJECTION_KEY, {
+  controlled,
+  id,
+  open: readonly(open),
+  trigger: toRef(props, 'trigger'),
+  onOpen: (event?: Event) => {
+    onOpen(event)
+  },
+  onClose: (event?: Event) => {
+    onClose(event)
+  },
+  onToggle: (event?: Event) => {
+    if (unref(open)) {
+      onClose(event)
+    } else {
+      onOpen(event)
+    }
+  },
+  onShow: () => {
+    emit('show', toggleReason.value)
+  },
+  onHide: () => {
+    emit('hide', toggleReason.value)
+  },
+  onBeforeShow: () => {
+    emit('before-show', toggleReason.value)
+  },
+  onBeforeHide: () => {
+    emit('before-hide', toggleReason.value)
+  },
+  updatePopper,
+})
+
+watch(
+  () => props.disabled,
+  (disabled) => {
+    if (disabled && open.value) {
+      open.value = false
+    }
+  }
+)
+
+const isFocusInsideContent = () => {
+  const popperContent: HTMLElement | undefined =
+    contentRef.value?.contentRef?.popperContentRef
+  return popperContent && popperContent.contains(document.activeElement)
+}
+
+onDeactivated(() => open.value && hide())
+
+defineExpose({
+  /**
+   * @description el-popper component instance
+   */
+  popperRef,
+  /**
+   * @description el-tooltip-content component instance
+   */
+  contentRef,
+  /**
+   * @description validate current focus event is trigger inside el-tooltip-content
+   */
+  isFocusInsideContent,
+  /**
+   * @description update el-popper component instance
+   */
+  updatePopper,
+  /**
+   * @description expose onOpen function to mange el-tooltip open state
+   */
+  onOpen,
+  /**
+   * @description expose onOpen function to mange el-tooltip open state
+   */
+  onClose,
+  /**
+   * @description expose hide function
+   */
+  hide,
+})
+</script>

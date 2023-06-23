@@ -1,6 +1,6 @@
 import { buildProps } from '@ehop/utils'
-import type { ExtractPropTypes } from 'vue'
 import { radioPropsBase } from './radio'
+import type { ExtractPropTypes } from 'vue'
 import type RadioButton from './radio-button.vue'
 
 export const radioButtonProps = buildProps({

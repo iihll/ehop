@@ -1,3 +1,72 @@
+<template>
+  <div
+    v-if="actualVisible"
+    :class="[nsTime.b('range-picker'), nsPicker.b('panel')]"
+  >
+    <div :class="nsTime.be('range-picker', 'content')">
+      <div :class="nsTime.be('range-picker', 'cell')">
+        <div :class="nsTime.be('range-picker', 'header')">
+          {{ t('eh.datepicker.startTime') }}
+        </div>
+        <div :class="startContainerKls">
+          <time-spinner
+            ref="minSpinner"
+            role="start"
+            :show-seconds="showSeconds"
+            :am-pm-mode="amPmMode"
+            :arrow-control="arrowControl"
+            :spinner-date="startTime"
+            :disabled-hours="disabledHours_"
+            :disabled-minutes="disabledMinutes_"
+            :disabled-seconds="disabledSeconds_"
+            @change="handleMinChange"
+            @set-option="onSetOption"
+            @select-range="setMinSelectionRange"
+          />
+        </div>
+      </div>
+      <div :class="nsTime.be('range-picker', 'cell')">
+        <div :class="nsTime.be('range-picker', 'header')">
+          {{ t('eh.datepicker.endTime') }}
+        </div>
+        <div :class="endContainerKls">
+          <time-spinner
+            ref="maxSpinner"
+            role="end"
+            :show-seconds="showSeconds"
+            :am-pm-mode="amPmMode"
+            :arrow-control="arrowControl"
+            :spinner-date="endTime"
+            :disabled-hours="disabledHours_"
+            :disabled-minutes="disabledMinutes_"
+            :disabled-seconds="disabledSeconds_"
+            @change="handleMaxChange"
+            @set-option="onSetOption"
+            @select-range="setMaxSelectionRange"
+          />
+        </div>
+      </div>
+    </div>
+    <div :class="nsTime.be('panel', 'footer')">
+      <button
+        type="button"
+        :class="[nsTime.be('panel', 'btn'), 'cancel']"
+        @click="handleCancel()"
+      >
+        {{ t('eh.datepicker.cancel') }}
+      </button>
+      <button
+        type="button"
+        :class="[nsTime.be('panel', 'btn'), 'confirm']"
+        :disabled="btnConfirmDisabled"
+        @click="handleConfirm()"
+      >
+        {{ t('eh.datepicker.confirm') }}
+      </button>
+    </div>
+  </div>
+</template>
+
 <script lang="ts" setup>
 import { computed, inject, ref, unref } from 'vue'
 import dayjs from 'dayjs'
@@ -5,7 +74,6 @@ import { union } from 'lodash-unified'
 import { useLocale, useNamespace } from '@ehop/hooks'
 import { isArray } from '@ehop/utils'
 import { EVENT_CODE } from '@ehop/constants'
-import type { Dayjs } from 'dayjs'
 import { panelTimeRangeProps } from '../props/panel-time-range'
 import { useTimePanel } from '../composables/use-time-panel'
 import {
@@ -14,14 +82,16 @@ import {
 } from '../composables/use-time-picker'
 import TimeSpinner from './basic-time-spinner.vue'
 
+import type { Dayjs } from 'dayjs'
+
 const props = defineProps(panelTimeRangeProps)
-const emit = defineEmits(['pick', 'selectRange', 'setPickerOption'])
+const emit = defineEmits(['pick', 'select-range', 'set-picker-option'])
 
-function makeSelectRange(start: number, end: number) {
+const makeSelectRange = (start: number, end: number) => {
   const result: number[] = []
-  for (let i = start; i <= end; i++)
+  for (let i = start; i <= end; i++) {
     result.push(i)
-
+  }
   return result
 }
 
@@ -37,41 +107,52 @@ const {
   defaultValue,
 } = pickerBase.props
 
+const startContainerKls = computed(() => [
+  nsTime.be('range-picker', 'body'),
+  nsTime.be('panel', 'content'),
+  nsTime.is('arrow', arrowControl),
+  showSeconds.value ? 'has-seconds' : '',
+])
+const endContainerKls = computed(() => [
+  nsTime.be('range-picker', 'body'),
+  nsTime.be('panel', 'content'),
+  nsTime.is('arrow', arrowControl),
+  showSeconds.value ? 'has-seconds' : '',
+])
+
 const startTime = computed(() => props.parsedValue![0])
 const endTime = computed(() => props.parsedValue![1])
 const oldValue = useOldValue(props)
-function handleCancel() {
+const handleCancel = () => {
   emit('pick', oldValue.value, false)
 }
 const showSeconds = computed(() => {
   return props.format.includes('ss')
 })
 const amPmMode = computed(() => {
-  if (props.format.includes('A'))
-    return 'A'
-  if (props.format.includes('a'))
-    return 'a'
+  if (props.format.includes('A')) return 'A'
+  if (props.format.includes('a')) return 'a'
   return ''
 })
 
-function handleConfirm(visible = false) {
+const handleConfirm = (visible = false) => {
   emit('pick', [startTime.value, endTime.value], visible)
 }
 
-function handleMinChange(date: Dayjs) {
+const handleMinChange = (date: Dayjs) => {
   handleChange(date.millisecond(0), endTime.value)
 }
-function handleMaxChange(date: Dayjs) {
+const handleMaxChange = (date: Dayjs) => {
   handleChange(startTime.value, date.millisecond(0))
 }
 
-function isValidValue(_date: Dayjs[]) {
-  const parsedDate = _date.map(_ => dayjs(_).locale(lang.value))
+const isValidValue = (_date: Dayjs[]) => {
+  const parsedDate = _date.map((_) => dayjs(_).locale(lang.value))
   const result = getRangeAvailableTime(parsedDate)
   return parsedDate[0].isSame(result[0]) && parsedDate[1].isSame(result[1])
 }
 
-function handleChange(start: Dayjs, end: Dayjs) {
+const handleChange = (start: Dayjs, end: Dayjs) => {
   // todo getRangeAvailableTime(_date).millisecond(0)
   emit('pick', [start, end], true)
 }
@@ -80,35 +161,34 @@ const btnConfirmDisabled = computed(() => {
 })
 
 const selectionRange = ref([0, 2])
-function setMinSelectionRange(start: number, end: number) {
-  emit('selectRange', start, end, 'min')
+const setMinSelectionRange = (start: number, end: number) => {
+  emit('select-range', start, end, 'min')
   selectionRange.value = [start, end]
 }
 
 const offset = computed(() => (showSeconds.value ? 11 : 8))
-function setMaxSelectionRange(start: number, end: number) {
-  emit('selectRange', start, end, 'max')
+const setMaxSelectionRange = (start: number, end: number) => {
+  emit('select-range', start, end, 'max')
   const _offset = unref(offset)
   selectionRange.value = [start + _offset, end + _offset]
 }
 
-function changeSelectionRange(step: number) {
+const changeSelectionRange = (step: number) => {
   const list = showSeconds.value ? [0, 3, 6, 11, 14, 17] : [0, 3, 8, 11]
   const mapping = ['hours', 'minutes'].concat(
-    showSeconds.value ? ['seconds'] : [],
+    showSeconds.value ? ['seconds'] : []
   )
   const index = list.indexOf(selectionRange.value[0])
   const next = (index + step + list.length) % list.length
   const half = list.length / 2
-  if (next < half)
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    timePickerOptions.start_emitSelectRange(mapping[next])
-  else
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    timePickerOptions.end_emitSelectRange(mapping[next - half])
+  if (next < half) {
+    timePickerOptions['start_emitSelectRange'](mapping[next])
+  } else {
+    timePickerOptions['end_emitSelectRange'](mapping[next - half])
+  }
 }
 
-function handleKeydown(event: KeyboardEvent) {
+const handleKeydown = (event: KeyboardEvent) => {
   const code = event.code
 
   const { left, right, up, down } = EVENT_CODE
@@ -123,13 +203,13 @@ function handleKeydown(event: KeyboardEvent) {
   if ([up, down].includes(code)) {
     const step = code === up ? -1 : 1
     const role = selectionRange.value[0] < offset.value ? 'start' : 'end'
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     timePickerOptions[`${role}_scrollDown`](step)
     event.preventDefault()
+    return
   }
 }
 
-function disabledHours_(role: string, compare?: Dayjs) {
+const disabledHours_ = (role: string, compare?: Dayjs) => {
   const defaultDisable = disabledHours ? disabledHours(role) : []
   const isStart = role === 'start'
   const compareDate = compare || (isStart ? endTime.value : startTime.value)
@@ -139,24 +219,26 @@ function disabledHours_(role: string, compare?: Dayjs) {
     : makeSelectRange(0, compareHour - 1)
   return union(defaultDisable, nextDisable)
 }
-function disabledMinutes_(hour: number, role: string, compare?: Dayjs) {
+const disabledMinutes_ = (hour: number, role: string, compare?: Dayjs) => {
   const defaultDisable = disabledMinutes ? disabledMinutes(hour, role) : []
   const isStart = role === 'start'
   const compareDate = compare || (isStart ? endTime.value : startTime.value)
   const compareHour = compareDate.hour()
-  if (hour !== compareHour)
+  if (hour !== compareHour) {
     return defaultDisable
-
+  }
   const compareMinute = compareDate.minute()
   const nextDisable = isStart
     ? makeSelectRange(compareMinute + 1, 59)
     : makeSelectRange(0, compareMinute - 1)
   return union(defaultDisable, nextDisable)
 }
-function disabledSeconds_(hour: number,
+const disabledSeconds_ = (
+  hour: number,
   minute: number,
   role: string,
-  compare?: Dayjs) {
+  compare?: Dayjs
+) => {
   const defaultDisable = disabledSeconds
     ? disabledSeconds(hour, minute, role)
     : []
@@ -164,9 +246,9 @@ function disabledSeconds_(hour: number,
   const compareDate = compare || (isStart ? endTime.value : startTime.value)
   const compareHour = compareDate.hour()
   const compareMinute = compareDate.minute()
-  if (hour !== compareHour || minute !== compareMinute)
+  if (hour !== compareHour || minute !== compareMinute) {
     return defaultDisable
-
+  }
   const compareSecond = compareDate.second()
   const nextDisable = isStart
     ? makeSelectRange(compareSecond + 1, 59)
@@ -174,24 +256,23 @@ function disabledSeconds_(hour: number,
   return union(defaultDisable, nextDisable)
 }
 
-function getRangeAvailableTime([start, end]: Array<Dayjs>) {
+const getRangeAvailableTime = ([start, end]: Array<Dayjs>) => {
   return [
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     getAvailableTime(start, 'start', true, end),
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     getAvailableTime(end, 'end', false, start),
   ] as const
 }
 
-const { getAvailableHours, getAvailableMinutes, getAvailableSeconds }
-  = buildAvailableTimeSlotGetter(
+const { getAvailableHours, getAvailableMinutes, getAvailableSeconds } =
+  buildAvailableTimeSlotGetter(
     disabledHours_,
     disabledMinutes_,
-    disabledSeconds_,
+    disabledSeconds_
   )
 
 const {
   timePickerOptions,
+
   getAvailableTime,
   onSetOption,
 } = useTimePanel({
@@ -200,117 +281,34 @@ const {
   getAvailableSeconds,
 })
 
-function parseUserInput(days: Dayjs[] | Dayjs) {
-  if (!days)
-    return null
-  if (isArray(days))
-    return days.map(d => dayjs(d, props.format).locale(lang.value))
-
+const parseUserInput = (days: Dayjs[] | Dayjs) => {
+  if (!days) return null
+  if (isArray(days)) {
+    return days.map((d) => dayjs(d, props.format).locale(lang.value))
+  }
   return dayjs(days, props.format).locale(lang.value)
 }
 
-function formatToString(days: Dayjs[] | Dayjs) {
-  if (!days)
-    return null
-  if (isArray(days))
-    return days.map(d => d.format(props.format))
-
+const formatToString = (days: Dayjs[] | Dayjs) => {
+  if (!days) return null
+  if (isArray(days)) {
+    return days.map((d) => d.format(props.format))
+  }
   return days.format(props.format)
 }
 
-function getDefaultValue() {
-  if (isArray(defaultValue))
+const getDefaultValue = () => {
+  if (isArray(defaultValue)) {
     return defaultValue.map((d: Date) => dayjs(d).locale(lang.value))
-
+  }
   const defaultDay = dayjs(defaultValue).locale(lang.value)
   return [defaultDay, defaultDay.add(60, 'm')]
 }
 
-emit('setPickerOption', ['formatToString', formatToString])
-emit('setPickerOption', ['parseUserInput', parseUserInput])
-emit('setPickerOption', ['isValidValue', isValidValue])
-emit('setPickerOption', ['handleKeydownInput', handleKeydown])
-emit('setPickerOption', ['getDefaultValue', getDefaultValue])
-emit('setPickerOption', ['getRangeAvailableTime', getRangeAvailableTime])
+emit('set-picker-option', ['formatToString', formatToString])
+emit('set-picker-option', ['parseUserInput', parseUserInput])
+emit('set-picker-option', ['isValidValue', isValidValue])
+emit('set-picker-option', ['handleKeydownInput', handleKeydown])
+emit('set-picker-option', ['getDefaultValue', getDefaultValue])
+emit('set-picker-option', ['getRangeAvailableTime', getRangeAvailableTime])
 </script>
-
-<template>
-  <div
-    v-if="actualVisible"
-    :class="[nsTime.b('range-picker'), nsPicker.b('panel')]"
-  >
-    <div :class="nsTime.be('range-picker', 'content')">
-      <div :class="nsTime.be('range-picker', 'cell')">
-        <div :class="nsTime.be('range-picker', 'header')">
-          {{ t('eh.datepicker.startTime') }}
-        </div>
-        <div
-          :class="[
-            nsTime.be('range-picker', 'body'),
-            nsTime.be('panel', 'content'),
-            nsTime.is('arrow', arrowControl),
-            { 'has-seconds': showSeconds },
-          ]"
-        >
-          <TimeSpinner
-            role="start"
-            :show-seconds="showSeconds"
-            :am-pm-mode="amPmMode"
-            :arrow-control="arrowControl"
-            :spinner-date="startTime"
-            :disabled-hours="disabledHours_"
-            :disabled-minutes="disabledMinutes_"
-            :disabled-seconds="disabledSeconds_"
-            @change="handleMinChange"
-            @set-option="onSetOption"
-            @selectRange="setMinSelectionRange"
-          />
-        </div>
-      </div>
-      <div :class="nsTime.be('range-picker', 'cell')">
-        <div :class="nsTime.be('range-picker', 'header')">
-          {{ t('eh.datepicker.endTime') }}
-        </div>
-        <div
-          :class="[
-            nsTime.be('range-picker', 'body'),
-            nsTime.be('panel', 'content'),
-            nsTime.is('arrow', arrowControl),
-            { 'has-seconds': showSeconds },
-          ]"
-        >
-          <TimeSpinner
-            role="end"
-            :show-seconds="showSeconds"
-            :am-pm-mode="amPmMode"
-            :arrow-control="arrowControl"
-            :spinner-date="endTime"
-            :disabled-hours="disabledHours_"
-            :disabled-minutes="disabledMinutes_"
-            :disabled-seconds="disabledSeconds_"
-            @change="handleMaxChange"
-            @set-option="onSetOption"
-            @selectRange="setMaxSelectionRange"
-          />
-        </div>
-      </div>
-    </div>
-    <div :class="nsTime.be('panel', 'footer')">
-      <button
-        type="button"
-        class="cancel" :class="[nsTime.be('panel', 'btn')]"
-        @click="handleCancel()"
-      >
-        {{ t('eh.datepicker.cancel') }}
-      </button>
-      <button
-        type="button"
-        class="confirm" :class="[nsTime.be('panel', 'btn')]"
-        :disabled="btnConfirmDisabled"
-        @click="handleConfirm()"
-      >
-        {{ t('eh.datepicker.confirm') }}
-      </button>
-    </div>
-  </div>
-</template>

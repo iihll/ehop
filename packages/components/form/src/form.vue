@@ -1,28 +1,35 @@
+<template>
+  <form :class="formClasses">
+    <slot />
+  </form>
+</template>
+
 <script lang="ts" setup>
 import { computed, provide, reactive, toRefs, watch } from 'vue'
 import { debugWarn, isFunction } from '@ehop/utils'
-import { useNamespace } from '@ehop/hooks'
-import type { ValidateFieldsError } from 'async-validator'
-import type { Arrayable } from '@ehop/utils'
-import type { FormItemProp } from '@ehop/components'
+import { useNamespace } from '@ehop
 import { useFormSize } from './hooks'
 import { formContextKey } from './constants'
 import { formEmits, formProps } from './form'
 import { filterFields, useFormLabelWidth } from './utils'
+
+import type { ValidateFieldsError } from 'async-validator'
+import type { Arrayable } from '@ehop
 import type {
   FormContext,
   FormItemContext,
   FormValidateCallback,
   FormValidationResult,
 } from './types'
-import '../style'
+import type { FormItemProp } from './form-item'
 
-const props = defineProps(formProps)
-const emit = defineEmits(formEmits)
 const COMPONENT_NAME = 'EhForm'
 defineOptions({
   name: COMPONENT_NAME,
 })
+const props = defineProps(formProps)
+const emit = defineEmits(formEmits)
+
 const fields: FormItemContext[] = []
 
 const formSize = useFormSize()
@@ -46,8 +53,9 @@ const addField: FormContext['addField'] = (field) => {
 }
 
 const removeField: FormContext['removeField'] = (field) => {
-  if (field.prop)
+  if (field.prop) {
     fields.splice(fields.indexOf(field), 1)
+  }
 }
 
 const resetFields: FormContext['resetFields'] = (properties = []) => {
@@ -55,24 +63,23 @@ const resetFields: FormContext['resetFields'] = (properties = []) => {
     debugWarn(COMPONENT_NAME, 'model is required for resetFields to work.')
     return
   }
-  filterFields(fields, properties).forEach(field => field.resetField())
+  filterFields(fields, properties).forEach((field) => field.resetField())
 }
 
 const clearValidate: FormContext['clearValidate'] = (props = []) => {
-  filterFields(fields, props).forEach(field => field.clearValidate())
+  filterFields(fields, props).forEach((field) => field.clearValidate())
 }
 
 const isValidatable = computed(() => {
   const hasModel = !!props.model
-  if (!hasModel)
+  if (!hasModel) {
     debugWarn(COMPONENT_NAME, 'model is required for validate to work.')
-
+  }
   return hasModel
 })
 
-function obtainValidateFields(props: Arrayable<FormItemProp>) {
-  if (fields.length === 0)
-    return []
+const obtainValidateFields = (props: Arrayable<FormItemProp>) => {
+  if (fields.length === 0) return []
 
   const filteredFields = filterFields(fields, props)
   if (!filteredFields.length) {
@@ -82,20 +89,23 @@ function obtainValidateFields(props: Arrayable<FormItemProp>) {
   return filteredFields
 }
 
-async function doValidateField(props: Arrayable<FormItemProp> = []): Promise<boolean> {
-  if (!isValidatable.value)
-    return false
+const validate = async (
+  callback?: FormValidateCallback
+): FormValidationResult => validateField(undefined, callback)
+
+const doValidateField = async (
+  props: Arrayable<FormItemProp> = []
+): Promise<boolean> => {
+  if (!isValidatable.value) return false
 
   const fields = obtainValidateFields(props)
-  if (fields.length === 0)
-    return true
+  if (fields.length === 0) return true
 
   let validationErrors: ValidateFieldsError = {}
   for (const field of fields) {
     try {
       await field.validate('')
-    }
-    catch (fields) {
+    } catch (fields) {
       validationErrors = {
         ...validationErrors,
         ...(fields as ValidateFieldsError),
@@ -103,55 +113,50 @@ async function doValidateField(props: Arrayable<FormItemProp> = []): Promise<boo
     }
   }
 
-  if (Object.keys(validationErrors).length === 0)
-    return true
+  if (Object.keys(validationErrors).length === 0) return true
   return Promise.reject(validationErrors)
 }
 
 const validateField: FormContext['validateField'] = async (
   modelProps = [],
-  callback,
+  callback
 ) => {
   const shouldThrow = !isFunction(callback)
   try {
     const result = await doValidateField(modelProps)
     // When result is false meaning that the fields are not validatable
-    if (result === true)
+    if (result === true) {
       callback?.(result)
-
+    }
     return result
-  }
-  catch (e) {
-    if (e instanceof Error)
-      throw e
+  } catch (e) {
+    if (e instanceof Error) throw e
 
     const invalidFields = e as ValidateFieldsError
 
-    if (props.scrollToError)
+    if (props.scrollToError) {
       scrollToField(Object.keys(invalidFields)[0])
-
+    }
     callback?.(false, invalidFields)
     return shouldThrow && Promise.reject(invalidFields)
   }
 }
 
-async function validate(callback?: FormValidateCallback): FormValidationResult {
-  return validateField(undefined, callback)
-}
-
-function scrollToField(prop: FormItemProp) {
+const scrollToField = (prop: FormItemProp) => {
   const field = filterFields(fields, prop)[0]
-  if (field)
+  if (field) {
     field.$el?.scrollIntoView(props.scrollIntoViewOptions)
+  }
 }
 
 watch(
   () => props.rules,
   () => {
-    if (props.validateOnRuleChange)
-      validate().catch(err => debugWarn(err))
+    if (props.validateOnRuleChange) {
+      validate().catch((err) => debugWarn(err))
+    }
   },
-  { deep: true },
+  { deep: true }
 )
 
 provide(
@@ -167,7 +172,7 @@ provide(
     removeField,
 
     ...useFormLabelWidth(),
-  }),
+  })
 )
 
 defineExpose({
@@ -193,9 +198,3 @@ defineExpose({
   scrollToField,
 })
 </script>
-
-<template>
-  <form :class="formClasses">
-    <slot />
-  </form>
-</template>

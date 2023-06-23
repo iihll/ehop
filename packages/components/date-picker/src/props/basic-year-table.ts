@@ -1,6 +1,7 @@
 import { buildProps } from '@ehop/utils'
-import type { ExtractPropTypes } from 'vue'
 import { datePickerSharedProps } from './shared'
+
+import type { ExtractPropTypes } from 'vue'
 
 const { date, disabledDate, parsedValue } = datePickerSharedProps
 

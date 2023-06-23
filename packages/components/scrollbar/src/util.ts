@@ -26,15 +26,13 @@ export const BAR_MAP = {
   },
 } as const
 
-export function renderThumbStyle({
+export const renderThumbStyle = ({
   move,
   size,
   bar,
 }: Pick<ThumbProps, 'move' | 'size'> & {
   bar: typeof BAR_MAP[keyof typeof BAR_MAP]
-}): CSSProperties {
-  return {
-    [bar.size]: size,
-    transform: `translate${bar.axis}(${move}%)`,
-  }
-}
+}): CSSProperties => ({
+  [bar.size]: size,
+  transform: `translate${bar.axis}(${move}%)`,
+})

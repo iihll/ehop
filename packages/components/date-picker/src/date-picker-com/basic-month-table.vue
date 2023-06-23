@@ -1,3 +1,35 @@
+<template>
+  <table
+    role="grid"
+    :aria-label="t('eh.datepicker.monthTablePrompt')"
+    :class="ns.b()"
+    @click="handleMonthTableClick"
+    @mousemove="handleMouseMove"
+  >
+    <tbody ref="tbodyRef">
+      <tr v-for="(row, key) in rows" :key="key">
+        <td
+          v-for="(cell, key_) in row"
+          :key="key_"
+          :ref="(el) => isSelectedCell(cell) && (currentCellRef = el as HTMLElement)"
+          :class="getCellStyle(cell)"
+          :aria-selected="`${isSelectedCell(cell)}`"
+          :aria-label="t(`el.datepicker.month${+cell.text + 1}`)"
+          :tabindex="isSelectedCell(cell) ? 0 : -1"
+          @keydown.space.prevent.stop="handleMonthTableClick"
+          @keydown.enter.prevent.stop="handleMonthTableClick"
+        >
+          <div>
+            <span class="cell">
+              {{ t('eh.datepicker.months.' + months[cell.text]) }}
+            </span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
 <script lang="ts" setup>
 import { computed, nextTick, ref, watch } from 'vue'
 import dayjs from 'dayjs'
@@ -6,7 +38,7 @@ import { rangeArr } from '@ehop/components/time-picker'
 import { castArray, hasClass } from '@ehop/utils'
 import { basicMonthTableProps } from '../props/basic-month-table'
 
-interface MonthCell {
+type MonthCell = {
   column: number
   row: number
   disabled: boolean
@@ -17,15 +49,14 @@ interface MonthCell {
   inRange: boolean
 }
 
-const props = defineProps(basicMonthTableProps)
-
-const emit = defineEmits(['changerange', 'pick', 'select'])
-
-function datesInMonth(year: number, month: number, lang: string) {
+const datesInMonth = (year: number, month: number, lang: string) => {
   const firstDay = dayjs().locale(lang).startOf('month').month(month).year(year)
   const numOfDays = firstDay.daysInMonth()
-  return rangeArr(numOfDays).map(n => firstDay.add(n, 'day').toDate())
+  return rangeArr(numOfDays).map((n) => firstDay.add(n, 'day').toDate())
 }
+
+const props = defineProps(basicMonthTableProps)
+const emit = defineEmits(['changerange', 'pick', 'select'])
 
 const ns = useNamespace('month-table')
 
@@ -37,7 +68,7 @@ const months = ref(
     .locale('en')
     .localeData()
     .monthsShort()
-    .map(_ => _.toLowerCase()),
+    .map((_) => _.toLowerCase())
 )
 const tableRows = ref<MonthCell[][]>([
   [] as MonthCell[],
@@ -70,38 +101,38 @@ const rows = computed<MonthCell[][]>(() => {
       const index = i * 4 + j
       const calTime = props.date.startOf('year').month(index)
 
-      const calEndDate
-        = props.rangeState.endDate
-        || props.maxDate
-        || (props.rangeState.selecting && props.minDate)
-        || null
+      const calEndDate =
+        props.rangeState.endDate ||
+        props.maxDate ||
+        (props.rangeState.selecting && props.minDate) ||
+        null
 
-      cell.inRange
-        = !!(
-          props.minDate
-          && calTime.isSameOrAfter(props.minDate, 'month')
-          && calEndDate
-          && calTime.isSameOrBefore(calEndDate, 'month')
-        )
-        || !!(
-          props.minDate
-          && calTime.isSameOrBefore(props.minDate, 'month')
-          && calEndDate
-          && calTime.isSameOrAfter(calEndDate, 'month')
+      cell.inRange =
+        !!(
+          props.minDate &&
+          calTime.isSameOrAfter(props.minDate, 'month') &&
+          calEndDate &&
+          calTime.isSameOrBefore(calEndDate, 'month')
+        ) ||
+        !!(
+          props.minDate &&
+          calTime.isSameOrBefore(props.minDate, 'month') &&
+          calEndDate &&
+          calTime.isSameOrAfter(calEndDate, 'month')
         )
 
       if (props.minDate?.isSameOrAfter(calEndDate)) {
         cell.start = !!(calEndDate && calTime.isSame(calEndDate, 'month'))
         cell.end = props.minDate && calTime.isSame(props.minDate, 'month')
-      }
-      else {
+      } else {
         cell.start = !!(props.minDate && calTime.isSame(props.minDate, 'month'))
         cell.end = !!(calEndDate && calTime.isSame(calEndDate, 'month'))
       }
 
       const isToday = now.isSame(calTime)
-      if (isToday)
+      if (isToday) {
         cell.type = 'today'
+      }
 
       cell.text = index
       cell.disabled = props.disabledDate?.(calTime.toDate()) || false
@@ -110,11 +141,11 @@ const rows = computed<MonthCell[][]>(() => {
   return rows
 })
 
-function focus() {
+const focus = () => {
   currentCellRef.value?.focus()
 }
 
-function getCellStyle(cell: MonthCell) {
+const getCellStyle = (cell: MonthCell) => {
   const style = {} as any
   const year = props.date.year()
   const today = new Date()
@@ -123,54 +154,53 @@ function getCellStyle(cell: MonthCell) {
   style.disabled = props.disabledDate
     ? datesInMonth(year, month, lang.value).every(props.disabledDate)
     : false
-  style.current
-    = castArray(props.parsedValue).findIndex(
-      date =>
-        dayjs.isDayjs(date) && date.year() === year && date.month() === month,
+  style.current =
+    castArray(props.parsedValue).findIndex(
+      (date) =>
+        dayjs.isDayjs(date) && date.year() === year && date.month() === month
     ) >= 0
   style.today = today.getFullYear() === year && today.getMonth() === month
 
   if (cell.inRange) {
     style['in-range'] = true
 
-    if (cell.start)
+    if (cell.start) {
       style['start-date'] = true
+    }
 
-    if (cell.end)
+    if (cell.end) {
       style['end-date'] = true
+    }
   }
   return style
 }
 
-function isSelectedCell(cell: MonthCell) {
+const isSelectedCell = (cell: MonthCell) => {
   const year = props.date.year()
   const month = cell.text
   return (
     castArray(props.date).findIndex(
-      date => date.year() === year && date.month() === month,
+      (date) => date.year() === year && date.month() === month
     ) >= 0
   )
 }
 
-function handleMouseMove(event: MouseEvent) {
-  if (!props.rangeState.selecting)
-    return
+const handleMouseMove = (event: MouseEvent) => {
+  if (!props.rangeState.selecting) return
 
   let target = event.target as HTMLElement
-  if (target.tagName === 'A')
+  if (target.tagName === 'A') {
     target = target.parentNode?.parentNode as HTMLElement
-
-  if (target.tagName === 'DIV')
+  }
+  if (target.tagName === 'DIV') {
     target = target.parentNode as HTMLElement
-
-  if (target.tagName !== 'TD')
-    return
+  }
+  if (target.tagName !== 'TD') return
 
   const row = (target.parentNode as HTMLTableRowElement).rowIndex
   const column = (target as HTMLTableCellElement).cellIndex
   // can not select disabled date
-  if (rows.value[row][column].disabled)
-    return
+  if (rows.value[row][column].disabled) return
 
   // only update rangeState when mouse moves to a new cell
   // this avoids frequent Date object creation and improves performance
@@ -183,14 +213,12 @@ function handleMouseMove(event: MouseEvent) {
     })
   }
 }
-function handleMonthTableClick(event: MouseEvent | KeyboardEvent) {
+const handleMonthTableClick = (event: MouseEvent | KeyboardEvent) => {
   const target = (event.target as HTMLElement)?.closest(
-    'td',
+    'td'
   ) as HTMLTableCellElement
-  if (target?.tagName !== 'TD')
-    return
-  if (hasClass(target, 'disabled'))
-    return
+  if (target?.tagName !== 'TD') return
+  if (hasClass(target, 'disabled')) return
   const column = target.cellIndex
   const row = (target.parentNode as HTMLTableRowElement).rowIndex
   const month = row * 4 + column
@@ -199,17 +227,15 @@ function handleMonthTableClick(event: MouseEvent | KeyboardEvent) {
     if (!props.rangeState.selecting) {
       emit('pick', { minDate: newDate, maxDate: null })
       emit('select', true)
-    }
-    else {
-      if (props.minDate && newDate >= props.minDate)
+    } else {
+      if (props.minDate && newDate >= props.minDate) {
         emit('pick', { minDate: props.minDate, maxDate: newDate })
-      else
+      } else {
         emit('pick', { minDate: newDate, maxDate: props.minDate })
-
+      }
       emit('select', false)
     }
-  }
-  else {
+  } else {
     emit('pick', month)
   }
 }
@@ -221,7 +247,7 @@ watch(
       await nextTick()
       currentCellRef.value?.focus()
     }
-  },
+  }
 )
 
 defineExpose({
@@ -231,35 +257,3 @@ defineExpose({
   focus,
 })
 </script>
-
-<template>
-  <table
-    role="grid"
-    :aria-label="t('eh.datepicker.monthTablePrompt')"
-    :class="ns.b()"
-    @click="handleMonthTableClick"
-    @mousemove="handleMouseMove"
-  >
-    <tbody ref="tbodyRef">
-      <tr v-for="(row, key) in rows" :key="key">
-        <td
-          v-for="(cell, key_) in row"
-          :key="key_"
-          :ref="(el) => isSelectedCell(cell) && (currentCellRef = el as HTMLElement)"
-          :class="getCellStyle(cell)"
-          :aria-selected="`${isSelectedCell(cell)}`"
-          :aria-label="t(`eh.datepicker.month${+cell.text + 1}`)"
-          :tabindex="isSelectedCell(cell) ? 0 : -1"
-          @keydown.space.prevent.stop="handleMonthTableClick"
-          @keydown.enter.prevent.stop="handleMonthTableClick"
-        >
-          <div>
-            <span class="cell">
-              {{ t(`eh.datepicker.months.${months[cell.text]}`) }}
-            </span>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</template>

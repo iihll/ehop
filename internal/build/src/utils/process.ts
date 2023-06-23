@@ -1,10 +1,10 @@
-import { spawn } from 'node:child_process'
+import { spawn } from 'child_process'
 import chalk from 'chalk'
 import consola from 'consola'
 import { projRoot } from '@ehop/build-utils'
 
-export async function run(command: string, cwd: string = projRoot) {
-  return new Promise<void>((resolve, reject) => {
+export const run = async (command: string, cwd: string = projRoot) =>
+  new Promise<void>((resolve, reject) => {
     const [cmd, ...args] = command.split(' ')
     consola.info(`run: ${chalk.green(`${cmd} ${args.join(' ')}`)}`)
     const app = spawn(cmd, args, {
@@ -18,15 +18,11 @@ export async function run(command: string, cwd: string = projRoot) {
     app.on('close', (code) => {
       process.removeListener('exit', onProcessExit)
 
-      if (code === 0) {
-        resolve()
-      }
-      else {
+      if (code === 0) resolve()
+      else
         reject(
-          new Error(`Command failed. \n Command: ${command} \n Code: ${code}`),
+          new Error(`Command failed. \n Command: ${command} \n Code: ${code}`)
         )
-      }
     })
     process.on('exit', onProcessExit)
   })
-}

@@ -1,7 +1,7 @@
 import type { CSSProperties, ComputedRef, InjectionKey, Ref } from 'vue'
 import type { Instance } from '@popperjs/core'
 
-export interface Measurable {
+export type Measurable = {
   getBoundingClientRect: () => DOMRect
 }
 
@@ -10,7 +10,7 @@ export interface Measurable {
  * contentRef indicates the element of popper content
  * referenceRef indicates the element that popper content relative with
  */
-export interface EhPopperInjectionContext {
+export type EhPopperInjectionContext = {
   triggerRef: Ref<Measurable | undefined>
   contentRef: Ref<HTMLElement | undefined>
   popperInstanceRef: Ref<Instance | undefined>
@@ -18,14 +18,14 @@ export interface EhPopperInjectionContext {
   role: ComputedRef<string>
 }
 
-export interface EhPopperContentInjectionContext {
+export type EhPopperContentInjectionContext = {
   arrowRef: Ref<HTMLElement | undefined>
   arrowOffset: Ref<number | undefined>
   arrowStyle: ComputedRef<CSSProperties>
 }
 
-export const POPPER_INJECTION_KEY: InjectionKey<EhPopperInjectionContext>
-  = Symbol('popper')
+export const POPPER_INJECTION_KEY: InjectionKey<EhPopperInjectionContext> =
+  Symbol('popper')
 
-export const POPPER_CONTENT_INJECTION_KEY: InjectionKey<EhPopperContentInjectionContext>
-  = Symbol('popperContent')
+export const POPPER_CONTENT_INJECTION_KEY: InjectionKey<EhPopperContentInjectionContext> =
+  Symbol('popperContent')

@@ -1,6 +1,6 @@
 export default {
   name: 'zh-tw',
-  eh: {
+  el: {
     colorpicker: {
       confirm: '確認',
       clear: '清空',
@@ -105,7 +105,7 @@ export default {
       prevPages: '向前 {pager} 頁',
       nextPages: '向后 {pager} 頁',
       deprecationWarning:
-        '偵測到已過時的使用方式，請參閱 eh-pagination 說明文件以了解更多資訊',
+        '偵測到已過時的使用方式，請參閱 el-pagination 說明文件以了解更多資訊',
     },
     dialog: {
       close: '關閉此對話框',

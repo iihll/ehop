@@ -6,9 +6,8 @@ import type { DateCell } from './date-picker.type'
 
 type DayRange = [Dayjs | undefined, Dayjs | undefined]
 
-export function isValidRange(range: DayRange): boolean {
-  if (!isArray(range))
-    return false
+export const isValidRange = (range: DayRange): boolean => {
+  if (!isArray(range)) return false
 
   const [left, right] = range
 
@@ -17,7 +16,7 @@ export function isValidRange(range: DayRange): boolean {
   )
 }
 
-interface GetDefaultValueParams {
+type GetDefaultValueParams = {
   lang: string
   unit: 'month' | 'year'
   unlinkPanels: boolean
@@ -25,33 +24,33 @@ interface GetDefaultValueParams {
 
 export type DefaultValue = [Date, Date] | Date | undefined
 
-export function getDefaultValue(defaultValue: DefaultValue,
-  { lang, unit, unlinkPanels }: GetDefaultValueParams) {
+export const getDefaultValue = (
+  defaultValue: DefaultValue,
+  { lang, unit, unlinkPanels }: GetDefaultValueParams
+) => {
   let start: Dayjs
 
   if (isArray(defaultValue)) {
-    let [left, right] = defaultValue.map(d => dayjs(d).locale(lang))
-    if (!unlinkPanels)
+    let [left, right] = defaultValue.map((d) => dayjs(d).locale(lang))
+    if (!unlinkPanels) {
       right = left.add(1, unit)
-
+    }
     return [left, right]
-  }
-  else if (defaultValue) {
+  } else if (defaultValue) {
     start = dayjs(defaultValue)
-  }
-  else {
+  } else {
     start = dayjs()
   }
   start = start.locale(lang)
   return [start, start.add(1, unit)]
 }
 
-interface Dimension {
+type Dimension = {
   row: number
   column: number
 }
 
-interface BuildPickerTableMetadata {
+type BuildPickerTableMetadata = {
   startDate?: Dayjs | null
   unit: 'month' | 'day'
   columnIndexOffset: number
@@ -65,7 +64,8 @@ interface BuildPickerTableMetadata {
   setRowMetadata?: (row: DateCell[]) => void
 }
 
-export function buildPickerTable(dimension: Dimension,
+export const buildPickerTable = (
+  dimension: Dimension,
   rows: DateCell[][],
   {
     columnIndexOffset,
@@ -76,7 +76,8 @@ export function buildPickerTable(dimension: Dimension,
     relativeDateGetter,
     setCellMetadata,
     setRowMetadata,
-  }: BuildPickerTableMetadata) {
+  }: BuildPickerTableMetadata
+) => {
   for (let rowIndex = 0; rowIndex < dimension.row; rowIndex++) {
     const row = rows[rowIndex]
     for (let columnIndex = 0; columnIndex < dimension.column; columnIndex++) {
@@ -98,34 +99,33 @@ export function buildPickerTable(dimension: Dimension,
       cell.timestamp = nextStartDate.valueOf()
       cell.type = 'normal'
 
-      cell.inRange
-        = !!(
-          startDate
-          && nextStartDate.isSameOrAfter(startDate, unit)
-          && nextEndDate
-          && nextStartDate.isSameOrBefore(nextEndDate, unit)
-        )
-        || !!(
-          startDate
-          && nextStartDate.isSameOrBefore(startDate, unit)
-          && nextEndDate
-          && nextStartDate.isSameOrAfter(nextEndDate, unit)
+      cell.inRange =
+        !!(
+          startDate &&
+          nextStartDate.isSameOrAfter(startDate, unit) &&
+          nextEndDate &&
+          nextStartDate.isSameOrBefore(nextEndDate, unit)
+        ) ||
+        !!(
+          startDate &&
+          nextStartDate.isSameOrBefore(startDate, unit) &&
+          nextEndDate &&
+          nextStartDate.isSameOrAfter(nextEndDate, unit)
         )
 
       if (startDate?.isSameOrAfter(nextEndDate)) {
         cell.start = !!nextEndDate && nextStartDate.isSame(nextEndDate, unit)
         cell.end = startDate && nextStartDate.isSame(startDate, unit)
-      }
-      else {
+      } else {
         cell.start = !!startDate && nextStartDate.isSame(startDate, unit)
         cell.end = !!nextEndDate && nextStartDate.isSame(nextEndDate, unit)
       }
 
       const isToday = nextStartDate.isSame(now, unit)
 
-      if (isToday)
+      if (isToday) {
         cell.type = 'today'
-
+      }
       setCellMetadata?.(cell, { rowIndex, columnIndex })
       row[columnIndex + columnIndexOffset] = cell
     }

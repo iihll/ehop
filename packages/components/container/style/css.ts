@@ -1,2 +1,6 @@
 import '@ehop/components/base/style/css'
 import '@ehop/theme-chalk/eh-container.css'
+import '@ehop/theme-chalk/eh-aside.css'
+import '@ehop/theme-chalk/eh-footer.css'
+import '@ehop/theme-chalk/eh-header.css'
+import '@ehop/theme-chalk/eh-main.css'

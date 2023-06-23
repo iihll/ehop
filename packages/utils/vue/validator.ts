@@ -1,10 +1,8 @@
 import { componentSizes, datePickTypes } from '@ehop/constants'
-import type { ComponentSize, DatePickType } from '@ehop/constants'
+import type { ComponentSize, DatePickType } from '@ehopts'
 
-export function isValidComponentSize(val: string): val is ComponentSize | '' {
-  return ['', ...componentSizes].includes(val)
-}
+export const isValidComponentSize = (val: string): val is ComponentSize | '' =>
+  ['', ...componentSizes].includes(val)
 
-export function isValidDatePickType(val: string): val is DatePickType {
-  return ([...datePickTypes] as string[]).includes(val)
-}
+export const isValidDatePickType = (val: string): val is DatePickType =>
+  ([...datePickTypes] as string[]).includes(val)

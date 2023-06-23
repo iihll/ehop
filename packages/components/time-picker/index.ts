@@ -1,8 +1,9 @@
-import type { App } from 'vue'
-import type { SFCWithInstall } from '@ehop/utils'
 import TimePicker from './src/time-picker'
 import CommonPicker from './src/common/picker.vue'
 import TimePickPanel from './src/time-picker-com/panel-time-pick.vue'
+
+import type { App } from 'vue'
+import type { SFCWithInstall } from '@ehop/utils'
 
 export * from './src/utils'
 export * from './src/constants'

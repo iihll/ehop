@@ -53,8 +53,7 @@ export function useButtonCustomStyle(props: ButtonProps) {
             ? darken(color, 80)
             : color.tint(80).toString()
         }
-      }
-      else {
+      } else {
         const hoverBgColor = props.dark
           ? darken(color, 30)
           : color.tint(30).toString()
@@ -80,8 +79,8 @@ export function useButtonCustomStyle(props: ButtonProps) {
           styles[ns.cssVarBlockName('disabled-text-color')] = props.dark
             ? 'rgba(255, 255, 255, 0.5)'
             : `var(${ns.cssVarName('color-white')})`
-          styles[ns.cssVarBlockName('disabled-border-color')]
-            = disabledButtonColor
+          styles[ns.cssVarBlockName('disabled-border-color')] =
+            disabledButtonColor
         }
       }
     }

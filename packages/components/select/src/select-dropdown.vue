@@ -1,3 +1,12 @@
+<template>
+  <div
+    :class="[ns.b('dropdown'), ns.is('multiple', isMultiple), popperClass]"
+    :style="{ [isFitInputWidth ? 'width' : 'minWidth']: minWidth }"
+  >
+    <slot />
+  </div>
+</template>
+
 <script lang="ts">
 import { computed, defineComponent, inject, onMounted, ref } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
@@ -40,12 +49,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<template>
-  <div
-    :class="[ns.b('dropdown'), ns.is('multiple', isMultiple), popperClass]"
-    :style="{ [isFitInputWidth ? 'width' : 'minWidth']: minWidth }"
-  >
-    <slot />
-  </div>
-</template>

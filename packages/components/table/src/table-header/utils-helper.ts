@@ -1,32 +1,35 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { computed, inject } from 'vue'
 import { TABLE_INJECTION_KEY } from '../tokens'
 import type { TableColumnCtx } from '../table-column/defaults'
 import type { TableHeaderProps } from '.'
 
-function getAllColumns<T>(columns: TableColumnCtx<T>[]): TableColumnCtx<T>[] {
+const getAllColumns = <T>(
+  columns: TableColumnCtx<T>[]
+): TableColumnCtx<T>[] => {
   const result: TableColumnCtx<T>[] = []
   columns.forEach((column) => {
     if (column.children) {
       result.push(column)
       // eslint-disable-next-line prefer-spread
       result.push.apply(result, getAllColumns(column.children))
-    }
-    else {
+    } else {
       result.push(column)
     }
   })
   return result
 }
 
-function convertToRows<T>(originColumns: TableColumnCtx<T>[]): TableColumnCtx<T>[] {
+const convertToRows = <T>(
+  originColumns: TableColumnCtx<T>[]
+): TableColumnCtx<T>[] => {
   let maxLevel = 1
   const traverse = (column: TableColumnCtx<T>, parent: TableColumnCtx<T>) => {
     if (parent) {
       column.level = parent.level + 1
-      if (maxLevel < column.level)
+      if (maxLevel < column.level) {
         maxLevel = column.level
+      }
     }
     if (column.children) {
       let colSpan = 0
@@ -35,8 +38,7 @@ function convertToRows<T>(originColumns: TableColumnCtx<T>[]): TableColumnCtx<T>
         colSpan += subColumn.colSpan
       })
       column.colSpan = colSpan
-    }
-    else {
+    } else {
       column.colSpan = 1
     }
   }
@@ -47,18 +49,18 @@ function convertToRows<T>(originColumns: TableColumnCtx<T>[]): TableColumnCtx<T>
   })
 
   const rows = []
-  for (let i = 0; i < maxLevel; i++)
+  for (let i = 0; i < maxLevel; i++) {
     rows.push([])
+  }
 
   const allColumns: TableColumnCtx<T>[] = getAllColumns(originColumns)
 
   allColumns.forEach((column) => {
     if (!column.children) {
       column.rowSpan = maxLevel - column.level + 1
-    }
-    else {
+    } else {
       column.rowSpan = 1
-      column.children.forEach(col => (col.isSubColumn = true))
+      column.children.forEach((col) => (col.isSubColumn = true))
     }
     rows[column.level - 1].push(column)
   })
@@ -73,9 +75,9 @@ function useUtils<T>(props: TableHeaderProps<T>) {
   })
   const isGroup = computed(() => {
     const result = columnRows.value.length > 1
-    if (result && parent)
+    if (result && parent) {
       parent.state.isGroup.value = true
-
+    }
     return result
   })
   const toggleAllSelection = (event: Event) => {

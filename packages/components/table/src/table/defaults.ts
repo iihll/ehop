@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { useSizeProp } from '@ehop/hooks'
 import type {
@@ -24,6 +23,7 @@ interface TableRefs {
   fixedBodyWrapper: HTMLElement
   rightFixedBodyWrapper: HTMLElement
   bodyWrapper: HTMLElement
+  appendWrapper: HTMLElement
   [key: string]: any
 }
 
@@ -43,7 +43,7 @@ type HoverState<T> = Nullable<{
   row: T
 }>
 
-interface RIS<T> { row: T; $index: number; store: Store<T>; expanded: boolean }
+type RIS<T> = { row: T; $index: number; store: Store<T>; expanded: boolean }
 
 type RenderExpanded<T> = ({
   row,
@@ -75,19 +75,19 @@ type ColumnStyle<T> =
 type CellCls<T> =
   | string
   | ((data: {
-    row: T
-    rowIndex: number
-    column: TableColumnCtx<T>
-    columnIndex: number
-  }) => string)
+      row: T
+      rowIndex: number
+      column: TableColumnCtx<T>
+      columnIndex: number
+    }) => string)
 type CellStyle<T> =
   | CSSProperties
   | ((data: {
-    row: T
-    rowIndex: number
-    column: TableColumnCtx<T>
-    columnIndex: number
-  }) => CSSProperties)
+      row: T
+      rowIndex: number
+      column: TableColumnCtx<T>
+      columnIndex: number
+    }) => CSSProperties)
 type Layout = 'fixed' | 'auto'
 interface TableProps<T> {
   data: T[]
@@ -126,12 +126,12 @@ interface TableProps<T> {
     column: TableColumnCtx<T>
     columnIndex: number
   }) =>
-  | number[]
-  | {
-    rowspan: number
-    colspan: number
-  }
-  | undefined
+    | number[]
+    | {
+        rowspan: number
+        colspan: number
+      }
+    | undefined
   selectOnIndeterminate?: boolean
   indent?: number
   treeProps?: {
@@ -145,6 +145,7 @@ interface TableProps<T> {
   tableLayout?: Layout
   scrollbarAlwaysOn?: boolean
   flexible?: boolean
+  showOverflowTooltip?: boolean | TableOverflowTooltipOptions
 }
 
 interface Sort {
@@ -269,6 +270,9 @@ export default {
     default: false,
   },
   flexible: Boolean,
+  showOverflowTooltip: [Boolean, Object] as PropType<
+    TableProps<DefaultRow>['showOverflowTooltip']
+  >,
 }
 export type {
   SummaryMethod,

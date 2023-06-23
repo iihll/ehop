@@ -5,10 +5,10 @@ import {
   isArray,
   isBoolean,
   isString,
-} from '@ehop/utils'
+} from '@ehop
 
 import type { ExtractPropTypes } from 'vue'
-import type { FormItemProp } from '@ehop/components/form-item'
+import type { FormItemProp } from './form-item'
 import type { FormRules } from './types'
 
 const formMetaProps = buildProps({
@@ -96,10 +96,7 @@ export const formProps = buildProps({
   /**
    * @description Whether to hide required fields should have a red asterisk (star) beside their labels.
    */
-  hideRequiredAsterisk: {
-    type: Boolean,
-    default: false,
-  },
+  hideRequiredAsterisk: Boolean,
   /**
    * @description When validation fails, scroll to the first error form entry.
    */
@@ -116,8 +113,8 @@ export type FormMetaProps = ExtractPropTypes<typeof formMetaProps>
 
 export const formEmits = {
   validate: (prop: FormItemProp, isValid: boolean, message: string) =>
-    (isArray(prop) || isString(prop))
-    && isBoolean(isValid)
-    && isString(message),
+    (isArray(prop) || isString(prop)) &&
+    isBoolean(isValid) &&
+    isString(message),
 }
 export type FormEmits = typeof formEmits

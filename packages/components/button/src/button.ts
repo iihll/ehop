@@ -1,5 +1,5 @@
+import { buildProps, definePropType, iconPropType } from '@ehop'
 import { useSizeProp } from '@ehop/hooks'
-import { buildProps, definePropType, iconPropType } from '@ehop/utils'
 import { Loading } from '@ehop/icons-vue'
 import type { Component, ExtractPropTypes } from 'vue'
 

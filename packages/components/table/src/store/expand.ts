@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { getCurrentInstance, ref } from 'vue'
-import type { Ref } from 'vue'
 import { getKeysMap, getRowIdentity, toggleRowStatus } from '../util'
 
-import type { Table } from '../table/defaults'
+import type { Ref } from 'vue'
 import type { WatcherPropsData } from '.'
+import type { Table } from '../table/defaults'
 
 function useExpand<T>(watcherData: WatcherPropsData<T>) {
   const instance = getCurrentInstance() as Table<T>
@@ -16,28 +15,27 @@ function useExpand<T>(watcherData: WatcherPropsData<T>) {
     const rowKey = watcherData.rowKey.value
     if (defaultExpandAll.value) {
       expandRows.value = data.slice()
-    }
-    else if (rowKey) {
+    } else if (rowKey) {
       // TODO：这里的代码可以优化
       const expandRowsMap = getKeysMap(expandRows.value, rowKey)
       expandRows.value = data.reduce((prev: T[], row: T) => {
         const rowId = getRowIdentity(row, rowKey)
         const rowInfo = expandRowsMap[rowId]
-        if (rowInfo)
+        if (rowInfo) {
           prev.push(row)
-
+        }
         return prev
       }, [])
-    }
-    else {
+    } else {
       expandRows.value = []
     }
   }
 
   const toggleRowExpansion = (row: T, expanded?: boolean) => {
     const changed = toggleRowStatus(expandRows.value, row, expanded)
-    if (changed)
+    if (changed) {
       instance.emit('expand-change', row, expandRows.value.slice())
+    }
   }
 
   const setExpandRowKeys = (rowKeys: string[]) => {
@@ -48,9 +46,9 @@ function useExpand<T>(watcherData: WatcherPropsData<T>) {
     const keysMap = getKeysMap(data, rowKey)
     expandRows.value = rowKeys.reduce((prev: T[], cur: string) => {
       const info = keysMap[cur]
-      if (info)
+      if (info) {
         prev.push(info.row)
-
+      }
       return prev
     }, [])
   }

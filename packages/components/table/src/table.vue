@@ -1,4 +1,150 @@
+<template>
+  <div
+    ref="tableWrapper"
+    :class="[
+      {
+        [ns.m('fit')]: fit,
+        [ns.m('striped')]: stripe,
+        [ns.m('border')]: border || isGroup,
+        [ns.m('hidden')]: isHidden,
+        [ns.m('group')]: isGroup,
+        [ns.m('fluid-height')]: maxHeight,
+        [ns.m('scrollable-x')]: layout.scrollX.value,
+        [ns.m('scrollable-y')]: layout.scrollY.value,
+        [ns.m('enable-row-hover')]: !store.states.isComplex.value,
+        [ns.m('enable-row-transition')]:
+          (store.states.data.value || []).length !== 0 &&
+          (store.states.data.value || []).length < 100,
+        'has-footer': showSummary,
+      },
+      ns.m(tableSize),
+      className,
+      ns.b(),
+      ns.m(`layout-${tableLayout}`),
+    ]"
+    :style="style"
+    :data-prefix="ns.namespace.value"
+    @mouseleave="handleMouseLeave"
+  >
+    <div :class="ns.e('inner-wrapper')" :style="tableInnerStyle">
+      <div ref="hiddenColumns" class="hidden-columns">
+        <slot />
+      </div>
+      <div
+        v-if="showHeader && tableLayout === 'fixed'"
+        ref="headerWrapper"
+        v-mousewheel="handleHeaderFooterMousewheel"
+        :class="ns.e('header-wrapper')"
+      >
+        <table
+          ref="tableHeader"
+          :class="ns.e('header')"
+          :style="tableBodyStyles"
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+        >
+          <hColgroup
+            :columns="store.states.columns.value"
+            :table-layout="tableLayout"
+          />
+          <table-header
+            ref="tableHeaderRef"
+            :border="border"
+            :default-sort="defaultSort"
+            :store="store"
+            @set-drag-visible="setDragVisible"
+          />
+        </table>
+      </div>
+      <div ref="bodyWrapper" :class="ns.e('body-wrapper')">
+        <el-scrollbar
+          ref="scrollBarRef"
+          :view-style="scrollbarViewStyle"
+          :wrap-style="scrollbarStyle"
+          :always="scrollbarAlwaysOn"
+        >
+          <table
+            ref="tableBody"
+            :class="ns.e('body')"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            :style="{
+              width: bodyWidth,
+              tableLayout,
+            }"
+          >
+            <hColgroup
+              :columns="store.states.columns.value"
+              :table-layout="tableLayout"
+            />
+            <table-header
+              v-if="showHeader && tableLayout === 'auto'"
+              ref="tableHeaderRef"
+              :border="border"
+              :default-sort="defaultSort"
+              :store="store"
+              @set-drag-visible="setDragVisible"
+            />
+            <table-body
+              :context="context"
+              :highlight="highlightCurrentRow"
+              :row-class-name="rowClassName"
+              :tooltip-effect="tooltipEffect"
+              :tooltip-options="tooltipOptions"
+              :row-style="rowStyle"
+              :store="store"
+              :stripe="stripe"
+            />
+          </table>
+          <div
+            v-if="isEmpty"
+            ref="emptyBlock"
+            :style="emptyBlockStyle"
+            :class="ns.e('empty-block')"
+          >
+            <span :class="ns.e('empty-text')">
+              <slot name="empty">{{ computedEmptyText }}</slot>
+            </span>
+          </div>
+          <div
+            v-if="$slots.append"
+            ref="appendWrapper"
+            :class="ns.e('append-wrapper')"
+          >
+            <slot name="append" />
+          </div>
+        </el-scrollbar>
+      </div>
+      <div
+        v-if="showSummary"
+        v-show="!isEmpty"
+        ref="footerWrapper"
+        v-mousewheel="handleHeaderFooterMousewheel"
+        :class="ns.e('footer-wrapper')"
+      >
+        <table-footer
+          :border="border"
+          :default-sort="defaultSort"
+          :store="store"
+          :style="tableBodyStyles"
+          :sum-text="computedSumText"
+          :summary-method="summaryMethod"
+        />
+      </div>
+      <div v-if="border || isGroup" :class="ns.e('border-left-patch')" />
+    </div>
+    <div
+      v-show="resizeProxyVisible"
+      ref="resizeProxy"
+      :class="ns.e('column-resize-proxy')"
+    />
+  </div>
+</template>
+
 <script lang="ts">
+// @ts-nocheck
 import { computed, defineComponent, getCurrentInstance, provide } from 'vue'
 import { debounce } from 'lodash-unified'
 import { Mousewheel } from '@ehop/directives'
@@ -16,8 +162,8 @@ import defaultProps from './table/defaults'
 import { TABLE_INJECTION_KEY } from './tokens'
 import { hColgroup } from './h-helper'
 import { useScrollbar } from './composables/use-scrollbar'
+
 import type { Table } from './table/defaults'
-import '../style'
 
 let tableIdSeed = 1
 export default defineComponent({
@@ -30,7 +176,7 @@ export default defineComponent({
     TableBody,
     TableFooter,
     EhScrollbar,
-    HColgroup: hColgroup,
+    hColgroup,
   },
   props: defaultProps,
   emits: [
@@ -106,8 +252,8 @@ export default defineComponent({
       scrollbarStyle,
     } = useStyle<Row>(props, layout, store, table)
 
-    const { scrollBarRef, scrollTo, setScrollLeft, setScrollTop }
-      = useScrollbar()
+    const { scrollBarRef, scrollTo, setScrollLeft, setScrollTop } =
+      useScrollbar()
 
     const debouncedUpdateLayout = debounce(doLayout, 50)
 
@@ -120,7 +266,7 @@ export default defineComponent({
       debouncedUpdateLayout,
     }
     const computedSumText = computed(
-      () => props.sumText || t('eh.table.sumText'),
+      () => props.sumText || t('eh.table.sumText')
     )
 
     const computedEmptyText = computed(() => {
@@ -175,138 +321,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<template>
-  <div
-    :class="[
-      {
-        [ns.m('fit')]: fit,
-        [ns.m('striped')]: stripe,
-        [ns.m('border')]: border || isGroup,
-        [ns.m('hidden')]: isHidden,
-        [ns.m('group')]: isGroup,
-        [ns.m('fluid-height')]: maxHeight,
-        [ns.m('scrollable-x')]: layout.scrollX.value,
-        [ns.m('scrollable-y')]: layout.scrollY.value,
-        [ns.m('enable-row-hover')]: !store.states.isComplex.value,
-        [ns.m('enable-row-transition')]:
-          (store.states.data.value || []).length !== 0
-          && (store.states.data.value || []).length < 100,
-        'has-footer': showSummary,
-      },
-      ns.m(tableSize),
-      className,
-      ns.b(),
-      ns.m(`layout-${tableLayout}`),
-    ]"
-    :style="style"
-    :data-prefix="ns.namespace.value"
-    @mouseleave="handleMouseLeave"
-  >
-    <div :class="ns.e('inner-wrapper')" :style="tableInnerStyle">
-      <div class="hidden-columns">
-        <slot />
-      </div>
-      <div
-        v-if="showHeader && tableLayout === 'fixed'"
-        v-mousewheel="handleHeaderFooterMousewheel"
-        :class="ns.e('header-wrapper')"
-      >
-        <table
-          :class="ns.e('header')"
-          :style="tableBodyStyles"
-          border="0"
-          cellpadding="0"
-          cellspacing="0"
-        >
-          <HColgroup
-            :columns="store.states.columns.value"
-            :table-layout="tableLayout"
-          />
-          <TableHeader
-            :border="border"
-            :default-sort="defaultSort"
-            :store="store"
-            @set-drag-visible="setDragVisible"
-          />
-        </table>
-      </div>
-      <div :class="ns.e('body-wrapper')">
-        <EhScrollbar
-          ref="scrollBarRef"
-          :view-style="scrollbarViewStyle"
-          :wrap-style="scrollbarStyle"
-          :always="scrollbarAlwaysOn"
-        >
-          <table
-            :class="ns.e('body')"
-            cellspacing="0"
-            cellpadding="0"
-            border="0"
-            :style="{
-              width: bodyWidth,
-              tableLayout,
-            }"
-          >
-            <HColgroup
-              :columns="store.states.columns.value"
-              :table-layout="tableLayout"
-            />
-            <TableHeader
-              v-if="showHeader && tableLayout === 'auto'"
-              :border="border"
-              :default-sort="defaultSort"
-              :store="store"
-              @set-drag-visible="setDragVisible"
-            />
-            <TableBody
-              :context="context"
-              :highlight="highlightCurrentRow"
-              :row-class-name="rowClassName"
-              :tooltip-effect="tooltipEffect"
-              :tooltip-options="tooltipOptions"
-              :row-style="rowStyle"
-              :store="store"
-              :stripe="stripe"
-            />
-          </table>
-          <div
-            v-if="isEmpty"
-            :style="emptyBlockStyle"
-            :class="ns.e('empty-block')"
-          >
-            <span :class="ns.e('empty-text')">
-              <slot name="empty">{{ computedEmptyText }}</slot>
-            </span>
-          </div>
-          <div
-            v-if="$slots.append"
-            :class="ns.e('append-wrapper')"
-          >
-            <slot name="append" />
-          </div>
-        </EhScrollbar>
-      </div>
-      <div
-        v-if="showSummary"
-        v-show="!isEmpty"
-        v-mousewheel="handleHeaderFooterMousewheel"
-        :class="ns.e('footer-wrapper')"
-      >
-        <TableFooter
-          :border="border"
-          :default-sort="defaultSort"
-          :store="store"
-          :style="tableBodyStyles"
-          :sum-text="computedSumText"
-          :summary-method="summaryMethod"
-        />
-      </div>
-      <div v-if="border || isGroup" :class="ns.e('border-left-patch')" />
-    </div>
-    <div
-      v-show="resizeProxyVisible"
-      :class="ns.e('column-resize-proxy')"
-    />
-  </div>
-</template>

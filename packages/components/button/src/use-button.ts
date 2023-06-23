@@ -6,21 +6,24 @@ import {
 } from '@ehop/components/form'
 import { useGlobalConfig } from '@ehop/components/config-provider'
 import { useDeprecated } from '@ehop/hooks'
-import type { SetupContext } from 'vue'
 import { buttonGroupContextKey } from './constants'
 
+import type { SetupContext } from 'vue'
 import type { ButtonEmits, ButtonProps } from './button'
 
-export function useButton(props: ButtonProps, emit: SetupContext<ButtonEmits>['emit']) {
+export const useButton = (
+  props: ButtonProps,
+  emit: SetupContext<ButtonEmits>['emit']
+) => {
   useDeprecated(
     {
       from: 'type.text',
       replacement: 'link',
       version: '3.0.0',
       scope: 'props',
-      ref: 'https://element-plus.org/en-US/component/button.html#button-attributes',
+      ref: 'https://ehop.org/en-US/component/button.html#button-attributes',
     },
-    computed(() => props.type === 'text'),
+    computed(() => props.type === 'text')
   )
 
   const buttonGroupContext = inject(buttonGroupContextKey, undefined)
@@ -33,7 +36,7 @@ export function useButton(props: ButtonProps, emit: SetupContext<ButtonEmits>['e
 
   const _type = computed(() => props.type || buttonGroupContext?.type || '')
   const autoInsertSpace = computed(
-    () => props.autoInsertSpace ?? globalConfig.value?.autoInsertSpace ?? false,
+    () => props.autoInsertSpace ?? globalConfig.value?.autoInsertSpace ?? false
   )
 
   const _props = computed(() => {
@@ -62,9 +65,9 @@ export function useButton(props: ButtonProps, emit: SetupContext<ButtonEmits>['e
   })
 
   const handleClick = (evt: MouseEvent) => {
-    if (props.nativeType === 'reset')
+    if (props.nativeType === 'reset') {
       form?.resetFields()
-
+    }
     emit('click', evt)
   }
 

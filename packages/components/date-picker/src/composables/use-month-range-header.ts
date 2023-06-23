@@ -3,7 +3,7 @@ import { useLocale } from '@ehop/hooks'
 import type { Ref, ToRef } from 'vue'
 import type { Dayjs } from 'dayjs'
 
-export function useMonthRangeHeader({
+export const useMonthRangeHeader = ({
   unlinkPanels,
   leftDate,
   rightDate,
@@ -11,18 +11,19 @@ export function useMonthRangeHeader({
   unlinkPanels: ToRef<boolean>
   leftDate: Ref<Dayjs>
   rightDate: Ref<Dayjs>
-}) {
+}) => {
   const { t } = useLocale()
   const leftPrevYear = () => {
     leftDate.value = leftDate.value.subtract(1, 'year')
-    if (!unlinkPanels.value)
+    if (!unlinkPanels.value) {
       rightDate.value = rightDate.value.subtract(1, 'year')
+    }
   }
 
   const rightNextYear = () => {
-    if (!unlinkPanels.value)
+    if (!unlinkPanels.value) {
       leftDate.value = leftDate.value.add(1, 'year')
-
+    }
     rightDate.value = rightDate.value.add(1, 'year')
   }
 

@@ -5,7 +5,7 @@ import { checkboxGroupContextKey } from '../constants'
 
 import type { CheckboxProps } from '../checkbox'
 
-export function useCheckboxModel(props: CheckboxProps) {
+export const useCheckboxModel = (props: CheckboxProps) => {
   const selfModel = ref<unknown>(false)
   const { emit } = getCurrentInstance()!
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
@@ -20,12 +20,11 @@ export function useCheckboxModel(props: CheckboxProps) {
 
     set(val: unknown) {
       if (isGroup.value && isArray(val)) {
-        isLimitExceeded.value
-          = checkboxGroup?.max?.value !== undefined
-          && val.length > checkboxGroup?.max.value
+        isLimitExceeded.value =
+          checkboxGroup?.max?.value !== undefined &&
+          val.length > checkboxGroup?.max.value
         isLimitExceeded.value === false && checkboxGroup?.changeEvent?.(val)
-      }
-      else {
+      } else {
         emit(UPDATE_MODEL_EVENT, val)
         selfModel.value = val
       }

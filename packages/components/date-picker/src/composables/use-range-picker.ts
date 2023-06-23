@@ -1,16 +1,16 @@
 import { getCurrentInstance, inject, ref, unref, watch } from 'vue'
 import { isArray } from '@ehop/utils'
 import { useLocale, useNamespace } from '@ehop/hooks'
+import { getDefaultValue, isValidRange } from '../utils'
+import { ROOT_PICKER_INJECTION_KEY } from '../constants'
+import { useShortcut } from './use-shortcut'
 
 import type { Ref } from 'vue'
 import type { Dayjs } from 'dayjs'
-import { ROOT_PICKER_INJECTION_KEY } from '../constants'
-import { getDefaultValue, isValidRange } from '../utils'
 import type { PanelRangeSharedProps, RangeState } from '../props/shared'
 import type { DefaultValue } from '../utils'
-import { useShortcut } from './use-shortcut'
 
-interface UseRangePickerProps {
+type UseRangePickerProps = {
   onParsedValueChanged: (
     minDate: Dayjs | undefined,
     maxDate: Dayjs | undefined
@@ -21,7 +21,8 @@ interface UseRangePickerProps {
   unit: 'month' | 'year'
 }
 
-export function useRangePicker(props: PanelRangeSharedProps,
+export const useRangePicker = (
+  props: PanelRangeSharedProps,
   {
     defaultValue,
     leftDate,
@@ -29,7 +30,8 @@ export function useRangePicker(props: PanelRangeSharedProps,
     unit,
 
     onParsedValueChanged,
-  }: UseRangePickerProps) {
+  }: UseRangePickerProps
+) => {
   const { emit } = getCurrentInstance()!
 
   const { pickerNs } = inject(ROOT_PICKER_INJECTION_KEY)!
@@ -51,14 +53,16 @@ export function useRangePicker(props: PanelRangeSharedProps,
     const _minDate = unref(minDate)
     const _maxDate = unref(maxDate)
 
-    if (isValidRange([_minDate, _maxDate]))
+    if (isValidRange([_minDate, _maxDate])) {
       emit('pick', [_minDate, _maxDate], visible)
+    }
   }
 
   const onSelect = (selecting: boolean) => {
     rangeState.value.selecting = selecting
-    if (!selecting)
+    if (!selecting) {
       rangeState.value.endDate = null
+    }
   }
 
   const restoreDefault = () => {
@@ -76,10 +80,11 @@ export function useRangePicker(props: PanelRangeSharedProps,
   watch(
     defaultValue,
     (val) => {
-      if (val)
+      if (val) {
         restoreDefault()
+      }
     },
-    { immediate: true },
+    { immediate: true }
   )
 
   watch(
@@ -91,12 +96,11 @@ export function useRangePicker(props: PanelRangeSharedProps,
         leftDate.value = start
         maxDate.value = end
         onParsedValueChanged(unref(minDate), unref(maxDate))
-      }
-      else {
+      } else {
         restoreDefault()
       }
     },
-    { immediate: true },
+    { immediate: true }
   )
 
   return {

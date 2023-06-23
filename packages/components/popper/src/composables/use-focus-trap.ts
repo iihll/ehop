@@ -3,8 +3,10 @@ import { ref } from 'vue'
 import type { SetupContext } from 'vue'
 import type { PopperContentEmits, PopperContentProps } from '../content'
 
-export function usePopperContentFocusTrap(props: PopperContentProps,
-  emit: SetupContext<PopperContentEmits>['emit']) {
+export const usePopperContentFocusTrap = (
+  props: PopperContentProps,
+  emit: SetupContext<PopperContentEmits>['emit']
+) => {
   const trapped = ref(false)
   const focusStartRef = ref<'container' | 'first' | HTMLElement>()
 
@@ -21,18 +23,18 @@ export function usePopperContentFocusTrap(props: PopperContentProps,
 
   const onFocusInTrap = (event: FocusEvent) => {
     if (props.visible && !trapped.value) {
-      if (event.target)
+      if (event.target) {
         focusStartRef.value = event.target as typeof focusStartRef.value
-
+      }
       trapped.value = true
     }
   }
 
   const onFocusoutPrevented = (event: CustomEvent) => {
     if (!props.trapping) {
-      if (event.detail.focusReason === 'pointer')
+      if (event.detail.focusReason === 'pointer') {
         event.preventDefault()
-
+      }
       trapped.value = false
     }
   }

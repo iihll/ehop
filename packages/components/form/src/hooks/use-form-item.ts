@@ -8,12 +8,12 @@ import {
   watch,
 } from 'vue'
 import { useId } from '@ehop/hooks'
-import type { ComputedRef, Ref, WatchStopHandle } from 'vue'
 import { formContextKey, formItemContextKey } from '../constants'
 
+import type { ComputedRef, Ref, WatchStopHandle } from 'vue'
 import type { FormItemContext } from '../types'
 
-export function useFormItem() {
+export const useFormItem = () => {
   const form = inject(formContextKey, undefined)
   const formItem = inject(formItemContextKey, undefined)
   return {
@@ -22,12 +22,13 @@ export function useFormItem() {
   }
 }
 
-export interface IUseFormItemInputCommonProps {
+export type IUseFormItemInputCommonProps = {
   id?: string
   label?: string | number | boolean | Record<string, any>
 }
 
-export function useFormItemInputId(props: Partial<IUseFormItemInputCommonProps>,
+export const useFormItemInputId = (
+  props: Partial<IUseFormItemInputCommonProps>,
   {
     formItemContext,
     disableIdGeneration,
@@ -36,22 +37,24 @@ export function useFormItemInputId(props: Partial<IUseFormItemInputCommonProps>,
     formItemContext?: FormItemContext
     disableIdGeneration?: ComputedRef<boolean> | Ref<boolean>
     disableIdManagement?: ComputedRef<boolean> | Ref<boolean>
-  }) {
-  if (!disableIdGeneration)
+  }
+) => {
+  if (!disableIdGeneration) {
     disableIdGeneration = ref<boolean>(false)
-
-  if (!disableIdManagement)
+  }
+  if (!disableIdManagement) {
     disableIdManagement = ref<boolean>(false)
+  }
 
   const inputId = ref<string>()
-  let idUnwatch: WatchStopHandle | undefined
+  let idUnwatch: WatchStopHandle | undefined = undefined
 
   const isLabeledByFormItem = computed<boolean>(() => {
     return !!(
-      !props.label
-      && formItemContext
-      && formItemContext.inputIds
-      && formItemContext.inputIds?.length <= 1
+      !props.label &&
+      formItemContext &&
+      formItemContext.inputIds &&
+      formItemContext.inputIds?.length <= 1
     )
   })
 
@@ -64,20 +67,22 @@ export function useFormItemInputId(props: Partial<IUseFormItemInputCommonProps>,
         if (newId !== inputId.value) {
           if (formItemContext?.removeInputId) {
             inputId.value && formItemContext.removeInputId(inputId.value)
-            if (!disableIdManagement?.value && !disableIdGeneration && newId)
-              formItemContext.addInputId?.(newId)
+            if (!disableIdManagement?.value && !disableIdGeneration && newId) {
+              formItemContext.addInputId(newId)
+            }
           }
           inputId.value = newId
         }
       },
-      { immediate: true },
+      { immediate: true }
     )
   })
 
   onUnmounted(() => {
     idUnwatch && idUnwatch()
-    if (formItemContext?.removeInputId)
+    if (formItemContext?.removeInputId) {
       inputId.value && formItemContext.removeInputId(inputId.value)
+    }
   })
 
   return {

@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import type { ComponentInternalInstance, PropType, Ref, VNode } from 'vue'
 import type { DefaultRow, Table } from '../table/defaults'
 import type { TableOverflowTooltipOptions } from '../util'
 
-export interface CI<T> { column: TableColumnCtx<T>; $index: number }
+type CI<T> = { column: TableColumnCtx<T>; $index: number }
 
 type Filters = {
   text: string
@@ -139,7 +138,7 @@ export default {
     },
     validator: (val: TableColumnCtx<unknown>['sortOrders']) => {
       return val.every((order: string) =>
-        ['ascending', 'descending', null].includes(order),
+        ['ascending', 'descending', null].includes(order)
       )
     },
   },

@@ -1,7 +1,7 @@
 import { buildProps } from '@ehop/utils'
 import { useSizeProp } from '@ehop/hooks'
-import type { ExtractPropTypes } from '@vue/runtime-core'
 import { radioEmits } from './radio'
+import type { ExtractPropTypes } from '@vue/runtime-core'
 import type RadioGroup from './radio-group.vue'
 
 export const radioGroupProps = buildProps({
