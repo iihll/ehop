@@ -1,18 +1,13 @@
 <template>
-  <el-scrollbar ref="scrollbarRef" height="400px" always @scroll="scroll">
+  <eh-scrollbar ref="scrollbarRef" height="400px" always @scroll="scroll">
     <div ref="innerRef">
       <p v-for="item in 20" :key="item" class="scrollbar-demo-item">
         {{ item }}
       </p>
     </div>
-  </el-scrollbar>
+  </eh-scrollbar>
 
-  <el-slider
-    v-model="value"
-    :max="max"
-    :format-tooltip="formatTooltip"
-    @input="inputSlider"
-  />
+  <eh-slider v-model="value" :max="max" :format-tooltip="formatTooltip" @input="inputSlider" />
 </template>
 
 <script lang="ts" setup>

@@ -59,9 +59,8 @@ export default defineComponent({
     } = useRender(props as unknown as TableColumnCtx<unknown>, slots, owner)
 
     const parent = columnOrTableParent.value
-    columnId.value = `${
-      parent.tableId || parent.columnId
-    }_column_${columnIdSeed++}`
+    columnId.value = `${parent.tableId || parent.columnId
+      }_column_${columnIdSeed++}`
     onBeforeMount(() => {
       isSubColumn.value = owner.value !== parent
 
@@ -88,7 +87,7 @@ export default defineComponent({
         sortable,
         // index 列
         index: props.index,
-        // <el-table-column key="xxx" />
+        // <eh-table-column key="xxx" />
         rawColumnKey: instance.vnode.key,
       }
 

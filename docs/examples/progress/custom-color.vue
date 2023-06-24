@@ -1,16 +1,16 @@
 <template>
   <div class="demo-progress">
-    <el-progress :percentage="percentage" :color="customColor" />
+    <eh-progress :percentage="percentage" :color="customColor" />
 
-    <el-progress :percentage="percentage" :color="customColorMethod" />
+    <eh-progress :percentage="percentage" :color="customColorMethod" />
 
-    <el-progress :percentage="percentage" :color="customColors" />
-    <el-progress :percentage="percentage" :color="customColors" />
+    <eh-progress :percentage="percentage" :color="customColors" />
+    <eh-progress :percentage="percentage" :color="customColors" />
     <div>
-      <el-button-group>
-        <el-button :icon="Minus" @click="decrease" />
-        <el-button :icon="Plus" @click="increase" />
-      </el-button-group>
+      <eh-button-group>
+        <eh-button :icon="Minus" @click="decrease" />
+        <eh-button :icon="Plus" @click="increase" />
+      </eh-button-group>
     </div>
   </div>
 </template>

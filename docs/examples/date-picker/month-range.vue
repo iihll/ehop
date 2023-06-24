@@ -2,25 +2,13 @@
   <div class="demo-date-picker">
     <div class="block">
       <span class="demonstration">Default</span>
-      <el-date-picker
-        v-model="value1"
-        type="monthrange"
-        range-separator="To"
-        start-placeholder="Start month"
-        end-placeholder="End month"
-      />
+      <eh-date-picker v-model="value1" type="monthrange" range-separator="To" start-placeholder="Start month"
+        end-placeholder="End month" />
     </div>
     <div class="block">
       <span class="demonstration">With quick options</span>
-      <el-date-picker
-        v-model="value2"
-        type="monthrange"
-        unlink-panels
-        range-separator="To"
-        start-placeholder="Start month"
-        end-placeholder="End month"
-        :shortcuts="shortcuts"
-      />
+      <eh-date-picker v-model="value2" type="monthrange" unlink-panels range-separator="To"
+        start-placeholder="Start month" end-placeholder="End month" :shortcuts="shortcuts" />
     </div>
   </div>
 </template>

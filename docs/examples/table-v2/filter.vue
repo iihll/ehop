@@ -1,11 +1,5 @@
 <template>
-  <el-table-v2
-    fixed
-    :columns="fixedColumns"
-    :data="data"
-    :width="700"
-    :height="400"
-  />
+  <eh-table-v2 fixed :columns="fixedColumns" :data="data" :width="700" :height="400" />
 </template>
 <script lang="tsx" setup>
 import { ref } from 'vue'

@@ -1,5 +1,5 @@
 import { componentSizes, datePickTypes } from '@ehop/constants'
-import type { ComponentSize, DatePickType } from '@ehopts'
+import type { ComponentSize, DatePickType } from '@ehop/constants'
 
 export const isValidComponentSize = (val: string): val is ComponentSize | '' =>
   ['', ...componentSizes].includes(val)

@@ -22,13 +22,13 @@ class SubMenu {
     } else if (idx < 0) {
       idx = this.subMenuItems.length - 1
     }
-    ;(this.subMenuItems[idx] as HTMLElement).focus()
+     (this.subMenuItems[idx] as HTMLElement).focus()
     this.subIndex = idx
   }
 
   addListeners(): void {
     const parentNode = this.parent.domNode
-    Array.prototype.forEach.call(this.subMenuItems, (el: Ehement) => {
+    Array.prototype.forEach.call(this.subMenuItems, (el: Element) => {
       el.addEventListener('keydown', (event: KeyboardEvent) => {
         let prevDef = false
         switch (event.code) {
@@ -49,7 +49,7 @@ class SubMenu {
           case EVENT_CODE.enter:
           case EVENT_CODE.space: {
             prevDef = true
-            ;(event.currentTarget as HTMLElement).click()
+              ; (event.currentTarget as HTMLElement).click()
             break
           }
         }

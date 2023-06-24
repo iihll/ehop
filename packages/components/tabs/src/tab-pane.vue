@@ -1,13 +1,6 @@
 <template>
-  <div
-    v-if="shouldBeRender"
-    v-show="active"
-    :id="`pane-${paneName}`"
-    :class="ns.b()"
-    role="tabpanel"
-    :aria-hidden="!active"
-    :aria-labelledby="`tab-${paneName}`"
-  >
+  <div v-if="shouldBeRender" v-show="active" :id="`pane-${paneName}`" :class="ns.b()" role="tabpanel"
+    :aria-hidden="!active" :aria-labelledby="`tab-${paneName}`">
     <slot />
   </div>
 </template>
@@ -41,7 +34,7 @@ const slots = useSlots()
 
 const tabsRoot = inject(tabsRootContextKey)
 if (!tabsRoot)
-  throwError(COMPONENT_NAME, 'usage: <el-tabs><el-tab-pane /></el-tabs/>')
+  throwError(COMPONENT_NAME, 'usage: <eh-tabs><eh-tab-pane /></eh-tabs/>')
 
 const ns = useNamespace('tab-pane')
 

@@ -1,25 +1,17 @@
 <template>
-  <el-row :gutter="12" class="demo-radius">
-    <el-col
-      v-for="(radius, i) in radiusGroup"
-      :key="i"
-      :span="6"
-      :xs="{ span: 12 }"
-    >
+  <eh-row :gutter="12" class="demo-radius">
+    <eh-col v-for="(radius, i) in radiusGroup" :key="i" :span="6" :xs="{ span: 12 }">
       <div class="title">{{ radius.name }}</div>
       <div class="value">
         <code>border-radius: {{ getValue(radius.type) || '0px' }}</code>
       </div>
-      <div
-        class="radius"
-        :style="{
-          borderRadius: radius.type
-            ? `var(--eh-border-radius-${radius.type})`
-            : '',
-        }"
-      />
-    </el-col>
-  </el-row>
+      <div class="radius" :style="{
+        borderRadius: radius.type
+          ? `var(--eh-border-radius-${radius.type})`
+          : '',
+      }" />
+    </eh-col>
+  </eh-row>
 </template>
 
 <script lang="ts" setup>

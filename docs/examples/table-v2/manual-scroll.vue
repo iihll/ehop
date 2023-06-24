@@ -1,29 +1,22 @@
 <template>
   <div class="mb-4 flex items-center">
-    <el-form-item label="Scroll pixels" class="mr-4">
-      <el-input v-model="scrollDelta" />
-    </el-form-item>
-    <el-form-item label="Scroll rows">
-      <el-input v-model="scrollRows" />
-    </el-form-item>
+    <eh-form-item label="Scroll pixels" class="mr-4">
+      <eh-input v-model="scrollDelta" />
+    </eh-form-item>
+    <eh-form-item label="Scroll rows">
+      <eh-input v-model="scrollRows" />
+    </eh-form-item>
   </div>
   <div class="mb-4 flex items-center">
-    <el-button @click="scrollByPixels"> Scroll by pixels </el-button>
-    <el-button @click="scrollByRows"> Scroll by rows </el-button>
+    <eh-button @click="scrollByPixels"> Scroll by pixels </eh-button>
+    <eh-button @click="scrollByRows"> Scroll by rows </eh-button>
   </div>
   <div style="height: 400px">
-    <el-auto-resizer>
+    <eh-auto-resizer>
       <template #default="{ height, width }">
-        <el-table-v2
-          ref="tableRef"
-          :columns="columns"
-          :data="data"
-          :width="width"
-          :height="height"
-          fixed
-        />
+        <eh-table-v2 ref="tableRef" :columns="columns" :data="data" :width="width" :height="height" fixed />
       </template>
-    </el-auto-resizer>
+    </eh-auto-resizer>
   </div>
 </template>
 

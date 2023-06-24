@@ -1,23 +1,33 @@
 <template>
-  <div :ref="composedDialogRef" :class="[
-    ns.b(),
-    ns.is('fullscreen', fullscreen),
-    ns.is('draggable', draggable),
-    ns.is('align-center', alignCenter),
-    { [ns.m('center')]: center },
-    customClass,
-  ]" :style="style" tabindex="-1">
+  <div
+    :ref="composedDialogRef"
+    :class="[
+      ns.b(),
+      ns.is('fullscreen', fullscreen),
+      ns.is('draggable', draggable),
+      ns.is('align-center', alignCenter),
+      { [ns.m('center')]: center },
+      customClass,
+    ]"
+    :style="style"
+    tabindex="-1"
+  >
     <header ref="headerRef" :class="ns.e('header')">
       <slot name="header">
         <span role="heading" :class="ns.e('title')">
           {{ title }}
         </span>
       </slot>
-      <button v-if="showClose" :aria-label="t('eh.dialog.close')" :class="ns.e('headerbtn')" type="button"
-        @click="$emit('close')">
-        <el-icon :class="ns.e('close')">
+      <button
+        v-if="showClose"
+        :aria-label="t('eh.dialog.close')"
+        :class="ns.e('headerbtn')"
+        type="button"
+        @click="$emit('close')"
+      >
+        <eh-icon :class="ns.e('close')">
           <component :is="closeIcon || Close" />
-        </el-icon>
+        </eh-icon>
       </button>
     </header>
     <div :id="bodyId" :class="ns.e('body')">
@@ -32,9 +42,9 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
 import { EhIcon } from '@ehop/components/icon'
-import { FOCUS_TRAP_INJECTION_KEY } from '@ehopnts/focus-trap'
-import { useDraggable, useLocale } from '@ehop
-import { CloseComponents, composeRefs } from '@ehop
+import { FOCUS_TRAP_INJECTION_KEY } from '@ehop/components/focus-trap'
+import { useDraggable, useLocale } from '@ehop/hooks'
+import { CloseComponents, composeRefs } from '@ehop/utils'
 import { dialogInjectionKey } from './constants'
 import { dialogContentEmits, dialogContentProps } from './dialog-content'
 

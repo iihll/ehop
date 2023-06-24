@@ -1,9 +1,9 @@
 <template>
   <div style="height: 300px">
-    <el-steps direction="vertical" :active="1">
-      <el-step title="Step 1" />
-      <el-step title="Step 2" />
-      <el-step title="Step 3" />
-    </el-steps>
+    <eh-steps direction="vertical" :active="1">
+      <eh-step title="Step 1" />
+      <eh-step title="Step 2" />
+      <eh-step title="Step 3" />
+    </eh-steps>
   </div>
 </template>

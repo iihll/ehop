@@ -1,9 +1,9 @@
 <template>
-  <el-focus-group-collection>
-    <el-roving-focus-group-impl v-bind="$attrs">
+  <eh-focus-group-collection>
+    <eh-roving-focus-group-impl v-bind="$attrs">
       <slot />
-    </el-roving-focus-group-impl>
-  </el-focus-group-collection>
+    </eh-roving-focus-group-impl>k
+  </eh-focus-group-collection>
 </template>
 
 <script lang="ts">

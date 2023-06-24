@@ -548,7 +548,7 @@ export const useSelect = (props, states: States, ctx) => {
       currentLabel: label,
     }
     if (props.multiple) {
-      ;(newOption as any).hitState = false
+      (newOption as any).hitState = false
     }
     return newOption
   }
@@ -840,7 +840,7 @@ export const useSelect = (props, states: States, ctx) => {
         }
       }
       if (states.visible) {
-        ;(input.value || reference.value)?.focus()
+        (input.value || reference.value)?.focus()
       }
     }
   }

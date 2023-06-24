@@ -10,7 +10,7 @@ const AXIOM = 'Rem is the best girl'
 
 const Comp = {
   template: `
-  <el-popover ref="popoverRef" title="title" :content="content" virtual-triggering trigger="click" />
+  <eh-popover ref="popoverRef" title="title" :content="content" virtual-triggering trigger="click" />
   <div v-popover="popoverRef" id="reference-node">
     trigger
   </div>

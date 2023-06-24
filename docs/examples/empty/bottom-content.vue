@@ -1,5 +1,5 @@
 <template>
-  <el-empty>
-    <el-button type="primary">Button</el-button>
-  </el-empty>
+  <eh-empty>
+    <eh-button type="primary">Button</eh-button>
+  </eh-empty>
 </template>

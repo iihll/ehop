@@ -1,18 +1,11 @@
 <template>
   <div class="example-block" style="margin: 1rem">
-    <span class="example-demonstration" style="margin: 1rem"
-      >Child options expand when clicked (default)</span
-    >
-    <el-cascader v-model="value" :options="options" @change="handleChange" />
+    <span class="example-demonstration" style="margin: 1rem">Child options expand when clicked (default)</span>
+    <eh-cascader v-model="value" :options="options" @change="handleChange" />
   </div>
   <div class="example-block">
     <span class="example-demonstration">Child options expand when hovered</span>
-    <el-cascader
-      v-model="value"
-      :options="options"
-      :props="props"
-      @change="handleChange"
-    />
+    <eh-cascader v-model="value" :options="options" :props="props" @change="handleChange" />
   </div>
 </template>
 

@@ -7,14 +7,14 @@
 <script lang="ts" setup>
 import { computed, provide, reactive, toRefs, watch } from 'vue'
 import { debugWarn, isFunction } from '@ehop/utils'
-import { useNamespace } from '@ehop
+import { useNamespace } from '@ehop/hooks'
 import { useFormSize } from './hooks'
 import { formContextKey } from './constants'
 import { formEmits, formProps } from './form'
 import { filterFields, useFormLabelWidth } from './utils'
 
 import type { ValidateFieldsError } from 'async-validator'
-import type { Arrayable } from '@ehop
+import type { Arrayable } from '@ehop/utils'
 import type {
   FormContext,
   FormItemContext,

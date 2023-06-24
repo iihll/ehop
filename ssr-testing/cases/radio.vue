@@ -1,23 +1,19 @@
 <template>
   <div>
-    <el-radio v-model="radio1" label="1" size="large">Option 1</el-radio>
-    <el-radio v-model="radio1" label="2" size="large">Option 2</el-radio>
+    <eh-radio v-model="radio1" label="1" size="large">Option 1</eh-radio>
+    <eh-radio v-model="radio1" label="2" size="large">Option 2</eh-radio>
   </div>
   <div>
-    <el-radio v-model="radio2" label="1">Option 1</el-radio>
-    <el-radio v-model="radio2" label="2">Option 2</el-radio>
+    <eh-radio v-model="radio2" label="1">Option 1</eh-radio>
+    <eh-radio v-model="radio2" label="2">Option 2</eh-radio>
   </div>
   <div>
-    <el-radio v-model="radio3" label="1" size="small">Option 1</el-radio>
-    <el-radio v-model="radio3" label="2" size="small">Option 2</el-radio>
+    <eh-radio v-model="radio3" label="1" size="small">Option 1</eh-radio>
+    <eh-radio v-model="radio3" label="2" size="small">Option 2</eh-radio>
   </div>
   <div>
-    <el-radio v-model="radio3" label="1" size="small" disabled
-      >Option 1</el-radio
-    >
-    <el-radio v-model="radio3" label="2" size="small" disabled
-      >Option 2</el-radio
-    >
+    <eh-radio v-model="radio3" label="1" size="small" disabled>Option 1</eh-radio>
+    <eh-radio v-model="radio3" label="2" size="small" disabled>Option 2</eh-radio>
   </div>
 </template>
 

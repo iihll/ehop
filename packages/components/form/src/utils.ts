@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { debugWarn, ensureArray } from '@ehop/utils'
-import type { Arrayable } from '@ehop
+import type { Arrayable } from '@ehop/utils'
 import type { FormItemContext } from './types'
 import type { FormItemProp } from './form-item'
 

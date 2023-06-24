@@ -1,20 +1,9 @@
 <template>
-  <el-tabs
-    v-model="editableTabsValue"
-    type="card"
-    editable
-    class="demo-tabs"
-    @edit="handleTabsEdit"
-  >
-    <el-tab-pane
-      v-for="item in editableTabs"
-      :key="item.name"
-      :label="item.title"
-      :name="item.name"
-    >
+  <eh-tabs v-model="editableTabsValue" type="card" editable class="demo-tabs" @edit="handleTabsEdit">
+    <eh-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
       {{ item.content }}
-    </el-tab-pane>
-  </el-tabs>
+    </eh-tab-pane>
+  </eh-tabs>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
@@ -67,7 +56,7 @@ const handleTabsEdit = (
 }
 </script>
 <style>
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

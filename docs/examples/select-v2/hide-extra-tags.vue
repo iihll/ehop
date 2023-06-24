@@ -1,39 +1,18 @@
 <template>
   <div class="m-4">
     <p>use collapse-tags</p>
-    <el-select-v2
-      v-model="value"
-      :options="options"
-      placeholder="Please select"
-      style="width: 240px"
-      multiple
-      collapse-tags
-    />
+    <eh-select-v2 v-model="value" :options="options" placeholder="Please select" style="width: 240px" multiple
+      collapse-tags />
   </div>
   <div class="m-4">
     <p>use collapse-tags-tooltip</p>
-    <el-select-v2
-      v-model="value2"
-      :options="options"
-      placeholder="Please select"
-      style="width: 240px"
-      multiple
-      collapse-tags
-      collapse-tags-tooltip
-    />
+    <eh-select-v2 v-model="value2" :options="options" placeholder="Please select" style="width: 240px" multiple
+      collapse-tags collapse-tags-tooltip />
   </div>
   <div class="m-4">
     <p>use max-collapse-tags</p>
-    <el-select-v2
-      v-model="value3"
-      :options="options"
-      placeholder="Please select"
-      style="width: 240px"
-      multiple
-      collapse-tags
-      collapse-tags-tooltip
-      :max-collapse-tags="3"
-    />
+    <eh-select-v2 v-model="value3" :options="options" placeholder="Please select" style="width: 240px" multiple
+      collapse-tags collapse-tags-tooltip :max-collapse-tags="3" />
   </div>
 </template>
 

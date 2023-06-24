@@ -1,30 +1,12 @@
 <template>
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    multiple
-    :render-after-expand="false"
-  />
-  <el-divider />
+  <eh-tree-select v-model="value" :data="data" multiple :render-after-expand="false" />
+  <eh-divider />
   show checkbox:
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    multiple
-    :render-after-expand="false"
-    show-checkbox
-  />
-  <el-divider />
+  <eh-tree-select v-model="value" :data="data" multiple :render-after-expand="false" show-checkbox />
+  <eh-divider />
   show checkbox with `check-strictly`:
-  <el-tree-select
-    v-model="valueStrictly"
-    :data="data"
-    multiple
-    :render-after-expand="false"
-    show-checkbox
-    check-strictly
-    check-on-click-node
-  />
+  <eh-tree-select v-model="valueStrictly" :data="data" multiple :render-after-expand="false" show-checkbox check-strictly
+    check-on-click-node />
 </template>
 
 <script lang="ts" setup>

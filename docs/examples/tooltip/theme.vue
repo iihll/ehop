@@ -1,14 +1,14 @@
 <template>
-  <el-tooltip content="Top center" placement="top">
-    <el-button>Dark</el-button>
-  </el-tooltip>
-  <el-tooltip content="Bottom center" placement="bottom" effect="light">
-    <el-button>Light</el-button>
-  </el-tooltip>
+  <eh-tooltip content="Top center" placement="top">
+    <eh-button>Dark</eh-button>
+  </eh-tooltip>
+  <eh-tooltip content="Bottom center" placement="bottom" effect="light">
+    <eh-button>Light</eh-button>
+  </eh-tooltip>
 
-  <el-tooltip content="Bottom center" effect="customized">
-    <el-button>Customized theme</el-button>
-  </el-tooltip>
+  <eh-tooltip content="Bottom center" effect="customized">
+    <eh-button>Customized theme</eh-button>
+  </eh-tooltip>
 </template>
 
 <style>

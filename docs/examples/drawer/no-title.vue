@@ -1,11 +1,11 @@
 <template>
-  <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
+  <eh-button type="primary" style="margin-left: 16px" @click="drawer = true">
     open
-  </el-button>
+  </eh-button>
 
-  <el-drawer v-model="drawer" title="I am the title" :with-header="false">
+  <eh-drawer v-model="drawer" title="I am the title" :with-header="false">
     <span>Hi there!</span>
-  </el-drawer>
+  </eh-drawer>
 </template>
 
 <script lang="ts" setup>

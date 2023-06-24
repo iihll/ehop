@@ -1,6 +1,14 @@
 <template>
-  <div ref="scrollbarRef" :class="ns.b()">
-    <div ref="wrapRef" :class="wrapKls" :style="style" @scroll="handleScroll">
+  <div
+    ref="scrollbarRef"
+    :class="ns.b()"
+  >
+    <div
+      ref="wrapRef"
+      :class="wrapKls"
+      :style="style"
+      @scroll="handleScroll"
+    >
       <component
         :is="tag"
         ref="resizeRef"
@@ -155,7 +163,7 @@ watch(
       stopResizeObserver?.()
       stopResizeListener?.()
     } else {
-      ;({ stop: stopResizeObserver } = useResizeObserver(resizeRef, update))
+      ({ stop: stopResizeObserver } = useResizeObserver(resizeRef, update))
       stopResizeListener = useEventListener('resize', update)
     }
   },

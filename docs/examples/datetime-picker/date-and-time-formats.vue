@@ -3,34 +3,19 @@
     <div class="block">
       <span class="demonstration">Emits Date object</span>
       <div class="demonstration">Value: {{ value1 }}</div>
-      <el-date-picker
-        v-model="value1"
-        type="datetime"
-        placeholder="Pick a Date"
-        format="YYYY/MM/DD HH:mm:ss"
-      />
+      <eh-date-picker v-model="value1" type="datetime" placeholder="Pick a Date" format="YYYY/MM/DD HH:mm:ss" />
     </div>
     <div class="block">
       <span class="demonstration">Use value-format</span>
       <div class="demonstration">Value：{{ value2 }}</div>
-      <el-date-picker
-        v-model="value2"
-        type="datetime"
-        placeholder="Pick a Date"
-        format="YYYY/MM/DD hh:mm:ss"
-        value-format="YYYY-MM-DD h:m:s a"
-      />
+      <eh-date-picker v-model="value2" type="datetime" placeholder="Pick a Date" format="YYYY/MM/DD hh:mm:ss"
+        value-format="YYYY-MM-DD h:m:s a" />
     </div>
     <div class="block">
       <span class="demonstration">Timestamp</span>
       <div class="demonstration">Value：{{ value3 }}</div>
-      <el-date-picker
-        v-model="value3"
-        type="datetime"
-        placeholder="Pick a Date"
-        format="YYYY/MM/DD hh:mm:ss"
-        value-format="x"
-      />
+      <eh-date-picker v-model="value3" type="datetime" placeholder="Pick a Date" format="YYYY/MM/DD hh:mm:ss"
+        value-format="x" />
     </div>
   </div>
 </template>

@@ -1,18 +1,10 @@
 <template>
-  <el-checkbox
-    v-model="checkAll"
-    :indeterminate="isIndeterminate"
-    @change="handleCheckAllChange"
-    >Check all</el-checkbox
-  >
-  <el-checkbox-group
-    v-model="checkedCities"
-    @change="handleCheckedCitiesChange"
-  >
-    <el-checkbox v-for="city in cities" :key="city" :label="city">{{
+  <eh-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">Check all</eh-checkbox>
+  <eh-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+    <eh-checkbox v-for="city in cities" :key="city" :label="city">{{
       city
-    }}</el-checkbox>
-  </el-checkbox-group>
+    }}</eh-checkbox>
+  </eh-checkbox-group>
 </template>
 
 <script lang="ts" setup>

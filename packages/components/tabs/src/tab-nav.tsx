@@ -73,7 +73,7 @@ const TabNav = defineComponent({
     const vm = getCurrentInstance()!
 
     const rootTabs = inject(tabsRootContextKey)
-    if (!rootTabs) throwError(COMPONENT_NAME, `<el-tabs><tab-nav /></el-tabs>`)
+    if (!rootTabs) throwError(COMPONENT_NAME, `<eh-tabs><tab-nav /></eh-tabs>`)
 
     const ns = useNamespace('tabs')
     const visibility = useDocumentVisibility()
@@ -281,29 +281,29 @@ const TabNav = defineComponent({
     return () => {
       const scrollBtn = scrollable.value
         ? [
-            <span
-              class={[
-                ns.e('nav-prev'),
-                ns.is('disabled', !scrollable.value.prev),
-              ]}
-              onClick={scrollPrev}
-            >
-              <EhIcon>
-                <ArrowLeft />
-              </EhIcon>
-            </span>,
-            <span
-              class={[
-                ns.e('nav-next'),
-                ns.is('disabled', !scrollable.value.next),
-              ]}
-              onClick={scrollNext}
-            >
-              <EhIcon>
-                <ArrowRight />
-              </EhIcon>
-            </span>,
-          ]
+          <span
+            class={[
+              ns.e('nav-prev'),
+              ns.is('disabled', !scrollable.value.prev),
+            ]}
+            onClick={scrollPrev}
+          >
+            <EhIcon>
+              <ArrowLeft />
+            </EhIcon>
+          </span>,
+          <span
+            class={[
+              ns.e('nav-next'),
+              ns.is('disabled', !scrollable.value.next),
+            ]}
+            onClick={scrollNext}
+          >
+            <EhIcon>
+              <ArrowRight />
+            </EhIcon>
+          </span>,
+        ]
         : null
 
       const tabs = props.panes.map((pane, index) => {
@@ -384,7 +384,7 @@ const TabNav = defineComponent({
                 ns.is(
                   'stretch',
                   props.stretch &&
-                    ['top', 'bottom'].includes(rootTabs.props.tabPosition)
+                  ['top', 'bottom'].includes(rootTabs.props.tabPosition)
                 ),
               ]}
               ref={nav$}

@@ -1,56 +1,88 @@
 <template>
-  <teleport to="body" :disabled="!teleported">
-    <transition name="viewer-fade" appear>
-      <div ref="wrapper" :tabindex="-1" :class="ns.e('wrapper')" :style="{ zIndex: computedZIndex }">
-        <div :class="ns.e('mask')" @click.self="hideOnClickModal && hide()" />
+  <teleport
+    to="body"
+    :disabled="!teleported"
+  >
+    <transition
+      name="viewer-fade"
+      appear
+    >
+      <div
+        ref="wrapper"
+        :tabindex="-1"
+        :class="ns.e('wrapper')"
+        :style="{ zIndex: computedZIndex }"
+      >
+        <div
+          :class="ns.e('mask')"
+          @click.self="hideOnClickModal && hide()"
+        />
 
         <!-- CLOSE -->
-        <span :class="[ns.e('btn'), ns.e('close')]" @click="hide">
-          <el-icon>
+        <span
+          :class="[ns.e('btn'), ns.e('close')]"
+          @click="hide"
+        >
+          <eh-icon>
             <Close />
-          </el-icon>
+          </eh-icon>
         </span>
 
         <!-- ARROW -->
         <template v-if="!isSingle">
-          <span :class="arrowPrevKls" @click="prev">
-            <el-icon>
+          <span
+            :class="arrowPrevKls"
+            @click="prev"
+          >
+            <eh-icon>
               <ArrowLeft />
-            </el-icon>
+            </eh-icon>
           </span>
-          <span :class="arrowNextKls" @click="next">
-            <el-icon>
+          <span
+            :class="arrowNextKls"
+            @click="next"
+          >
+            <eh-icon>
               <ArrowRight />
-            </el-icon>
+            </eh-icon>
           </span>
         </template>
         <!-- ACTIONS -->
         <div :class="[ns.e('btn'), ns.e('actions')]">
           <div :class="ns.e('actions__inner')">
-            <el-icon @click="handleActions('zoomOut')">
+            <eh-icon @click="handleActions('zoomOut')">
               <ZoomOut />
-            </el-icon>
-            <el-icon @click="handleActions('zoomIn')">
+            </eh-icon>
+            <eh-icon @click="handleActions('zoomIn')">
               <ZoomIn />
-            </el-icon>
+            </eh-icon>
             <i :class="ns.e('actions__divider')" />
-            <el-icon @click="toggleMode">
+            <eh-icon @click="toggleMode">
               <component :is="mode.icon" />
-            </el-icon>
+            </eh-icon>
             <i :class="ns.e('actions__divider')" />
-            <el-icon @click="handleActions('anticlockwise')">
+            <eh-icon @click="handleActions('anticlockwise')">
               <RefreshLeft />
-            </el-icon>
-            <el-icon @click="handleActions('clockwise')">
+            </eh-icon>
+            <eh-icon @click="handleActions('clockwise')">
               <RefreshRight />
-            </el-icon>
+            </eh-icon>
           </div>
         </div>
         <!-- CANVAS -->
         <div :class="ns.e('canvas')">
-          <img v-for="(url, i) in urlList" v-show="i === activeIndex" :ref="(el) => (imgRefs[i] = el as HTMLImageElement)"
-            :key="url" :src="url" :style="imgStyle" :class="ns.e('img')" @load="handleImgLoad" @error="handleImgError"
-            @mousedown="handleMouseDown" />
+          <img
+            v-for="(url, i) in urlList"
+            v-show="i === activeIndex"
+            :ref="(el) => (imgRefs[i] = el as HTMLImageElement)"
+            :key="url"
+            :src="url"
+            :style="imgStyle"
+            :class="ns.e('img')"
+            @load="handleImgLoad"
+            @error="handleImgError"
+            @mousedown="handleMouseDown"
+          />
         </div>
         <slot />
       </div>
@@ -72,9 +104,9 @@ import {
 import { useEventListener } from '@vueuse/core'
 import { throttle } from 'lodash-unified'
 import { useLocale, useNamespace, useZIndex } from '@ehop/hooks'
-import { EVENT_CODE } from '@ehopts'
-import { isNumber, keysOf } from '@ehop
-import EhIcon from '@ehopnts/icon'
+import { EVENT_CODE } from '@ehop/constants'
+import { isNumber, keysOf } from '@ehop/utils'
+import EhIcon from '@ehop/components/icon'
 import {
   ArrowLeft,
   ArrowRight,
@@ -165,15 +197,15 @@ const imgStyle = computed(() => {
   switch (deg % 360) {
     case 90:
     case -270:
-      ;[translateX, translateY] = [translateY, -translateX]
+      [translateX, translateY] = [translateY, -translateX]
       break
     case 180:
     case -180:
-      ;[translateX, translateY] = [-translateX, -translateY]
+      [translateX, translateY] = [-translateX, -translateY]
       break
     case 270:
     case -90:
-      ;[translateX, translateY] = [-translateY, translateX]
+      [translateX, translateY] = [-translateY, translateX]
       break
   }
 

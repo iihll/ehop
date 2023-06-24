@@ -1,54 +1,36 @@
 <template>
-  <el-button text @click="table = true"
-    >Open Drawer with nested table</el-button
-  >
-  <el-button text @click="dialog = true"
-    >Open Drawer with nested form</el-button
-  >
-  <el-drawer
-    v-model="table"
-    title="I have a nested table inside!"
-    direction="rtl"
-    size="50%"
-  >
-    <el-table :data="gridData">
-      <el-table-column property="date" label="Date" width="150" />
-      <el-table-column property="name" label="Name" width="200" />
-      <el-table-column property="address" label="Address" />
-    </el-table>
-  </el-drawer>
+  <eh-button text @click="table = true">Open Drawer with nested table</eh-button>
+  <eh-button text @click="dialog = true">Open Drawer with nested form</eh-button>
+  <eh-drawer v-model="table" title="I have a nested table inside!" direction="rtl" size="50%">
+    <eh-table :data="gridData">
+      <eh-table-column property="date" label="Date" width="150" />
+      <eh-table-column property="name" label="Name" width="200" />
+      <eh-table-column property="address" label="Address" />
+    </eh-table>
+  </eh-drawer>
 
-  <el-drawer
-    ref="drawerRef"
-    v-model="dialog"
-    title="I have a nested form inside!"
-    :before-close="handleClose"
-    direction="ltr"
-    class="demo-drawer"
-  >
+  <eh-drawer ref="drawerRef" v-model="dialog" title="I have a nested form inside!" :before-close="handleClose"
+    direction="ltr" class="demo-drawer">
     <div class="demo-drawer__content">
-      <el-form :model="form">
-        <el-form-item label="Name" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="Area" :label-width="formLabelWidth">
-          <el-select
-            v-model="form.region"
-            placeholder="Please select activity area"
-          >
-            <el-option label="Area1" value="shanghai" />
-            <el-option label="Area2" value="beijing" />
-          </el-select>
-        </el-form-item>
-      </el-form>
+      <eh-form :model="form">
+        <eh-form-item label="Name" :label-width="formLabelWidth">
+          <eh-input v-model="form.name" autocomplete="off" />
+        </eh-form-item>
+        <eh-form-item label="Area" :label-width="formLabelWidth">
+          <eh-select v-model="form.region" placeholder="Please select activity area">
+            <eh-option label="Area1" value="shanghai" />
+            <eh-option label="Area2" value="beijing" />
+          </eh-select>
+        </eh-form-item>
+      </eh-form>
       <div class="demo-drawer__footer">
-        <el-button @click="cancelForm">Cancel</el-button>
-        <el-button type="primary" :loading="loading" @click="onClick">{{
+        <eh-button @click="cancelForm">Cancel</eh-button>
+        <eh-button type="primary" :loading="loading" @click="onClick">{{
           loading ? 'Submitting ...' : 'Submit'
-        }}</el-button>
+        }}</eh-button>
       </div>
     </div>
-  </el-drawer>
+  </eh-drawer>
 </template>
 
 <script lang="ts" setup>

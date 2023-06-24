@@ -1,18 +1,10 @@
 <template>
-  <el-timeline>
-    <el-timeline-item
-      v-for="(activity, index) in activities"
-      :key="index"
-      :icon="activity.icon"
-      :type="activity.type"
-      :color="activity.color"
-      :size="activity.size"
-      :hollow="activity.hollow"
-      :timestamp="activity.timestamp"
-    >
+  <eh-timeline>
+    <eh-timeline-item v-for="(activity, index) in activities" :key="index" :icon="activity.icon" :type="activity.type"
+      :color="activity.color" :size="activity.size" :hollow="activity.hollow" :timestamp="activity.timestamp">
       {{ activity.content }}
-    </el-timeline-item>
-  </el-timeline>
+    </eh-timeline-item>
+  </eh-timeline>
 </template>
 
 <script lang="ts" setup>

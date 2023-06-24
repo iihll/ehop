@@ -1,19 +1,13 @@
 <template>
-  <el-input v-model="filterText" placeholder="Filter keyword" />
+  <eh-input v-model="filterText" placeholder="Filter keyword" />
 
-  <el-tree
-    ref="treeRef"
-    class="filter-tree"
-    :data="data"
-    :props="defaultProps"
-    default-expand-all
-    :filter-node-method="filterNode"
-  />
+  <eh-tree ref="treeRef" class="filter-tree" :data="data" :props="defaultProps" default-expand-all
+    :filter-node-method="filterNode" />
 </template>
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { ElTree } from 'ehop'
+import type { ElTree } from 'ehop'
 
 interface Tree {
   [key: string]: any

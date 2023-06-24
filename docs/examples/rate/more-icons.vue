@@ -1,10 +1,5 @@
 <template>
-  <el-rate
-    v-model="value"
-    :icons="icons"
-    :void-icon="ChatRound"
-    :colors="['#409eff', '#67c23a', '#FF9900']"
-  />
+  <eh-rate v-model="value" :icons="icons" :void-icon="ChatRound" :colors="['#409eff', '#67c23a', '#FF9900']" />
 </template>
 
 <script lang="ts" setup>

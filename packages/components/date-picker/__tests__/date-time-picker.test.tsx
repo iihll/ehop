@@ -2,7 +2,7 @@ import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it } from 'vitest'
 import dayjs from 'dayjs'
-import { ElFormItem } from '@ehopnts/form'
+import { ElFormItem } from '@ehop/components/form'
 import triggerEvent from '@ehop/test-utils/trigger-event'
 import DatePicker from '../src/date-picker'
 import type { VNode } from 'vue'
@@ -105,9 +105,9 @@ describe('Datetime Picker', () => {
     input.trigger('blur')
     input.trigger('focus')
     await nextTick()
-    ;(
-      document.querySelector('.el-picker-panel__link-btn') as HTMLElement
-    ).click()
+      ; (
+        document.querySelector('.el-picker-panel__link-btn') as HTMLElement
+      ).click()
     await nextTick()
     // test if is current time (deviation 10 seconds)
     expect(dayjs(value.value).diff(dayjs()) < 10).toBeTruthy()
@@ -202,23 +202,23 @@ describe('Datetime Picker', () => {
     input.trigger('blur')
     input.trigger('focus')
     await nextTick()
-    // changed month / year should not effect picked time
-    ;(
-      document.querySelector(
-        '.el-date-picker__header .arrow-right'
-      ) as HTMLElement
-    ).click()
-    ;(
-      document.querySelector(
-        '.el-date-picker__header .d-arrow-right'
-      ) as HTMLElement
-    ).click()
-    // click confirm button
-    ;(
-      document.querySelectorAll(
-        '.el-picker-panel__footer .el-button'
-      )[1] as HTMLElement
-    ).click()
+      // changed month / year should not effect picked time
+      ; (
+        document.querySelector(
+          '.el-date-picker__header .arrow-right'
+        ) as HTMLElement
+      ).click()
+      ; (
+        document.querySelector(
+          '.el-date-picker__header .d-arrow-right'
+        ) as HTMLElement
+      ).click()
+      // click confirm button
+      ; (
+        document.querySelectorAll(
+          '.el-picker-panel__footer .el-button'
+        )[1] as HTMLElement
+      ).click()
 
     expect(dayjs(value.value).format(formatStr)).toBe('2000-10-01 12:00:00')
   })
@@ -342,7 +342,7 @@ describe('Datetime Picker', () => {
     input.trigger('focus')
     await nextTick()
     const cells = document.querySelectorAll('.available .el-date-table-cell')
-    ;(cells[0] as HTMLElement).click()
+      ; (cells[0] as HTMLElement).click()
     await nextTick()
     const timeInput: HTMLInputElement = document.querySelector(
       '.el-date-picker__time-header > span:nth-child(2) input'
@@ -353,7 +353,7 @@ describe('Datetime Picker', () => {
     const spinner: HTMLElement = document.querySelector(
       '.el-time-spinner ul li.is-active'
     )!
-    ;(spinner.nextSibling as HTMLElement).click()
+      ; (spinner.nextSibling as HTMLElement).click()
     await nextTick()
     expect(timeInput.value).toBe('13:00:00')
   })
@@ -387,11 +387,11 @@ describe('Datetimerange', () => {
     triggerEvent(rightCell, 'mousemove', true)
     triggerEvent(rightCell, 'click', true)
     await nextTick()
-    ;(
-      document.querySelectorAll(
-        '.el-picker-panel__footer .el-button'
-      )[1] as HTMLElement
-    ).click()
+      ; (
+        document.querySelectorAll(
+          '.el-picker-panel__footer .el-button'
+        )[1] as HTMLElement
+      ).click()
     await nextTick()
 
     expect(value.value.map((_) => dayjs(_).format(formatStr))).toStrictEqual([
@@ -650,9 +650,9 @@ describe('Datetimerange', () => {
     await nextTick()
     triggerEvent(leftList[2].children[+leftSelect[2]], 'click', true)
     await nextTick()
-    ;(
-      document.querySelector('.el-time-panel__btn.confirm') as HTMLElement
-    ).click()
+      ; (
+        document.querySelector('.el-time-panel__btn.confirm') as HTMLElement
+      ).click()
     await nextTick()
     const rightTimeInput = document.querySelectorAll(
       '.el-date-range-picker__editors-wrap input'
@@ -679,17 +679,17 @@ describe('Datetimerange', () => {
     await nextTick()
     triggerEvent(rightList[2].children[12], 'click', true)
     await nextTick()
-    ;(
-      document.querySelector(
-        '.is-right .el-time-panel__btn.confirm'
-      ) as HTMLElement
-    ).click()
+      ; (
+        document.querySelector(
+          '.is-right .el-time-panel__btn.confirm'
+        ) as HTMLElement
+      ).click()
     await nextTick()
-    ;(
-      document.querySelectorAll(
-        '.el-picker-panel__footer .el-button'
-      )[1] as HTMLElement
-    ).click()
+      ; (
+        document.querySelectorAll(
+          '.el-picker-panel__footer .el-button'
+        )[1] as HTMLElement
+      ).click()
     await nextTick()
 
     expect(value.value.map((_) => dayjs(_).format('HH:mm:ss'))).toStrictEqual([

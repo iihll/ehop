@@ -1,30 +1,71 @@
 <template>
   <teleport to="body" :disabled="!appendToBody">
-    <transition name="dialog-fade" @after-enter="afterEnter" @after-leave="afterLeave" @before-leave="beforeLeave">
-      <el-overlay v-show="visible" custom-mask-event :mask="modal" :overlay-class="modalClass" :z-index="zIndex">
-        <div role="dialog" aria-modal="true" :aria-label="title || undefined"
-          :aria-labelledby="!title ? titleId : undefined" :aria-describedby="bodyId"
-          :class="`${ns.namespace.value}-overlay-dialog`" :style="overlayDialogStyle" @click="overlayEvent.onClick"
-          @mousedown="overlayEvent.onMousedown" @mouseup="overlayEvent.onMouseup">
-          <el-focus-trap loop :trapped="visible" focus-start-el="container" @focus-after-trapped="onOpenAutoFocus"
-            @focus-after-released="onCloseAutoFocus" @focusout-prevented="onFocusoutPrevented"
-            @release-requested="onCloseRequested">
-            <el-dialog-content v-if="rendered" ref="dialogContentRef" v-bind="$attrs" :custom-class="customClass"
-              :center="center" :align-center="alignCenter" :close-icon="closeIcon" :draggable="draggable"
-              :fullscreen="fullscreen" :show-close="showClose" :title="title" @close="handleClose">
+    <transition
+      name="dialog-fade"
+      @after-enter="afterEnter"
+      @after-leave="afterLeave"
+      @before-leave="beforeLeave"
+    >
+      <eh-overlay
+        v-show="visible"
+        custom-mask-event
+        :mask="modal"
+        :overlay-class="modalClass"
+        :z-index="zIndex"
+      >
+        <div
+          role="dialog"
+          aria-modal="true"
+          :aria-label="title || undefined"
+          :aria-labelledby="!title ? titleId : undefined"
+          :aria-describedby="bodyId"
+          :class="`${ns.namespace.value}-overlay-dialog`"
+          :style="overlayDialogStyle"
+          @click="overlayEvent.onClick"
+          @mousedown="overlayEvent.onMousedown"
+          @mouseup="overlayEvent.onMouseup"
+        >
+          <eh-focus-trap
+            loop
+            :trapped="visible"
+            focus-start-el="container"
+            @focus-after-trapped="onOpenAutoFocus"
+            @focus-after-released="onCloseAutoFocus"
+            @focusout-prevented="onFocusoutPrevented"
+            @release-requested="onCloseRequested"
+          >
+            <eh-dialog-content
+              v-if="rendered"
+              ref="dialogContentRef"
+              v-bind="$attrs"
+              :custom-class="customClass"
+              :center="center"
+              :align-center="alignCenter"
+              :close-icon="closeIcon"
+              :draggable="draggable"
+              :fullscreen="fullscreen"
+              :show-close="showClose"
+              :title="title"
+              @close="handleClose"
+            >
               <template #header>
-                <slot v-if="!$slots.title" name="header" :close="handleClose" :title-id="titleId"
-                  :title-class="ns.e('title')" />
+                <slot
+                  v-if="!$slots.title"
+                  name="header"
+                  :close="handleClose"
+                  :title-id="titleId"
+                  :title-class="ns.e('title')"
+                />
                 <slot v-else name="title" />
               </template>
               <slot />
               <template v-if="$slots.footer" #footer>
                 <slot name="footer" />
               </template>
-            </el-dialog-content>
-          </el-focus-trap>
+            </eh-dialog-content>
+          </eh-focus-trap>
         </div>
-      </el-overlay>
+      </eh-overlay>
     </transition>
   </teleport>
 </template>
@@ -32,8 +73,8 @@
 <script lang="ts" setup>
 import { computed, provide, ref, useSlots } from 'vue'
 import { EhOverlay } from '@ehop/components/overlay'
-import { useDeprecated, useNamespace, useSameTarget } from '@ehop
-import EhFocusTrap from '@ehopnts/focus-trap'
+import { useDeprecated, useNamespace, useSameTarget } from '@ehop/hooks'
+import EhFocusTrap from '@ehop/components/focus-trap'
 import EhDialogContent from './dialog-content.vue'
 import { dialogInjectionKey } from './constants'
 import { dialogEmits, dialogProps } from './dialog'
@@ -50,7 +91,7 @@ const slots = useSlots()
 
 useDeprecated(
   {
-    scope: 'el-dialog',
+    scope: 'eh-dialog',
     from: 'the title slot',
     replacement: 'the header slot',
     version: '3.0.0',
@@ -61,7 +102,7 @@ useDeprecated(
 
 useDeprecated(
   {
-    scope: 'el-dialog',
+    scope: 'eh-dialog',
     from: 'custom-class',
     replacement: 'class',
     version: '2.3.0',

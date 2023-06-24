@@ -8,15 +8,10 @@ import {
 } from 'vue'
 import { useTimeoutFn } from '@vueuse/core'
 
-import {
-  defaultNamespace,
-  useId,
-  useLockscreen,
-  useZIndex,
-} from '@ehop/hooks'
-import { UPDATE_MODEL_EVENT } from '@ehopts'
-import { addUnit, isClient } from '@ehop
-import { useGlobalConfig } from '@ehopnts/config-provider'
+import { defaultNamespace, useId, useLockscreen, useZIndex } from '@ehop/hooks'
+import { UPDATE_MODEL_EVENT } from '@ehop/constants'
+import { addUnit, isClient } from '@ehop/utils'
+import { useGlobalConfig } from '@ehop/components/config-provider'
 
 import type { CSSProperties, Ref, SetupContext } from 'vue'
 import type { DialogEmits, DialogProps } from './dialog'
@@ -84,7 +79,7 @@ export const useDialog = (
     openTimer?.()
 
     if (props.openDelay && props.openDelay > 0) {
-      ; ({ stop: openTimer } = useTimeoutFn(() => doOpen(), props.openDelay))
+      ({ stop: openTimer } = useTimeoutFn(() => doOpen(), props.openDelay))
     } else {
       doOpen()
     }
@@ -95,7 +90,7 @@ export const useDialog = (
     closeTimer?.()
 
     if (props.closeDelay && props.closeDelay > 0) {
-      ; ({ stop: closeTimer } = useTimeoutFn(() => doClose(), props.closeDelay))
+      ({ stop: closeTimer } = useTimeoutFn(() => doClose(), props.closeDelay))
     } else {
       doClose()
     }

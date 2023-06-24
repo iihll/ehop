@@ -1,10 +1,5 @@
 <template>
-  <el-select-v2
-    v-model="value"
-    :options="options"
-    placeholder="Please select"
-    value-key="value.name"
-  />
+  <eh-select-v2 v-model="value" :options="options" placeholder="Please select" value-key="value.name" />
 </template>
 
 <script lang="ts" setup>

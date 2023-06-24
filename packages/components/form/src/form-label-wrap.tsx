@@ -12,7 +12,7 @@ import {
 } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { throwError } from '@ehop/utils'
-import { useNamespace } from '@ehop
+import { useNamespace } from '@ehop/hooks'
 import { formContextKey, formItemContextKey } from './constants'
 
 import type { CSSProperties } from 'vue'
@@ -31,7 +31,7 @@ export default defineComponent({
     if (!formItemContext)
       throwError(
         COMPONENT_NAME,
-        'usage: <el-form-item><label-wrap /></el-form-item>'
+        'usage: <eh-form-item><label-wrap /></eh-form-item>'
       )
 
     const ns = useNamespace('form')

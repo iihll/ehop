@@ -1,5 +1,5 @@
 import { nextTick } from 'vue'
-import { EVENT_CODE } from '@ehopts'
+import { EVENT_CODE } from '@ehop/constants'
 import { obtainAllFocusableElements } from '@ehop/utils'
 import type { ObjectDirective } from 'vue'
 

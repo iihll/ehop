@@ -40,11 +40,17 @@
           <option-content :option="optionRender?.(item)" />
         </eh-checkbox>
       </eh-checkbox-group>
-      <p v-show="hasNoMatch || isEmpty(data)" :class="ns.be('panel', 'empty')">
+      <p
+        v-show="hasNoMatch || isEmpty(data)"
+        :class="ns.be('panel', 'empty')"
+      >
         {{ hasNoMatch ? t('eh.transfer.noMatch') : t('eh.transfer.noData') }}
       </p>
     </div>
-    <p v-if="hasFooter" :class="ns.be('panel', 'footer')">
+    <p
+      v-if="hasFooter"
+      :class="ns.be('panel', 'footer')"
+    >
       <slot />
     </p>
   </div>

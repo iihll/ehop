@@ -17,18 +17,18 @@ watch(needRefresh, (value) => {
 
 <template>
   <transition name="pwa-popup">
-    <el-card v-if="!alwaysRefresh && needRefresh" class="pwa-card" role="alert">
+    <eh-card v-if="!alwaysRefresh && needRefresh" class="pwa-card" role="alert">
       <p class="pwa-card-text">{{ locale.message }}</p>
-      <el-button type="primary" plain @click="updateServiceWorker()">
+      <eh-button type="primary" plain @click="updateServiceWorker()">
         {{ locale.refresh }}
-      </el-button>
-      <el-button plain @click="alwaysRefresh = true">
+      </eh-button>
+      <eh-button plain @click="alwaysRefresh = true">
         {{ locale['always-refresh'] }}
-      </el-button>
-      <el-button plain @click="needRefresh = false">
+      </eh-button>
+      <eh-button plain @click="needRefresh = false">
         {{ locale.close }}
-      </el-button>
-    </el-card>
+      </eh-button>
+    </eh-card>
   </transition>
 </template>
 

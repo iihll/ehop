@@ -1,16 +1,11 @@
 <template>
-  <el-tree-select v-model="value" :data="data">
+  <eh-tree-select v-model="value" :data="data">
     <template #default="{ data: { label } }">
-      {{ label }}<span style="color: gray">(suffix)</span></template
-    >
-  </el-tree-select>
-  <el-divider />
+      {{ label }}<span style="color: gray">(suffix)</span></template>
+  </eh-tree-select>
+  <eh-divider />
   use render content:
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    :render-content="renderContent"
-  />
+  <eh-tree-select v-model="value" :data="data" :render-content="renderContent" />
 </template>
 
 <script lang="ts" setup>

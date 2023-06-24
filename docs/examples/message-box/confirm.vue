@@ -1,5 +1,5 @@
 <template>
-  <el-button text @click="open">Click to open the Message Box</el-button>
+  <eh-button text @click="open">Click to open the Message Box</eh-button>
 </template>
 
 <script lang="ts" setup>

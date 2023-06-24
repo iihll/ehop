@@ -21,4 +21,4 @@ export type FocusTrapInjectionContext = {
 }
 
 export const FOCUS_TRAP_INJECTION_KEY: InjectionKey<FocusTrapInjectionContext> =
-  Symbol('elFocusTrap')
+  Symbol('ehFocusTrap')

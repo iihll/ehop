@@ -38,7 +38,13 @@
           offset="100%"
         />
       </linearGradient>
-      <rect :id="`path-3-${id}`" x="0" y="0" width="17" height="36" />
+      <rect
+        :id="`path-3-${id}`"
+        x="0"
+        y="0"
+        width="17"
+        height="36"
+      />
     </defs>
     <g
       id="Illustrations"
@@ -47,8 +53,14 @@
       fill="none"
       fill-rule="evenodd"
     >
-      <g id="B-type" transform="translate(-1268.000000, -535.000000)">
-        <g id="Group-2" transform="translate(1268.000000, 535.000000)">
+      <g
+        id="B-type"
+        transform="translate(-1268.000000, -535.000000)"
+      >
+        <g
+          id="Group-2"
+          transform="translate(1268.000000, 535.000000)"
+        >
           <path
             id="Oval-Copy-2"
             d="M39.5,86 C61.3152476,86 79,83.9106622 79,81.3333333 C79,78.7560045 57.3152476,78 35.5,78 C13.6847524,78 0,78.7560045 0,81.3333333 C0,83.9106622 17.6847524,86 39.5,86 Z"
@@ -99,7 +111,10 @@
             width="40"
             height="36"
           />
-          <g id="Rectangle-Copy-17" transform="translate(53.000000, 45.000000)">
+          <g
+            id="Rectangle-Copy-17"
+            transform="translate(53.000000, 45.000000)"
+          >
             <use
               id="Mask"
               :fill="`var(${ns.cssVarBlockName('fill-color-8')})`"

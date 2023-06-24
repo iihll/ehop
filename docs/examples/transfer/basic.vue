@@ -1,5 +1,5 @@
 <template>
-  <el-transfer v-model="value" :data="data" />
+  <eh-transfer v-model="value" :data="data" />
 </template>
 
 <script lang="ts" setup>

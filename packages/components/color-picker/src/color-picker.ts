@@ -1,7 +1,7 @@
 import { isNil } from 'lodash-unified'
 import { buildProps, definePropType, isString } from '@ehop/utils'
 import { useSizeProp } from '@ehop
-import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehopts'
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 
 import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
 import type ColorPicker from './color-picker.vue'

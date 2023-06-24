@@ -1,16 +1,10 @@
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="data"
-    :estimated-row-height="50"
-    :expand-column-key="columns[0].key"
-    :width="700"
-    :height="400"
-  >
+  <eh-table-v2 :columns="columns" :data="data" :estimated-row-height="50" :expand-column-key="columns[0].key" :width="700"
+    :height="400">
     <template #row="props">
       <Row v-bind="props" />
     </template>
-  </el-table-v2>
+  </eh-table-v2>
 </template>
 
 <script lang="tsx" setup>

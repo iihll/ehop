@@ -1,20 +1,9 @@
 <template>
   <span :class="ns.e('sizes')">
-    <el-select
-      :model-value="innerPageSize"
-      :disabled="disabled"
-      :popper-class="popperClass"
-      :size="size"
-      :validate-event="false"
-      @change="handleChange"
-    >
-      <el-option
-        v-for="item in innerPageSizes"
-        :key="item"
-        :value="item"
-        :label="item + t('eh.pagination.pagesize')"
-      />
-    </el-select>
+    <eh-select :model-value="innerPageSize" :disabled="disabled" :popper-class="popperClass" :size="size"
+      :validate-event="false" @change="handleChange">
+      <eh-option v-for="item in innerPageSizes" :key="item" :value="item" :label="item + t('eh.pagination.pagesize')" />
+    </eh-select>
   </span>
 </template>
 

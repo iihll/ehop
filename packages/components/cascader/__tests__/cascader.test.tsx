@@ -6,7 +6,7 @@ import triggerEvent from '@ehopils/trigger-event'
 import { ArrowDown, Check, CircleClose } from '@ehop/icons-vue'
 import { usePopperContainerId } from '@ehop
 import { hasClass } from '@ehop
-import ElForm, { ElFormItem } from '@ehopnts/form'
+import ElForm, { ElFormItem } from '@ehop/components/form'
 import Cascader from '../src/cascader.vue'
 
 import type { VNode } from 'vue'

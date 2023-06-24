@@ -1,8 +1,8 @@
 import { componentSizes } from '@ehop/constants'
-import { buildProps, definePropType } from '@ehop
+import { buildProps, definePropType } from '@ehop/utils'
 
 import type { ExtractPropTypes } from 'vue'
-import type { Arrayable } from '@ehop
+import type { Arrayable } from '@ehop/utils'
 import type { FormItemRule } from './types'
 
 export const formItemValidateStates = [

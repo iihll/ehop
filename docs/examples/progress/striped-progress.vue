@@ -1,33 +1,14 @@
 <template>
   <div class="demo-progress">
-    <el-progress :percentage="50" :stroke-width="15" striped />
-    <el-progress
-      :percentage="30"
-      :stroke-width="15"
-      status="warning"
-      striped
-      striped-flow
-    />
-    <el-progress
-      :percentage="100"
-      :stroke-width="15"
-      status="success"
-      striped
-      striped-flow
-      :duration="10"
-    />
-    <el-progress
-      :percentage="percentage"
-      :stroke-width="15"
-      status="exception"
-      striped
-      striped-flow
-      :duration="duration"
-    />
-    <el-button-group>
-      <el-button :icon="Minus" @click="decrease" />
-      <el-button :icon="Plus" @click="increase" />
-    </el-button-group>
+    <eh-progress :percentage="50" :stroke-width="15" striped />
+    <eh-progress :percentage="30" :stroke-width="15" status="warning" striped striped-flow />
+    <eh-progress :percentage="100" :stroke-width="15" status="success" striped striped-flow :duration="10" />
+    <eh-progress :percentage="percentage" :stroke-width="15" status="exception" striped striped-flow
+      :duration="duration" />
+    <eh-button-group>
+      <eh-button :icon="Minus" @click="decrease" />
+      <eh-button :icon="Plus" @click="increase" />
+    </eh-button-group>
   </div>
 </template>
 

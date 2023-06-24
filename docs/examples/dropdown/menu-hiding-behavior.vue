@@ -1,26 +1,26 @@
 <template>
-  <el-dropdown :hide-on-click="false">
+  <eh-dropdown :hide-on-click="false">
     <span class="el-dropdown-link">
-      Dropdown List<el-icon class="el-icon--right"><arrow-down /></el-icon>
+      Dropdown List<eh-icon class="el-icon--right"><arrow-down /></eh-icon>
     </span>
     <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>Action 1</el-dropdown-item>
-        <el-dropdown-item>Action 2</el-dropdown-item>
-        <el-dropdown-item>Action 3</el-dropdown-item>
-        <el-dropdown-item disabled>Action 4</el-dropdown-item>
-        <el-dropdown-item divided>Action 5</el-dropdown-item>
-        <el-dropdown-item divided>Action 6</el-dropdown-item>
-      </el-dropdown-menu>
+      <eh-dropdown-menu>
+        <eh-dropdown-item>Action 1</eh-dropdown-item>
+        <eh-dropdown-item>Action 2</eh-dropdown-item>
+        <eh-dropdown-item>Action 3</eh-dropdown-item>
+        <eh-dropdown-item disabled>Action 4</eh-dropdown-item>
+        <eh-dropdown-item divided>Action 5</eh-dropdown-item>
+        <eh-dropdown-item divided>Action 6</eh-dropdown-item>
+      </eh-dropdown-menu>
     </template>
-  </el-dropdown>
+  </eh-dropdown>
 </template>
 
 <script lang="ts" setup>
 import { ArrowDown } from '@ehop/icons-vue'
 </script>
 <style scoped>
-.example-showcase .el-dropdown + .el-dropdown {
+.example-showcase .el-dropdown+.el-dropdown {
   margin-left: 15px;
 }
 

@@ -1,82 +1,61 @@
 <template>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    :rules="rules"
-    label-width="120px"
-    class="demo-ruleForm"
-    :size="formSize"
-    status-icon
-  >
-    <el-form-item label="Activity name" prop="name">
-      <el-input v-model="ruleForm.name" />
-    </el-form-item>
-    <el-form-item label="Activity zone" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="Activity zone">
-        <el-option label="Zone one" value="shanghai" />
-        <el-option label="Zone two" value="beijing" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="Activity count" prop="count">
-      <el-select-v2
-        v-model="ruleForm.count"
-        placeholder="Activity count"
-        :options="options"
-      />
-    </el-form-item>
-    <el-form-item label="Activity time" required>
-      <el-col :span="11">
-        <el-form-item prop="date1">
-          <el-date-picker
-            v-model="ruleForm.date1"
-            type="date"
-            label="Pick a date"
-            placeholder="Pick a date"
-            style="width: 100%"
-          />
-        </el-form-item>
-      </el-col>
-      <el-col class="text-center" :span="2">
+  <eh-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm" :size="formSize"
+    status-icon>
+    <eh-form-item label="Activity name" prop="name">
+      <eh-input v-model="ruleForm.name" />
+    </eh-form-item>
+    <eh-form-item label="Activity zone" prop="region">
+      <eh-select v-model="ruleForm.region" placeholder="Activity zone">
+        <eh-option label="Zone one" value="shanghai" />
+        <eh-option label="Zone two" value="beijing" />
+      </eh-select>
+    </eh-form-item>
+    <eh-form-item label="Activity count" prop="count">
+      <eh-select-v2 v-model="ruleForm.count" placeholder="Activity count" :options="options" />
+    </eh-form-item>
+    <eh-form-item label="Activity time" required>
+      <eh-col :span="11">
+        <eh-form-item prop="date1">
+          <eh-date-picker v-model="ruleForm.date1" type="date" label="Pick a date" placeholder="Pick a date"
+            style="width: 100%" />
+        </eh-form-item>
+      </eh-col>
+      <eh-col class="text-center" :span="2">
         <span class="text-gray-500">-</span>
-      </el-col>
-      <el-col :span="11">
-        <el-form-item prop="date2">
-          <el-time-picker
-            v-model="ruleForm.date2"
-            label="Pick a time"
-            placeholder="Pick a time"
-            style="width: 100%"
-          />
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="Instant delivery" prop="delivery">
-      <el-switch v-model="ruleForm.delivery" />
-    </el-form-item>
-    <el-form-item label="Activity type" prop="type">
-      <el-checkbox-group v-model="ruleForm.type">
-        <el-checkbox label="Online activities" name="type" />
-        <el-checkbox label="Promotion activities" name="type" />
-        <el-checkbox label="Offline activities" name="type" />
-        <el-checkbox label="Simple brand exposure" name="type" />
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="Resources" prop="resource">
-      <el-radio-group v-model="ruleForm.resource">
-        <el-radio label="Sponsorship" />
-        <el-radio label="Venue" />
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="Activity form" prop="desc">
-      <el-input v-model="ruleForm.desc" type="textarea" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)">
+      </eh-col>
+      <eh-col :span="11">
+        <eh-form-item prop="date2">
+          <eh-time-picker v-model="ruleForm.date2" label="Pick a time" placeholder="Pick a time" style="width: 100%" />
+        </eh-form-item>
+      </eh-col>
+    </eh-form-item>
+    <eh-form-item label="Instant delivery" prop="delivery">
+      <eh-switch v-model="ruleForm.delivery" />
+    </eh-form-item>
+    <eh-form-item label="Activity type" prop="type">
+      <eh-checkbox-group v-model="ruleForm.type">
+        <eh-checkbox label="Online activities" name="type" />
+        <eh-checkbox label="Promotion activities" name="type" />
+        <eh-checkbox label="Offline activities" name="type" />
+        <eh-checkbox label="Simple brand exposure" name="type" />
+      </eh-checkbox-group>
+    </eh-form-item>
+    <eh-form-item label="Resources" prop="resource">
+      <eh-radio-group v-model="ruleForm.resource">
+        <eh-radio label="Sponsorship" />
+        <eh-radio label="Venue" />
+      </eh-radio-group>
+    </eh-form-item>
+    <eh-form-item label="Activity form" prop="desc">
+      <eh-input v-model="ruleForm.desc" type="textarea" />
+    </eh-form-item>
+    <eh-form-item>
+      <eh-button type="primary" @click="submitForm(ruleFormRef)">
         Create
-      </el-button>
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-  </el-form>
+      </eh-button>
+      <eh-button @click="resetForm(ruleFormRef)">Reset</eh-button>
+    </eh-form-item>
+  </eh-form>
 </template>
 
 <script lang="ts" setup>

@@ -1,294 +1,149 @@
 <template>
-  <div
-    ref="selectWrapper"
-    v-click-outside:[popperPaneRef]="handleClose"
-    :class="wrapperKls"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave"
-    @click.stop="toggleMenu"
-  >
-    <el-tooltip
-      ref="tooltipRef"
-      :visible="dropMenuVisible"
-      :placement="placement"
-      :teleported="teleported"
-      :popper-class="[nsSelect.e('popper'), popperClass]"
-      :popper-options="popperOptions"
-      :fallback-placements="['bottom-start', 'top-start', 'right', 'left']"
-      :effect="effect"
-      pure
-      trigger="click"
-      :transition="`${nsSelect.namespace.value}-zoom-in-top`"
-      :stop-popper-mouse-event="false"
-      :gpu-acceleration="false"
-      :persistent="persistent"
-      @show="handleMenuEnter"
-    >
+  <div ref="selectWrapper" v-click-outside:[popperPaneRef]="handleClose" :class="wrapperKls"
+    @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="toggleMenu">
+    <eh-tooltip ref="tooltipRef" :visible="dropMenuVisible" :placement="placement" :teleported="teleported"
+      :popper-class="[nsSelect.e('popper'), popperClass]" :popper-options="popperOptions"
+      :fallback-placements="['bottom-start', 'top-start', 'right', 'left']" :effect="effect" pure trigger="click"
+      :transition="`${nsSelect.namespace.value}-zoom-in-top`" :stop-popper-mouse-event="false" :gpu-acceleration="false"
+      :persistent="persistent" @show="handleMenuEnter">
       <template #default>
-        <div
-          class="select-trigger"
-          @mouseenter="inputHovering = true"
-          @mouseleave="inputHovering = false"
-        >
-          <div
-            v-if="multiple"
-            ref="tags"
-            :class="[
-              nsSelect.e('tags'),
-              nsSelect.is('disabled', selectDisabled),
-            ]"
-            :style="selectTagsStyle"
-          >
-            <transition
-              v-if="collapseTags && selected.length"
-              @after-leave="resetInputHeight"
-            >
-              <span
-                :class="[
-                  nsSelect.b('tags-wrapper'),
-                  { 'has-prefix': prefixWidth && selected.length },
-                ]"
-              >
-                <el-tag
-                  v-for="item in showTagList"
-                  :key="getValueKey(item)"
-                  :closable="!selectDisabled && !item.isDisabled"
-                  :size="collapseTagSize"
-                  :hit="item.hitState"
-                  :type="tagType"
-                  disable-transitions
-                  @close="deleteTag($event, item)"
-                >
+        <div class="select-trigger" @mouseenter="inputHovering = true" @mouseleave="inputHovering = false">
+          <div v-if="multiple" ref="tags" :class="[
+            nsSelect.e('tags'),
+            nsSelect.is('disabled', selectDisabled),
+          ]" :style="selectTagsStyle">
+            <transition v-if="collapseTags && selected.length" @after-leave="resetInputHeight">
+              <span :class="[
+                nsSelect.b('tags-wrapper'),
+                { 'has-prefix': prefixWidth && selected.length },
+              ]">
+                <eh-tag v-for="item in showTagList" :key="getValueKey(item)"
+                  :closable="!selectDisabled && !item.isDisabled" :size="collapseTagSize" :hit="item.hitState"
+                  :type="tagType" disable-transitions @close="deleteTag($event, item)">
                   <span :class="nsSelect.e('tags-text')" :style="tagTextStyle">
                     {{ item.currentLabel }}
                   </span>
-                </el-tag>
-                <el-tag
-                  v-if="selected.length > maxCollapseTags"
-                  :closable="false"
-                  :size="collapseTagSize"
-                  :type="tagType"
-                  disable-transitions
-                >
-                  <el-tooltip
-                    v-if="collapseTagsTooltip"
-                    :disabled="dropMenuVisible"
-                    :fallback-placements="['bottom', 'top', 'right', 'left']"
-                    :effect="effect"
-                    placement="bottom"
-                    :teleported="teleported"
-                  >
+                </eh-tag>
+                <eh-tag v-if="selected.length > maxCollapseTags" :closable="false" :size="collapseTagSize" :type="tagType"
+                  disable-transitions>
+                  <eh-tooltip v-if="collapseTagsTooltip" :disabled="dropMenuVisible"
+                    :fallback-placements="['bottom', 'top', 'right', 'left']" :effect="effect" placement="bottom"
+                    :teleported="teleported">
                     <template #default>
-                      <span :class="nsSelect.e('tags-text')"
-                        >+ {{ selected.length - maxCollapseTags }}</span
-                      >
+                      <span :class="nsSelect.e('tags-text')">+ {{ selected.length - maxCollapseTags }}</span>
                     </template>
                     <template #content>
                       <div :class="nsSelect.e('collapse-tags')">
-                        <div
-                          v-for="item in collapseTagList"
-                          :key="getValueKey(item)"
-                          :class="nsSelect.e('collapse-tag')"
-                        >
-                          <el-tag
-                            class="in-tooltip"
-                            :closable="!selectDisabled && !item.isDisabled"
-                            :size="collapseTagSize"
-                            :hit="item.hitState"
-                            :type="tagType"
-                            disable-transitions
-                            :style="{ margin: '2px' }"
-                            @close="deleteTag($event, item)"
-                          >
-                            <span
-                              :class="nsSelect.e('tags-text')"
-                              :style="{
-                                maxWidth: inputWidth - 75 + 'px',
-                              }"
-                              >{{ item.currentLabel }}</span
-                            >
-                          </el-tag>
+                        <div v-for="item in collapseTagList" :key="getValueKey(item)" :class="nsSelect.e('collapse-tag')">
+                          <eh-tag class="in-tooltip" :closable="!selectDisabled && !item.isDisabled"
+                            :size="collapseTagSize" :hit="item.hitState" :type="tagType" disable-transitions
+                            :style="{ margin: '2px' }" @close="deleteTag($event, item)">
+                            <span :class="nsSelect.e('tags-text')" :style="{
+                              maxWidth: inputWidth - 75 + 'px',
+                            }">{{ item.currentLabel }}</span>
+                          </eh-tag>
                         </div>
                       </div>
                     </template>
-                  </el-tooltip>
-                  <span v-else :class="nsSelect.e('tags-text')"
-                    >+ {{ selected.length - maxCollapseTags }}</span
-                  >
-                </el-tag>
+                  </eh-tooltip>
+                  <span v-else :class="nsSelect.e('tags-text')">+ {{ selected.length - maxCollapseTags }}</span>
+                </eh-tag>
               </span>
             </transition>
             <transition v-if="!collapseTags" @after-leave="resetInputHeight">
-              <span
-                :class="[
-                  nsSelect.b('tags-wrapper'),
-                  { 'has-prefix': prefixWidth && selected.length },
-                ]"
-                :style="
-                  prefixWidth && selected.length
-                    ? { marginLeft: `${prefixWidth}px` }
-                    : ''
-                "
-              >
-                <el-tag
-                  v-for="item in selected"
-                  :key="getValueKey(item)"
-                  :closable="!selectDisabled && !item.isDisabled"
-                  :size="collapseTagSize"
-                  :hit="item.hitState"
-                  :type="tagType"
-                  disable-transitions
-                  @close="deleteTag($event, item)"
-                >
-                  <span
-                    :class="nsSelect.e('tags-text')"
-                    :style="{ maxWidth: inputWidth - 75 + 'px' }"
-                    >{{ item.currentLabel }}</span
-                  >
-                </el-tag>
+              <span :class="[
+                nsSelect.b('tags-wrapper'),
+                { 'has-prefix': prefixWidth && selected.length },
+              ]" :style="prefixWidth && selected.length
+    ? { marginLeft: `${prefixWidth}px` }
+    : ''
+  ">
+                <eh-tag v-for="item in selected" :key="getValueKey(item)" :closable="!selectDisabled && !item.isDisabled"
+                  :size="collapseTagSize" :hit="item.hitState" :type="tagType" disable-transitions
+                  @close="deleteTag($event, item)">
+                  <span :class="nsSelect.e('tags-text')" :style="{ maxWidth: inputWidth - 75 + 'px' }">{{
+                    item.currentLabel }}</span>
+                </eh-tag>
               </span>
             </transition>
-            <input
-              v-if="filterable && !selectDisabled"
-              ref="input"
-              v-model="query"
-              type="text"
-              :class="[
-                nsSelect.e('input'),
-                nsSelect.is(selectSize),
-                nsSelect.is('disabled', selectDisabled),
-              ]"
-              :disabled="selectDisabled"
-              :autocomplete="autocomplete"
-              :style="{
-                marginLeft: `${prefixWidth}px`,
-                flexGrow: 1,
-                width: `${inputLength / (inputWidth - 32)}%`,
-                maxWidth: `${inputWidth - 42}px`,
-              }"
-              @focus="handleFocus"
-              @blur="handleBlur"
-              @keyup="managePlaceholder"
-              @keydown="resetInputState"
-              @keydown.down.prevent="navigateOptions('next')"
-              @keydown.up.prevent="navigateOptions('prev')"
-              @keydown.esc="handleKeydownEscape"
-              @keydown.enter.stop.prevent="selectOption"
-              @keydown.delete="deletePrevTag"
-              @keydown.tab="visible = false"
-              @compositionstart="handleComposition"
-              @compositionupdate="handleComposition"
-              @compositionend="handleComposition"
-              @input="debouncedQueryChange"
-            />
-          </div>
-          <!-- fix: https://github.com/ehop/ehop/issues/11415 -->
-          <input
-            v-if="isIOS && !multiple && filterable && readonly"
-            ref="iOSInput"
-            :class="[
+            <input v-if="filterable && !selectDisabled" ref="input" v-model="query" type="text" :class="[
               nsSelect.e('input'),
               nsSelect.is(selectSize),
-              nsSelect.em('input', 'iOS'),
-            ]"
-            :disabled="selectDisabled"
-            type="text"
-          />
-          <el-input
-            :id="id"
-            ref="reference"
-            v-model="selectedLabel"
-            type="text"
-            :placeholder="
-              typeof currentPlaceholder === 'function'
-                ? currentPlaceholder()
-                : currentPlaceholder
-            "
-            :name="name"
-            :autocomplete="autocomplete"
-            :size="selectSize"
-            :disabled="selectDisabled"
-            :readonly="readonly"
-            :validate-event="false"
-            :class="[nsSelect.is('focus', visible)]"
-            :tabindex="multiple && filterable ? -1 : undefined"
-            @focus="handleFocus"
-            @blur="handleBlur"
-            @input="debouncedOnInputChange"
-            @paste="debouncedOnInputChange"
-            @compositionstart="handleComposition"
-            @compositionupdate="handleComposition"
-            @compositionend="handleComposition"
-            @keydown.down.stop.prevent="navigateOptions('next')"
-            @keydown.up.stop.prevent="navigateOptions('prev')"
-            @keydown.enter.stop.prevent="selectOption"
-            @keydown.esc="handleKeydownEscape"
-            @keydown.tab="visible = false"
-          >
+              nsSelect.is('disabled', selectDisabled),
+            ]" :disabled="selectDisabled" :autocomplete="autocomplete" :style="{
+  marginLeft: `${prefixWidth}px`,
+  flexGrow: 1,
+  width: `${inputLength / (inputWidth - 32)}%`,
+  maxWidth: `${inputWidth - 42}px`,
+}" @focus="handleFocus" @blur="handleBlur" @keyup="managePlaceholder" @keydown="resetInputState"
+              @keydown.down.prevent="navigateOptions('next')" @keydown.up.prevent="navigateOptions('prev')"
+              @keydown.esc="handleKeydownEscape" @keydown.enter.stop.prevent="selectOption"
+              @keydown.delete="deletePrevTag" @keydown.tab="visible = false" @compositionstart="handleComposition"
+              @compositionupdate="handleComposition" @compositionend="handleComposition" @input="debouncedQueryChange" />
+          </div>
+          <!-- fix: https://github.com/ehop/ehop/issues/11415 -->
+          <input v-if="isIOS && !multiple && filterable && readonly" ref="iOSInput" :class="[
+            nsSelect.e('input'),
+            nsSelect.is(selectSize),
+            nsSelect.em('input', 'iOS'),
+          ]" :disabled="selectDisabled" type="text" />
+          <eh-input :id="id" ref="reference" v-model="selectedLabel" type="text" :placeholder="typeof currentPlaceholder === 'function'
+              ? currentPlaceholder()
+              : currentPlaceholder
+            " :name="name" :autocomplete="autocomplete" :size="selectSize" :disabled="selectDisabled"
+            :readonly="readonly" :validate-event="false" :class="[nsSelect.is('focus', visible)]"
+            :tabindex="multiple && filterable ? -1 : undefined" @focus="handleFocus" @blur="handleBlur"
+            @input="debouncedOnInputChange" @paste="debouncedOnInputChange" @compositionstart="handleComposition"
+            @compositionupdate="handleComposition" @compositionend="handleComposition"
+            @keydown.down.stop.prevent="navigateOptions('next')" @keydown.up.stop.prevent="navigateOptions('prev')"
+            @keydown.enter.stop.prevent="selectOption" @keydown.esc="handleKeydownEscape" @keydown.tab="visible = false">
             <template v-if="$slots.prefix" #prefix>
-              <div
-                style="
+              <div style="
                   height: 100%;
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                "
-              >
+                ">
                 <slot name="prefix" />
               </div>
             </template>
             <template #suffix>
-              <el-icon
-                v-if="iconComponent && !showClose"
-                :class="[nsSelect.e('caret'), nsSelect.e('icon'), iconReverse]"
-              >
+              <eh-icon v-if="iconComponent && !showClose" :class="[nsSelect.e('caret'), nsSelect.e('icon'), iconReverse]">
                 <component :is="iconComponent" />
-              </el-icon>
-              <el-icon
-                v-if="showClose && clearIcon"
-                :class="[nsSelect.e('caret'), nsSelect.e('icon')]"
-                @click="handleClearClick"
-              >
+              </eh-icon>
+              <eh-icon v-if="showClose && clearIcon" :class="[nsSelect.e('caret'), nsSelect.e('icon')]"
+                @click="handleClearClick">
                 <component :is="clearIcon" />
-              </el-icon>
+              </eh-icon>
             </template>
-          </el-input>
+          </eh-input>
         </div>
       </template>
       <template #content>
-        <el-select-menu>
-          <el-scrollbar
-            v-show="options.size > 0 && !loading"
-            ref="scrollbar"
-            tag="ul"
-            :wrap-class="nsSelect.be('dropdown', 'wrap')"
-            :view-class="nsSelect.be('dropdown', 'list')"
-            :class="[
+        <eh-select-menu>
+          <eh-scrollbar v-show="options.size > 0 && !loading" ref="scrollbar" tag="ul"
+            :wrap-class="nsSelect.be('dropdown', 'wrap')" :view-class="nsSelect.be('dropdown', 'list')" :class="[
               nsSelect.is(
                 'empty',
                 !allowCreate && Boolean(query) && filteredOptionsCount === 0
               ),
-            ]"
-          >
-            <el-option v-if="showNewOption" :value="query" :created="true" />
-            <el-options @update-options="onOptionsRendered">
+            ]">
+            <eh-option v-if="showNewOption" :value="query" :created="true" />
+            <eh-options @update-options="onOptionsRendered">
               <slot />
-            </el-options>
-          </el-scrollbar>
-          <template
-            v-if="
-              emptyText &&
-              (!allowCreate || loading || (allowCreate && options.size === 0))
-            "
-          >
+            </eh-options>
+          </eh-scrollbar>
+          <template v-if="emptyText &&
+            (!allowCreate || loading || (allowCreate && options.size === 0))
+            ">
             <slot v-if="$slots.empty" name="empty" />
             <p v-else :class="nsSelect.be('dropdown', 'empty')">
               {{ emptyText }}
             </p>
           </template>
-        </el-select-menu>
+        </eh-select-menu>
       </template>
-    </el-tooltip>
+    </eh-tooltip>
   </div>
 </template>
 

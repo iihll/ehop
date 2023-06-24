@@ -20,25 +20,39 @@
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
     >
-      <el-badge
+      <eh-badge
         v-if="repeatNum > 1"
         :value="repeatNum"
         :type="badgeType"
         :class="ns.e('badge')"
       />
-      <el-icon v-if="iconComponent" :class="[ns.e('icon'), typeClass]">
+      <eh-icon
+        v-if="iconComponent"
+        :class="[ns.e('icon'), typeClass]"
+      >
         <component :is="iconComponent" />
-      </el-icon>
+      </eh-icon>
       <slot>
-        <p v-if="!dangerouslyUseHTMLString" :class="ns.e('content')">
+        <p
+          v-if="!dangerouslyUseHTMLString"
+          :class="ns.e('content')"
+        >
           {{ message }}
         </p>
         <!-- Caution here, message could've been compromised, never use user's input as message -->
-        <p v-else :class="ns.e('content')" v-html="message" />
+        <p
+          v-else
+          :class="ns.e('content')"
+          v-html="message"
+        />
       </slot>
-      <el-icon v-if="showClose" :class="ns.e('closeBtn')" @click.stop="close">
+      <eh-icon
+        v-if="showClose"
+        :class="ns.e('closeBtn')"
+        @click.stop="close"
+      >
         <Close />
-      </el-icon>
+      </eh-icon>
     </div>
   </transition>
 </template>

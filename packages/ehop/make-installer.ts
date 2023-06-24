@@ -1,9 +1,9 @@
-import { INSTALLED_KEY } from '@ehopts'
+import { INSTALLED_KEY } from '@ehop/constants'
 import { provideGlobalConfig } from '@ehop/components/config-provider'
 import { version } from './version'
 
 import type { App, Plugin } from '@vue/runtime-core'
-import type { ConfigProviderContext } from '@ehopnts/config-provider'
+import type { ConfigProviderContext } from '@ehop/components/config-provider'
 
 export const makeInstaller = (components: Plugin[] = []) => {
   const install = (app: App, options?: ConfigProviderContext) => {

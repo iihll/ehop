@@ -1,41 +1,97 @@
 <template>
   <div :class="[ns.b(), ns.is('disabled', disabled)]">
-    <el-tooltip ref="popperRef" :role="role" :effect="effect" :fallback-placements="['bottom', 'top']"
-      :popper-options="popperOptions" :gpu-acceleration="false" :hide-after="trigger === 'hover' ? hideTimeout : 0"
-      :manual-mode="true" :placement="placement" :popper-class="[ns.e('popper'), popperClass]"
-      :reference-element="referenceElementRef?.$el" :trigger="trigger" :trigger-keys="triggerKeys"
-      :trigger-target-el="contentRef" :show-after="trigger === 'hover' ? showTimeout : 0" :stop-popper-mouse-event="false"
-      :virtual-ref="triggeringElementRef" :virtual-triggering="splitButton" :disabled="disabled"
-      :transition="`${ns.namespace.value}-zoom-in-top`" :teleported="teleported" pure persistent
-      @before-show="handleBeforeShowTooltip" @show="handleShowTooltip" @before-hide="handleBeforeHideTooltip">
+    <eh-tooltip
+      ref="popperRef"
+      :role="role"
+      :effect="effect"
+      :fallback-placements="['bottom', 'top']"
+      :popper-options="popperOptions"
+      :gpu-acceleration="false"
+      :hide-after="trigger === 'hover' ? hideTimeout : 0"
+      :manual-mode="true"
+      :placement="placement"
+      :popper-class="[ns.e('popper'), popperClass]"
+      :reference-element="referenceElementRef?.$el"
+      :trigger="trigger"
+      :trigger-keys="triggerKeys"
+      :trigger-target-el="contentRef"
+      :show-after="trigger === 'hover' ? showTimeout : 0"
+      :stop-popper-mouse-event="false"
+      :virtual-ref="triggeringElementRef"
+      :virtual-triggering="splitButton"
+      :disabled="disabled"
+      :transition="`${ns.namespace.value}-zoom-in-top`"
+      :teleported="teleported"
+      pure
+      persistent
+      @before-show="handleBeforeShowTooltip"
+      @show="handleShowTooltip"
+      @before-hide="handleBeforeHideTooltip"
+    >
       <template #content>
-        <el-scrollbar ref="scrollbar" :wrap-style="wrapStyle" tag="div" :view-class="ns.e('list')">
-          <el-roving-focus-group :loop="loop" :current-tab-id="currentTabId" orientation="horizontal"
-            @current-tab-id-change="handleCurrentTabIdChange" @entry-focus="handleEntryFocus">
-            <el-dropdown-collection>
+        <eh-scrollbar
+          ref="scrollbar"
+          :wrap-style="wrapStyle"
+          tag="div"
+          :view-class="ns.e('list')"
+        >
+          <eh-roving-focus-group
+            :loop="loop"
+            :current-tab-id="currentTabId"
+            orientation="horizontal"
+            @current-tab-id-change="handleCurrentTabIdChange"
+            @entry-focus="handleEntryFocus"
+          >
+            <eh-dropdown-collection>
               <slot name="dropdown" />
-            </el-dropdown-collection>
-          </el-roving-focus-group>
-        </el-scrollbar>
+            </eh-dropdown-collection>
+          </eh-roving-focus-group>
+        </eh-scrollbar>
       </template>
-      <template v-if="!splitButton" #default>
-        <el-only-child :id="triggerId" ref="triggeringElementRef" role="button" :tabindex="tabindex">
+      <template
+        v-if="!splitButton"
+        #default
+      >
+        <eh-only-child
+          :id="triggerId"
+          ref="triggeringElementRef"
+          role="button"
+          :tabindex="tabindex"
+        >
           <slot name="default" />
-        </el-only-child>
+        </eh-only-child>
       </template>
-    </el-tooltip>
+    </eh-tooltip>
     <template v-if="splitButton">
-      <el-button-group>
-        <el-button ref="referenceElementRef" v-bind="buttonProps" :size="dropdownSize" :type="type" :disabled="disabled"
-          :tabindex="tabindex" @click="handlerMainButtonClick">
+      <eh-button-group>
+        <eh-button
+          ref="referenceElementRef"
+          v-bind="buttonProps"
+          :size="dropdownSize"
+          :type="type"
+          :disabled="disabled"
+          :tabindex="tabindex"
+          @click="handlerMainButtonClick"
+        >
           <slot name="default" />
-        </el-button>
-        <el-button :id="triggerId" ref="triggeringElementRef" v-bind="buttonProps" role="button" :size="dropdownSize"
-          :type="type" :class="ns.e('caret-button')" :disabled="disabled" :tabindex="tabindex"
-          :aria-label="t('eh.dropdown.toggleDropdown')">
-          <el-icon :class="ns.e('icon')"><arrow-down /></el-icon>
-        </el-button>
-      </el-button-group>
+        </eh-button>
+        <eh-button
+          :id="triggerId"
+          ref="triggeringElementRef"
+          v-bind="buttonProps"
+          role="button"
+          :size="dropdownSize"
+          :type="type"
+          :class="ns.e('caret-button')"
+          :disabled="disabled"
+          :tabindex="tabindex"
+          :aria-label="t('eh.dropdown.toggleDropdown')"
+        >
+          <eh-icon :class="ns.e('icon')">
+            <arrow-down />
+          </eh-icon>
+        </eh-button>
+      </eh-button-group>
     </template>
   </div>
 </template>
@@ -53,16 +109,16 @@ import {
   watch,
 } from 'vue'
 import EhButton from '@ehop/components/button'
-import EhTooltip from '@ehopnts/tooltip'
-import EhScrollbar from '@ehopnts/scrollbar'
-import EhIcon from '@ehopnts/icon'
-import EhRovingFocusGroup from '@ehopnts/roving-focus-group'
-import { EhOnlyChild } from '@ehopnts/slot'
-import { useFormSize } from '@ehopnts/form'
-import { addUnit, isArray } from '@ehop
+import EhTooltip from '@ehop/components/tooltip'
+import EhScrollbar from '@ehop/components/scrollbar'
+import EhIcon from '@ehop/components/icon'
+import EhRovingFocusGroup from '@ehop/components/roving-focus-group'
+import { EhOnlyChild } from '@ehop/components/slot'
+import { useFormSize } from '@ehop/components/form'
+import { addUnit, isArray } from '@ehop/utils'
 import { ArrowDown } from '@ehop/icons-vue'
-import { EVENT_CODE } from '@ehopts'
-import { useId, useLocale, useNamespace } from '@ehop
+import { EVENT_CODE } from '@ehop/constants'
+import { useId, useLocale, useNamespace } from '@ehop/hooks'
 import { EhCollection as EhDropdownCollection, dropdownProps } from './dropdown'
 import { DROPDOWN_INJECTION_KEY } from './tokens'
 

@@ -4,17 +4,17 @@
       <slot name="header" :date="i18nDate">
         <div :class="ns.e('title')">{{ i18nDate }}</div>
         <div v-if="validatedRange.length === 0" :class="ns.e('button-group')">
-          <el-button-group>
-            <el-button size="small" @click="selectDate('prev-month')">
+          <eh-button-group>
+            <eh-button size="small" @click="selectDate('prev-month')">
               {{ t('eh.datepicker.prevMonth') }}
-            </el-button>
-            <el-button size="small" @click="selectDate('today')">
+            </eh-button>
+            <eh-button size="small" @click="selectDate('today')">
               {{ t('eh.datepicker.today') }}
-            </el-button>
-            <el-button size="small" @click="selectDate('next-month')">
+            </eh-button>
+            <eh-button size="small" @click="selectDate('next-month')">
               {{ t('eh.datepicker.nextMonth') }}
-            </el-button>
-          </el-button-group>
+            </eh-button>
+          </eh-button-group>
         </div>
       </slot>
     </div>

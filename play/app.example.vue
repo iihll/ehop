@@ -1,12 +1,12 @@
 <template>
   <div class="play-container">
-    <el-icon color="#409EFC">
-      <el-icon-check />
-    </el-icon>
-    <el-icon>
-      <el-icon-menu />
-    </el-icon>
-    <el-button>test</el-button>
+    <eh-icon color="#409EFC">
+      <eh-icon-check />
+    </eh-icon>
+    <eh-icon>
+      <eh-icon-menu />
+    </eh-icon>
+    <eh-button>test</eh-button>
     <div v-loading="true" />
   </div>
 </template>
@@ -21,9 +21,11 @@ body {
   width: 100vw;
   height: 100vh;
   margin: 0;
+
   #play {
     height: 100%;
     width: 100%;
+
     .play-container {
       height: 100%;
       width: 100%;

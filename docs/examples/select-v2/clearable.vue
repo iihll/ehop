@@ -1,19 +1,8 @@
 <template>
-  <el-select-v2
-    v-model="value1"
-    :options="options"
-    placeholder="Please select"
-    style="width: 240px; margin-right: 16px; vertical-align: middle"
-    multiple
-    clearable
-  />
-  <el-select-v2
-    v-model="value2"
-    :options="options"
-    placeholder="Please select"
-    style="width: 240px; vertical-align: middle"
-    clearable
-  />
+  <eh-select-v2 v-model="value1" :options="options" placeholder="Please select"
+    style="width: 240px; margin-right: 16px; vertical-align: middle" multiple clearable />
+  <eh-select-v2 v-model="value2" :options="options" placeholder="Please select"
+    style="width: 240px; vertical-align: middle" clearable />
 </template>
 
 <script lang="ts" setup>

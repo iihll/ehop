@@ -1,9 +1,9 @@
 <template>
-  <el-skeleton />
+  <eh-skeleton />
   <br />
-  <el-skeleton style="--eh-skeleton-circle-size: 100px">
+  <eh-skeleton style="--eh-skeleton-circle-size: 100px">
     <template #template>
-      <el-skeleton-item variant="circle" />
+      <eh-skeleton-item variant="circle" />
     </template>
-  </el-skeleton>
+  </eh-skeleton>
 </template>

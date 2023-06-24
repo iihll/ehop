@@ -1,30 +1,20 @@
 <template>
   <div>
-    <el-table
-      :data="tableData"
-      :span-method="arraySpanMethod"
-      border
-      style="width: 100%"
-    >
-      <el-table-column prop="id" label="ID" width="180" />
-      <el-table-column prop="name" label="Name" />
-      <el-table-column prop="amount1" sortable label="Amount 1" />
-      <el-table-column prop="amount2" sortable label="Amount 2" />
-      <el-table-column prop="amount3" sortable label="Amount 3" />
-    </el-table>
+    <eh-table :data="tableData" :span-method="arraySpanMethod" border style="width: 100%">
+      <eh-table-column prop="id" label="ID" width="180" />
+      <eh-table-column prop="name" label="Name" />
+      <eh-table-column prop="amount1" sortable label="Amount 1" />
+      <eh-table-column prop="amount2" sortable label="Amount 2" />
+      <eh-table-column prop="amount3" sortable label="Amount 3" />
+    </eh-table>
 
-    <el-table
-      :data="tableData"
-      :span-method="objectSpanMethod"
-      border
-      style="width: 100%; margin-top: 20px"
-    >
-      <el-table-column prop="id" label="ID" width="180" />
-      <el-table-column prop="name" label="Name" />
-      <el-table-column prop="amount1" label="Amount 1" />
-      <el-table-column prop="amount2" label="Amount 2" />
-      <el-table-column prop="amount3" label="Amount 3" />
-    </el-table>
+    <eh-table :data="tableData" :span-method="objectSpanMethod" border style="width: 100%; margin-top: 20px">
+      <eh-table-column prop="id" label="ID" width="180" />
+      <eh-table-column prop="name" label="Name" />
+      <eh-table-column prop="amount1" label="Amount 1" />
+      <eh-table-column prop="amount2" label="Amount 2" />
+      <eh-table-column prop="amount3" label="Amount 3" />
+    </eh-table>
   </div>
 </template>
 

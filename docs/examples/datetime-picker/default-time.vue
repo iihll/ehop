@@ -1,25 +1,13 @@
 <template>
   <div class="block">
     <span class="demonstration">Start and end date time 12:00:00</span>
-    <el-date-picker
-      v-model="value1"
-      type="datetimerange"
-      start-placeholder="Start Date"
-      end-placeholder="End Date"
-      :default-time="defaultTime1"
-    />
+    <eh-date-picker v-model="value1" type="datetimerange" start-placeholder="Start Date" end-placeholder="End Date"
+      :default-time="defaultTime1" />
   </div>
   <div class="block">
-    <span class="demonstration"
-      >Start date time 12:00:00, end date time 08:00:00</span
-    >
-    <el-date-picker
-      v-model="value2"
-      type="datetimerange"
-      start-placeholder="Start Date"
-      end-placeholder="End Date"
-      :default-time="defaultTime2"
-    />
+    <span class="demonstration">Start date time 12:00:00, end date time 08:00:00</span>
+    <eh-date-picker v-model="value2" type="datetimerange" start-placeholder="Start Date" end-placeholder="End Date"
+      :default-time="defaultTime2" />
   </div>
 </template>
 

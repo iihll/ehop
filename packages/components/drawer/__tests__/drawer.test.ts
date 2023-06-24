@@ -23,7 +23,7 @@ describe('Drawer', () => {
   test('create', async () => {
     const wrapper = _mount(
       `
-      <el-drawer :title="title" v-model="visible"></el-drawer>
+      <eh-drawer :title="title" v-model="visible"></eh-drawer>
       `,
       () => ({
         title,
@@ -44,11 +44,11 @@ describe('Drawer', () => {
   test('render correct content', async () => {
     const wrapper = _mount(
       `
-      <el-drawer :title='title' v-model='visible'>
+      <eh-drawer :title='title' v-model='visible'>
         <span>this is a sentence</span>
-        <el-button @click='dialogVisible = false'>cancel</el-button>
-        <el-button type='primary' @click='dialogVisible = false'>confirm</el-button>
-      </el-drawer>
+        <eh-button @click='dialogVisible = false'>cancel</eh-button>
+        <eh-button type='primary' @click='dialogVisible = false'>confirm</eh-button>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -71,9 +71,9 @@ describe('Drawer', () => {
   test('should append to body, when append-to-body flag is true', async () => {
     const wrapper = _mount(
       `
-      <el-drawer ref='d' :title='title' v-model='visible' :append-to-body='true'>
+      <eh-drawer ref='d' :title='title' v-model='visible' :append-to-body='true'>
         <span> content </span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -97,9 +97,9 @@ describe('Drawer', () => {
     const onOpened = vi.fn()
     const wrapper = _mount(
       `
-      <el-drawer :title='title' v-model='visible' @closed="onClosed" @close="onClose" @opened="onOpened">
+      <eh-drawer :title='title' v-model='visible' @closed="onClosed" @close="onClose" @opened="onOpened">
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -138,9 +138,9 @@ describe('Drawer', () => {
   test('should destroy every child after drawer was closed when destroy-on-close flag is true', async () => {
     const wrapper = _mount(
       `
-      <el-drawer :title='title' v-model='visible' :append-to-body='false' :destroy-on-close='true' ref='drawer'>
+      <eh-drawer :title='title' v-model='visible' :append-to-body='false' :destroy-on-close='true' ref='drawer'>
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -165,9 +165,9 @@ describe('Drawer', () => {
   test('should close dialog by clicking the close button', async () => {
     const wrapper = _mount(
       `
-      <el-drawer :title='title' v-model='visible' :append-to-body='false' :destroy-on-close='true' ref='drawer'>
+      <eh-drawer :title='title' v-model='visible' :append-to-body='false' :destroy-on-close='true' ref='drawer'>
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -190,7 +190,7 @@ describe('Drawer', () => {
     const beforeClose = vi.fn()
     const wrapper = _mount(
       `
-      <el-drawer
+      <eh-drawer
           :before-close='beforeClose'
           :title='title'
           v-model='visible'
@@ -199,7 +199,7 @@ describe('Drawer', () => {
           ref='drawer'
           >
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -216,9 +216,9 @@ describe('Drawer', () => {
   test('should not show close button when show-close flag is false', async () => {
     const wrapper = _mount(
       `
-      <el-drawer :title='title' v-model='visible' ref='drawer' :show-close='false'>
+      <eh-drawer :title='title' v-model='visible' ref='drawer' :show-close='false'>
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -233,9 +233,9 @@ describe('Drawer', () => {
     const classes = 'some-custom-class'
     const wrapper = _mount(
       `
-      <el-drawer :title='title' v-model='visible' ref='drawer' custom-class='${classes}'>
+      <eh-drawer :title='title' v-model='visible' ref='drawer' custom-class='${classes}'>
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -249,11 +249,11 @@ describe('Drawer', () => {
   test('drawer header should have slot props', async () => {
     const wrapper = _mount(
       `
-      <el-drawer v-model='visible' ref='drawer'>
+      <eh-drawer v-model='visible' ref='drawer'>
         <template #header="{ titleId, titleClass, close }">
           <button :data-title-id="titleId" :data-title-class="titleClass" @click="close" />
         </template>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         visible: true,
@@ -275,9 +275,9 @@ describe('Drawer', () => {
   test('should not render header when withHeader attribute is false', async () => {
     const wrapper = _mount(
       `
-      <el-drawer :title='title' v-model='visible' ref='drawer' :with-header='false'>
+      <eh-drawer :title='title' v-model='visible' ref='drawer' :with-header='false'>
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -292,9 +292,9 @@ describe('Drawer', () => {
     const renderer = (direction: string) => {
       return _mount(
         `
-        <el-drawer :title='title' v-model='visible' direction='${direction}'>
+        <eh-drawer :title='title' v-model='visible' direction='${direction}'>
           <span>${content}</span>
-        </el-drawer>
+        </eh-drawer>
         `,
         () => ({
           title,
@@ -326,7 +326,7 @@ describe('Drawer', () => {
     const closed = vi.fn()
     const wrapper = _mount(
       `
-      <el-drawer
+      <eh-drawer
         :title='title'
         v-model='visible'
         ref="drawer"
@@ -335,7 +335,7 @@ describe('Drawer', () => {
         @close="close"
         @closed="closed">
         <span>${content}</span>
-      </el-drawer>
+      </eh-drawer>
       `,
       () => ({
         title,
@@ -373,11 +373,10 @@ describe('Drawer', () => {
     const renderer = (size: string, isVertical: boolean) =>
       _mount(
         `
-        <el-drawer :title='title' v-model='visible' direction='${
-          isVertical ? 'ltr' : 'ttb'
+        <eh-drawer :title='title' v-model='visible' direction='${isVertical ? 'ltr' : 'ttb'
         }' size='${size}'>
           <span>${content}</span>
-        </el-drawer>
+        </eh-drawer>
         `,
         () => ({
           visible: true,
@@ -402,11 +401,11 @@ describe('Drawer', () => {
     test('title attribute should set aria-label', async () => {
       const wrapper = _mount(
         `
-        <el-drawer
+        <eh-drawer
           :title='title'
           v-model='visible'
           ref="drawer">
-        </el-drawer>
+        </eh-drawer>
         `,
         () => ({
           title,
@@ -422,13 +421,13 @@ describe('Drawer', () => {
     test('missing title attribute should point to header slot content', async () => {
       const wrapper = _mount(
         `
-        <el-drawer
+        <eh-drawer
           v-model='visible'
           ref="drawer">
           <template #header="{ titleId, titleClass }">
             <h5 :id="titleId" :class="titleClass" />
           </template>
-        </el-drawer>
+        </eh-drawer>
         `,
         () => ({
           visible: true,
@@ -446,11 +445,11 @@ describe('Drawer', () => {
     test('aria-describedby should point to modal body', async () => {
       const wrapper = _mount(
         `
-        <el-drawer
+        <eh-drawer
           v-model='visible'
           ref="drawer">
           <span>${content}</span>
-        </el-drawer>
+        </eh-drawer>
         `,
         () => ({
           visible: true,

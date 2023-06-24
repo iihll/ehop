@@ -1,19 +1,12 @@
 <template>
-  <el-select-v2
-    v-model="value"
-    filterable
-    :options="options"
-    placeholder="Please select"
-    style="width: 240px"
-    multiple
-  >
+  <eh-select-v2 v-model="value" filterable :options="options" placeholder="Please select" style="width: 240px" multiple>
     <template #default="{ item }">
       <span style="margin-right: 8px">{{ item.label }}</span>
       <span style="color: var(--eh-text-color-secondary); font-size: 13px">
         {{ item.value }}
       </span>
     </template>
-  </el-select-v2>
+  </eh-select-v2>
 </template>
 
 <script lang="ts" setup>

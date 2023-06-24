@@ -1,10 +1,6 @@
 <template>
-  <div
-    :class="[ns.b('dragger'), ns.is('dragover', dragover)]"
-    @drop.prevent="onDrop"
-    @dragover.prevent="onDragover"
-    @dragleave.prevent="dragover = false"
-  >
+  <div :class="[ns.b('dragger'), ns.is('dragover', dragover)]" @drop.prevent="onDrop" @dragover.prevent="onDragover"
+    @dragleave.prevent="dragover = false">
     <slot />
   </div>
 </template>
@@ -29,7 +25,7 @@ const uploaderContext = inject(uploadContextKey)
 if (!uploaderContext) {
   throwError(
     COMPONENT_NAME,
-    'usage: <el-upload><el-upload-dragger /></el-upload>'
+    'usage: <eh-upload><eh-upload-dragger /></eh-upload>'
   )
 }
 

@@ -1,41 +1,33 @@
 <template>
-  <el-form label-position="left" label-width="150px" style="max-width: 460px">
-    <el-space fill>
-      <el-alert type="info" show-icon :closable="false">
+  <eh-form label-position="left" label-width="150px" style="max-width: 460px">
+    <eh-space fill>
+      <eh-alert type="info" show-icon :closable="false">
         <p>"Full Name" label is automatically attached to the input:</p>
-      </el-alert>
-      <el-form-item label="Full Name">
-        <el-input v-model="formAccessibility.fullName" />
-      </el-form-item>
-    </el-space>
-    <el-space fill>
-      <el-alert type="info" show-icon :closable="false">
+      </eh-alert>
+      <eh-form-item label="Full Name">
+        <eh-input v-model="formAccessibility.fullName" />
+      </eh-form-item>
+    </eh-space>
+    <eh-space fill>
+      <eh-alert type="info" show-icon :closable="false">
         <p>
           "Your Information" serves as a label for the group of inputs. <br />
           You must specify labels on the individal inputs. Placeholders are not
           replacements for using the "label" attribute.
         </p>
-      </el-alert>
-      <el-form-item label="Your Information">
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-input
-              v-model="formAccessibility.firstName"
-              label="First Name"
-              placeholder="First Name"
-            />
-          </el-col>
-          <el-col :span="12">
-            <el-input
-              v-model="formAccessibility.lastName"
-              label="Last Name"
-              placeholder="Last Name"
-            />
-          </el-col>
-        </el-row>
-      </el-form-item>
-    </el-space>
-  </el-form>
+      </eh-alert>
+      <eh-form-item label="Your Information">
+        <eh-row :gutter="20">
+          <eh-col :span="12">
+            <eh-input v-model="formAccessibility.firstName" label="First Name" placeholder="First Name" />
+          </eh-col>
+          <eh-col :span="12">
+            <eh-input v-model="formAccessibility.lastName" label="Last Name" placeholder="Last Name" />
+          </eh-col>
+        </eh-row>
+      </eh-form-item>
+    </eh-space>
+  </eh-form>
 </template>
 
 <script lang="ts" setup>

@@ -6,25 +6,17 @@
         <i :class="ns.e('line-inner')" :style="lineStyle" />
       </div>
 
-      <div
-        :class="[ns.e('icon'), ns.is(icon || $slots.icon ? 'icon' : 'text')]"
-      >
+      <div :class="[ns.e('icon'), ns.is(icon || $slots.icon ? 'icon' : 'text')]">
         <slot name="icon">
-          <el-icon v-if="icon" :class="ns.e('icon-inner')">
+          <eh-icon v-if="icon" :class="ns.e('icon-inner')">
             <component :is="icon" />
-          </el-icon>
-          <el-icon
-            v-else-if="currentStatus === 'success'"
-            :class="[ns.e('icon-inner'), ns.is('status')]"
-          >
+          </eh-icon>
+          <eh-icon v-else-if="currentStatus === 'success'" :class="[ns.e('icon-inner'), ns.is('status')]">
             <Check />
-          </el-icon>
-          <el-icon
-            v-else-if="currentStatus === 'error'"
-            :class="[ns.e('icon-inner'), ns.is('status')]"
-          >
+          </eh-icon>
+          <eh-icon v-else-if="currentStatus === 'error'" :class="[ns.e('icon-inner'), ns.is('status')]">
             <Close />
-          </el-icon>
+          </eh-icon>
           <div v-else-if="!isSimple" :class="ns.e('icon-inner')">
             {{ index + 1 }}
           </div>

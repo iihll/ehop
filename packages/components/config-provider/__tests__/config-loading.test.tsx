@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { ElButton, ElLoading } from '@ehop/components'
 import ConfigProvider from '../src/config-provider'
-import type { LoadingInstance } from '@ehopnts/loading/src/loading'
+import type { LoadingInstance } from '@ehop/components/loading/src/loading'
 
 describe('loading config', () => {
   it('should render loading component', async () => {

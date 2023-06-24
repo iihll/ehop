@@ -1,45 +1,32 @@
 <template>
   <div class="common-layout">
-    <el-container>
-      <el-aside
-        width="200px"
-        style="
+    <eh-container>
+      <eh-aside width="200px" style="
           display: flex;
           justify-content: center;
           align-items: center;
           background-color: #d3dce6;
-        "
-        >Aside</el-aside
-      >
-      <el-container>
-        <el-header
-          style="
+        ">Aside</eh-aside>
+      <eh-container>
+        <eh-header style="
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #b3c0d1;
-          "
-          >Header</el-header
-        >
-        <el-main
-          style="
+          ">Header</eh-header>
+        <eh-main style="
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #e9eef3;
-          "
-          >Main</el-main
-        >
-        <el-footer
-          style="
+          ">Main</eh-main>
+        <eh-footer style="
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #b3c0d1;
-          "
-          >Footer</el-footer
-        >
-      </el-container>
-    </el-container>
+          ">Footer</eh-footer>
+      </eh-container>
+    </eh-container>
   </div>
 </template>

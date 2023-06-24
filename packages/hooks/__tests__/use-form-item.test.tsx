@@ -2,10 +2,10 @@ import { defineComponent, provide } from 'vue'
 import { NOOP } from '@vue/shared'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { formContextKey, formItemContextKey } from '@ehopnts/form'
+import { formContextKey, formItemContextKey } from '@ehop/components/form'
 import { ElButton, buttonGroupContextKey } from '@ehop/components'
 
-import type { FormContext, FormItemContext } from '@ehopnts/form'
+import type { FormContext, FormItemContext } from '@ehop/components/form'
 
 const AXIOM = 'Rem is the best girl'
 

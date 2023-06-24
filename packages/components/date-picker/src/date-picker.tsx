@@ -13,7 +13,7 @@ import {
   CommonPicker,
   DEFAULT_FORMATS_DATE,
   DEFAULT_FORMATS_DATEPICKER,
-} from '@ehopnts/time-picker'
+} from '@ehop/components/time-picker'
 import { ROOT_PICKER_INJECTION_KEY } from './constants'
 
 import { datePickerProps } from './props/date-picker'

@@ -9,7 +9,7 @@ Input numerical values with a customizable range.
 
 ## Basic usage
 
-:::demo Bind a variable to `v-model` in `<el-input-number>` element and you are set.
+:::demo Bind a variable to `v-model` in `<eh-input-number>` element and you are set.
 
 input-number/basic
 

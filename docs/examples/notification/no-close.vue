@@ -1,5 +1,5 @@
 <template>
-  <el-button plain @click="open"> Hide close button </el-button>
+  <eh-button plain @click="open"> Hide close button </eh-button>
 </template>
 
 <script lang="ts" setup>

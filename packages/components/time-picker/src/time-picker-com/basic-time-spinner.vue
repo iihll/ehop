@@ -1,28 +1,14 @@
 <template>
   <div :class="[ns.b('spinner'), { 'has-seconds': showSeconds }]">
     <template v-if="!arrowControl">
-      <el-scrollbar
-        v-for="item in spinnerItems"
-        :key="item"
-        :ref="(scrollbar: unknown) => setRef(scrollbar as any, item)"
-        :class="ns.be('spinner', 'wrapper')"
-        wrap-style="max-height: inherit;"
-        :view-class="ns.be('spinner', 'list')"
-        noresize
-        tag="ul"
-        @mouseenter="emitSelectRange(item)"
-        @mousemove="adjustCurrentSpinner(item)"
-      >
-        <li
-          v-for="(disabled, key) in timeList[item]"
-          :key="key"
-          :class="[
-            ns.be('spinner', 'item'),
-            ns.is('active', key === timePartials[item]),
-            ns.is('disabled', disabled),
-          ]"
-          @click="handleClick(item, { value: key, disabled })"
-        >
+      <eh-scrollbar v-for="item in spinnerItems" :key="item" :ref="(scrollbar: unknown) => setRef(scrollbar as any, item)"
+        :class="ns.be('spinner', 'wrapper')" wrap-style="max-height: inherit;" :view-class="ns.be('spinner', 'list')"
+        noresize tag="ul" @mouseenter="emitSelectRange(item)" @mousemove="adjustCurrentSpinner(item)">
+        <li v-for="(disabled, key) in timeList[item]" :key="key" :class="[
+          ns.be('spinner', 'item'),
+          ns.is('active', key === timePartials[item]),
+          ns.is('disabled', disabled),
+        ]" @click="handleClick(item, { value: key, disabled })">
           <template v-if="item === 'hours'">
             {{ ('0' + (amPmMode ? key % 12 || 12 : key)).slice(-2)
             }}{{ getAmPmFlag(key) }}
@@ -31,37 +17,23 @@
             {{ ('0' + key).slice(-2) }}
           </template>
         </li>
-      </el-scrollbar>
+      </eh-scrollbar>
     </template>
     <template v-if="arrowControl">
-      <div
-        v-for="item in spinnerItems"
-        :key="item"
-        :class="[ns.be('spinner', 'wrapper'), ns.is('arrow')]"
-        @mouseenter="emitSelectRange(item)"
-      >
-        <el-icon
-          v-repeat-click="onDecrement"
-          :class="['arrow-up', ns.be('spinner', 'arrow')]"
-        >
+      <div v-for="item in spinnerItems" :key="item" :class="[ns.be('spinner', 'wrapper'), ns.is('arrow')]"
+        @mouseenter="emitSelectRange(item)">
+        <eh-icon v-repeat-click="onDecrement" :class="['arrow-up', ns.be('spinner', 'arrow')]">
           <arrow-up />
-        </el-icon>
-        <el-icon
-          v-repeat-click="onIncrement"
-          :class="['arrow-down', ns.be('spinner', 'arrow')]"
-        >
+        </eh-icon>
+        <eh-icon v-repeat-click="onIncrement" :class="['arrow-down', ns.be('spinner', 'arrow')]">
           <arrow-down />
-        </el-icon>
+        </eh-icon>
         <ul :class="ns.be('spinner', 'list')">
-          <li
-            v-for="(time, key) in arrowControlTimeList[item]"
-            :key="key"
-            :class="[
+          <li v-for="(time, key) in arrowControlTimeList[item]" :key="key" :class="[
             ns.be('spinner', 'item'),
             ns.is('active', time === timePartials[item]),
             ns.is('disabled', timeList[item][time!]),
-          ]"
-          >
+          ]">
             <template v-if="typeof time === 'number'">
               <template v-if="item === 'hours'">
                 {{ ('0' + (amPmMode ? time % 12 || 12 : time)).slice(-2)

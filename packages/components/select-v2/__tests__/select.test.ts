@@ -97,7 +97,7 @@ const createSelect = (
     ''
   return _mount(
     `
-      <el-select
+      <eh-select
         :options="options"
         :popper-class="popperClass"
         :value-key="valueKey"
@@ -115,16 +115,14 @@ const createSelect = (
         :reserve-keyword="reserveKeyword"
         :scrollbar-always-on="scrollbarAlwaysOn"
         :teleported="teleported"
-        ${
-          options.methods && options.methods.filterMethod
-            ? `:filter-method="filterMethod"`
-            : ''
-        }
-        ${
-          options.methods && options.methods.remoteMethod
-            ? `:remote-method="remoteMethod"`
-            : ''
-        }
+        ${options.methods && options.methods.filterMethod
+      ? `:filter-method="filterMethod"`
+      : ''
+    }
+        ${options.methods && options.methods.remoteMethod
+      ? `:remote-method="remoteMethod"`
+      : ''
+    }
         @change="onChange"
         @visible-change="onVisibleChange"
         @remove-tag="onRemoveTag"
@@ -133,7 +131,7 @@ const createSelect = (
         v-model="value">
         ${defaultSlot}
         ${emptySlot}
-      </el-select>
+      </eh-select>
     `,
     {
       data() {

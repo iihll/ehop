@@ -1,30 +1,21 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline">
-    <el-form-item label="Approved by">
-      <el-input v-model="formInline.user" placeholder="Approved by" clearable />
-    </el-form-item>
-    <el-form-item label="Activity zone">
-      <el-select
-        v-model="formInline.region"
-        placeholder="Activity zone"
-        clearable
-      >
-        <el-option label="Zone one" value="shanghai" />
-        <el-option label="Zone two" value="beijing" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="Activity time">
-      <el-date-picker
-        v-model="formInline.date"
-        type="date"
-        placeholder="Pick a date"
-        clearable
-      />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="onSubmit">Query</el-button>
-    </el-form-item>
-  </el-form>
+  <eh-form :inline="true" :model="formInline" class="demo-form-inline">
+    <eh-form-item label="Approved by">
+      <eh-input v-model="formInline.user" placeholder="Approved by" clearable />
+    </eh-form-item>
+    <eh-form-item label="Activity zone">
+      <eh-select v-model="formInline.region" placeholder="Activity zone" clearable>
+        <eh-option label="Zone one" value="shanghai" />
+        <eh-option label="Zone two" value="beijing" />
+      </eh-select>
+    </eh-form-item>
+    <eh-form-item label="Activity time">
+      <eh-date-picker v-model="formInline.date" type="date" placeholder="Pick a date" clearable />
+    </eh-form-item>
+    <eh-form-item>
+      <eh-button type="primary" @click="onSubmit">Query</eh-button>
+    </eh-form-item>
+  </eh-form>
 </template>
 
 <script lang="ts" setup>

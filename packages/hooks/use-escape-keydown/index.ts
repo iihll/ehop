@@ -1,5 +1,5 @@
 import { onBeforeUnmount, onMounted } from 'vue'
-import { EVENT_CODE } from '@ehopts'
+import { EVENT_CODE } from '@ehop/constants'
 import { isClient } from '@ehop/utils'
 
 let registeredEscapeHandlers: ((e: KeyboardEvent) => void)[] = []

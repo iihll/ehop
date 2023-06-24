@@ -1,7 +1,7 @@
 import installer from './defaults'
 export * from '@ehop/components'
-export * from '@ehopts'
-export * from '@ehopves'
+export * from '@ehop/constants'
+export * from '@ehop/directives'
 export * from '@ehop
 export * from './make-installer'
 

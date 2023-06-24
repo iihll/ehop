@@ -2,7 +2,7 @@ import { computed, ref, useSlots } from 'vue'
 import dayjs from 'dayjs'
 import { useDeprecated, useLocale } from '@ehop/hooks'
 import { debugWarn } from '@ehop
-import { INPUT_EVENT, UPDATE_MODEL_EVENT } from '@ehopts'
+import { INPUT_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 
 import type { ComputedRef, SetupContext } from 'vue'
 import type { Dayjs } from 'dayjs'

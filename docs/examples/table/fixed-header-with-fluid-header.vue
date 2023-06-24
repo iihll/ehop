@@ -1,27 +1,20 @@
 <template>
-  <el-table :data="tableData" style="width: 100%" max-height="250">
-    <el-table-column fixed prop="date" label="Date" width="150" />
-    <el-table-column prop="name" label="Name" width="120" />
-    <el-table-column prop="state" label="State" width="120" />
-    <el-table-column prop="city" label="City" width="120" />
-    <el-table-column prop="address" label="Address" width="600" />
-    <el-table-column prop="zip" label="Zip" width="120" />
-    <el-table-column fixed="right" label="Operations" width="120">
+  <eh-table :data="tableData" style="width: 100%" max-height="250">
+    <eh-table-column fixed prop="date" label="Date" width="150" />
+    <eh-table-column prop="name" label="Name" width="120" />
+    <eh-table-column prop="state" label="State" width="120" />
+    <eh-table-column prop="city" label="City" width="120" />
+    <eh-table-column prop="address" label="Address" width="600" />
+    <eh-table-column prop="zip" label="Zip" width="120" />
+    <eh-table-column fixed="right" label="Operations" width="120">
       <template #default="scope">
-        <el-button
-          link
-          type="primary"
-          size="small"
-          @click.prevent="deleteRow(scope.$index)"
-        >
+        <eh-button link type="primary" size="small" @click.prevent="deleteRow(scope.$index)">
           Remove
-        </el-button>
+        </eh-button>
       </template>
-    </el-table-column>
-  </el-table>
-  <el-button class="mt-4" style="width: 100%" @click="onAddItem"
-    >Add Item</el-button
-  >
+    </eh-table-column>
+  </eh-table>
+  <eh-button class="mt-4" style="width: 100%" @click="onAddItem">Add Item</eh-button>
 </template>
 
 <script lang="ts" setup>

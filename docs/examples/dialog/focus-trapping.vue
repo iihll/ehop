@@ -1,32 +1,26 @@
 <template>
-  <el-button text @click="dialogVisible = true">
+  <eh-button text @click="dialogVisible = true">
     click to open the Dialog
-  </el-button>
+  </eh-button>
 
   <div>
     <p>Close dialog and the input will be focused</p>
-    <el-input ref="inputRef" placeholder="Please input" />
+    <eh-input ref="inputRef" placeholder="Please input" />
   </div>
 
-  <el-dialog
-    v-model="dialogVisible"
-    destroy-on-close
-    title="Tips"
-    width="30%"
-    @close-auto-focus="handleCloseAutoFocus"
-  >
+  <eh-dialog v-model="dialogVisible" destroy-on-close title="Tips" width="30%" @close-auto-focus="handleCloseAutoFocus">
     <span>This is a message</span>
-    <el-divider />
-    <el-input placeholder="Initially focused" />
+    <eh-divider />
+    <eh-input placeholder="Initially focused" />
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="dialogVisible = false">
+        <eh-button @click="dialogVisible = false">Cancel</eh-button>
+        <eh-button type="primary" @click="dialogVisible = false">
           Confirm
-        </el-button>
+        </eh-button>
       </span>
     </template>
-  </el-dialog>
+  </eh-dialog>
 </template>
 
 <script lang="ts" setup>

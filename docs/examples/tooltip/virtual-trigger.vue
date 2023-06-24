@@ -1,14 +1,7 @@
 <template>
-  <el-tooltip
-    v-model:visible="visible"
-    content="Bottom center"
-    placement="bottom"
-    effect="light"
-    trigger="click"
-    virtual-triggering
-    :virtual-ref="triggerRef"
-  />
-  <el-button @click="visible = !visible">test</el-button>
+  <eh-tooltip v-model:visible="visible" content="Bottom center" placement="bottom" effect="light" trigger="click"
+    virtual-triggering :virtual-ref="triggerRef" />
+  <eh-button @click="visible = !visible">test</eh-button>
 </template>
 
 <script setup lang="ts">

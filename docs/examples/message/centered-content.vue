@@ -1,5 +1,5 @@
 <template>
-  <el-button plain @click="openCenter">Centered text</el-button>
+  <eh-button plain @click="openCenter">Centered text</eh-button>
 </template>
 
 <script lang="ts" setup>

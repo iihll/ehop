@@ -2,12 +2,12 @@
   <div ref="contentRef" :style="contentStyle" data-tooltip-v2-root>
     <div v-if="!nowrap" :data-side="side" :class="contentClass">
       <slot :content-style="contentStyle" :content-class="contentClass" />
-      <el-visually-hidden :id="contentId" role="tooltip">
+      <eh-visually-hidden :id="contentId" role="tooltip">
         <template v-if="ariaLabel">
           {{ ariaLabel }}
         </template>
         <slot v-else />
-      </el-visually-hidden>
+      </eh-visually-hidden>
       <slot name="arrow" :style="arrowStyle" :side="side" />
     </div>
   </div>

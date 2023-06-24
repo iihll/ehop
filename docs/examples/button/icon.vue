@@ -1,14 +1,14 @@
 <template>
   <div class="flex">
-    <el-button type="primary" :icon="Edit" />
-    <el-button type="primary" :icon="Share" />
-    <el-button type="primary" :icon="Delete" />
-    <el-button type="primary" :icon="Search">Search</el-button>
-    <el-button type="primary">
-      Upload<el-icon class="el-icon--right">
+    <eh-button type="primary" :icon="Edit" />
+    <eh-button type="primary" :icon="Share" />
+    <eh-button type="primary" :icon="Delete" />
+    <eh-button type="primary" :icon="Search">Search</eh-button>
+    <eh-button type="primary">
+      Upload<eh-icon class="el-icon--right">
         <Upload />
-      </el-icon>
-    </el-button>
+      </eh-icon>
+    </eh-button>
   </div>
 </template>
 <script setup lang="ts">

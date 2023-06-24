@@ -12,9 +12,9 @@ import {
   withDirectives,
 } from 'vue'
 import { removeClass } from '@ehop/utils'
-import { useGlobalComponentSettings } from '@ehopnts/config-provider'
+import { useGlobalComponentSettings } from '@ehop/components/config-provider'
 
-import type { UseNamespaceReturn } from '@ehop
+import type { UseNamespaceReturn } from '@ehop/hooks'
 import type { LoadingOptionsResolved } from './types'
 
 export function createLoadingComponent(options: LoadingOptionsResolved) {

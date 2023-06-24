@@ -1,9 +1,9 @@
 <template>
-  <el-carousel indicator-position="outside">
-    <el-carousel-item v-for="item in 4" :key="item">
+  <eh-carousel indicator-position="outside">
+    <eh-carousel-item v-for="item in 4" :key="item">
       <h3 text="2xl" justify="center">{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
+    </eh-carousel-item>
+  </eh-carousel>
 </template>
 
 <style scoped>

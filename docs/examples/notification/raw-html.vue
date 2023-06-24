@@ -1,5 +1,5 @@
 <template>
-  <el-button plain @click="open"> Use HTML String </el-button>
+  <eh-button plain @click="open"> Use HTML String </eh-button>
 </template>
 
 <script lang="ts" setup>

@@ -1,13 +1,13 @@
 <template>
-  <el-row>
-    <el-tag class="mx-1" size="large">Large</el-tag>
-    <el-tag class="mx-1">Default</el-tag>
-    <el-tag class="mx-1" size="small">Small</el-tag>
-  </el-row>
+  <eh-row>
+    <eh-tag class="mx-1" size="large">Large</eh-tag>
+    <eh-tag class="mx-1">Default</eh-tag>
+    <eh-tag class="mx-1" size="small">Small</eh-tag>
+  </eh-row>
 
-  <el-row class="mt-4">
-    <el-tag class="mx-1" size="large" closable>Large</el-tag>
-    <el-tag class="mx-1" closable>Default</el-tag>
-    <el-tag class="mx-1" size="small" closable>Small</el-tag>
-  </el-row>
+  <eh-row class="mt-4">
+    <eh-tag class="mx-1" size="large" closable>Large</eh-tag>
+    <eh-tag class="mx-1" closable>Default</eh-tag>
+    <eh-tag class="mx-1" size="small" closable>Small</eh-tag>
+  </eh-row>
 </template>

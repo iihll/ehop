@@ -1,42 +1,20 @@
 <template>
-  <el-tooltip
-    ref="tooltip"
-    :visible="tooltipVisible"
-    :offset="0"
-    :placement="placement"
-    :show-arrow="false"
-    :stop-popper-mouse-event="false"
-    teleported
-    effect="light"
-    pure
-    :popper-class="ns.b()"
-    persistent
-  >
+  <eh-tooltip ref="tooltip" :visible="tooltipVisible" :offset="0" :placement="placement" :show-arrow="false"
+    :stop-popper-mouse-event="false" teleported effect="light" pure :popper-class="ns.b()" persistent>
     <template #content>
       <div v-if="multiple">
         <div :class="ns.e('content')">
-          <el-scrollbar :wrap-class="ns.e('wrap')">
-            <el-checkbox-group
-              v-model="filteredValue"
-              :class="ns.e('checkbox-group')"
-            >
-              <el-checkbox
-                v-for="filter in filters"
-                :key="filter.value"
-                :label="filter.value"
-              >
+          <eh-scrollbar :wrap-class="ns.e('wrap')">
+            <eh-checkbox-group v-model="filteredValue" :class="ns.e('checkbox-group')">
+              <eh-checkbox v-for="filter in filters" :key="filter.value" :label="filter.value">
                 {{ filter.text }}
-              </el-checkbox>
-            </el-checkbox-group>
-          </el-scrollbar>
+              </eh-checkbox>
+            </eh-checkbox-group>
+          </eh-scrollbar>
         </div>
         <div :class="ns.e('bottom')">
-          <button
-            :class="{ [ns.is('disabled')]: filteredValue.length === 0 }"
-            :disabled="filteredValue.length === 0"
-            type="button"
-            @click="handleConfirm"
-          >
+          <button :class="{ [ns.is('disabled')]: filteredValue.length === 0 }" :disabled="filteredValue.length === 0"
+            type="button" @click="handleConfirm">
             {{ t('eh.table.confirmFilter') }}
           </button>
           <button type="button" @click="handleReset">
@@ -45,45 +23,33 @@
         </div>
       </div>
       <ul v-else :class="ns.e('list')">
-        <li
-          :class="[
-            ns.e('list-item'),
-            {
-              [ns.is('active')]:
-                filterValue === undefined || filterValue === null,
-            },
-          ]"
-          @click="handleSelect(null)"
-        >
+        <li :class="[
+          ns.e('list-item'),
+          {
+            [ns.is('active')]:
+              filterValue === undefined || filterValue === null,
+          },
+        ]" @click="handleSelect(null)">
           {{ t('eh.table.clearFilter') }}
         </li>
-        <li
-          v-for="filter in filters"
-          :key="filter.value"
-          :class="[ns.e('list-item'), ns.is('active', isActive(filter))]"
-          :label="filter.value"
-          @click="handleSelect(filter.value)"
-        >
+        <li v-for="filter in filters" :key="filter.value" :class="[ns.e('list-item'), ns.is('active', isActive(filter))]"
+          :label="filter.value" @click="handleSelect(filter.value)">
           {{ filter.text }}
         </li>
       </ul>
     </template>
     <template #default>
-      <span
-        v-click-outside:[popperPaneRef]="hideFilterPanel"
-        :class="[
-          `${ns.namespace.value}-table__column-filter-trigger`,
-          `${ns.namespace.value}-none-outline`,
-        ]"
-        @click="showFilterPanel"
-      >
-        <el-icon>
+      <span v-click-outside:[popperPaneRef]="hideFilterPanel" :class="[
+        `${ns.namespace.value}-table__column-filter-trigger`,
+        `${ns.namespace.value}-none-outline`,
+      ]" @click="showFilterPanel">
+        <eh-icon>
           <arrow-up v-if="column.filterOpened" />
           <arrow-down v-else />
-        </el-icon>
+        </eh-icon>
       </span>
     </template>
-  </el-tooltip>
+  </eh-tooltip>
 </template>
 
 <script lang="ts">

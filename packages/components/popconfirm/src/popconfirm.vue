@@ -1,52 +1,31 @@
 <template>
-  <el-tooltip
-    ref="tooltipRef"
-    trigger="click"
-    effect="light"
-    v-bind="$attrs"
-    :popper-class="`${ns.namespace.value}-popover`"
-    :popper-style="style"
-    :teleported="teleported"
-    :fallback-placements="['bottom', 'top', 'right', 'left']"
-    :hide-after="hideAfter"
-    :persistent="persistent"
-  >
+  <eh-tooltip ref="tooltipRef" trigger="click" effect="light" v-bind="$attrs"
+    :popper-class="`${ns.namespace.value}-popover`" :popper-style="style" :teleported="teleported"
+    :fallback-placements="['bottom', 'top', 'right', 'left']" :hide-after="hideAfter" :persistent="persistent">
     <template #content>
       <div :class="ns.b()">
         <div :class="ns.e('main')">
-          <el-icon
-            v-if="!hideIcon && icon"
-            :class="ns.e('icon')"
-            :style="{ color: iconColor }"
-          >
+          <eh-icon v-if="!hideIcon && icon" :class="ns.e('icon')" :style="{ color: iconColor }">
             <component :is="icon" />
-          </el-icon>
+          </eh-icon>
           {{ title }}
         </div>
         <div :class="ns.e('action')">
-          <el-button
-            size="small"
-            :type="cancelButtonType === 'text' ? '' : cancelButtonType"
-            :text="cancelButtonType === 'text'"
-            @click="cancel"
-          >
+          <eh-button size="small" :type="cancelButtonType === 'text' ? '' : cancelButtonType"
+            :text="cancelButtonType === 'text'" @click="cancel">
             {{ finalCancelButtonText }}
-          </el-button>
-          <el-button
-            size="small"
-            :type="confirmButtonType === 'text' ? '' : confirmButtonType"
-            :text="confirmButtonType === 'text'"
-            @click="confirm"
-          >
+          </eh-button>
+          <eh-button size="small" :type="confirmButtonType === 'text' ? '' : confirmButtonType"
+            :text="confirmButtonType === 'text'" @click="confirm">
             {{ finalConfirmButtonText }}
-          </el-button>
+          </eh-button>
         </div>
       </div>
     </template>
     <template v-if="$slots.reference">
       <slot name="reference" />
     </template>
-  </el-tooltip>
+  </eh-tooltip>
 </template>
 
 <script lang="ts" setup>

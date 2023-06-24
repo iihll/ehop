@@ -1,19 +1,19 @@
 <template>
-  <el-row class="mb-4">
-    <el-button disabled>Default</el-button>
-    <el-button type="primary" disabled>Primary</el-button>
-    <el-button type="success" disabled>Success</el-button>
-    <el-button type="info" disabled>Info</el-button>
-    <el-button type="warning" disabled>Warning</el-button>
-    <el-button type="danger" disabled>Danger</el-button>
-  </el-row>
+  <eh-row class="mb-4">
+    <eh-button disabled>Default</eh-button>
+    <eh-button type="primary" disabled>Primary</eh-button>
+    <eh-button type="success" disabled>Success</eh-button>
+    <eh-button type="info" disabled>Info</eh-button>
+    <eh-button type="warning" disabled>Warning</eh-button>
+    <eh-button type="danger" disabled>Danger</eh-button>
+  </eh-row>
 
-  <el-row>
-    <el-button plain disabled>Plain</el-button>
-    <el-button type="primary" plain disabled>Primary</el-button>
-    <el-button type="success" plain disabled>Success</el-button>
-    <el-button type="info" plain disabled>Info</el-button>
-    <el-button type="warning" plain disabled>Warning</el-button>
-    <el-button type="danger" plain disabled>Danger</el-button>
-  </el-row>
+  <eh-row>
+    <eh-button plain disabled>Plain</eh-button>
+    <eh-button type="primary" plain disabled>Primary</eh-button>
+    <eh-button type="success" plain disabled>Success</eh-button>
+    <eh-button type="info" plain disabled>Info</eh-button>
+    <eh-button type="warning" plain disabled>Warning</eh-button>
+    <eh-button type="danger" plain disabled>Danger</eh-button>
+  </eh-row>
 </template>

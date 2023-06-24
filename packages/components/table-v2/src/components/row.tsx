@@ -82,7 +82,7 @@ const useTableRow = (props: TableV2RowProps) => {
     })
 
     if (onRowHover) {
-      ;(
+      (
         [
           { name: 'onMouseleave', hovered: false },
           { name: 'onMouseenter', hovered: true },

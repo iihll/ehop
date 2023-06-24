@@ -1,30 +1,17 @@
 <template>
   <div>
-    <el-table
-      :data="tableData"
-      style="width: 100%; margin-bottom: 20px"
-      row-key="id"
-      border
-      default-expand-all
-    >
-      <el-table-column prop="date" label="Date" sortable />
-      <el-table-column prop="name" label="Name" sortable />
-      <el-table-column prop="address" label="Address" sortable />
-    </el-table>
+    <eh-table :data="tableData" style="width: 100%; margin-bottom: 20px" row-key="id" border default-expand-all>
+      <eh-table-column prop="date" label="Date" sortable />
+      <eh-table-column prop="name" label="Name" sortable />
+      <eh-table-column prop="address" label="Address" sortable />
+    </eh-table>
 
-    <el-table
-      :data="tableData1"
-      style="width: 100%"
-      row-key="id"
-      border
-      lazy
-      :load="load"
-      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-    >
-      <el-table-column prop="date" label="Date" />
-      <el-table-column prop="name" label="Name" />
-      <el-table-column prop="address" label="Address" />
-    </el-table>
+    <eh-table :data="tableData1" style="width: 100%" row-key="id" border lazy :load="load"
+      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+      <eh-table-column prop="date" label="Date" />
+      <eh-table-column prop="name" label="Name" />
+      <eh-table-column prop="address" label="Address" />
+    </eh-table>
   </div>
 </template>
 <script lang="ts" setup>

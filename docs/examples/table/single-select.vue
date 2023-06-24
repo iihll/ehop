@@ -1,19 +1,14 @@
 <template>
-  <el-table
-    ref="singleTableRef"
-    :data="tableData"
-    highlight-current-row
-    style="width: 100%"
-    @current-change="handleCurrentChange"
-  >
-    <el-table-column type="index" width="50" />
-    <el-table-column property="date" label="Date" width="120" />
-    <el-table-column property="name" label="Name" width="120" />
-    <el-table-column property="address" label="Address" />
-  </el-table>
+  <eh-table ref="singleTableRef" :data="tableData" highlight-current-row style="width: 100%"
+    @current-change="handleCurrentChange">
+    <eh-table-column type="index" width="50" />
+    <eh-table-column property="date" label="Date" width="120" />
+    <eh-table-column property="name" label="Name" width="120" />
+    <eh-table-column property="address" label="Address" />
+  </eh-table>
   <div style="margin-top: 20px">
-    <el-button @click="setCurrent(tableData[1])">Select second row</el-button>
-    <el-button @click="setCurrent()">Clear selection</el-button>
+    <eh-button @click="setCurrent(tableData[1])">Select second row</eh-button>
+    <eh-button @click="setCurrent()">Clear selection</eh-button>
   </div>
 </template>
 

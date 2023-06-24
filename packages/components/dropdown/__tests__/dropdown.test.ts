@@ -3,9 +3,9 @@ import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { rAF } from '@ehop/test-utils/tick'
-import { EVENT_CODE } from '@ehopts'
-import { EhTooltip } from '@ehopnts/tooltip'
-import Button from '@ehopnts/button'
+import { EVENT_CODE } from '@ehop/constants'
+import { EhTooltip } from '@ehop/components/tooltip'
+import Button from '@ehop/components/button'
 import { usePopperContainerId } from '@ehop
 import Dropdown from '../src/dropdown.vue'
 import DropdownItem from '../src/dropdown-item.vue'
@@ -36,20 +36,20 @@ describe('Dropdown', () => {
   test('create', async () => {
     const wrapper = _mount(
       `
-        <el-dropdown ref="b" placement="right">
+        <eh-dropdown ref="b" placement="right">
           <span class="el-dropdown-link" ref="a">
             dropdown<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>Apple</el-dropdown-item>
-              <el-dropdown-item>Orange</el-dropdown-item>
-              <el-dropdown-item>Cherry</el-dropdown-item>
-              <el-dropdown-item disabled>Peach</el-dropdown-item>
-              <el-dropdown-item divided>Pear</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu>
+              <eh-dropdown-item>Apple</eh-dropdown-item>
+              <eh-dropdown-item>Orange</eh-dropdown-item>
+              <eh-dropdown-item>Cherry</eh-dropdown-item>
+              <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+              <eh-dropdown-item divided>Pear</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>
+        </eh-dropdown>
       `,
       () => ({})
     )
@@ -74,20 +74,20 @@ describe('Dropdown', () => {
     const commandHandler = vi.fn()
     const wrapper = _mount(
       `
-      <el-dropdown ref="b" @command="commandHandler" placement="right">
+      <eh-dropdown ref="b" @command="commandHandler" placement="right">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="a">Apple</el-dropdown-item>
-            <el-dropdown-item command="b">Orange</el-dropdown-item>
-            <el-dropdown-item ref="c" :command="myCommandObject">Cherry</el-dropdown-item>
-            <el-dropdown-item command="d">Peach</el-dropdown-item>
-            <el-dropdown-item command="e">Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item command="a">Apple</eh-dropdown-item>
+            <eh-dropdown-item command="b">Orange</eh-dropdown-item>
+            <eh-dropdown-item ref="c" :command="myCommandObject">Cherry</eh-dropdown-item>
+            <eh-dropdown-item command="d">Peach</eh-dropdown-item>
+            <eh-dropdown-item command="e">Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({
         myCommandObject: { name: 'CommandC' },
@@ -118,20 +118,20 @@ describe('Dropdown', () => {
   test('trigger', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown trigger="click" ref="b" placement="right">
+      <eh-dropdown trigger="click" ref="b" placement="right">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="a">Apple</el-dropdown-item>
-            <el-dropdown-item command="b">Orange</el-dropdown-item>
-            <el-dropdown-item ref="c" :command="myCommandObject">Cherry</el-dropdown-item>
-            <el-dropdown-item command="d">Peach</el-dropdown-item>
-            <el-dropdown-item command="e">Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item command="a">Apple</eh-dropdown-item>
+            <eh-dropdown-item command="b">Orange</eh-dropdown-item>
+            <eh-dropdown-item ref="c" :command="myCommandObject">Cherry</eh-dropdown-item>
+            <eh-dropdown-item command="d">Peach</eh-dropdown-item>
+            <eh-dropdown-item command="e">Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({
         myCommandObject: { name: 'CommandC' },
@@ -156,20 +156,20 @@ describe('Dropdown', () => {
   test('trigger contextmenu', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown trigger="contextmenu" ref="b" placement="right">
+      <eh-dropdown trigger="contextmenu" ref="b" placement="right">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="a">Apple</el-dropdown-item>
-            <el-dropdown-item command="b">Orange</el-dropdown-item>
-            <el-dropdown-item ref="c" :command="myCommandObject">Cherry</el-dropdown-item>
-            <el-dropdown-item command="d">Peach</el-dropdown-item>
-            <el-dropdown-item command="e">Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item command="a">Apple</eh-dropdown-item>
+            <eh-dropdown-item command="b">Orange</eh-dropdown-item>
+            <eh-dropdown-item ref="c" :command="myCommandObject">Cherry</eh-dropdown-item>
+            <eh-dropdown-item command="d">Peach</eh-dropdown-item>
+            <eh-dropdown-item command="e">Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({
         myCommandObject: { name: 'CommandC' },
@@ -190,20 +190,20 @@ describe('Dropdown', () => {
   test('handleOpen and handleClose', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown trigger="click" ref="refDropdown" placement="right">
+      <eh-dropdown trigger="click" ref="refDropdown" placement="right">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="a">Apple</el-dropdown-item>
-            <el-dropdown-item command="b">Orange</el-dropdown-item>
-            <el-dropdown-item command="c">Cherry</el-dropdown-item>
-            <el-dropdown-item command="d">Peach</el-dropdown-item>
-            <el-dropdown-item command="e">Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item command="a">Apple</eh-dropdown-item>
+            <eh-dropdown-item command="b">Orange</eh-dropdown-item>
+            <eh-dropdown-item command="c">Cherry</eh-dropdown-item>
+            <eh-dropdown-item command="d">Peach</eh-dropdown-item>
+            <eh-dropdown-item command="e">Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({
         name: '',
@@ -227,18 +227,18 @@ describe('Dropdown', () => {
     const handleClick = vi.fn()
     const wrapper = _mount(
       `
-      <el-dropdown  @click="handleClick" split-button type="primary" ref="b" placement="right">
+      <eh-dropdown  @click="handleClick" split-button type="primary" ref="b" placement="right">
         dropdown
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="a">Apple</el-dropdown-item>
-            <el-dropdown-item command="b">Orange</el-dropdown-item>
-            <el-dropdown-item ref="c" :command="myCommandObject">Cherry</el-dropdown-item>
-            <el-dropdown-item command="d">Peach</el-dropdown-item>
-            <el-dropdown-item command="e">Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item command="a">Apple</eh-dropdown-item>
+            <eh-dropdown-item command="b">Orange</eh-dropdown-item>
+            <eh-dropdown-item ref="c" :command="myCommandObject">Cherry</eh-dropdown-item>
+            <eh-dropdown-item command="d">Peach</eh-dropdown-item>
+            <eh-dropdown-item command="e">Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({
         myCommandObject: { name: 'CommandC' },
@@ -269,20 +269,20 @@ describe('Dropdown', () => {
   test('hide on click', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown ref="b" placement="right" :hide-on-click="false">
+      <eh-dropdown ref="b" placement="right" :hide-on-click="false">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Apple</el-dropdown-item>
-            <el-dropdown-item>Orange</el-dropdown-item>
-            <el-dropdown-item ref="c">Cherry</el-dropdown-item>
-            <el-dropdown-item disabled>Peach</el-dropdown-item>
-            <el-dropdown-item divided>Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item>Apple</eh-dropdown-item>
+            <eh-dropdown-item>Orange</eh-dropdown-item>
+            <eh-dropdown-item ref="c">Cherry</eh-dropdown-item>
+            <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+            <eh-dropdown-item divided>Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -310,20 +310,20 @@ describe('Dropdown', () => {
   test('triggerElm keydown', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown ref="b" placement="right" :hide-on-click="false">
+      <eh-dropdown ref="b" placement="right" :hide-on-click="false">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Apple</el-dropdown-item>
-            <el-dropdown-item>Orange</el-dropdown-item>
-            <el-dropdown-item ref="c">Cherry</el-dropdown-item>
-            <el-dropdown-item disabled>Peach</el-dropdown-item>
-            <el-dropdown-item divided>Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item>Apple</eh-dropdown-item>
+            <eh-dropdown-item>Orange</eh-dropdown-item>
+            <eh-dropdown-item ref="c">Cherry</eh-dropdown-item>
+            <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+            <eh-dropdown-item divided>Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -355,20 +355,20 @@ describe('Dropdown', () => {
   test('dropdown menu keydown', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown ref="b" placement="right" :hide-on-click="false">
+      <eh-dropdown ref="b" placement="right" :hide-on-click="false">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu ref="dropdown-menu">
-            <el-dropdown-item ref="d">Apple</el-dropdown-item>
-            <el-dropdown-item>Orange</el-dropdown-item>
-            <el-dropdown-item ref="c">Cherry</el-dropdown-item>
-            <el-dropdown-item disabled>Peach</el-dropdown-item>
-            <el-dropdown-item divided>Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu ref="dropdown-menu">
+            <eh-dropdown-item ref="d">Apple</eh-dropdown-item>
+            <eh-dropdown-item>Orange</eh-dropdown-item>
+            <eh-dropdown-item ref="c">Cherry</eh-dropdown-item>
+            <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+            <eh-dropdown-item divided>Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -395,20 +395,20 @@ describe('Dropdown', () => {
   test('max height', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown ref="b" max-height="60px">
+      <eh-dropdown ref="b" max-height="60px">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Apple</el-dropdown-item>
-            <el-dropdown-item>Orange</el-dropdown-item>
-            <el-dropdown-item>Cherry</el-dropdown-item>
-            <el-dropdown-item disabled>Peach</el-dropdown-item>
-            <el-dropdown-item divided>Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item>Apple</eh-dropdown-item>
+            <eh-dropdown-item>Orange</eh-dropdown-item>
+            <eh-dropdown-item>Cherry</eh-dropdown-item>
+            <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+            <eh-dropdown-item divided>Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -426,20 +426,20 @@ describe('Dropdown', () => {
   test('tooltip debounce', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown ref="b">
+      <eh-dropdown ref="b">
         <span class="el-dropdown-link">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Apple</el-dropdown-item>
-            <el-dropdown-item>Orange</el-dropdown-item>
-            <el-dropdown-item>Cherry</el-dropdown-item>
-            <el-dropdown-item>Peach</el-dropdown-item>
-            <el-dropdown-item>Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item>Apple</eh-dropdown-item>
+            <eh-dropdown-item>Orange</eh-dropdown-item>
+            <eh-dropdown-item>Cherry</eh-dropdown-item>
+            <eh-dropdown-item>Peach</eh-dropdown-item>
+            <eh-dropdown-item>Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -461,20 +461,20 @@ describe('Dropdown', () => {
   test('popperClass', async () => {
     const wrapper = await _mount(
       `
-      <el-dropdown ref="b" max-height="60px" popper-class="custom-popper-class">
+      <eh-dropdown ref="b" max-height="60px" popper-class="custom-popper-class">
         <span class="el-dropdown-link" ref="a">
           dropdown<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Apple</el-dropdown-item>
-            <el-dropdown-item>Orange</el-dropdown-item>
-            <el-dropdown-item>Cherry</el-dropdown-item>
-            <el-dropdown-item disabled>Peach</el-dropdown-item>
-            <el-dropdown-item divided>Pear</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item>Apple</eh-dropdown-item>
+            <eh-dropdown-item>Orange</eh-dropdown-item>
+            <eh-dropdown-item>Cherry</eh-dropdown-item>
+            <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+            <eh-dropdown-item divided>Pear</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -489,16 +489,16 @@ describe('Dropdown', () => {
   test('custom attributes for dropdown items', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown>
+      <eh-dropdown>
         <span class="el-dropdown-link">
           Custom Attributes
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item data-custom-attribute="hello">Item</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item data-custom-attribute="hello">Item</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -515,16 +515,16 @@ describe('Dropdown', () => {
   test('disable normal dropdown', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown disabled>
+      <eh-dropdown disabled>
         <span class="el-dropdown-link">
           Dropdown List
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item data-custom-attribute="hello">Item</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item data-custom-attribute="hello">Item</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -540,16 +540,16 @@ describe('Dropdown', () => {
   test('disable dropdown with split button', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown disabled split-button>
+      <eh-dropdown disabled split-button>
         <span class="el-dropdown-link">
           Dropdown List
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item data-custom-attribute="hello">Item</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item data-custom-attribute="hello">Item</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -573,16 +573,16 @@ describe('Dropdown', () => {
   test('set show-timeout/hide-timeout when trigger is hover', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown trigger="hover" :show-timeout="200" :hide-timeout="300">
+      <eh-dropdown trigger="hover" :show-timeout="200" :hide-timeout="300">
         <span class="el-dropdown-link">
           Dropdown List
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Item</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item>Item</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -596,16 +596,16 @@ describe('Dropdown', () => {
   test('ignore show-timeout/hide-timeout when trigger is not hover', async () => {
     const wrapper = _mount(
       `
-      <el-dropdown trigger="click" :show-timeout="200" :hide-timeout="300">
+      <eh-dropdown trigger="click" :show-timeout="200" :hide-timeout="300">
         <span class="el-dropdown-link">
           Dropdown List
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Item</el-dropdown-item>
-          </el-dropdown-menu>
+          <eh-dropdown-menu>
+            <eh-dropdown-item>Item</eh-dropdown-item>
+          </eh-dropdown-menu>
         </template>
-      </el-dropdown>
+      </eh-dropdown>
       `,
       () => ({})
     )
@@ -620,16 +620,16 @@ describe('Dropdown', () => {
     test('Custom span trigger has proper attributes', async () => {
       const wrapper = _mount(
         `
-        <el-dropdown>
+        <eh-dropdown>
           <span class="el-dropdown-link" data-test-ref="trigger">
             Dropdown List
           </span>
           <template #dropdown>
-            <el-dropdown-menu ref="menu">
-              <el-dropdown-item>Item</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu ref="menu">
+              <eh-dropdown-item>Item</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>
+        </eh-dropdown>
         `,
         () => ({})
       )
@@ -650,16 +650,16 @@ describe('Dropdown', () => {
     test('EhButton trigger has proper attributes', async () => {
       const wrapper = _mount(
         `
-        <el-dropdown>
-          <el-button ref="trigger">
+        <eh-dropdown>
+          <eh-button ref="trigger">
             Dropdown List
-          </el-button>
+          </eh-button>
           <template #dropdown>
-            <el-dropdown-menu ref="menu">
-              <el-dropdown-item>Item</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu ref="menu">
+              <eh-dropdown-item>Item</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>
+        </eh-dropdown>
         `,
         () => ({})
       )
@@ -680,13 +680,13 @@ describe('Dropdown', () => {
     test('Split button trigger has proper attributes', async () => {
       const wrapper = _mount(
         `
-        <el-dropdown split-button>
+        <eh-dropdown split-button>
           <template #dropdown>
-            <el-dropdown-menu ref="menu">
-              <el-dropdown-item>Item</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu ref="menu">
+              <eh-dropdown-item>Item</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>
+        </eh-dropdown>
         `,
         () => ({})
       )
@@ -707,13 +707,13 @@ describe('Dropdown', () => {
     test('Menu items with "menu" role', async () => {
       const wrapper = _mount(
         `
-        <el-dropdown split-button>
+        <eh-dropdown split-button>
           <template #dropdown>
-            <el-dropdown-menu ref="menu">
-              <el-dropdown-item ref="menu-item">Item</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu ref="menu">
+              <eh-dropdown-item ref="menu-item">Item</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>
+        </eh-dropdown>
         `,
         () => ({})
       )
@@ -726,13 +726,13 @@ describe('Dropdown', () => {
     test('Menu items with "navigation" role', async () => {
       const wrapper = _mount(
         `
-        <el-dropdown split-button role="navigation">
+        <eh-dropdown split-button role="navigation">
           <template #dropdown>
-            <el-dropdown-menu ref="menu">
-              <el-dropdown-item ref="menu-item">Item</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu ref="menu">
+              <eh-dropdown-item ref="menu-item">Item</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>
+        </eh-dropdown>
         `,
         () => ({})
       )
@@ -745,13 +745,13 @@ describe('Dropdown', () => {
     test('Menu items with "group" role', async () => {
       const wrapper = _mount(
         `
-        <el-dropdown split-button role="group">
+        <eh-dropdown split-button role="group">
           <template #dropdown>
-            <el-dropdown-menu ref="menu">
-              <el-dropdown-item ref="menu-item">Item</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu ref="menu">
+              <eh-dropdown-item ref="menu-item">Item</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>
+        </eh-dropdown>
         `,
         () => ({})
       )
@@ -767,20 +767,20 @@ describe('Dropdown', () => {
       expect(document.body.innerHTML).toBe('')
       _mount(
         `
-        <el-dropdown ref="b" placement="right">
+        <eh-dropdown ref="b" placement="right">
           <span class="el-dropdown-link" ref="a">
             dropdown<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>Apple</el-dropdown-item>
-              <el-dropdown-item>Orange</el-dropdown-item>
-              <el-dropdown-item>Cherry</el-dropdown-item>
-              <el-dropdown-item disabled>Peach</el-dropdown-item>
-              <el-dropdown-item divided>Pear</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu>
+              <eh-dropdown-item>Apple</eh-dropdown-item>
+              <eh-dropdown-item>Orange</eh-dropdown-item>
+              <eh-dropdown-item>Cherry</eh-dropdown-item>
+              <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+              <eh-dropdown-item divided>Pear</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>`,
+        </eh-dropdown>`,
         () => ({})
       )
 
@@ -793,20 +793,20 @@ describe('Dropdown', () => {
       expect(document.body.innerHTML).toBe('')
       _mount(
         `
-        <el-dropdown ref="b" placement="right" :teleported="false">
+        <eh-dropdown ref="b" placement="right" :teleported="false">
           <span class="el-dropdown-link" ref="a">
             dropdown<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>Apple</el-dropdown-item>
-              <el-dropdown-item>Orange</el-dropdown-item>
-              <el-dropdown-item>Cherry</el-dropdown-item>
-              <el-dropdown-item disabled>Peach</el-dropdown-item>
-              <el-dropdown-item divided>Pear</el-dropdown-item>
-            </el-dropdown-menu>
+            <eh-dropdown-menu>
+              <eh-dropdown-item>Apple</eh-dropdown-item>
+              <eh-dropdown-item>Orange</eh-dropdown-item>
+              <eh-dropdown-item>Cherry</eh-dropdown-item>
+              <eh-dropdown-item disabled>Peach</eh-dropdown-item>
+              <eh-dropdown-item divided>Pear</eh-dropdown-item>
+            </eh-dropdown-menu>
           </template>
-        </el-dropdown>`,
+        </eh-dropdown>`,
         () => ({})
       )
 

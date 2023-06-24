@@ -1,17 +1,17 @@
 // @ts-nocheck
 import { buildProps, definePropType, iconPropType } from '@ehop/utils'
-import { EVENT_CODE } from '@ehopts'
-import { createCollectionWithScope } from '@ehopnts/collection'
+import { EVENT_CODE } from '@ehop/constants'
+import { createCollectionWithScope } from '@ehop/components/collection'
 import {
   useTooltipContentProps,
   useTooltipTriggerProps,
-} from '@ehopnts/tooltip'
+} from '@ehop/components/tooltip'
 
 import type { Options } from '@popperjs/core'
-import type { ButtonProps, ButtonType } from '@ehopnts/button'
-import type { Placement } from '@ehopnts/popper'
+import type { ButtonProps, ButtonType } from '@ehop/components/button'
+import type { Placement } from '@ehop/components/popper'
 import type { ComponentInternalInstance, ComputedRef } from 'vue'
-import type { Nullable } from '@ehop
+import type { Nullable } from '@ehop/utils'
 
 export interface IElDropdownInstance {
   instance?: ComponentInternalInstance

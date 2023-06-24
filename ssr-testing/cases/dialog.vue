@@ -1,21 +1,15 @@
 <template>
-  <el-button type="text" @click="dialogVisible = true"
-    >click to open the Dialog</el-button
-  >
+  <eh-button type="text" @click="dialogVisible = true">click to open the Dialog</eh-button>
 
-  <el-dialog v-model="dialogVisible" title="Tips" width="30%">
+  <eh-dialog v-model="dialogVisible" title="Tips" width="30%">
     <span>This is a message</span>
     <template #footer>
       <span class="dialog-footer">
-        <el-button style="margin-right: 10px" @click="dialogVisible = false"
-          >Cancel</el-button
-        >
-        <el-button type="primary" @click="dialogVisible = false"
-          >Confirm</el-button
-        >
+        <eh-button style="margin-right: 10px" @click="dialogVisible = false">Cancel</eh-button>
+        <eh-button type="primary" @click="dialogVisible = false">Confirm</eh-button>
       </span>
     </template>
-  </el-dialog>
+  </eh-dialog>
 </template>
 
 <script lang="ts" setup>

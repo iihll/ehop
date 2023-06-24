@@ -1,5 +1,5 @@
 import { defineComponent, ref, toRef } from 'vue'
-import Button from '@ehopnts/button'
+import Button from '@ehop/components/button'
 import Input from '@ehop/components/input'
 import Form from '../src/form.vue'
 import FormItem from '../src/form-item.vue'

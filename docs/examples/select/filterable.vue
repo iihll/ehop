@@ -1,12 +1,7 @@
 <template>
-  <el-select v-model="value" filterable placeholder="Select">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
-    />
-  </el-select>
+  <eh-select v-model="value" filterable placeholder="Select">
+    <eh-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+  </eh-select>
 </template>
 
 <script lang="ts" setup>

@@ -1,32 +1,15 @@
 <template>
-  <div
-    ref="button"
-    :class="[ns.e('button-wrapper'), { hover: hovering, dragging }]"
-    :style="wrapperStyle"
-    :tabindex="disabled ? -1 : 0"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave"
-    @mousedown="onButtonDown"
-    @touchstart="onButtonDown"
-    @focus="handleMouseEnter"
-    @blur="handleMouseLeave"
-    @keydown="onKeyDown"
-  >
-    <el-tooltip
-      ref="tooltip"
-      :visible="tooltipVisible"
-      :placement="placement"
-      :fallback-placements="['top', 'bottom', 'right', 'left']"
-      :stop-popper-mouse-event="false"
-      :popper-class="tooltipClass"
-      :disabled="!showTooltip"
-      persistent
-    >
+  <div ref="button" :class="[ns.e('button-wrapper'), { hover: hovering, dragging }]" :style="wrapperStyle"
+    :tabindex="disabled ? -1 : 0" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @mousedown="onButtonDown"
+    @touchstart="onButtonDown" @focus="handleMouseEnter" @blur="handleMouseLeave" @keydown="onKeyDown">
+    <eh-tooltip ref="tooltip" :visible="tooltipVisible" :placement="placement"
+      :fallback-placements="['top', 'bottom', 'right', 'left']" :stop-popper-mouse-event="false"
+      :popper-class="tooltipClass" :disabled="!showTooltip" persistent>
       <template #content>
         <span>{{ formatValue }}</span>
       </template>
       <div :class="[ns.e('button'), { hover: hovering, dragging }]" />
-    </el-tooltip>
+    </eh-tooltip>
   </div>
 </template>
 

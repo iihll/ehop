@@ -5,7 +5,7 @@ import { Loading, Search } from '@ehop/icons-vue'
 
 import Button from '../src/button.vue'
 import ButtonGroup from '../src/button-group.vue'
-import type { ComponentSize } from '@ehopts'
+import type { ComponentSize } from '@ehop/constants'
 
 const AXIOM = 'Rem is the best girl'
 
@@ -149,14 +149,14 @@ describe('Button.vue', () => {
   it('loading slot', () => {
     const wrapper = mount({
       setup: () => () =>
-        (
-          <Button
-            v-slots={{ loading: () => <span class="custom-loading">111</span> }}
-            loading={true}
-          >
-            Loading
-          </Button>
-        ),
+      (
+        <Button
+          v-slots={{ loading: () => <span class="custom-loading">111</span> }}
+          loading={true}
+        >
+          Loading
+        </Button>
+      ),
     })
 
     expect(wrapper.find('.custom-loading').exists()).toBeTruthy()
@@ -179,12 +179,12 @@ describe('Button Group', () => {
   it('create', () => {
     const wrapper = mount({
       setup: () => () =>
-        (
-          <ButtonGroup>
-            <Button type="primary">Prev</Button>
-            <Button type="primary">Next</Button>
-          </ButtonGroup>
-        ),
+      (
+        <ButtonGroup>
+          <Button type="primary">Prev</Button>
+          <Button type="primary">Next</Button>
+        </ButtonGroup>
+      ),
     })
     expect(wrapper.classes()).toContain('el-button-group')
     expect(wrapper.findAll('button').length).toBe(2)
@@ -194,12 +194,12 @@ describe('Button Group', () => {
     const size = ref<ComponentSize>('small')
     const wrapper = mount({
       setup: () => () =>
-        (
-          <ButtonGroup size={size.value}>
-            <Button type="primary">Prev</Button>
-            <Button type="primary">Next</Button>
-          </ButtonGroup>
-        ),
+      (
+        <ButtonGroup size={size.value}>
+          <Button type="primary">Prev</Button>
+          <Button type="primary">Next</Button>
+        </ButtonGroup>
+      ),
     })
     expect(wrapper.classes()).toContain('el-button-group')
     expect(
@@ -217,12 +217,12 @@ describe('Button Group', () => {
   it('button group type', async () => {
     const wrapper = mount({
       setup: () => () =>
-        (
-          <ButtonGroup type="warning">
-            <Button type="primary">Prev</Button>
-            <Button>Next</Button>
-          </ButtonGroup>
-        ),
+      (
+        <ButtonGroup type="warning">
+          <Button type="primary">Prev</Button>
+          <Button>Next</Button>
+        </ButtonGroup>
+      ),
     })
     expect(wrapper.classes()).toContain('el-button-group')
     expect(

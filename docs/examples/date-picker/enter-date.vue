@@ -1,29 +1,18 @@
 <template>
-  <el-radio-group v-model="size" label="size control" size="small">
-    <el-radio-button label="large">large</el-radio-button>
-    <el-radio-button label="default">default</el-radio-button>
-    <el-radio-button label="small">small</el-radio-button>
-  </el-radio-group>
+  <eh-radio-group v-model="size" label="size control" size="small">
+    <eh-radio-button label="large">large</eh-radio-button>
+    <eh-radio-button label="default">default</eh-radio-button>
+    <eh-radio-button label="small">small</eh-radio-button>
+  </eh-radio-group>
   <div class="demo-date-picker">
     <div class="block">
       <span class="demonstration">Default</span>
-      <el-date-picker
-        v-model="value1"
-        type="date"
-        placeholder="Pick a day"
-        :size="size"
-      />
+      <eh-date-picker v-model="value1" type="date" placeholder="Pick a day" :size="size" />
     </div>
     <div class="block">
       <span class="demonstration">Picker with quick options</span>
-      <el-date-picker
-        v-model="value2"
-        type="date"
-        placeholder="Pick a day"
-        :disabled-date="disabledDate"
-        :shortcuts="shortcuts"
-        :size="size"
-      />
+      <eh-date-picker v-model="value2" type="date" placeholder="Pick a day" :disabled-date="disabledDate"
+        :shortcuts="shortcuts" :size="size" />
     </div>
   </div>
 </template>

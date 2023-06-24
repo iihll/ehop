@@ -1,13 +1,7 @@
 <template>
-  <el-tag
-    v-for="tag in tags"
-    :key="tag.name"
-    class="mx-1"
-    closable
-    :type="tag.type"
-  >
+  <eh-tag v-for="tag in tags" :key="tag.name" class="mx-1" closable :type="tag.type">
     {{ tag.name }}
-  </el-tag>
+  </eh-tag>
 </template>
 
 <script lang="ts" setup>

@@ -1,46 +1,29 @@
 <template>
   <div :class="rootKls">
-    <div
-      role="tab"
-      :aria-expanded="isActive"
-      :aria-controls="scopedContentId"
-      :aria-describedby="scopedContentId"
-    >
-      <div
-        :id="scopedHeadId"
-        :class="headKls"
-        role="button"
-        :tabindex="disabled ? -1 : 0"
-        @click="handleHeaderClick"
-        @keypress.space.enter.stop.prevent="handleEnterClick"
-        @focus="handleFocus"
-        @blur="focusing = false"
-      >
-        <slot name="title">{{ title }}</slot>
-        <el-icon :class="arrowKls">
+    <div role="tab" :aria-expanded="isActive" :aria-controls="scopedContentId" :aria-describedby="scopedContentId">
+      <div :id="scopedHeadId" :class="headKls" role="button" :tabindex="disabled ? -1 : 0" @click="handleHeaderClick"
+        @keypress.space.enter.stop.prevent="handleEnterClick" @focus="handleFocus" @blur="focusing = false">
+        <slot name="title">
+          {{ title }}
+        </slot>
+        <eh-icon :class="arrowKls">
           <arrow-right />
-        </el-icon>
+        </eh-icon>
       </div>
     </div>
-    <el-collapse-transition>
-      <div
-        v-show="isActive"
-        :id="scopedContentId"
-        :class="itemWrapperKls"
-        role="tabpanel"
-        :aria-hidden="!isActive"
-        :aria-labelledby="scopedHeadId"
-      >
+    <eh-collapse-transition>
+      <div v-show="isActive" :id="scopedContentId" :class="itemWrapperKls" role="tabpanel" :aria-hidden="!isActive"
+        :aria-labelledby="scopedHeadId">
         <div :class="itemContentKls">
           <slot />
         </div>
       </div>
-    </el-collapse-transition>
+    </eh-collapse-transition>
   </div>
 </template>
 
 <script lang="ts" setup>
-import EhIcon from '@ehopnts/icon'
+import EhIcon from '@ehop/components/icon'
 import EhCollapseTransition from '@ehop/components/collapse-transition'
 import { ArrowRight } from '@ehop/icons-vue'
 import { collapseItemProps } from './collapse-item'

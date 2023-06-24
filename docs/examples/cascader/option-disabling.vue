@@ -1,5 +1,5 @@
 <template>
-  <el-cascader :options="options" />
+  <eh-cascader :options="options" />
 </template>
 
 <script lang="ts" setup>

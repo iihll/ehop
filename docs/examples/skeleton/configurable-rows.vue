@@ -1,3 +1,3 @@
 <template>
-  <el-skeleton :rows="5" />
+  <eh-skeleton :rows="5" />
 </template>

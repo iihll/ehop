@@ -14,25 +14,40 @@
       @mouseleave="startTimer"
       @click="onClick"
     >
-      <el-icon v-if="iconComponent" :class="[ns.e('icon'), typeClass]">
+      <eh-icon
+        v-if="iconComponent"
+        :class="[ns.e('icon'), typeClass]"
+      >
         <component :is="iconComponent" />
-      </el-icon>
+      </eh-icon>
       <div :class="ns.e('group')">
-        <h2 :class="ns.e('title')" v-text="title" />
+        <h2
+          :class="ns.e('title')"
+          v-text="title"
+        />
         <div
           v-show="message"
           :class="ns.e('content')"
           :style="!!title ? undefined : { margin: 0 }"
         >
           <slot>
-            <p v-if="!dangerouslyUseHTMLString">{{ message }}</p>
+            <p v-if="!dangerouslyUseHTMLString">
+              {{ message }}
+            </p>
             <!-- Caution here, message could've been compromised, never use user's input as message -->
-            <p v-else v-html="message" />
+            <p
+              v-else
+              v-html="message"
+            />
           </slot>
         </div>
-        <el-icon v-if="showClose" :class="ns.e('closeBtn')" @click.stop="close">
+        <eh-icon
+          v-if="showClose"
+          :class="ns.e('closeBtn')"
+          @click.stop="close"
+        >
           <Close />
-        </el-icon>
+        </eh-icon>
       </div>
     </div>
   </transition>
@@ -90,7 +105,7 @@ const positionStyle = computed<CSSProperties>(() => {
 
 function startTimer() {
   if (props.duration > 0) {
-    ;({ stop: timer } = useTimeoutFn(() => {
+    ({ stop: timer } = useTimeoutFn(() => {
       if (visible.value) close()
     }, props.duration))
   }

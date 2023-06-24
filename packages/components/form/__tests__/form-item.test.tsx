@@ -10,7 +10,7 @@ import {
   it,
   vi,
 } from 'vitest'
-import Input from '@ehopnts/input'
+import Input from '@ehop/components/input'
 import { rAF } from '@ehop/test-utils/tick'
 import Form from '../src/form.vue'
 import FormItem from '../src/form-item.vue'
@@ -18,7 +18,7 @@ import DynamicFormItem from '../mocks/mock-data'
 
 import type { VueWrapper } from '@vue/test-utils'
 import type { SpyInstance } from 'vitest'
-import type { InputInstance } from '@ehopnts/input'
+import type { InputInstance } from '@ehop/components/input'
 
 type FormItemInstance = InstanceType<typeof FormItem>
 

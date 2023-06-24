@@ -1,60 +1,93 @@
 <template>
-  <div :class="[
-    ns.b(),
-    ns.m(inputNumberSize),
-    ns.is('disabled', inputNumberDisabled),
-    ns.is('without-controls', !controls),
-    ns.is('controls-right', controlsAtRight),
-  ]" @dragstart.prevent>
-    <span v-if="controls" v-repeat-click="decrease" role="button" :aria-label="t('eh.inputNumber.decrease')"
-      :class="[ns.e('decrease'), ns.is('disabled', minDisabled)]" @keydown.enter="decrease">
-      <el-icon>
+  <div
+    :class="[
+      ns.b(),
+      ns.m(inputNumberSize),
+      ns.is('disabled', inputNumberDisabled),
+      ns.is('without-controls', !controls),
+      ns.is('controls-right', controlsAtRight),
+    ]"
+    @dragstart.prevent
+  >
+    <span
+      v-if="controls"
+      v-repeat-click="decrease"
+      role="button"
+      :aria-label="t('eh.inputNumber.decrease')"
+      :class="[ns.e('decrease'), ns.is('disabled', minDisabled)]"
+      @keydown.enter="decrease"
+    >
+      <eh-icon>
         <arrow-down v-if="controlsAtRight" />
         <minus v-else />
-      </el-icon>
+      </eh-icon>
     </span>
-    <span v-if="controls" v-repeat-click="increase" role="button" :aria-label="t('eh.inputNumber.increase')"
-      :class="[ns.e('increase'), ns.is('disabled', maxDisabled)]" @keydown.enter="increase">
-      <el-icon>
+    <span
+      v-if="controls"
+      v-repeat-click="increase"
+      role="button"
+      :aria-label="t('eh.inputNumber.increase')"
+      :class="[ns.e('increase'), ns.is('disabled', maxDisabled)]"
+      @keydown.enter="increase"
+    >
+      <eh-icon>
         <arrow-up v-if="controlsAtRight" />
         <plus v-else />
-      </el-icon>
+      </eh-icon>
     </span>
-    <el-input :id="id" ref="input" type="number" :step="step" :model-value="displayValue" :placeholder="placeholder"
-      :readonly="readonly" :disabled="inputNumberDisabled" :size="inputNumberSize" :max="max" :min="min" :name="name"
-      :label="label" :validate-event="false" @wheel.prevent @keydown.up.prevent="increase"
-      @keydown.down.prevent="decrease" @blur="handleBlur" @focus="handleFocus" @input="handleInput"
-      @change="handleInputChange" />
+    <eh-input
+      :id="id"
+      ref="input"
+      type="number"
+      :step="step"
+      :model-value="displayValue"
+      :placeholder="placeholder"
+      :readonly="readonly"
+      :disabled="inputNumberDisabled"
+      :size="inputNumberSize"
+      :max="max"
+      :min="min"
+      :name="name"
+      :label="label"
+      :validate-event="false"
+      @wheel.prevent
+      @keydown.up.prevent="increase"
+      @keydown.down.prevent="decrease"
+      @blur="handleBlur"
+      @focus="handleFocus"
+      @input="handleInput"
+      @change="handleInputChange"
+    />
   </div>
 </template>
 <script lang="ts" setup>
 import { computed, onMounted, onUpdated, reactive, ref, watch } from 'vue'
 import { isNil } from 'lodash-unified'
 import { EhInput } from '@ehop/components/input'
-import { EhIcon } from '@ehopnts/icon'
+import { EhIcon } from '@ehop/components/icon'
 import {
   useFormDisabled,
   useFormItem,
   useFormSize,
-} from '@ehopnts/form'
-import { vRepeatClick } from '@ehopves'
-import { useLocale, useNamespace } from '@ehop
+} from '@ehop/components/form'
+import { vRepeatClick } from '@ehop/directives'
+import { useLocale, useNamespace } from '@ehop/hooks'
 import {
   debugWarn,
   isNumber,
   isString,
   isUndefined,
   throwError,
-} from '@ehop
+} from '@ehop/utils'
 import { ArrowDown, ArrowUp, Minus, Plus } from '@ehop/icons-vue'
 import {
   CHANGE_EVENT,
   INPUT_EVENT,
   UPDATE_MODEL_EVENT,
-} from '@ehopts'
+} from '@ehop/constants'
 import { inputNumberEmits, inputNumberProps } from './input-number'
 
-import type { InputInstance } from '@ehopnts/input'
+import type { InputInstance } from '@ehop/components/input'
 
 defineOptions({
   name: 'EhInputNumber',

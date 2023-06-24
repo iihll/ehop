@@ -1,8 +1,8 @@
 <template>
-  <el-button plain @click="open1"> Success </el-button>
-  <el-button plain @click="open2"> Warning </el-button>
-  <el-button plain @click="open3"> Info </el-button>
-  <el-button plain @click="open4"> Error </el-button>
+  <eh-button plain @click="open1"> Success </eh-button>
+  <eh-button plain @click="open2"> Warning </eh-button>
+  <eh-button plain @click="open3"> Info </eh-button>
+  <eh-button plain @click="open4"> Error </eh-button>
 </template>
 
 <script lang="ts" setup>

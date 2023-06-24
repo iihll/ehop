@@ -1,12 +1,5 @@
 <template>
-  <el-time-select
-    v-model="value"
-    start="00:00"
-    step="00:30"
-    end="23:59"
-    placeholder="Select time"
-    format="hh:mm A"
-  />
+  <eh-time-select v-model="value" start="00:00" step="00:30" end="23:59" placeholder="Select time" format="hh:mm A" />
 </template>
 
 <script lang="ts" setup>

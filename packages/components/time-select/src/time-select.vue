@@ -1,33 +1,16 @@
 <template>
-  <el-select
-    ref="select"
-    :model-value="value"
-    :disabled="_disabled"
-    :clearable="clearable"
-    :clear-icon="clearIcon"
-    :size="size"
-    :effect="effect"
-    :placeholder="placeholder"
-    default-first-option
-    :filterable="editable"
-    @update:model-value="(event) => $emit('update:modelValue', event)"
-    @change="(event) => $emit('change', event)"
-    @blur="(event) => $emit('blur', event)"
-    @focus="(event) => $emit('focus', event)"
-  >
-    <el-option
-      v-for="item in items"
-      :key="item.value"
-      :label="item.value"
-      :value="item.value"
-      :disabled="item.disabled"
-    />
+  <eh-select ref="select" :model-value="value" :disabled="_disabled" :clearable="clearable" :clear-icon="clearIcon"
+    :size="size" :effect="effect" :placeholder="placeholder" default-first-option :filterable="editable"
+    @update:model-value="(event) => $emit('update:modelValue', event)" @change="(event) => $emit('change', event)"
+    @blur="(event) => $emit('blur', event)" @focus="(event) => $emit('focus', event)">
+    <eh-option v-for="item in items" :key="item.value" :label="item.value" :value="item.value"
+      :disabled="item.disabled" />
     <template #prefix>
-      <el-icon v-if="prefixIcon" :class="nsInput.e('prefix-icon')">
+      <eh-icon v-if="prefixIcon" :class="nsInput.e('prefix-icon')">
         <component :is="prefixIcon" />
-      </el-icon>
+      </eh-icon>
     </template>
-  </el-select>
+  </eh-select>
 </template>
 
 <script lang="ts" setup>

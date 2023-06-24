@@ -47,7 +47,7 @@ export const virtualizedProps = buildProps({
   },
 
   containerElement: {
-    type: definePropType<string | Ehement>([String, Object]),
+    type: definePropType<string | Element>([String, Object]),
     default: 'div',
   },
 

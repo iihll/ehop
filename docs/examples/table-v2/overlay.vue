@@ -1,22 +1,13 @@
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="data"
-    :row-height="40"
-    :width="700"
-    :height="400"
-  >
+  <eh-table-v2 :columns="columns" :data="data" :row-height="40" :width="700" :height="400">
     <template #overlay>
-      <div
-        class="el-loading-mask"
-        style="display: flex; align-items: center; justify-content: center"
-      >
-        <el-icon class="is-loading" color="var(--eh-color-primary)" :size="26">
+      <div class="el-loading-mask" style="display: flex; align-items: center; justify-content: center">
+        <eh-icon class="is-loading" color="var(--eh-color-primary)" :size="26">
           <loading-icon />
-        </el-icon>
+        </eh-icon>
       </div>
     </template>
-  </el-table-v2>
+  </eh-table-v2>
 </template>
 
 <script lang="ts" setup>

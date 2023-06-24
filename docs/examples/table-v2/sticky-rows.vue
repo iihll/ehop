@@ -1,14 +1,6 @@
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="tableData"
-    :fixed-data="fixedData"
-    :width="700"
-    :height="400"
-    :row-class="rowClass"
-    fixed
-    @scroll="onScroll"
-  />
+  <eh-table-v2 :columns="columns" :data="tableData" :fixed-data="fixedData" :width="700" :height="400"
+    :row-class="rowClass" fixed @scroll="onScroll" />
 </template>
 
 <script lang="ts" setup>

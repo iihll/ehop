@@ -1,11 +1,5 @@
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="data"
-    :row-class="rowClass"
-    :width="700"
-    :height="400"
-  />
+  <eh-table-v2 :columns="columns" :data="data" :row-class="rowClass" :width="700" :height="400" />
 </template>
 
 <script lang="tsx" setup>

@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import Chinese from '@ehop/locale/lang/zh-cn'
 import English from '@ehoplang/en'
-import { provideGlobalConfig } from '@ehopnts/config-provider'
+import { provideGlobalConfig } from '@ehop/components/config-provider'
 import { buildTranslator, useLocale } from '../use-locale'
 import type { Language } from '@ehop
 import type { ComponentPublicInstance, PropType } from 'vue'

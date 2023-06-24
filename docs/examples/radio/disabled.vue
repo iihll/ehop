@@ -1,8 +1,6 @@
 <template>
-  <el-radio v-model="radio" disabled label="disabled">Option A</el-radio>
-  <el-radio v-model="radio" disabled label="selected and disabled"
-    >Option B</el-radio
-  >
+  <eh-radio v-model="radio" disabled label="disabled">Option A</eh-radio>
+  <eh-radio v-model="radio" disabled label="selected and disabled">Option B</eh-radio>
 </template>
 
 <script lang="ts" setup>

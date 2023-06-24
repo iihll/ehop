@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-button mb-2 @click="toggle">Switch Language</el-button>
+    <eh-button mb-2 @click="toggle">Switch Language</eh-button>
     <br />
 
-    <el-config-provider :locale="locale">
-      <el-table mb-1 :data="[]" />
-      <el-pagination :total="100" />
-    </el-config-provider>
+    <eh-config-provider :locale="locale">
+      <eh-table mb-1 :data="[]" />
+      <eh-pagination :total="100" />
+    </eh-config-provider>
   </div>
 </template>
 

@@ -1,7 +1,16 @@
 <template>
-  <ul :ref="dropdownListWrapperRef" :class="dropdownKls" :style="rovingFocusGroupRootStyle" :tabindex="-1" :role="role"
-    :aria-labelledby="triggerId" @blur="onBlur" @focus="onFocus" @keydown.self="handleKeydown"
-    @mousedown.self="onMousedown">
+  <ul
+    :ref="dropdownListWrapperRef"
+    :class="dropdownKls"
+    :style="rovingFocusGroupRootStyle"
+    :tabindex="-1"
+    :role="role"
+    :aria-labelledby="triggerId"
+    @blur="onBlur"
+    @focus="onFocus"
+    @keydown.self="handleKeydown"
+    @mousedown.self="onMousedown"
+  >
     <slot />
   </ul>
 </template>
@@ -9,14 +18,14 @@
 // @ts-nocheck
 import { computed, defineComponent, inject, unref } from 'vue'
 import { composeEventHandlers, composeRefs } from '@ehop/utils'
-import { EVENT_CODE } from '@ehopts'
-import { FOCUS_TRAP_INJECTION_KEY } from '@ehopnts/focus-trap'
+import { EVENT_CODE } from '@ehop/constants'
+import { FOCUS_TRAP_INJECTION_KEY } from '@ehop/components/focus-trap'
 import {
   ROVING_FOCUS_COLLECTION_INJECTION_KEY,
   ROVING_FOCUS_GROUP_INJECTION_KEY,
   focusFirst,
-} from '@ehopnts/roving-focus-group'
-import { useNamespace } from '@ehop
+} from '@ehop/components/roving-focus-group'
+import { useNamespace } from '@ehop/hooks'
 import { DROPDOWN_INJECTION_KEY } from './tokens'
 import {
   DROPDOWN_COLLECTION_INJECTION_KEY,

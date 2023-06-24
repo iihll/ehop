@@ -1,21 +1,7 @@
 <template>
-  <el-select-v2
-    v-model="value"
-    :options="options"
-    placeholder="Please select"
-    size="large"
-  />
-  <el-select-v2
-    v-model="value"
-    :options="options"
-    placeholder="Please select"
-  />
-  <el-select-v2
-    v-model="value"
-    :options="options"
-    placeholder="Please select"
-    size="small"
-  />
+  <eh-select-v2 v-model="value" :options="options" placeholder="Please select" size="large" />
+  <eh-select-v2 v-model="value" :options="options" placeholder="Please select" />
+  <eh-select-v2 v-model="value" :options="options" placeholder="Please select" size="small" />
 </template>
 
 <script lang="ts" setup>

@@ -1,5 +1,5 @@
 <template>
-  <el-dropdown>
+  <eh-dropdown>
     <span class="el-dropdown-link" style="
         cursor: pointer;
         color: var(--eh-color-primary);
@@ -7,20 +7,20 @@
         align-items: center;
       ">
       Dropdown List
-      <el-icon class="el-icon--right">
+      <eh-icon class="el-icon--right">
         <arrow-down />
-      </el-icon>
+      </eh-icon>
     </span>
     <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>Action 1</el-dropdown-item>
-        <el-dropdown-item>Action 2</el-dropdown-item>
-        <el-dropdown-item>Action 3</el-dropdown-item>
-        <el-dropdown-item disabled>Action 4</el-dropdown-item>
-        <el-dropdown-item divided>Action 5</el-dropdown-item>
-      </el-dropdown-menu>
+      <eh-dropdown-menu>
+        <eh-dropdown-item>Action 1</eh-dropdown-item>
+        <eh-dropdown-item>Action 2</eh-dropdown-item>
+        <eh-dropdown-item>Action 3</eh-dropdown-item>
+        <eh-dropdown-item disabled>Action 4</eh-dropdown-item>
+        <eh-dropdown-item divided>Action 5</eh-dropdown-item>
+      </eh-dropdown-menu>
     </template>
-  </el-dropdown>
+  </eh-dropdown>
 </template>
 
 <script lang="ts" setup>

@@ -1,12 +1,10 @@
 <template>
-  <el-tree-v2 :data="data" :props="props" :height="208">
+  <eh-tree-v2 :data="data" :props="props" :height="208">
     <template #default="{ node }">
-      <span class="prefix" :class="{ 'is-leaf': node.isLeaf }"
-        >[ElementPlus]</span
-      >
+      <span class="prefix" :class="{ 'is-leaf': node.isLeaf }">[ElementPlus]</span>
       <span>{{ node.label }}</span>
     </template>
-  </el-tree-v2>
+  </eh-tree-v2>
 </template>
 <script lang="ts" setup>
 interface Tree {

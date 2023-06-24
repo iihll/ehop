@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="show = !show">Click Me</el-button>
+    <eh-button @click="show = !show">Click Me</eh-button>
 
     <div style="display: flex; margin-top: 20px; height: 100px">
       <transition name="el-zoom-in-center">

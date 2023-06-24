@@ -1,8 +1,8 @@
-import { ElLoading } from '@ehopnts/loading'
-import { ElMessage } from '@ehopnts/message'
-import { ElMessageBox } from '@ehopnts/message-box'
-import { ElNotification } from '@ehopnts/notification'
-import { ElPopoverDirective } from '@ehopnts/popover'
+import { ElLoading } from '@ehop/components/loading'
+import { ElMessage } from '@ehop/components/message'
+import { ElMessageBox } from '@ehop/components/message-box'
+import { ElNotification } from '@ehop/components/notification'
+import { ElPopoverDirective } from '@ehop/components/popover'
 import { ElInfiniteScroll } from '@ehop/components/infinite-scroll'
 
 import type { Plugin } from 'vue'

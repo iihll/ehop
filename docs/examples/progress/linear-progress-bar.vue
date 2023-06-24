@@ -1,10 +1,10 @@
 <template>
   <div class="demo-progress">
-    <el-progress :percentage="50" />
-    <el-progress :percentage="100" :format="format" />
-    <el-progress :percentage="100" status="success" />
-    <el-progress :percentage="100" status="warning" />
-    <el-progress :percentage="50" status="exception" />
+    <eh-progress :percentage="50" />
+    <eh-progress :percentage="100" :format="format" />
+    <eh-progress :percentage="100" status="success" />
+    <eh-progress :percentage="100" status="warning" />
+    <eh-progress :percentage="50" status="exception" />
   </div>
 </template>
 

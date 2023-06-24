@@ -1,17 +1,9 @@
 <template>
-  <el-button ref="buttonRef" v-click-outside="onClickOutside"
-    >Click me</el-button
-  >
+  <eh-button ref="buttonRef" v-click-outside="onClickOutside">Click me</eh-button>
 
-  <el-popover
-    ref="popoverRef"
-    :virtual-ref="buttonRef"
-    trigger="click"
-    title="With title"
-    virtual-triggering
-  >
+  <eh-popover ref="popoverRef" :virtual-ref="buttonRef" trigger="click" title="With title" virtual-triggering>
     <span> Some content </span>
-  </el-popover>
+  </eh-popover>
 </template>
 
 <script setup lang="ts">

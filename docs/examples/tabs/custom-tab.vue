@@ -1,27 +1,27 @@
 <template>
-  <el-tabs type="border-card" class="demo-tabs">
-    <el-tab-pane>
+  <eh-tabs type="border-card" class="demo-tabs">
+    <eh-tab-pane>
       <template #label>
         <span class="custom-tabs-label">
-          <el-icon>
+          <eh-icon>
             <calendar />
-          </el-icon>
+          </eh-icon>
           <span>Route</span>
         </span>
       </template>
       Route
-    </el-tab-pane>
-    <el-tab-pane label="Config">Config</el-tab-pane>
-    <el-tab-pane label="Role">Role</el-tab-pane>
-    <el-tab-pane label="Task">Task</el-tab-pane>
-  </el-tabs>
+    </eh-tab-pane>
+    <eh-tab-pane label="Config">Config</eh-tab-pane>
+    <eh-tab-pane label="Role">Role</eh-tab-pane>
+    <eh-tab-pane label="Task">Task</eh-tab-pane>
+  </eh-tabs>
 </template>
 
 <script lang="ts" setup>
 import { Calendar } from '@ehop/icons-vue'
 </script>
 <style>
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

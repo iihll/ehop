@@ -1,18 +1,11 @@
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="[]"
-    :row-height="40"
-    :width="700"
-    :height="400"
-    :footer-height="50"
-  >
+  <eh-table-v2 :columns="columns" :data="[]" :row-height="40" :width="700" :height="400" :footer-height="50">
     <template #empty>
       <div class="flex items-center justify-center h-100%">
-        <el-empty />
+        <eh-empty />
       </div>
     </template>
-  </el-table-v2>
+  </eh-table-v2>
 </template>
 
 <script lang="tsx" setup>

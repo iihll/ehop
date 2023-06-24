@@ -1,99 +1,87 @@
 <template>
-  <el-row class="tac">
-    <el-col :span="12">
+  <eh-row class="tac">
+    <eh-col :span="12">
       <h5 class="mb-2">Default colors</h5>
-      <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
-      >
-        <el-sub-menu index="1">
+      <eh-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+        <eh-sub-menu index="1">
           <template #title>
-            <el-icon>
+            <eh-icon>
               <location />
-            </el-icon>
+            </eh-icon>
             <span>Navigator One</span>
           </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
+          <eh-menu-item-group title="Group One">
+            <eh-menu-item index="1-1">item one</eh-menu-item>
+            <eh-menu-item index="1-2">item two</eh-menu-item>
+          </eh-menu-item-group>
+          <eh-menu-item-group title="Group Two">
+            <eh-menu-item index="1-3">item three</eh-menu-item>
+          </eh-menu-item-group>
+          <eh-sub-menu index="1-4">
             <template #title>item four</template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
+            <eh-menu-item index="1-4-1">item one</eh-menu-item>
+          </eh-sub-menu>
+        </eh-sub-menu>
+        <eh-menu-item index="2">
+          <eh-icon><icon-menu /></eh-icon>
           <span>Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <el-icon>
+        </eh-menu-item>
+        <eh-menu-item index="3" disabled>
+          <eh-icon>
             <document />
-          </el-icon>
+          </eh-icon>
           <span>Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon>
+        </eh-menu-item>
+        <eh-menu-item index="4">
+          <eh-icon>
             <setting />
-          </el-icon>
+          </eh-icon>
           <span>Navigator Four</span>
-        </el-menu-item>
-      </el-menu>
-    </el-col>
-    <el-col :span="12">
+        </eh-menu-item>
+      </eh-menu>
+    </eh-col>
+    <eh-col :span="12">
       <h5 class="mb-2">Custom colors</h5>
-      <el-menu
-        active-text-color="#ffd04b"
-        background-color="#545c64"
-        class="el-menu-vertical-demo"
-        default-active="2"
-        text-color="#fff"
-        @open="handleOpen"
-        @close="handleClose"
-      >
-        <el-sub-menu index="1">
+      <eh-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="2"
+        text-color="#fff" @open="handleOpen" @close="handleClose">
+        <eh-sub-menu index="1">
           <template #title>
-            <el-icon>
+            <eh-icon>
               <location />
-            </el-icon>
+            </eh-icon>
             <span>Navigator One</span>
           </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
+          <eh-menu-item-group title="Group One">
+            <eh-menu-item index="1-1">item one</eh-menu-item>
+            <eh-menu-item index="1-2">item two</eh-menu-item>
+          </eh-menu-item-group>
+          <eh-menu-item-group title="Group Two">
+            <eh-menu-item index="1-3">item three</eh-menu-item>
+          </eh-menu-item-group>
+          <eh-sub-menu index="1-4">
             <template #title>item four</template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
+            <eh-menu-item index="1-4-1">item one</eh-menu-item>
+          </eh-sub-menu>
+        </eh-sub-menu>
+        <eh-menu-item index="2">
+          <eh-icon><icon-menu /></eh-icon>
           <span>Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <el-icon>
+        </eh-menu-item>
+        <eh-menu-item index="3" disabled>
+          <eh-icon>
             <document />
-          </el-icon>
+          </eh-icon>
           <span>Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon>
+        </eh-menu-item>
+        <eh-menu-item index="4">
+          <eh-icon>
             <setting />
-          </el-icon>
+          </eh-icon>
           <span>Navigator Four</span>
-        </el-menu-item>
-      </el-menu>
-    </el-col>
-  </el-row>
+        </eh-menu-item>
+      </eh-menu>
+    </eh-col>
+  </eh-row>
 </template>
 
 <script lang="ts" setup>

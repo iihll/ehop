@@ -1,11 +1,7 @@
 <template>
-  <el-roving-focus-collection-item
-    :id="id"
-    :focusable="focusable"
-    :active="active"
-  >
+  <eh-roving-focus-collection-item :id="id" :focusable="focusable" :active="active">
     <slot />
-  </el-roving-focus-collection-item>
+  </eh-roving-focus-collection-item>
 </template>
 
 <script lang="ts">

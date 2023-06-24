@@ -5,7 +5,7 @@ import type {
   ValidateFieldsError,
 } from 'async-validator'
 import type { ComponentSize } from '@ehop/constants'
-import type { Arrayable } from '@ehop
+import type { Arrayable } from '@ehop/utils'
 import type { MaybeRef } from '@vueuse/core'
 import type {
   FormItemProp,

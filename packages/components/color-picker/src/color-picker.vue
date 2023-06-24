@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip ref="popper" :visible="showPicker" :show-arrow="false"
+  <eh-tooltip ref="popper" :visible="showPicker" :show-arrow="false"
     :fallback-placements="['bottom', 'top', 'right', 'left']" :offset="0" :gpu-acceleration="false"
     :popper-class="[ns.be('picker', 'panel'), ns.b('dropdown'), popperClass]" :stop-popper-mouse-event="false"
     effect="light" trigger="click" :transition="`${ns.namespace.value}-zoom-in-top`" persistent>
@@ -13,15 +13,15 @@
         <predefine v-if="predefine" ref="predefine" :color="color" :colors="predefine" />
         <div :class="ns.be('dropdown', 'btns')">
           <span :class="ns.be('dropdown', 'value')">
-            <el-input v-model="customInput" :validate-event="false" size="small" @keyup.enter="handleConfirm"
+            <eh-input v-model="customInput" :validate-event="false" size="small" @keyup.enter="handleConfirm"
               @blur="handleConfirm" />
           </span>
-          <el-button :class="ns.be('dropdown', 'link-btn')" text size="small" @click="clear">
+          <eh-button :class="ns.be('dropdown', 'link-btn')" text size="small" @click="clear">
             {{ t('eh.colorpicker.clear') }}
-          </el-button>
-          <el-button plain size="small" :class="ns.be('dropdown', 'btn')" @click="confirmValue">
+          </eh-button>
+          <eh-button plain size="small" :class="ns.be('dropdown', 'btn')" @click="confirmValue">
             {{ t('eh.colorpicker.confirm') }}
-          </el-button>
+          </eh-button>
         </div>
       </div>
     </template>
@@ -35,19 +35,18 @@
             <span :class="ns.be('picker', 'color-inner')" :style="{
               backgroundColor: displayedColor,
             }">
-              <el-icon v-show="modelValue || showPanelColor"
-                :class="[ns.be('picker', 'icon'), ns.is('icon-arrow-down')]">
+              <eh-icon v-show="modelValue || showPanelColor" :class="[ns.be('picker', 'icon'), ns.is('icon-arrow-down')]">
                 <arrow-down />
-              </el-icon>
-              <el-icon v-if="!modelValue && !showPanelColor" :class="[ns.be('picker', 'empty'), ns.is('icon-close')]">
+              </eh-icon>
+              <eh-icon v-if="!modelValue && !showPanelColor" :class="[ns.be('picker', 'empty'), ns.is('icon-close')]">
                 <close />
-              </el-icon>
+              </eh-icon>
             </span>
           </span>
         </div>
       </div>
     </template>
-  </el-tooltip>
+  </eh-tooltip>
 </template>
 
 <script lang="ts" setup>
@@ -62,18 +61,18 @@ import {
 } from 'vue'
 import { debounce } from 'lodash-unified'
 import { EhButton } from '@ehop/components/button'
-import { EhIcon } from '@ehopnts/icon'
-import { ClickOutside as vClickOutside } from '@ehopves'
-import { EhTooltip } from '@ehopnts/tooltip'
-import { EhInput } from '@ehopnts/input'
+import { EhIcon } from '@ehop/components/icon'
+import { ClickOutside as vClickOutside } from '@ehop/directives'
+import { EhTooltip } from '@ehop/components/tooltip'
+import { EhInput } from '@ehop/components/input'
 import {
   useFormDisabled,
   useFormItem,
   useFormItemInputId,
   useFormSize,
-} from '@ehopnts/form'
+} from '@ehop/components/form'
 import { useLocale, useNamespace } from '@ehop
-import { UPDATE_MODEL_EVENT } from '@ehopts'
+import { UPDATE_MODEL_EVENT } from '@ehop/constants'
 import { debugWarn } from '@ehop
 import { ArrowDown, Close } from '@ehop/icons-vue'
 import AlphaSlider from './components/alpha-slider.vue'
@@ -86,7 +85,7 @@ import {
   colorPickerEmits,
   colorPickerProps,
 } from './color-picker'
-import type { TooltipInstance } from '@ehopnts/tooltip'
+import type { TooltipInstance } from '@ehop/components/tooltip'
 
 defineOptions({
   name: 'EhColorPicker',

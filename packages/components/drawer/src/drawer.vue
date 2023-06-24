@@ -1,42 +1,101 @@
 <template>
-  <teleport to="body" :disabled="!appendToBody">
-    <transition :name="ns.b('fade')" @after-enter="afterEnter" @after-leave="afterLeave" @before-leave="beforeLeave">
-      <el-overlay v-show="visible" :mask="modal" :overlay-class="modalClass" :z-index="zIndex" @click="onModalClick">
-        <el-focus-trap loop :trapped="visible" :focus-trap-el="drawerRef" :focus-start-el="focusStartRef"
-          @release-requested="onCloseRequested">
-          <div ref="drawerRef" aria-modal="true" :aria-label="title || undefined"
-            :aria-labelledby="!title ? titleId : undefined" :aria-describedby="bodyId" v-bind="$attrs"
-            :class="[ns.b(), direction, visible && 'open', customClass]" :style="isHorizontal ? 'width: ' + drawerSize : 'height: ' + drawerSize
-              " role="dialog" @click.stop>
-            <span ref="focusStartRef" :class="ns.e('sr-focus')" tabindex="-1" />
-            <header v-if="withHeader" :class="ns.e('header')">
-              <slot v-if="!$slots.title" name="header" :close="handleClose" :title-id="titleId"
-                :title-class="ns.e('title')">
-                <span v-if="!$slots.title" :id="titleId" role="heading" :class="ns.e('title')">
+  <teleport
+    to="body"
+    :disabled="!appendToBody"
+  >
+    <transition
+      :name="ns.b('fade')"
+      @after-enter="afterEnter"
+      @after-leave="afterLeave"
+      @before-leave="beforeLeave"
+    >
+      <eh-overlay
+        v-show="visible"
+        :mask="modal"
+        :overlay-class="modalClass"
+        :z-index="zIndex"
+        @click="onModalClick"
+      >
+        <eh-focus-trap
+          loop
+          :trapped="visible"
+          :focus-trap-el="drawerRef"
+          :focus-start-el="focusStartRef"
+          @release-requested="onCloseRequested"
+        >
+          <div
+            ref="drawerRef"
+            aria-modal="true"
+            :aria-label="title || undefined"
+            :aria-labelledby="!title ? titleId : undefined"
+            :aria-describedby="bodyId"
+            v-bind="$attrs"
+            :class="[ns.b(), direction, visible && 'open', customClass]"
+            :style="isHorizontal ? 'width: ' + drawerSize : 'height: ' + drawerSize
+            "
+            role="dialog"
+            @click.stop
+          >
+            <span
+              ref="focusStartRef"
+              :class="ns.e('sr-focus')"
+              tabindex="-1"
+            />
+            <header
+              v-if="withHeader"
+              :class="ns.e('header')"
+            >
+              <slot
+                v-if="!$slots.title"
+                name="header"
+                :close="handleClose"
+                :title-id="titleId"
+                :title-class="ns.e('title')"
+              >
+                <span
+                  v-if="!$slots.title"
+                  :id="titleId"
+                  role="heading"
+                  :class="ns.e('title')"
+                >
                   {{ title }}
                 </span>
               </slot>
-              <slot v-else name="title">
+              <slot
+                v-else
+                name="title"
+              >
                 <!-- DEPRECATED SLOT -->
               </slot>
-              <button v-if="showClose" :aria-label="t('eh.drawer.close')" :class="ns.e('close-btn')" type="button"
-                @click="handleClose">
-                <el-icon :class="ns.e('close')">
+              <button
+                v-if="showClose"
+                :aria-label="t('eh.drawer.close')"
+                :class="ns.e('close-btn')"
+                type="button"
+                @click="handleClose"
+              >
+                <eh-icon :class="ns.e('close')">
                   <close />
-                </el-icon>
+                </eh-icon>
               </button>
             </header>
             <template v-if="rendered">
-              <div :id="bodyId" :class="ns.e('body')">
+              <div
+                :id="bodyId"
+                :class="ns.e('body')"
+              >
                 <slot />
               </div>
             </template>
-            <div v-if="$slots.footer" :class="ns.e('footer')">
+            <div
+              v-if="$slots.footer"
+              :class="ns.e('footer')"
+            >
               <slot name="footer" />
             </div>
           </div>
-        </el-focus-trap>
-      </el-overlay>
+        </eh-focus-trap>
+      </eh-overlay>
     </transition>
   </teleport>
 </template>
@@ -45,12 +104,12 @@
 import { computed, defineComponent, ref } from 'vue'
 import { Close } from '@ehop/icons-vue'
 
-import { EhOverlay } from '@ehopnts/overlay'
-import EhFocusTrap from '@ehopnts/focus-trap'
-import { useDialog } from '@ehopnts/dialog'
-import { addUnit } from '@ehop
-import EhIcon from '@ehopnts/icon'
-import { useDeprecated, useLocale, useNamespace } from '@ehop
+import { EhOverlay } from '@ehop/components/overlay'
+import EhFocusTrap from '@ehop/components/focus-trap'
+import { useDialog } from '@ehop/components/dialog'
+import { addUnit } from '@ehop/utils'
+import EhIcon from '@ehop/components/icon'
+import { useDeprecated, useLocale, useNamespace } from '@ehop/hooks'
 import { drawerEmits, drawerProps } from './drawer'
 
 export default defineComponent({
@@ -68,7 +127,7 @@ export default defineComponent({
   setup(props, { slots }) {
     useDeprecated(
       {
-        scope: 'el-drawer',
+        scope: 'eh-drawer',
         from: 'the title slot',
         replacement: 'the header slot',
         version: '3.0.0',
@@ -78,7 +137,7 @@ export default defineComponent({
     )
     useDeprecated(
       {
-        scope: 'el-drawer',
+        scope: 'eh-drawer',
         from: 'custom-class',
         replacement: 'class',
         version: '2.3.0',

@@ -128,7 +128,7 @@ If Ehop is fully imported, it will add the following global methods for `app.con
 - `$confirm(message, title, options)` or `$confirm(message, options)`
 - `$prompt(message, title, options)` or `$prompt(message, options)`
 
-## App context inheritance <el-tag>> 2.0.4</el-tag>
+## App context inheritance <eh-tag>> 2.0.4</eh-tag>
 
 Now message box accepts a `context` as second (forth if you are using message box variants) parameter of the message constructor which allows you to inject current app's context to message which allows you to inherit all the properties of the app.
 

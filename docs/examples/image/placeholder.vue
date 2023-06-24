@@ -2,15 +2,15 @@
   <div class="demo-image__placeholder">
     <div class="block">
       <span class="demonstration">Default</span>
-      <el-image :src="src" />
+      <eh-image :src="src" />
     </div>
     <div class="block">
       <span class="demonstration">Custom</span>
-      <el-image :src="src">
+      <eh-image :src="src">
         <template #placeholder>
           <div class="image-slot">Loading<span class="dot">...</span></div>
         </template>
-      </el-image>
+      </eh-image>
     </div>
   </div>
 </template>

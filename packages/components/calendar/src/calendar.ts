@@ -1,4 +1,4 @@
-import { INPUT_EVENT, UPDATE_MODEL_EVENT } from '@ehopts'
+import { INPUT_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 import { buildProps, definePropType, isArray, isDate } from '@ehop/utils'
 import type { ExtractPropTypes } from 'vue'
 

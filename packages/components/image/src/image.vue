@@ -1,22 +1,52 @@
 <template>
-  <div ref="container" :class="[ns.b(), $attrs.class]" :style="containerStyle">
-    <slot v-if="hasLoadError" name="error">
-      <div :class="ns.e('error')">{{ t('eh.image.error') }}</div>
+  <div
+    ref="container"
+    :class="[ns.b(), $attrs.class]"
+    :style="containerStyle"
+  >
+    <slot
+      v-if="hasLoadError"
+      name="error"
+    >
+      <div :class="ns.e('error')">
+        {{ t('eh.image.error') }}
+      </div>
     </slot>
     <template v-else>
-      <img v-if="imageSrc !== undefined" v-bind="attrs" :src="imageSrc" :loading="loading" :style="imageStyle"
-        :class="imageKls" @click="clickHandler" @load="handleLoad" @error="handleError" />
-      <div v-if="isLoading" :class="ns.e('wrapper')">
+      <img
+        v-if="imageSrc !== undefined"
+        v-bind="attrs"
+        :src="imageSrc"
+        :loading="loading"
+        :style="imageStyle"
+        :class="imageKls"
+        @click="clickHandler"
+        @load="handleLoad"
+        @error="handleError"
+      />
+      <div
+        v-if="isLoading"
+        :class="ns.e('wrapper')"
+      >
         <slot name="placeholder">
           <div :class="ns.e('placeholder')" />
         </slot>
       </div>
     </template>
     <template v-if="preview">
-      <image-viewer v-if="showViewer" :z-index="zIndex" :initial-index="imageIndex" :infinite="infinite"
-        :zoom-rate="zoomRate" :url-list="previewSrcList" :hide-on-click-modal="hideOnClickModal"
-        :teleported="previewTeleported" :close-on-press-escape="closeOnPressEscape" @close="closeViewer"
-        @switch="switchViewer">
+      <image-viewer
+        v-if="showViewer"
+        :z-index="zIndex"
+        :initial-index="imageIndex"
+        :infinite="infinite"
+        :zoom-rate="zoomRate"
+        :url-list="previewSrcList"
+        :hide-on-click-modal="hideOnClickModal"
+        :teleported="previewTeleported"
+        :close-on-press-escape="closeOnPressEscape"
+        @close="closeViewer"
+        @switch="switchViewer"
+      >
         <div v-if="$slots.viewer">
           <slot name="viewer" />
         </div>
@@ -36,14 +66,14 @@ import {
 } from 'vue'
 import { useEventListener, useThrottleFn } from '@vueuse/core'
 import { useAttrs, useLocale, useNamespace } from '@ehop/hooks'
-import ImageViewer from '@ehopnts/image-viewer'
+import ImageViewer from '@ehop/components/image-viewer'
 import {
   getScrollContainer,
   isClient,
   isElement,
   isInContainer,
   isString,
-} from '@ehop
+} from '@ehop/utils'
 import { imageEmits, imageProps } from './image'
 
 import type { CSSProperties, StyleValue } from 'vue'

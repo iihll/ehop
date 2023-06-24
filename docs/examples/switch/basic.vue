@@ -1,10 +1,6 @@
 <template>
-  <el-switch v-model="value1" />
-  <el-switch
-    v-model="value2"
-    class="ml-2"
-    style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949"
-  />
+  <eh-switch v-model="value1" />
+  <eh-switch v-model="value2" class="ml-2" style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949" />
 </template>
 
 <script lang="ts" setup>

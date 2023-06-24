@@ -1,19 +1,42 @@
 <template>
-  <div ref="formItemRef" :class="formItemClasses" :role="isGroup ? 'group' : undefined"
-    :aria-labelledby="isGroup ? labelId : undefined">
-    <form-label-wrap :is-auto-width="labelStyle.width === 'auto'" :update-all="formContext?.labelWidth === 'auto'">
-      <component :is="labelFor ? 'label' : 'div'" v-if="hasLabel" :id="labelId" :for="labelFor" :class="ns.e('label')"
-        :style="labelStyle">
-        <slot name="label" :label="currentLabel">
+  <div
+    ref="formItemRef"
+    :class="formItemClasses"
+    :role="isGroup ? 'group' : undefined"
+    :aria-labelledby="isGroup ? labelId : undefined"
+  >
+    <form-label-wrap
+      :is-auto-width="labelStyle.width === 'auto'"
+      :update-all="formContext?.labelWidth === 'auto'"
+    >
+      <component
+        :is="labelFor ? 'label' : 'div'"
+        v-if="hasLabel"
+        :id="labelId"
+        :for="labelFor"
+        :class="ns.e('label')"
+        :style="labelStyle"
+      >
+        <slot
+          name="label"
+          :label="currentLabel"
+        >
           {{ currentLabel }}
         </slot>
       </component>
     </form-label-wrap>
 
-    <div :class="ns.e('content')" :style="contentStyle">
+    <div
+      :class="ns.e('content')"
+      :style="contentStyle"
+    >
       <slot />
       <transition-group :name="`${ns.namespace.value}-zoom-in-top`">
-        <slot v-if="shouldShowError" name="error" :error="validateMessage">
+        <slot
+          v-if="shouldShowError"
+          name="error"
+          :error="validateMessage"
+        >
           <div :class="validateClasses">
             {{ validateMessage }}
           </div>
@@ -48,7 +71,7 @@ import {
   isFunction,
   isString,
 } from '@ehop/utils'
-import { useId, useNamespace } from '@ehop
+import { useId, useNamespace } from '@ehop/hooks'
 import { useFormSize } from './hooks'
 import { formItemProps } from './form-item'
 import FormLabelWrap from './form-label-wrap'
@@ -56,7 +79,7 @@ import { formContextKey, formItemContextKey } from './constants'
 
 import type { CSSProperties } from 'vue'
 import type { RuleItem } from 'async-validator'
-import type { Arrayable } from '@ehop
+import type { Arrayable } from '@ehop/utils'
 import type {
   FormItemContext,
   FormItemRule,

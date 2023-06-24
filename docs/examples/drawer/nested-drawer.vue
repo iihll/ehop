@@ -1,21 +1,16 @@
 <template>
-  <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
+  <eh-button type="primary" style="margin-left: 16px" @click="drawer = true">
     open
-  </el-button>
+  </eh-button>
 
-  <el-drawer v-model="drawer" title="I'm outer Drawer" size="50%">
+  <eh-drawer v-model="drawer" title="I'm outer Drawer" size="50%">
     <div>
-      <el-button @click="innerDrawer = true">Click me!</el-button>
-      <el-drawer
-        v-model="innerDrawer"
-        title="I'm inner Drawer"
-        :append-to-body="true"
-        :before-close="handleClose"
-      >
+      <eh-button @click="innerDrawer = true">Click me!</eh-button>
+      <eh-drawer v-model="innerDrawer" title="I'm inner Drawer" :append-to-body="true" :before-close="handleClose">
         <p>_(:зゝ∠)_</p>
-      </el-drawer>
+      </eh-drawer>
     </div>
-  </el-drawer>
+  </eh-drawer>
 </template>
 
 <script lang="ts" setup>

@@ -1,35 +1,35 @@
 <template>
-  <el-badge :value="12" class="item">
-    <el-button>comments</el-button>
-  </el-badge>
-  <el-badge :value="3" class="item">
-    <el-button>replies</el-button>
-  </el-badge>
-  <el-badge :value="1" class="item" type="primary">
-    <el-button>comments</el-button>
-  </el-badge>
-  <el-badge :value="2" class="item" type="warning">
-    <el-button>replies</el-button>
-  </el-badge>
+  <eh-badge :value="12" class="item">
+    <eh-button>comments</eh-button>
+  </eh-badge>
+  <eh-badge :value="3" class="item">
+    <eh-button>replies</eh-button>
+  </eh-badge>
+  <eh-badge :value="1" class="item" type="primary">
+    <eh-button>comments</eh-button>
+  </eh-badge>
+  <eh-badge :value="2" class="item" type="warning">
+    <eh-button>replies</eh-button>
+  </eh-badge>
 
-  <el-dropdown trigger="click">
+  <eh-dropdown trigger="click">
     <span class="el-dropdown-link">
       Click Me
-      <el-icon class="el-icon--right"><caret-bottom /></el-icon>
+      <eh-icon class="el-icon--right"><caret-bottom /></eh-icon>
     </span>
     <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item class="clearfix">
+      <eh-dropdown-menu>
+        <eh-dropdown-item class="clearfix">
           comments
-          <el-badge class="mark" :value="12" />
-        </el-dropdown-item>
-        <el-dropdown-item class="clearfix">
+          <eh-badge class="mark" :value="12" />
+        </eh-dropdown-item>
+        <eh-dropdown-item class="clearfix">
           replies
-          <el-badge class="mark" :value="3" />
-        </el-dropdown-item>
-      </el-dropdown-menu>
+          <eh-badge class="mark" :value="3" />
+        </eh-dropdown-item>
+      </eh-dropdown-menu>
     </template>
-  </el-dropdown>
+  </eh-dropdown>
 </template>
 
 <script lang="ts" setup>

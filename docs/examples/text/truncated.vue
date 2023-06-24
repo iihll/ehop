@@ -1,8 +1,8 @@
 <template>
-  <el-text class="w-100px" truncated>Self element set width 100px</el-text>
-  <el-row>
-    <el-col :span="4">
-      <el-text truncated>Squeezed by parent element</el-text>
-    </el-col>
-  </el-row>
+  <eh-text class="w-100px" truncated>Self element set width 100px</eh-text>
+  <eh-row>
+    <eh-col :span="4">
+      <eh-text truncated>Squeezed by parent element</eh-text>
+    </eh-col>
+  </eh-row>
 </template>

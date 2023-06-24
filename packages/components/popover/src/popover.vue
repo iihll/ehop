@@ -1,34 +1,11 @@
 <template>
-  <el-tooltip
-    ref="tooltipRef"
-    v-bind="$attrs"
-    :trigger="trigger"
-    :placement="placement"
-    :disabled="disabled"
-    :visible="visible"
-    :transition="transition"
-    :popper-options="popperOptions"
-    :tabindex="tabindex"
-    :content="content"
-    :offset="offset"
-    :show-after="showAfter"
-    :hide-after="hideAfter"
-    :auto-close="autoClose"
-    :show-arrow="showArrow"
-    :aria-label="title"
-    :effect="effect"
-    :enterable="enterable"
-    :popper-class="kls"
-    :popper-style="style"
-    :teleported="teleported"
-    :persistent="persistent"
-    :gpu-acceleration="gpuAcceleration"
-    @update:visible="onUpdateVisible"
-    @before-show="beforeEnter"
-    @before-hide="beforeLeave"
-    @show="afterEnter"
-    @hide="afterLeave"
-  >
+  <eh-tooltip ref="tooltipRef" v-bind="$attrs" :trigger="trigger" :placement="placement" :disabled="disabled"
+    :visible="visible" :transition="transition" :popper-options="popperOptions" :tabindex="tabindex" :content="content"
+    :offset="offset" :show-after="showAfter" :hide-after="hideAfter" :auto-close="autoClose" :show-arrow="showArrow"
+    :aria-label="title" :effect="effect" :enterable="enterable" :popper-class="kls" :popper-style="style"
+    :teleported="teleported" :persistent="persistent" :gpu-acceleration="gpuAcceleration"
+    @update:visible="onUpdateVisible" @before-show="beforeEnter" @before-hide="beforeLeave" @show="afterEnter"
+    @hide="afterLeave">
     <template v-if="$slots.reference">
       <slot name="reference" />
     </template>
@@ -41,7 +18,7 @@
         {{ content }}
       </slot>
     </template>
-  </el-tooltip>
+  </eh-tooltip>
 </template>
 <script lang="ts" setup>
 import { computed, ref, unref } from 'vue'

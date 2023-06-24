@@ -1,5 +1,5 @@
 <template>
-  <el-input v-model="input" placeholder="Please input" />
+  <eh-input v-model="input" placeholder="Please input" />
 </template>
 
 <script lang="ts" setup>

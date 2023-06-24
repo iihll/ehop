@@ -1,5 +1,5 @@
 <template>
-  <el-button plain @click="open"> Notification with offset </el-button>
+  <eh-button plain @click="open"> Notification with offset </eh-button>
 </template>
 
 <script lang="ts" setup>

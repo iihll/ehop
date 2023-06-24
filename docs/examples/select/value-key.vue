@@ -1,13 +1,8 @@
 <template>
   <div class="m-4">
-    <el-select v-model="value" value-key="id" placeholder="Select">
-      <el-option
-        v-for="item in options"
-        :key="item.id"
-        :label="item.label"
-        :value="item"
-      />
-    </el-select>
+    <eh-select v-model="value" value-key="id" placeholder="Select">
+      <eh-option v-for="item in options" :key="item.id" :label="item.label" :value="item" />
+    </eh-select>
     <p>
       selected option's description:
       {{ value ? value.desc : 'no select' }}

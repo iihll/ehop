@@ -44,7 +44,7 @@ If you use volar, please add the global component type definition to `compilerOp
 
 You need to use an additional plugin to import components you used.
 
-#### Auto import <el-tag type="primary" style="vertical-align: middle;" effect="dark" size="small">Recommend</el-tag>
+#### Auto import <eh-tag type="primary" style="vertical-align: middle;" effect="dark" size="small">Recommend</eh-tag>
 
 First you need to install `unplugin-vue-components` and `unplugin-auto-import`.
 
@@ -131,7 +131,7 @@ And refer to the [docs](https://github.com/ehop/unplugin-ehop#readme) for how to
 
 ```html
 <template>
-  <el-button>I am ElButton</el-button>
+  <eh-button>I am ElButton</eh-button>
 </template>
 <script>
   import { ElButton } from 'ehop'
@@ -194,9 +194,9 @@ On-demand:
 
 ```vue
 <template>
-  <el-config-provider :size="size" :z-index="zIndex">
+  <eh-config-provider :size="size" :z-index="zIndex">
     <app />
-  </el-config-provider>
+  </eh-config-provider>
 </template>
 
 <script>

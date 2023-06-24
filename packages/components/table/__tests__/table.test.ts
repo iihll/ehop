@@ -31,13 +31,13 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-      <el-table :data="testData">
-        <el-table-column prop="id" />
-        <el-table-column prop="name" label="片名" />
-        <el-table-column prop="release" label="发行日期" />
-        <el-table-column prop="director" label="导演" />
-        <el-table-column prop="runtime" label="时长（分）" />
-      </el-table>
+      <eh-table :data="testData">
+        <eh-table-column prop="id" />
+        <eh-table-column prop="name" label="片名" />
+        <eh-table-column prop="release" label="发行日期" />
+        <eh-table-column prop="director" label="导演" />
+        <eh-table-column prop="runtime" label="时长（分）" />
+      </eh-table>
       `,
       created() {
         this.testData = getTestData()
@@ -78,16 +78,16 @@ describe('Table.vue', () => {
         EhCheckbox,
       },
       template: `
-      <el-table :data="tableData">
-        <el-table-column label="someLabel">
+      <eh-table :data="tableData">
+        <eh-table-column label="someLabel">
           <template #default="{ row }">
-            <el-checkbox-group v-model="row.checkList">
-              <el-checkbox label="复选框 A"></el-checkbox>
-              <el-checkbox label="复选框 B"></el-checkbox>
-            </el-checkbox-group>
+            <eh-checkbox-group v-model="row.checkList">
+              <eh-checkbox label="复选框 A"></eh-checkbox>
+              <eh-checkbox label="复选框 B"></eh-checkbox>
+            </eh-checkbox-group>
           </template>
-        </el-table-column>
-      </el-table>
+        </eh-table-column>
+      </eh-table>
       `,
       data() {
         return {
@@ -130,12 +130,12 @@ describe('Table.vue', () => {
               EhTableColumn,
             },
             template: `
-          <el-table :data="testData" ${props}>
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" />
-          </el-table>
+          <eh-table :data="testData" ${props}>
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" />
+          </eh-table>
         `,
             created() {
               this.testData = getTestData()
@@ -262,12 +262,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-        <el-table :data="testData" row-key="id" highlight-current-row :current-row-key="currentRowKey">
-          <el-table-column prop="name" label="片名" />
-          <el-table-column prop="release" label="发行日期" />
-          <el-table-column prop="director" label="导演" />
-          <el-table-column prop="runtime" label="时长（分）" />
-        </el-table>
+        <eh-table :data="testData" row-key="id" highlight-current-row :current-row-key="currentRowKey">
+          <eh-table-column prop="name" label="片名" />
+          <eh-table-column prop="release" label="发行日期" />
+          <eh-table-column prop="director" label="导演" />
+          <eh-table-column prop="runtime" label="时长（分）" />
+        </eh-table>
       `,
         created() {
           this.testData = getTestData()
@@ -300,10 +300,10 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table ref="table" :data="testData" @filter-change="handleFilterChange">
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column
+          <eh-table ref="table" :data="testData" @filter-change="handleFilterChange">
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column
               prop="director"
               column-key="director"
               :filters="[
@@ -313,8 +313,8 @@ describe('Table.vue', () => {
               ]"
               :filter-method="filterMethod"
               label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" />
-          </el-table>
+            <eh-table-column prop="runtime" label="时长（分）" />
+          </eh-table>
         `,
 
         created() {
@@ -369,7 +369,7 @@ describe('Table.vue', () => {
       await doubleWait()
       expect(
         (wrapper.vm as ComponentPublicInstance & { filters: any }).filters[
-          'director'
+        'director'
         ]
       ).toEqual(['John Lasseter'])
       expect(
@@ -423,7 +423,7 @@ describe('Table.vue', () => {
       await doubleWait()
       expect(
         (wrapper.vm as ComponentPublicInstance & { filters: any }).filters[
-          'director'
+        'director'
         ]
       ).toEqual([])
       expect([
@@ -442,13 +442,13 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" @${prop}="handleEvent">
-            <el-table-column type="selection" />
-            <el-table-column prop="name" />
-            <el-table-column prop="release" />
-            <el-table-column prop="director" />
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table :data="testData" @${prop}="handleEvent">
+            <eh-table-column type="selection" />
+            <eh-table-column prop="name" />
+            <eh-table-column prop="release" />
+            <eh-table-column prop="director" />
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         methods: {
@@ -548,12 +548,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" show-summary>
-            <el-table-column prop="name" />
-            <el-table-column prop="release"/>
-            <el-table-column prop="director"/>
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table :data="testData" show-summary>
+            <eh-table-column prop="name" />
+            <eh-table-column prop="release"/>
+            <eh-table-column prop="director"/>
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         created() {
@@ -576,12 +576,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" show-summary sum-text="Time">
-            <el-table-column prop="name" />
-            <el-table-column prop="release"/>
-            <el-table-column prop="director"/>
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table :data="testData" show-summary sum-text="Time">
+            <eh-table-column prop="name" />
+            <eh-table-column prop="release"/>
+            <eh-table-column prop="director"/>
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         created() {
@@ -602,12 +602,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" show-summary :summary-method="getSummary">
-            <el-table-column prop="name" />
-            <el-table-column prop="release"/>
-            <el-table-column prop="director"/>
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table :data="testData" show-summary :summary-method="getSummary">
+            <eh-table-column prop="name" />
+            <eh-table-column prop="release"/>
+            <eh-table-column prop="director"/>
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         created() {
@@ -653,13 +653,13 @@ describe('Table.vue', () => {
           EhTable,
         },
         template: `
-          <el-table ref="table" :data="testData" @${prop}="handleEvent">
-            <el-table-column type="selection" />
-            <el-table-column prop="name" />
-            <el-table-column prop="release" />
-            <el-table-column prop="director" />
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table ref="table" :data="testData" @${prop}="handleEvent">
+            <eh-table-column type="selection" />
+            <eh-table-column prop="name" />
+            <eh-table-column prop="release" />
+            <eh-table-column prop="director" />
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         methods: {
@@ -730,12 +730,12 @@ describe('Table.vue', () => {
           EhTable,
         },
         template: `
-          <el-table ref="table" :data="testData" :default-sort = "{prop: 'runtime', order: 'ascending'}">
-            <el-table-column prop="name" />
-            <el-table-column prop="release" />
-            <el-table-column prop="director" />
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table ref="table" :data="testData" :default-sort = "{prop: 'runtime', order: 'ascending'}">
+            <eh-table-column prop="name" />
+            <eh-table-column prop="release" />
+            <eh-table-column prop="director" />
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
         data() {
           return { testData: getTestData() }
@@ -784,12 +784,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table ref="table" :data="testData" >
-            <el-table-column prop="name" sortable />
-            <el-table-column prop="release" sortable />
-            <el-table-column prop="director" sortable />
-            <el-table-column prop="runtime" sortable />
-          </el-table>
+          <eh-table ref="table" :data="testData" >
+            <eh-table-column prop="name" sortable />
+            <eh-table-column prop="release" sortable />
+            <eh-table-column prop="director" sortable />
+            <eh-table-column prop="runtime" sortable />
+          </eh-table>
         `,
         data() {
           return { testData: getTestData() }
@@ -834,12 +834,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" @sort-change="handleSortChange">
-          <el-table-column prop="name" />
-          <el-table-column prop="release" />
-          <el-table-column prop="director" />
-          <el-table-column prop="runtime" sortable ref="runtime" />
-          </el-table>
+          <eh-table :data="testData" @sort-change="handleSortChange">
+          <eh-table-column prop="name" />
+          <eh-table-column prop="release" />
+          <eh-table-column prop="director" />
+          <eh-table-column prop="runtime" sortable ref="runtime" />
+          </eh-table>
         `,
         data() {
           return { testData: getTestData() }
@@ -881,12 +881,12 @@ describe('Table.vue', () => {
         },
         template: `
         <div>
-          <el-table ref="table" :data="testData" highlight-current-row>
-            <el-table-column prop="name" sortable />
-            <el-table-column prop="release" sortable />
-            <el-table-column prop="director" sortable />
-            <el-table-column prop="runtime" sortable />
-          </el-table>
+          <eh-table ref="table" :data="testData" highlight-current-row>
+            <eh-table-column prop="name" sortable />
+            <eh-table-column prop="release" sortable />
+            <eh-table-column prop="director" sortable />
+            <eh-table-column prop="runtime" sortable />
+          </eh-table>
           <button class="clear" @click="clear">clear</button>
         </div>
         `,
@@ -921,12 +921,12 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-        <el-table :data="testData">
-          <el-table-column prop="name" label="片名" fixed />
-          <el-table-column prop="release" label="发行日期" />
-          <el-table-column prop="director" label="导演" />
-          <el-table-column prop="runtime" label="时长（分）" />
-        </el-table>
+        <eh-table :data="testData">
+          <eh-table-column prop="name" label="片名" fixed />
+          <eh-table-column prop="release" label="发行日期" />
+          <eh-table-column prop="director" label="导演" />
+          <eh-table-column prop="runtime" label="时长（分）" />
+        </eh-table>
       `,
       data() {
         return {
@@ -957,12 +957,12 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-        <el-table :data="testData" highlight-current-row>
-          <el-table-column prop="name" label="片名" />
-          <el-table-column prop="release" label="发行日期" />
-          <el-table-column prop="director" label="导演" />
-          <el-table-column prop="runtime" label="时长（分）" sortable />
-        </el-table>
+        <eh-table :data="testData" highlight-current-row>
+          <eh-table-column prop="name" label="片名" />
+          <eh-table-column prop="release" label="发行日期" />
+          <eh-table-column prop="director" label="导演" />
+          <eh-table-column prop="runtime" label="时长（分）" sortable />
+        </eh-table>
       `,
 
       created() {
@@ -1000,12 +1000,12 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-        <el-table :data="testData" highlight-current-row row-key="release">
-          <el-table-column prop="name" label="片名" />
-          <el-table-column prop="release" label="发行日期" />
-          <el-table-column prop="director" label="导演" />
-          <el-table-column prop="runtime" label="时长（分）" sortable />
-        </el-table>
+        <eh-table :data="testData" highlight-current-row row-key="release">
+          <eh-table-column prop="name" label="片名" />
+          <eh-table-column prop="release" label="发行日期" />
+          <eh-table-column prop="director" label="导演" />
+          <eh-table-column prop="runtime" label="时长（分）" sortable />
+        </eh-table>
       `,
       data() {
         return {
@@ -1043,12 +1043,12 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-        <el-table :data="testData" row-key="release" highlight-current-row >
-          <el-table-column prop="name" label="片名" />
-          <el-table-column prop="release" label="发行日期" />
-          <el-table-column prop="director" label="导演" />
-          <el-table-column prop="runtime" label="时长（分）" sortable />
-        </el-table>
+        <eh-table :data="testData" row-key="release" highlight-current-row >
+          <eh-table-column prop="name" label="片名" />
+          <eh-table-column prop="release" label="发行日期" />
+          <eh-table-column prop="director" label="导演" />
+          <eh-table-column prop="runtime" label="时长（分）" sortable />
+        </eh-table>
       `,
       data() {
         return {
@@ -1075,17 +1075,17 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-      <el-table :data="[]" height="100%">
-        <el-table-column prop="name" label="片名" />
-        <el-table-column prop="release" label="发行日期" />
-        <el-table-column prop="director" label="导演" />
-        <el-table-column prop="runtime" label="时长（分）" />
+      <eh-table :data="[]" height="100%">
+        <eh-table-column prop="name" label="片名" />
+        <eh-table-column prop="release" label="发行日期" />
+        <eh-table-column prop="director" label="导演" />
+        <eh-table-column prop="runtime" label="时长（分）" />
         <template #append>
           <div class="append-content" style="height: 48px;">
             append 区域始终出现在视图内
           </div>
         </template>
-      </el-table>
+      </eh-table>
       `,
     })
     await doubleWait()
@@ -1102,13 +1102,13 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" row-key="release" highlight-current-row >
-            <el-table-column type="index" />
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" sortable />
-          </el-table>
+          <eh-table :data="testData" row-key="release" highlight-current-row >
+            <eh-table-column type="index" />
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" sortable />
+          </eh-table>
         `,
         data() {
           return {
@@ -1130,19 +1130,19 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" row-key="release" highlight-current-row >
-            <el-table-column type="index" />
-            <el-table-column type="expand">
+          <eh-table :data="testData" row-key="release" highlight-current-row >
+            <eh-table-column type="index" />
+            <eh-table-column type="expand">
               <template #default="props">
                 <span class="index">{{ props.$index }}</span>
                 <span class="director">{{ props.row.director }}</span>
               </template>
-            </el-table-column>
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" sortable />
-          </el-table>
+            </eh-table-column>
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" sortable />
+          </eh-table>
         `,
         data() {
           return {
@@ -1180,12 +1180,12 @@ describe('Table.vue', () => {
           EhTable,
         },
         template: `
-          <el-table :data="testData" row-key="release">
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" />
-          </el-table>
+          <eh-table :data="testData" row-key="release">
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" />
+          </eh-table>
         `,
         data() {
           const testData = getTestData() as any
@@ -1233,12 +1233,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" row-key="release" lazy :load="load">
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" />
-          </el-table>
+          <eh-table :data="testData" row-key="release" lazy :load="load">
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" />
+          </eh-table>
         `,
         data() {
           const testData = getTestData() as any
@@ -1291,14 +1291,14 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table
+          <eh-table
             :data="testData" lazy default-expand-all row-key="release" :tree-props="{children: 'childrenTest', hasChildren: 'hasChildrenTest'}"
             :load="load" @expand-change="change">
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" />
-          </el-table>
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" />
+          </eh-table>
         `,
         data() {
           const testData = getTestData() as any
@@ -1358,12 +1358,12 @@ describe('Table.vue', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" row-key="release" lazy :load="load" :expand-row-keys="['2003-5-30']" ref="table">
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" />
-          </el-table>
+          <eh-table :data="testData" row-key="release" lazy :load="load" :expand-row-keys="['2003-5-30']" ref="table">
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" />
+          </eh-table>
         `,
         data() {
           const testData = getTestData() as any
@@ -1407,7 +1407,7 @@ describe('Table.vue', () => {
       expandIcon.trigger('click')
       await doubleWait()
       expect(expandIcon.classes()).toContain('el-table__expand-icon--expanded')
-      ;(wrapper.vm as any).closeExpandRow()
+        ; (wrapper.vm as any).closeExpandRow()
       await doubleWait()
       expect(expandIcon.classes()).not.toContain(
         'el-table__expand-icon--expanded'
@@ -1423,14 +1423,14 @@ describe('Table.vue', () => {
         template: `
           <div>
             <button @click="hideName">hide name column</button>
-            <el-table :data="testData">
-              <el-table-column key="name" label="片名" v-if="showName">
+            <eh-table :data="testData">
+              <eh-table-column key="name" label="片名" v-if="showName">
                 <template #default="{ row }"><span class="name">{{ row.name }}</span></template>
-              </el-table-column>
-              <el-table-column key="release" label="发行日期" >
+              </eh-table-column>
+              <eh-table-column key="release" label="发行日期" >
                 <template #default="{ row }"><span class="release">{{ row.release }}</span></template>
-              </el-table-column>
-            </el-table>
+              </eh-table-column>
+            </eh-table>
           </div>
         `,
         data() {
@@ -1462,13 +1462,13 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-      <el-table :data="testData" table-layout="auto">
-        <el-table-column prop="id" />
-        <el-table-column prop="name" label="片名" />
-        <el-table-column prop="release" label="发行日期" />
-        <el-table-column prop="director" label="导演" />
-        <el-table-column prop="runtime" label="时长（分）" />
-      </el-table>
+      <eh-table :data="testData" table-layout="auto">
+        <eh-table-column prop="id" />
+        <eh-table-column prop="name" label="片名" />
+        <eh-table-column prop="release" label="发行日期" />
+        <eh-table-column prop="director" label="导演" />
+        <eh-table-column prop="runtime" label="时长（分）" />
+      </eh-table>
       `,
       created() {
         this.testData = getTestData()
@@ -1488,13 +1488,13 @@ describe('Table.vue', () => {
       },
       template: `
         <div class="right">
-          <el-table flexible :data="testData" table-layout="auto">
-            <el-table-column prop="id" />
-            <el-table-column prop="name" label="片名" />
-            <el-table-column prop="release" label="发行日期" />
-            <el-table-column prop="director" label="导演" />
-            <el-table-column prop="runtime" label="时长（分）" />
-          </el-table>
+          <eh-table flexible :data="testData" table-layout="auto">
+            <eh-table-column prop="id" />
+            <eh-table-column prop="name" label="片名" />
+            <eh-table-column prop="release" label="发行日期" />
+            <eh-table-column prop="director" label="导演" />
+            <eh-table-column prop="runtime" label="时长（分）" />
+          </eh-table>
         </div>
       `,
       created() {
@@ -1513,13 +1513,13 @@ describe('Table.vue', () => {
         EhTableColumn,
       },
       template: `
-            <el-table :data="testData" @selection-change="change">
-              <el-table-column type="selection" />
-              <el-table-column prop="name" label="name" />
-              <el-table-column prop="release" label="release" />
-              <el-table-column prop="director" label="director" />
-              <el-table-column prop="runtime" label="runtime" />
-            </el-table>
+            <eh-table :data="testData" @selection-change="change">
+              <eh-table-column type="selection" />
+              <eh-table-column prop="name" label="name" />
+              <eh-table-column prop="release" label="release" />
+              <eh-table-column prop="director" label="director" />
+              <eh-table-column prop="runtime" label="runtime" />
+            </eh-table>
           `,
       data() {
         const testData = getTestData() as any
@@ -1562,13 +1562,13 @@ describe('Table.vue', () => {
       },
       template: `
             <button class="change-column" @click="changeColumnData"></button>
-            <el-table :data="testData">
-              <el-table-column
+            <eh-table :data="testData">
+              <eh-table-column
                 v-for="item in columnsData"
                 :prop="item.prop"
                 :label="item.label"
                 :key="item.prop" />
-            </el-table>
+            </eh-table>
           `,
       data() {
         const testData = getTestData() as any
@@ -1612,10 +1612,10 @@ describe('Table.vue', () => {
       },
 
       template: `
-      <el-table :data="testData" show-overflow-tooltip>
-        <el-table-column prop="name" label="name" />
-        <el-table-column prop="release" label="release" />
-      </el-table>
+      <eh-table :data="testData" show-overflow-tooltip>
+        <eh-table-column prop="name" label="name" />
+        <eh-table-column prop="release" label="release" />
+      </eh-table>
     `,
 
       data() {

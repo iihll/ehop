@@ -1,20 +1,18 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="date" label="Date" width="150" />
-    <el-table-column prop="name" label="Name" width="120" />
-    <el-table-column prop="state" label="State" width="120" />
-    <el-table-column prop="city" label="City" width="120" />
-    <el-table-column prop="address" label="Address" width="600" />
-    <el-table-column prop="zip" label="Zip" width="120" />
-    <el-table-column fixed="right" label="Operations" width="120">
+  <eh-table :data="tableData" style="width: 100%">
+    <eh-table-column fixed prop="date" label="Date" width="150" />
+    <eh-table-column prop="name" label="Name" width="120" />
+    <eh-table-column prop="state" label="State" width="120" />
+    <eh-table-column prop="city" label="City" width="120" />
+    <eh-table-column prop="address" label="Address" width="600" />
+    <eh-table-column prop="zip" label="Zip" width="120" />
+    <eh-table-column fixed="right" label="Operations" width="120">
       <template #default>
-        <el-button link type="primary" size="small" @click="handleClick"
-          >Detail</el-button
-        >
-        <el-button link type="primary" size="small">Edit</el-button>
+        <eh-button link type="primary" size="small" @click="handleClick">Detail</eh-button>
+        <eh-button link type="primary" size="small">Edit</eh-button>
       </template>
-    </el-table-column>
-  </el-table>
+    </eh-table-column>
+  </eh-table>
 </template>
 
 <script lang="ts" setup>

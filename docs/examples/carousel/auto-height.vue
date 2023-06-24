@@ -1,17 +1,17 @@
 <template>
   <div class="block text-center" style="height: 300px">
     <span class="demonstration">each carousel-item has a different height</span>
-    <el-carousel height="auto" autoplay>
-      <el-carousel-item style="height: 100px">
+    <eh-carousel height="auto" autoplay>
+      <eh-carousel-item style="height: 100px">
         <h3 class="small justify-center" text="2xl">height 100px</h3>
-      </el-carousel-item>
-      <el-carousel-item style="height: 200px">
+      </eh-carousel-item>
+      <eh-carousel-item style="height: 200px">
         <h3 class="small justify-center" text="2xl">height 200px</h3>
-      </el-carousel-item>
-      <el-carousel-item style="height: 300px">
+      </eh-carousel-item>
+      <eh-carousel-item style="height: 300px">
         <h3 class="small justify-center" text="2xl">height 300px</h3>
-      </el-carousel-item>
-    </el-carousel>
+      </eh-carousel-item>
+    </eh-carousel>
   </div>
 </template>
 

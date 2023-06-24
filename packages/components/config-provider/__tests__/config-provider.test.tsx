@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { useLocale } from '@ehop/hooks'
 import Chinese from '@ehoplang/zh-cn'
 import English from '@ehoplang/en'
-import { ElButton, ElMessage } from '@ehopnts'
+import { ElButton, ElMessage } from '@ehop/components'
 import { rAF } from '@ehopils/tick'
 import {
   useGlobalComponentSettings,
@@ -15,7 +15,7 @@ import ConfigProvider from '../src/config-provider'
 import type { PropType } from 'vue'
 import type { VueWrapper } from '@vue/test-utils'
 import type { Language } from '@ehop
-import type { ComponentSize } from '@ehopts'
+import type { ComponentSize } from '@ehop/constants'
 import type { ConfigProviderProps } from '../src/config-provider-props'
 
 const TestComp = defineComponent({

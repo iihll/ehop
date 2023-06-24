@@ -1,7 +1,10 @@
 <template>
-  <span :class="ns.e('jump')" :disabled="disabled">
+  <span
+    :class="ns.e('jump')"
+    :disabled="disabled"
+  >
     <span :class="[ns.e('goto')]">{{ t('eh.pagination.goto') }}</span>
-    <el-input
+    <eh-input
       :size="size"
       :class="[ns.e('editor'), ns.is('in-pagination')]"
       :min="1"

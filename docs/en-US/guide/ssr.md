@@ -43,9 +43,9 @@ For example, use the `ClientOnly` component in Nuxt.
 
 ```html
 <client-only>
-  <el-tooltip content="the tooltip content">
-    <el-button>tooltip</el-button>
-  </el-tooltip>
+  <eh-tooltip content="the tooltip content">
+    <eh-button>tooltip</eh-button>
+  </eh-tooltip>
 </client-only>
 ```
 
@@ -63,9 +63,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-tooltip v-if="isClient" content="the tooltip content">
-    <el-button>tooltip</el-button>
-  </el-tooltip>
+  <eh-tooltip v-if="isClient" content="the tooltip content">
+    <eh-button>tooltip</eh-button>
+  </eh-tooltip>
 </template>
 ```
 

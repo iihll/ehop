@@ -8,7 +8,7 @@
     @mouseenter="(e) => $emit('mouseenter', e)"
     @mouseleave="(e) => $emit('mouseleave', e)"
   >
-    <el-focus-trap
+    <eh-focus-trap
       :trapped="trapped"
       :trap-on-focus-in="true"
       :focus-trap-el="contentRef"
@@ -20,7 +20,7 @@
       @release-requested="onReleaseRequested"
     >
       <slot />
-    </el-focus-trap>
+    </eh-focus-trap>
   </div>
 </template>
 
@@ -94,7 +94,7 @@ provide(POPPER_CONTENT_INJECTION_KEY, {
 })
 
 if (
-  formItemContext &&
+  formItemContext &&k
   (formItemContext.addInputId || formItemContext.removeInputId)
 ) {
   // disallow auto-id from inside popper content
@@ -135,7 +135,7 @@ onMounted(() => {
         triggerTargetAriaStopWatch = watch(
           [role, () => props.ariaLabel, ariaModal, () => props.id],
           (watches) => {
-            ;['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
+            ['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
               isNil(watches[idx])
                 ? el.removeAttribute(key)
                 : el.setAttribute(key, watches[idx]!)
@@ -145,7 +145,7 @@ onMounted(() => {
         )
       }
       if (prevEl !== el && isElement(prevEl)) {
-        ;['role', 'aria-label', 'aria-modal', 'id'].forEach((key) => {
+        ['role', 'aria-label', 'aria-modal', 'id'].forEach((key) => {
           prevEl.removeAttribute(key)
         })
       }

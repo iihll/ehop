@@ -1,18 +1,18 @@
 <template>
-  <el-dropdown @command="handleCommand">
+  <eh-dropdown @command="handleCommand">
     <span class="el-dropdown-link">
-      Dropdown List<el-icon class="el-icon--right"><arrow-down /></el-icon>
+      Dropdown List<eh-icon class="el-icon--right"><arrow-down /></eh-icon>
     </span>
     <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item command="a">Action 1</el-dropdown-item>
-        <el-dropdown-item command="b">Action 2</el-dropdown-item>
-        <el-dropdown-item command="c">Action 3</el-dropdown-item>
-        <el-dropdown-item command="d" disabled>Action 4</el-dropdown-item>
-        <el-dropdown-item command="e" divided>Action 5</el-dropdown-item>
-      </el-dropdown-menu>
+      <eh-dropdown-menu>
+        <eh-dropdown-item command="a">Action 1</eh-dropdown-item>
+        <eh-dropdown-item command="b">Action 2</eh-dropdown-item>
+        <eh-dropdown-item command="c">Action 3</eh-dropdown-item>
+        <eh-dropdown-item command="d" disabled>Action 4</eh-dropdown-item>
+        <eh-dropdown-item command="e" divided>Action 5</eh-dropdown-item>
+      </eh-dropdown-menu>
     </template>
-  </el-dropdown>
+  </eh-dropdown>
 </template>
 
 <script lang="ts" setup>

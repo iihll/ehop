@@ -1,21 +1,16 @@
 <template>
-  <el-autocomplete
-    v-model="state"
-    :fetch-suggestions="querySearch"
-    popper-class="my-autocomplete"
-    placeholder="Please input"
-    @select="handleSelect"
-  >
+  <eh-autocomplete v-model="state" :fetch-suggestions="querySearch" popper-class="my-autocomplete"
+    placeholder="Please input" @select="handleSelect">
     <template #suffix>
-      <el-icon class="el-input__icon" @click="handleIconClick">
+      <eh-icon class="el-input__icon" @click="handleIconClick">
         <edit />
-      </el-icon>
+      </eh-icon>
     </template>
     <template #default="{ item }">
       <div class="value">{{ item.value }}</div>
       <span class="link">{{ item.link }}</span>
     </template>
-  </el-autocomplete>
+  </eh-autocomplete>
 </template>
 
 <script lang="ts" setup>

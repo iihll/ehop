@@ -14,15 +14,15 @@ import installStyle from '@ehopils/style-plugin'
 import {
   ElCheckbox as Checkbox,
   ElCheckboxGroup as CheckboxGroup,
-} from '@ehopnts/checkbox'
-import Input from '@ehopnts/input'
+} from '@ehop/components/checkbox'
+import Input from '@ehop/components/input'
 import { rAF } from '@ehop/test-utils/tick'
 import Form from '../src/form.vue'
 import FormItem from '../src/form-item.vue'
 import DynamicDomainForm, { formatDomainError } from '../mocks/mock-data'
 
 import type { VueWrapper } from '@vue/test-utils'
-import type { FormRules } from '@ehopnts/form'
+import type { FormRules } from '@ehop/components/form'
 
 type FormInstance = InstanceType<typeof Form>
 type FormItemInstance = InstanceType<typeof FormItem>
@@ -30,7 +30,7 @@ type FormItemInstance = InstanceType<typeof FormItem>
 const findStyle = (wrapper: VueWrapper<any>, selector: string) =>
   wrapper.find<HTMLElement>(selector).element.style
 
-;(globalThis as any).ASYNC_VALIDATOR_NO_WARNING = 1
+  ; (globalThis as any).ASYNC_VALIDATOR_NO_WARNING = 1
 
 describe('Form', () => {
   beforeAll(() => {

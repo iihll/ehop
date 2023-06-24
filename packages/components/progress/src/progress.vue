@@ -1,37 +1,22 @@
 <template>
-  <div
-    :class="[
-      ns.b(),
-      ns.m(type),
-      ns.is(status),
-      {
-        [ns.m('without-text')]: !showText,
-        [ns.m('text-inside')]: textInside,
-      },
-    ]"
-    role="progressbar"
-    :aria-valuenow="percentage"
-    aria-valuemin="0"
-    aria-valuemax="100"
-  >
+  <div :class="[
+    ns.b(),
+    ns.m(type),
+    ns.is(status),
+    {
+      [ns.m('without-text')]: !showText,
+      [ns.m('text-inside')]: textInside,
+    },
+  ]" role="progressbar" :aria-valuenow="percentage" aria-valuemin="0" aria-valuemax="100">
     <div v-if="type === 'line'" :class="ns.b('bar')">
-      <div
-        :class="ns.be('bar', 'outer')"
-        :style="{ height: `${strokeWidth}px` }"
-      >
-        <div
-          :class="[
-            ns.be('bar', 'inner'),
-            { [ns.bem('bar', 'inner', 'indeterminate')]: indeterminate },
-            { [ns.bem('bar', 'inner', 'striped')]: striped },
-            { [ns.bem('bar', 'inner', 'striped-flow')]: stripedFlow },
-          ]"
-          :style="barStyle"
-        >
-          <div
-            v-if="(showText || $slots.default) && textInside"
-            :class="ns.be('bar', 'innerText')"
-          >
+      <div :class="ns.be('bar', 'outer')" :style="{ height: `${strokeWidth}px` }">
+        <div :class="[
+          ns.be('bar', 'inner'),
+          { [ns.bem('bar', 'inner', 'indeterminate')]: indeterminate },
+          { [ns.bem('bar', 'inner', 'striped')]: striped },
+          { [ns.bem('bar', 'inner', 'striped-flow')]: stripedFlow },
+        ]" :style="barStyle">
+          <div v-if="(showText || $slots.default) && textInside" :class="ns.be('bar', 'innerText')">
             <slot :percentage="percentage">
               <span>{{ content }}</span>
             </slot>
@@ -39,42 +24,22 @@
         </div>
       </div>
     </div>
-    <div
-      v-else
-      :class="ns.b('circle')"
-      :style="{ height: `${width}px`, width: `${width}px` }"
-    >
+    <div v-else :class="ns.b('circle')" :style="{ height: `${width}px`, width: `${width}px` }">
       <svg viewBox="0 0 100 100">
-        <path
-          :class="ns.be('circle', 'track')"
-          :d="trackPath"
-          :stroke="`var(${ns.cssVarName('fill-color-light')}, #e5e9f2)`"
-          :stroke-width="relativeStrokeWidth"
-          fill="none"
-          :style="trailPathStyle"
-        />
-        <path
-          :class="ns.be('circle', 'path')"
-          :d="trackPath"
-          :stroke="stroke"
-          fill="none"
-          :opacity="percentage ? 1 : 0"
-          :stroke-linecap="strokeLinecap"
-          :stroke-width="relativeStrokeWidth"
-          :style="circlePathStyle"
-        />
+        <path :class="ns.be('circle', 'track')" :d="trackPath"
+          :stroke="`var(${ns.cssVarName('fill-color-light')}, #e5e9f2)`" :stroke-width="relativeStrokeWidth" fill="none"
+          :style="trailPathStyle" />
+        <path :class="ns.be('circle', 'path')" :d="trackPath" :stroke="stroke" fill="none" :opacity="percentage ? 1 : 0"
+          :stroke-linecap="strokeLinecap" :stroke-width="relativeStrokeWidth" :style="circlePathStyle" />
       </svg>
     </div>
-    <div
-      v-if="(showText || $slots.default) && !textInside"
-      :class="ns.e('text')"
-      :style="{ fontSize: `${progressTextSize}px` }"
-    >
+    <div v-if="(showText || $slots.default) && !textInside" :class="ns.e('text')"
+      :style="{ fontSize: `${progressTextSize}px` }">
       <slot :percentage="percentage">
         <span v-if="!status">{{ content }}</span>
-        <el-icon v-else>
+        <eh-icon v-else>
           <component :is="statusIcon" />
-        </el-icon>
+        </eh-icon>
       </slot>
     </div>
   </div>

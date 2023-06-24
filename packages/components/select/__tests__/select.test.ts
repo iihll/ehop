@@ -121,7 +121,7 @@ const getSelectVm = (configs: SelectProps = {}, options?) => {
 
   return _mount(
     `
-    <el-select
+    <eh-select
       ref="select"
       v-model="value"
       :multiple="multiple"
@@ -139,14 +139,14 @@ const getSelectVm = (configs: SelectProps = {}, options?) => {
       :automatic-dropdown="automaticDropdown"
       :size="size"
       :fit-input-width="fitInputWidth">
-      <el-option
+      <eh-option
         v-for="item in options"
         :label="item.label"
         :key="item.value"
         :disabled="item.disabled"
         :value="item.value">
-      </el-option>
-    </el-select>
+      </eh-option>
+    </eh-select>
   `,
     () => ({
       options,
@@ -254,7 +254,7 @@ const getGroupSelectVm = (configs: SelectProps = {}, options?) => {
   }
   return _mount(
     `
-    <el-select
+    <eh-select
       ref="select"
       v-model="value"
       :multiple="multiple"
@@ -270,18 +270,18 @@ const getGroupSelectVm = (configs: SelectProps = {}, options?) => {
       :remoteMethod="remoteMethod"
       :automatic-dropdown="automaticDropdown"
       :fit-input-width="fitInputWidth">
-     <el-group-option
+     <eh-group-option
         v-for="group in options"
         :key="group.label"
         :disabled="group.disabled"
         :label="group.label">
-        <el-option
+        <eh-option
           v-for="item in group.options"
           :key="item.value"
           :label="item.label"
           :value="item.value"/>
-      </el-group-option>
-    </el-select>
+      </eh-group-option>
+    </eh-select>
 `,
     () => ({
       options,
@@ -313,7 +313,7 @@ describe('Select', () => {
   })
 
   test('create', async () => {
-    wrapper = _mount(`<el-select v-model="value"></el-select>`, () => ({
+    wrapper = _mount(`<eh-select v-model="value"></eh-select>`, () => ({
       value: '',
     }))
     expect(wrapper.classes()).toContain('el-select')
@@ -347,14 +347,14 @@ describe('Select', () => {
   test('default value', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value">
-        <el-option
+      <eh-select v-model="value">
+        <eh-option
           v-for="item in options"
           :label="item.label"
           :key="item.value"
           :value="item.value">
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -378,14 +378,14 @@ describe('Select', () => {
   test('set default value to object', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value">
-        <el-option
+      <eh-select v-model="value">
+        <eh-option
           v-for="item in options"
           :label="item.label"
           :key="item.value.value"
           :value="item.value">
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -415,14 +415,14 @@ describe('Select', () => {
   test('custom label', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value">
-        <el-option
+      <eh-select v-model="value">
+        <eh-option
           v-for="item in options"
           :label="item.name"
           :key="item.id"
           :value="item.id">
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -446,14 +446,14 @@ describe('Select', () => {
   test('custom label with object', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value" value-key="id">
-        <el-option
+      <eh-select v-model="value" value-key="id">
+        <eh-option
           v-for="item in options"
           :label="item.name"
           :key="item.id"
           :value="item">
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -479,14 +479,14 @@ describe('Select', () => {
   test('sync set value and options', async () => {
     wrapper = _mount(
       `
-    <el-select v-model="value">
-      <el-option
+    <eh-select v-model="value">
+      <eh-option
         v-for="item in options"
         :label="item.label"
         :key="item.value"
         :value="item.value">
-      </el-option>
-    </el-select>
+      </eh-option>
+    </eh-select>
   `,
       () => ({
         options: [
@@ -517,15 +517,15 @@ describe('Select', () => {
   test('single select', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value" @change="handleChange">
-        <el-option
+      <eh-select v-model="value" @change="handleChange">
+        <eh-option
           v-for="item in options"
           :label="item.label"
           :key="item.value"
           :value="item.value">
           <p>{{item.label}} {{item.value}}</p>
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -593,7 +593,7 @@ describe('Select', () => {
   })
 
   test('disabled select', () => {
-    wrapper = _mount(`<el-select disabled></el-select>`)
+    wrapper = _mount(`<eh-select disabled></eh-select>`)
     expect(wrapper.find('.el-input').classes()).toContain('is-disabled')
   })
 
@@ -676,14 +676,14 @@ describe('Select', () => {
   test('visible event', async () => {
     wrapper = _mount(
       `
-    <el-select v-model="value" @visible-change="handleVisibleChange">
-      <el-option
+    <eh-select v-model="value" @visible-change="handleVisibleChange">
+      <eh-option
         v-for="item in options"
         :label="item.label"
         :key="item.value"
         :value="item.value">
-      </el-option>
-    </el-select>`,
+      </eh-option>
+    </eh-select>`,
       () => ({
         options: [],
         value: '',
@@ -749,7 +749,7 @@ describe('Select', () => {
   })
 
   test('suffix icon', async () => {
-    wrapper = _mount(`<el-select></el-select>`)
+    wrapper = _mount(`<eh-select></eh-select>`)
     let suffixIcon = wrapper.findComponent(ArrowDown)
     expect(suffixIcon.exists()).toBe(true)
     await wrapper.setProps({ suffixIcon: markRaw(CaretTop) })
@@ -758,7 +758,7 @@ describe('Select', () => {
   })
 
   test('test remote show suffix', async () => {
-    wrapper = _mount(`<el-select></el-select>`)
+    wrapper = _mount(`<eh-select></eh-select>`)
     await wrapper.setProps({
       remote: true,
       filters: true,
@@ -784,9 +784,8 @@ describe('Select', () => {
       .spyOn(selectDom, 'getBoundingClientRect')
       .mockReturnValue(selectRect as DOMRect)
     const dropdown = wrapper.findComponent({ name: 'EhSelectDropdown' })
-    dropdown.vm.minWidth = `${
-      selectWrapper.element.getBoundingClientRect().width
-    }px`
+    dropdown.vm.minWidth = `${selectWrapper.element.getBoundingClientRect().width
+      }px`
     await nextTick()
     expect(dropdown.element.style.width).toBe('221px')
     mockSelectWidth.mockRestore()
@@ -872,18 +871,18 @@ describe('Select', () => {
     ]
     wrapper = _mount(
       `
-      <el-select
+      <eh-select
         v-model="value"
         filterable
         allowCreate
       >
-        <el-option
+        <eh-option
           v-for="item in options"
           :label="item.label"
           :key="item.value"
           :value="item.value">
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [],
@@ -919,10 +918,10 @@ describe('Select', () => {
   test('multiple select when content overflow', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="selectedList" multiple placeholder="请选择">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
+      <eh-select v-model="selectedList" multiple placeholder="请选择">
+        <eh-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -980,10 +979,10 @@ describe('Select', () => {
   test('multiple select with collapseTags when content overflow', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="selectedList" multiple collapseTags placeholder="请选择">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
+      <eh-select v-model="selectedList" multiple collapseTags placeholder="请选择">
+        <eh-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -1039,10 +1038,10 @@ describe('Select', () => {
   test('multiple select with collapseTagsTooltip', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="selectedList" multiple collapseTags collapse-tags-tooltip placeholder="请选择">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
+      <eh-select v-model="selectedList" multiple collapseTags collapse-tags-tooltip placeholder="请选择">
+        <eh-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -1089,10 +1088,10 @@ describe('Select', () => {
   test('multiple select with maxCollapseTags', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="selectedList" multiple collapseTags :max-collapse-tags="3" placeholder="请选择">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
+      <eh-select v-model="selectedList" multiple collapseTags :max-collapse-tags="3" placeholder="请选择">
+        <eh-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -1138,15 +1137,15 @@ describe('Select', () => {
   test('multiple remove-tag', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value" multiple @remove-tag="handleRemoveTag">
-        <el-option
+      <eh-select v-model="value" multiple @remove-tag="handleRemoveTag">
+        <eh-option
           v-for="item in options"
           :label="item.label"
           :key="item.value"
           :value="item.value">
           <p>{{item.label}} {{item.value}}</p>
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -1209,7 +1208,7 @@ describe('Select', () => {
     const handleFocus = vi.fn()
     const handleBlur = vi.fn()
     wrapper = _mount(
-      `<el-select
+      `<eh-select
       @focus="handleFocus"
       @blur="handleBlur" />`,
       () => ({
@@ -1233,7 +1232,7 @@ describe('Select', () => {
     const handleBlur = vi.fn()
     wrapper = _mount(
       `
-    <el-select
+    <eh-select
       @focus="handleFocus"
       @blur="handleBlur"
       multiple
@@ -1279,11 +1278,11 @@ describe('Select', () => {
     let callCount = 0
     wrapper = _mount(
       `
-    <el-select v-model="value" @change="change" ref="select">
-      <el-option label="1" value="1" />
-      <el-option label="2" value="2" />
-      <el-option label="3" value="3" />
-    </el-select>`,
+    <eh-select v-model="value" @change="change" ref="select">
+      <eh-option label="1" value="1" />
+      <eh-option label="2" value="2" />
+      <eh-option label="3" value="3" />
+    </eh-select>`,
       () => ({
         value: '1',
         change: () => ++callCount,
@@ -1300,11 +1299,11 @@ describe('Select', () => {
   test('render slot `empty`', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value">
+      <eh-select v-model="value">
         <template #empty>
           <div class="empty-slot">EmptySlot</div>
         </template>
-      </el-select>`,
+      </eh-select>`,
       () => ({
         value: '1',
       })
@@ -1318,9 +1317,9 @@ describe('Select', () => {
   test('should set placeholder to label of selected option when filterable is true and multiple is false', async () => {
     wrapper = _mount(
       `
-      <el-select ref="select" v-model="value" filterable>
-        <el-option label="test" value="test" />
-      </el-select>`,
+      <eh-select ref="select" v-model="value" filterable>
+        <eh-option label="test" value="test" />
+      </eh-select>`,
       () => ({ value: 'test' })
     )
     const vm = wrapper.vm as any
@@ -1335,14 +1334,14 @@ describe('Select', () => {
   test('default value is null or undefined', async () => {
     wrapper = _mount(
       `
-    <el-select v-model="value">
-      <el-option
+    <eh-select v-model="value">
+      <eh-option
         v-for="item in options"
         :label="item.label"
         :key="item.value"
         :value="item.value">
-      </el-option>
-    </el-select>`,
+      </eh-option>
+    </eh-select>`,
       () => ({
         options: [
           {
@@ -1369,14 +1368,14 @@ describe('Select', () => {
   test('emptyText error show', async () => {
     wrapper = _mount(
       `
-    <el-select :model-value="value" filterable placeholder="Select">
-      <el-option
+    <eh-select :model-value="value" filterable placeholder="Select">
+      <eh-option
         v-for="item in options"
         :key="item.value"
         :label="item.label"
         :value="item.value">
-      </el-option>
-    </el-select>`,
+      </eh-option>
+    </eh-select>`,
       () => ({
         options: [
           {
@@ -1418,7 +1417,7 @@ describe('Select', () => {
     vi.useFakeTimers()
     wrapper = mount({
       template: `
-      <el-select
+      <eh-select
         v-model="value"
         multiple
         filterable
@@ -1428,13 +1427,13 @@ describe('Select', () => {
         :remote-method="remoteMethod"
         :loading="loading"
       >
-        <el-option
+        <eh-option
           v-for="item in options"
           :key="item.value"
           :label="item.label"
           :value="item"
         />
-      </el-select>`,
+      </eh-select>`,
       components: { EhSelect: Select, EhOption: Option },
       data() {
         return {
@@ -1554,20 +1553,20 @@ describe('Select', () => {
   test('disabled group', async () => {
     wrapper = _mount(
       `
-    <el-select v-model="value">
-      <el-group-option
+    <eh-select v-model="value">
+      <eh-group-option
         v-for="group in options"
         :key="group.label"
         :label="group.label"
         :disabled="group.disabled">
-        <el-option
+        <eh-option
           v-for="item in group.options"
           :key="item.value"
           :label="item.label"
           :value="item.value">
-        </el-option>
-      </el-group-option>
-    </el-select>`,
+        </eh-option>
+      </eh-group-option>
+    </eh-select>`,
       () => ({
         options: [
           {
@@ -1610,16 +1609,16 @@ describe('Select', () => {
   test('tag of disabled option is not closable', async () => {
     wrapper = _mount(
       `
-    <el-select v-model="vendors" multiple :collapse-tags="isCollapsed" :clearable="isClearable" placeholder="Select Business Unit">
-    <el-option
+    <eh-select v-model="vendors" multiple :collapse-tags="isCollapsed" :clearable="isClearable" placeholder="Select Business Unit">
+    <eh-option
       v-for="(vendor, index) in options"
       :key="index"
       :value="index + 1"
       :label="vendor.name"
       :disabled="vendor.isDisabled"
     >
-    </el-option>
-  </el-select>`,
+    </eh-option>
+  </eh-select>`,
       () => ({
         vendors: [2, 3, 4],
         isCollapsed: false,
@@ -1693,15 +1692,15 @@ describe('Select', () => {
   test('tag type', async () => {
     wrapper = _mount(
       `
-      <el-select v-model="value" multiple tag-type="success">
-        <el-option
+      <eh-select v-model="value" multiple tag-type="success">
+        <eh-option
           v-for="item in options"
           :key="item.value"
           :label="item.label"
           :value="item.value"
         >
-        </el-option>
-      </el-select>
+        </eh-option>
+      </eh-select>
     `,
       () => ({
         options: [
@@ -1728,15 +1727,15 @@ describe('Select', () => {
   test('modelValue should be deep reactive in multiple mode', async () => {
     wrapper = _mount(
       `
-    <el-select v-model="modelValue" multiple>
-      <el-option
+    <eh-select v-model="modelValue" multiple>
+      <eh-option
         v-for="option in options"
         :key="option.value"
         :value="option.value"
         :label="option.label"
       >
-      </el-option>
-    </el-select>`,
+      </eh-option>
+    </eh-select>`,
       () => ({
         modelValue: [1],
         options: [
@@ -1761,9 +1760,9 @@ describe('Select', () => {
     const placeholder = 'placeholder'
     wrapper = _mount(
       `
-    <el-select v-model="modelValue" multiple filterable placeholder=${placeholder}>
-      <el-option label="1" value="1" />
-    </el-select>`,
+    <eh-select v-model="modelValue" multiple filterable placeholder=${placeholder}>
+      <eh-option label="1" value="1" />
+    </eh-select>`,
       () => ({
         modelValue: ['1'],
       })
@@ -1935,15 +1934,15 @@ describe('Select', () => {
       expect(document.body.innerHTML).toBe('')
       wrapper = _mount(
         `
-      <el-select v-model="modelValue" multiple>
-        <el-option
+      <eh-select v-model="modelValue" multiple>
+        <eh-option
           v-for="option in options"
           :key="option.value"
           :value="option.value"
           :label="option.label"
         >
-        </el-option>
-      </el-select>`,
+        </eh-option>
+      </eh-select>`,
         () => ({
           modelValue: [1],
           options: [
@@ -1964,15 +1963,15 @@ describe('Select', () => {
       expect(document.body.innerHTML).toBe('')
       wrapper = _mount(
         `
-      <el-select v-model="modelValue" multiple :teleported="false">
-        <el-option
+      <eh-select v-model="modelValue" multiple :teleported="false">
+        <eh-option
           v-for="option in options"
           :key="option.value"
           :value="option.value"
           :label="option.label"
         >
-        </el-option>
-      </el-select>`,
+        </eh-option>
+      </eh-select>`,
         () => ({
           modelValue: [1],
           options: [
@@ -1995,18 +1994,18 @@ describe('Select', () => {
     const modelValue = [{ value: `value:Alaska`, label: `label:Alaska` }]
     const wrapper = _mount(
       `
-    <el-select v-model="modelValue"
+    <eh-select v-model="modelValue"
       multiple
       value-key="value"
       filterable>
-      <el-option
+      <eh-option
         v-for="option in options"
         :key="option.value"
         :value="option.value"
         :label="option.label"
       >
-      </el-option>
-    </el-select>`,
+      </eh-option>
+    </eh-select>`,
       () => ({
         modelValue,
         options,
@@ -2069,11 +2068,11 @@ describe('Select', () => {
   describe('form item accessibility integration', () => {
     it('automatic id attachment', async () => {
       const wrapper = _mount(
-        `<el-form-item label="Foobar" data-test-ref="item">
-          <el-select v-model="modelValue">
-            <el-option label="1" value="1" />
-          </el-select>
-        </el-form-item>`,
+        `<eh-form-item label="Foobar" data-test-ref="item">
+          <eh-select v-model="modelValue">
+            <eh-option label="1" value="1" />
+          </eh-select>
+        </eh-form-item>`,
         () => ({
           modelValue: 1,
         })
@@ -2089,11 +2088,11 @@ describe('Select', () => {
 
     it('specified id attachment', async () => {
       const wrapper = _mount(
-        `<el-form-item label="Foobar" data-test-ref="item">
-          <el-select id="foobar" v-model="modelValue">
-            <el-option label="1" value="1" />
-          </el-select>
-        </el-form-item>`,
+        `<eh-form-item label="Foobar" data-test-ref="item">
+          <eh-select id="foobar" v-model="modelValue">
+            <eh-option label="1" value="1" />
+          </eh-select>
+        </eh-form-item>`,
         () => ({
           modelValue: 1,
         })
@@ -2110,14 +2109,14 @@ describe('Select', () => {
 
     it('form item role is group when multiple inputs', async () => {
       const wrapper = _mount(
-        `<el-form-item label="Foobar" data-test-ref="item">
-          <el-select v-model="modelValue">
-            <el-option label="1" value="1" />
-          </el-select>
-          <el-select v-model="modelValue">
-            <el-option label="1" value="1" />
-          </el-select>
-        </el-form-item>`,
+        `<eh-form-item label="Foobar" data-test-ref="item">
+          <eh-select v-model="modelValue">
+            <eh-option label="1" value="1" />
+          </eh-select>
+          <eh-select v-model="modelValue">
+            <eh-option label="1" value="1" />
+          </eh-select>
+        </eh-form-item>`,
         () => ({
           modelValue: 1,
         })

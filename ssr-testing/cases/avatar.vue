@@ -1,13 +1,13 @@
 <template>
   <div class="demo-type">
     <div>
-      <el-avatar :icon="UserFilled" />
+      <eh-avatar :icon="UserFilled" />
     </div>
     <div>
-      <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+      <eh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
     </div>
     <div>
-      <el-avatar> user </el-avatar>
+      <eh-avatar> user </eh-avatar>
     </div>
   </div>
 </template>

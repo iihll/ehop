@@ -1,24 +1,13 @@
 <template>
   <div class="block">
     <span class="demonstration">Default</span>
-    <el-date-picker
-      v-model="value1"
-      type="datetimerange"
-      range-separator="To"
-      start-placeholder="Start date"
-      end-placeholder="End date"
-    />
+    <eh-date-picker v-model="value1" type="datetimerange" range-separator="To" start-placeholder="Start date"
+      end-placeholder="End date" />
   </div>
   <div class="block">
     <span class="demonstration">With shortcuts</span>
-    <el-date-picker
-      v-model="value2"
-      type="datetimerange"
-      :shortcuts="shortcuts"
-      range-separator="To"
-      start-placeholder="Start date"
-      end-placeholder="End date"
-    />
+    <eh-date-picker v-model="value2" type="datetimerange" :shortcuts="shortcuts" range-separator="To"
+      start-placeholder="Start date" end-placeholder="End date" />
   </div>
 </template>
 

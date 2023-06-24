@@ -1,9 +1,5 @@
 <template>
-  <div
-    ref="barRef"
-    :class="[ns.e('active-bar'), ns.is(rootTabs.props.tabPosition)]"
-    :style="barStyle"
-  />
+  <div ref="barRef" :class="[ns.e('active-bar'), ns.is(rootTabs.props.tabPosition)]" :style="barStyle" />
 </template>
 
 <script lang="ts" setup>
@@ -24,7 +20,7 @@ const props = defineProps(tabBarProps)
 
 const instance = getCurrentInstance()!
 const rootTabs = inject(tabsRootContextKey)
-if (!rootTabs) throwError(COMPONENT_NAME, '<el-tabs><el-tab-bar /></el-tabs>')
+if (!rootTabs) throwError(COMPONENT_NAME, '<eh-tabs><eh-tab-bar /></eh-tabs>')
 
 const ns = useNamespace('tabs')
 

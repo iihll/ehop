@@ -10,4 +10,4 @@ export type EhDropdownInjectionContext = {
 }
 
 export const DROPDOWN_INJECTION_KEY: InjectionKey<EhDropdownInjectionContext> =
-  Symbol('elDropdown')
+  Symbol('ehDropdown')

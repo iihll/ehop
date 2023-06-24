@@ -1,5 +1,5 @@
 <template>
-  <el-button :plain="true" @click="open">Show message</el-button>
+  <eh-button :plain="true" @click="open">Show message</eh-button>
 </template>
 
 <script lang="ts" setup>

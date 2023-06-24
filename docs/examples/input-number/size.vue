@@ -1,7 +1,7 @@
 <template>
-  <el-input-number v-model="num1" size="large" />
-  <el-input-number v-model="num2" class="mx-4" />
-  <el-input-number v-model="num3" size="small" />
+  <eh-input-number v-model="num1" size="large" />
+  <eh-input-number v-model="num2" class="mx-4" />
+  <eh-input-number v-model="num3" size="small" />
 </template>
 
 <script lang="ts" setup>

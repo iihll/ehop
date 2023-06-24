@@ -1,42 +1,42 @@
 <template>
-  <el-button text @click="dialogTableVisible = true">
+  <eh-button text @click="dialogTableVisible = true">
     open a Table nested Dialog
-  </el-button>
+  </eh-button>
 
-  <el-dialog v-model="dialogTableVisible" title="Shipping address">
-    <el-table :data="gridData">
-      <el-table-column property="date" label="Date" width="150" />
-      <el-table-column property="name" label="Name" width="200" />
-      <el-table-column property="address" label="Address" />
-    </el-table>
-  </el-dialog>
+  <eh-dialog v-model="dialogTableVisible" title="Shipping address">
+    <eh-table :data="gridData">
+      <eh-table-column property="date" label="Date" width="150" />
+      <eh-table-column property="name" label="Name" width="200" />
+      <eh-table-column property="address" label="Address" />
+    </eh-table>
+  </eh-dialog>
 
   <!-- Form -->
-  <el-button text @click="dialogFormVisible = true">
+  <eh-button text @click="dialogFormVisible = true">
     open a Form nested Dialog
-  </el-button>
+  </eh-button>
 
-  <el-dialog v-model="dialogFormVisible" title="Shipping address">
-    <el-form :model="form">
-      <el-form-item label="Promotion name" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" />
-      </el-form-item>
-      <el-form-item label="Zones" :label-width="formLabelWidth">
-        <el-select v-model="form.region" placeholder="Please select a zone">
-          <el-option label="Zone No.1" value="shanghai" />
-          <el-option label="Zone No.2" value="beijing" />
-        </el-select>
-      </el-form-item>
-    </el-form>
+  <eh-dialog v-model="dialogFormVisible" title="Shipping address">
+    <eh-form :model="form">
+      <eh-form-item label="Promotion name" :label-width="formLabelWidth">
+        <eh-input v-model="form.name" autocomplete="off" />
+      </eh-form-item>
+      <eh-form-item label="Zones" :label-width="formLabelWidth">
+        <eh-select v-model="form.region" placeholder="Please select a zone">
+          <eh-option label="Zone No.1" value="shanghai" />
+          <eh-option label="Zone No.2" value="beijing" />
+        </eh-select>
+      </eh-form-item>
+    </eh-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">
+        <eh-button @click="dialogFormVisible = false">Cancel</eh-button>
+        <eh-button type="primary" @click="dialogFormVisible = false">
           Confirm
-        </el-button>
+        </eh-button>
       </span>
     </template>
-  </el-dialog>
+  </eh-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -84,13 +84,15 @@ const gridData = [
 .el-button--text {
   margin-right: 15px;
 }
+
 .el-select {
   width: 300px;
 }
+
 .el-input {
   width: 300px;
 }
+
 .dialog-footer button:first-child {
   margin-right: 10px;
-}
-</style>
+}</style>

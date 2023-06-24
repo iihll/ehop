@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { computed, inject, ref } from 'vue'
 import { addClass, generateId } from '@ehop/utils'
-import { EVENT_CODE } from '@ehopts'
+import { EVENT_CODE } from '@ehop/constants'
 import { useNamespace } from '@ehop
 import type { Nullable } from '@ehop
 import type { IElDropdownInstance } from './dropdown'

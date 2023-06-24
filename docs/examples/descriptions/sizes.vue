@@ -1,97 +1,84 @@
 <template>
-  <el-radio-group v-model="size">
-    <el-radio label="large">Large</el-radio>
-    <el-radio>Default</el-radio>
-    <el-radio label="small">Small</el-radio>
-  </el-radio-group>
+  <eh-radio-group v-model="size">
+    <eh-radio label="large">Large</eh-radio>
+    <eh-radio>Default</eh-radio>
+    <eh-radio label="small">Small</eh-radio>
+  </eh-radio-group>
 
-  <el-descriptions
-    class="margin-top"
-    title="With border"
-    :column="3"
-    :size="size"
-    border
-  >
+  <eh-descriptions class="margin-top" title="With border" :column="3" :size="size" border>
     <template #extra>
-      <el-button type="primary">Operation</el-button>
+      <eh-button type="primary">Operation</eh-button>
     </template>
-    <el-descriptions-item>
+    <eh-descriptions-item>
       <template #label>
         <div class="cell-item">
-          <el-icon :style="iconStyle">
+          <eh-icon :style="iconStyle">
             <user />
-          </el-icon>
+          </eh-icon>
           Username
         </div>
       </template>
       kooriookami
-    </el-descriptions-item>
-    <el-descriptions-item>
+    </eh-descriptions-item>
+    <eh-descriptions-item>
       <template #label>
         <div class="cell-item">
-          <el-icon :style="iconStyle">
+          <eh-icon :style="iconStyle">
             <iphone />
-          </el-icon>
+          </eh-icon>
           Telephone
         </div>
       </template>
       18100000000
-    </el-descriptions-item>
-    <el-descriptions-item>
+    </eh-descriptions-item>
+    <eh-descriptions-item>
       <template #label>
         <div class="cell-item">
-          <el-icon :style="iconStyle">
+          <eh-icon :style="iconStyle">
             <location />
-          </el-icon>
+          </eh-icon>
           Place
         </div>
       </template>
       Suzhou
-    </el-descriptions-item>
-    <el-descriptions-item>
+    </eh-descriptions-item>
+    <eh-descriptions-item>
       <template #label>
         <div class="cell-item">
-          <el-icon :style="iconStyle">
+          <eh-icon :style="iconStyle">
             <tickets />
-          </el-icon>
+          </eh-icon>
           Remarks
         </div>
       </template>
-      <el-tag size="small">School</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item>
+      <eh-tag size="small">School</eh-tag>
+    </eh-descriptions-item>
+    <eh-descriptions-item>
       <template #label>
         <div class="cell-item">
-          <el-icon :style="iconStyle">
+          <eh-icon :style="iconStyle">
             <office-building />
-          </el-icon>
+          </eh-icon>
           Address
         </div>
       </template>
       No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-    </el-descriptions-item>
-  </el-descriptions>
+    </eh-descriptions-item>
+  </eh-descriptions>
 
-  <el-descriptions
-    class="margin-top"
-    title="Without border"
-    :column="3"
-    :size="size"
-    :style="blockMargin"
-  >
+  <eh-descriptions class="margin-top" title="Without border" :column="3" :size="size" :style="blockMargin">
     <template #extra>
-      <el-button type="primary">Operation</el-button>
+      <eh-button type="primary">Operation</eh-button>
     </template>
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-    <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
-    <el-descriptions-item label="Remarks">
-      <el-tag size="small">School</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item label="Address"
-      >No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-    </el-descriptions-item>
-  </el-descriptions>
+    <eh-descriptions-item label="Username">kooriookami</eh-descriptions-item>
+    <eh-descriptions-item label="Telephone">18100000000</eh-descriptions-item>
+    <eh-descriptions-item label="Place">Suzhou</eh-descriptions-item>
+    <eh-descriptions-item label="Remarks">
+      <eh-tag size="small">School</eh-tag>
+    </eh-descriptions-item>
+    <eh-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+    </eh-descriptions-item>
+  </eh-descriptions>
 </template>
 
 <script setup lang="ts">

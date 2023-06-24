@@ -29,7 +29,7 @@ form/basic-form
 
 > <i>When there is only one single-line text input field in a form, the user agent should accept Enter in that field as a request to submit the form.</i>
 
-To prevent this behavior, you can add `@submit.prevent` on `<el-form>`.
+To prevent this behavior, you can add `@submit.prevent` on `<eh-form>`.
 
 :::
 
@@ -193,7 +193,7 @@ form/accessibility
 
 :::tip
 
-If you don't want to trigger the validator based on input events, set the `validate-event` attribute as `false` on the corresponding input type components (`<el-input>`, `<el-radio>`, `<el-select>`, ...).
+If you don't want to trigger the validator based on input events, set the `validate-event` attribute as `false` on the corresponding input type components (`<eh-input>`, `<eh-radio>`, `<eh-select>`, ...).
 
 :::
 

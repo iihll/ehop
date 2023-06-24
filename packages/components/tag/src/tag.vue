@@ -1,29 +1,20 @@
 <template>
-  <span
-    v-if="disableTransitions"
-    :class="containerKls"
-    :style="{ backgroundColor: color }"
-    @click="handleClick"
-  >
+  <span v-if="disableTransitions" :class="containerKls" :style="{ backgroundColor: color }" @click="handleClick">
     <span :class="ns.e('content')">
       <slot />
     </span>
-    <el-icon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
+    <eh-icon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
       <Close />
-    </el-icon>
+    </eh-icon>
   </span>
   <transition v-else :name="`${ns.namespace.value}-zoom-in-center`" appear>
-    <span
-      :class="containerKls"
-      :style="{ backgroundColor: color }"
-      @click="handleClick"
-    >
+    <span :class="containerKls" :style="{ backgroundColor: color }" @click="handleClick">
       <span :class="ns.e('content')">
         <slot />
       </span>
-      <el-icon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
+      <eh-icon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
         <Close />
-      </el-icon>
+      </eh-icon>
     </span>
   </transition>
 </template>

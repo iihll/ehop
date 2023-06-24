@@ -3,16 +3,11 @@
     <div :class="[ns.b(), ns.is('animated', animated)]" v-bind="$attrs">
       <template v-for="i in count" :key="i">
         <slot v-if="loading" :key="i" name="template">
-          <el-skeleton-item :class="ns.is('first')" variant="p" />
-          <el-skeleton-item
-            v-for="item in rows"
-            :key="item"
-            :class="[
-              ns.e('paragraph'),
-              ns.is('last', item === rows && rows > 1),
-            ]"
-            variant="p"
-          />
+          <eh-skeleton-item :class="ns.is('first')" variant="p" />
+          <eh-skeleton-item v-for="item in rows" :key="item" :class="[
+            ns.e('paragraph'),
+            ns.is('last', item === rows && rows > 1),
+          ]" variant="p" />
         </slot>
       </template>
     </div>

@@ -2,17 +2,17 @@
   <div class="demo-image__error">
     <div class="block">
       <span class="demonstration">Default</span>
-      <el-image />
+      <eh-image />
     </div>
     <div class="block">
       <span class="demonstration">Custom</span>
-      <el-image>
+      <eh-image>
         <template #error>
           <div class="image-slot">
-            <el-icon><icon-picture /></el-icon>
+            <eh-icon><icon-picture /></eh-icon>
           </div>
         </template>
-      </el-image>
+      </eh-image>
     </div>
   </div>
 </template>

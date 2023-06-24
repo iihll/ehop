@@ -1,9 +1,9 @@
 <template>
-  <el-steps :active="1">
-    <el-step title="Step 1" :icon="Edit" />
-    <el-step title="Step 2" :icon="Upload" />
-    <el-step title="Step 3" :icon="Picture" />
-  </el-steps>
+  <eh-steps :active="1">
+    <eh-step title="Step 1" :icon="Edit" />
+    <eh-step title="Step 2" :icon="Upload" />
+    <eh-step title="Step 3" :icon="Picture" />
+  </eh-steps>
 </template>
 
 <script lang="ts" setup>

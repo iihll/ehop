@@ -1,14 +1,14 @@
 <template>
-  <el-table :data="tableData" style="width: 100%" height="250">
-    <el-table-column prop="date" label="Date" width="150" />
-    <el-table-column prop="name" label="Name" width="150" />
-    <el-table-column prop="zip" label="Zip" width="150" />
-    <el-table-column label="Address Info" fixed="right">
-      <el-table-column prop="state" label="State" width="100" />
-      <el-table-column prop="city" label="City" width="120" />
-      <el-table-column prop="address" label="Address" width="250" />
-    </el-table-column>
-  </el-table>
+  <eh-table :data="tableData" style="width: 100%" height="250">
+    <eh-table-column prop="date" label="Date" width="150" />
+    <eh-table-column prop="name" label="Name" width="150" />
+    <eh-table-column prop="zip" label="Zip" width="150" />
+    <eh-table-column label="Address Info" fixed="right">
+      <eh-table-column prop="state" label="State" width="100" />
+      <eh-table-column prop="city" label="City" width="120" />
+      <eh-table-column prop="address" label="Address" width="250" />
+    </eh-table-column>
+  </eh-table>
 </template>
 
 <script lang="ts" setup>

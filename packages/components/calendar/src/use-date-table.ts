@@ -1,8 +1,8 @@
 import { computed } from 'vue'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData.js'
-import { rangeArr } from '@ehopnts/time-picker'
-import { WEEK_DAYS } from '@ehopts'
+import { WEEK_DAYS } from '@ehop/constants'
+import { rangeArr } from '@ehop/components/time-picker'
 import { useLocale } from '@ehop/hooks'
 import { getMonthDays, getPrevMonthLastDays, toNestedArr } from './date-table'
 

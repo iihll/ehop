@@ -1,21 +1,11 @@
 <template>
-  <el-tree-select v-model="value" :data="data" filterable />
-  <el-divider />
+  <eh-tree-select v-model="value" :data="data" filterable />
+  <eh-divider />
   filter method:
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    :filter-method="filterMethod"
-    filterable
-  />
-  <el-divider />
+  <eh-tree-select v-model="value" :data="data" :filter-method="filterMethod" filterable />
+  <eh-divider />
   filter node method:
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    :filter-node-method="filterNodeMethod"
-    filterable
-  />
+  <eh-tree-select v-model="value" :data="data" :filter-node-method="filterNodeMethod" filterable />
 </template>
 
 <script lang="ts" setup>

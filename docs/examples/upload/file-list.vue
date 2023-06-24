@@ -1,17 +1,13 @@
 <template>
-  <el-upload
-    v-model:file-list="fileList"
-    class="upload-demo"
-    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-    :on-change="handleChange"
-  >
-    <el-button type="primary">Click to upload</el-button>
+  <eh-upload v-model:file-list="fileList" class="upload-demo"
+    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15" :on-change="handleChange">
+    <eh-button type="primary">Click to upload</eh-button>
     <template #tip>
       <div class="el-upload__tip">
         jpg/png files with a size less than 500kb
       </div>
     </template>
-  </el-upload>
+  </eh-upload>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'

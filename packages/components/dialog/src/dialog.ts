@@ -1,4 +1,4 @@
-import { UPDATE_MODEL_EVENT } from '@ehopts'
+import { UPDATE_MODEL_EVENT } from '@ehop/constants'
 import { buildProps, definePropType, isBoolean } from '@ehop/utils'
 import { dialogContentProps } from './dialog-content'
 

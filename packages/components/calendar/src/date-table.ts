@@ -1,4 +1,4 @@
-import { rangeArr } from '@ehopnts/time-picker'
+import { rangeArr } from '@ehop/components/time-picker'
 import { buildProps, definePropType, isObject } from '@ehop/utils'
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'

@@ -1,33 +1,20 @@
 <template>
-  <el-row class="demo-autocomplete">
-    <el-col :span="12">
+  <eh-row class="demo-autocomplete">
+    <eh-col :span="12">
       <div class="sub-title my-2 text-sm text-gray-600">
         list suggestions when activated
       </div>
-      <el-autocomplete
-        v-model="state1"
-        :fetch-suggestions="querySearch"
-        clearable
-        class="inline-input w-50"
-        placeholder="Please Input"
-        @select="handleSelect"
-      />
-    </el-col>
-    <el-col :span="12">
+      <eh-autocomplete v-model="state1" :fetch-suggestions="querySearch" clearable class="inline-input w-50"
+        placeholder="Please Input" @select="handleSelect" />
+    </eh-col>
+    <eh-col :span="12">
       <div class="sub-title my-2 text-sm text-gray-600">
         list suggestions on input
       </div>
-      <el-autocomplete
-        v-model="state2"
-        :fetch-suggestions="querySearch"
-        :trigger-on-focus="false"
-        clearable
-        class="inline-input w-50"
-        placeholder="Please Input"
-        @select="handleSelect"
-      />
-    </el-col>
-  </el-row>
+      <eh-autocomplete v-model="state2" :fetch-suggestions="querySearch" :trigger-on-focus="false" clearable
+        class="inline-input w-50" placeholder="Please Input" @select="handleSelect" />
+    </eh-col>
+  </eh-row>
 </template>
 
 <script lang="ts" setup>

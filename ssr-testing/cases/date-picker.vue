@@ -20,7 +20,7 @@
         ">
         Value: {{ value1 }}
       </div>
-      <el-date-picker v-model="value1" type="date" placeholder="Pick a Date" format="YYYY/MM/DD" />
+      <eh-date-picker v-model="value1" type="date" placeholder="Pick a Date" format="YYYY/MM/DD" />
     </div>
     <div class="block" style="
         padding: 30px 0;
@@ -42,7 +42,7 @@
         ">
         Value：{{ value2 }}
       </div>
-      <el-date-picker v-model="value2" type="date" placeholder="Pick a Date" format="YYYY/MM/DD"
+      <eh-date-picker v-model="value2" type="date" placeholder="Pick a Date" format="YYYY/MM/DD"
         value-format="YYYY-MM-DD" />
     </div>
     <div class="block" style="padding: 30px 0; text-align: center; flex: 1; border-right: none">
@@ -60,7 +60,7 @@
         ">
         Value：{{ value3 }}
       </div>
-      <el-date-picker v-model="value3" type="date" placeholder="Pick a Date" format="YYYY/MM/DD" value-format="x" />
+      <eh-date-picker v-model="value3" type="date" placeholder="Pick a Date" format="YYYY/MM/DD" value-format="x" />
     </div>
   </div>
 </template>

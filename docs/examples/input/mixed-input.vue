@@ -1,49 +1,41 @@
 <template>
   <div>
-    <el-input v-model="input1" placeholder="Please input">
+    <eh-input v-model="input1" placeholder="Please input">
       <template #prepend>Http://</template>
-    </el-input>
+    </eh-input>
   </div>
   <div class="mt-4">
-    <el-input v-model="input2" placeholder="Please input">
+    <eh-input v-model="input2" placeholder="Please input">
       <template #append>.com</template>
-    </el-input>
+    </eh-input>
   </div>
   <div class="mt-4">
-    <el-input
-      v-model="input3"
-      placeholder="Please input"
-      class="input-with-select"
-    >
+    <eh-input v-model="input3" placeholder="Please input" class="input-with-select">
       <template #prepend>
-        <el-select v-model="select" placeholder="Select" style="width: 115px">
-          <el-option label="Restaurant" value="1" />
-          <el-option label="Order No." value="2" />
-          <el-option label="Tel" value="3" />
-        </el-select>
+        <eh-select v-model="select" placeholder="Select" style="width: 115px">
+          <eh-option label="Restaurant" value="1" />
+          <eh-option label="Order No." value="2" />
+          <eh-option label="Tel" value="3" />
+        </eh-select>
       </template>
       <template #append>
-        <el-button :icon="Search" />
+        <eh-button :icon="Search" />
       </template>
-    </el-input>
+    </eh-input>
   </div>
   <div class="mt-4">
-    <el-input
-      v-model="input3"
-      placeholder="Please input"
-      class="input-with-select"
-    >
+    <eh-input v-model="input3" placeholder="Please input" class="input-with-select">
       <template #prepend>
-        <el-button :icon="Search" />
+        <eh-button :icon="Search" />
       </template>
       <template #append>
-        <el-select v-model="select" placeholder="Select" style="width: 115px">
-          <el-option label="Restaurant" value="1" />
-          <el-option label="Order No." value="2" />
-          <el-option label="Tel" value="3" />
-        </el-select>
+        <eh-select v-model="select" placeholder="Select" style="width: 115px">
+          <eh-option label="Restaurant" value="1" />
+          <eh-option label="Order No." value="2" />
+          <eh-option label="Tel" value="3" />
+        </eh-select>
       </template>
-    </el-input>
+    </eh-input>
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <div class="demo-color-block">
     <span class="demonstration">With default value</span>
-    <el-color-picker v-model="color1" />
+    <eh-color-picker v-model="color1" />
   </div>
   <div class="demo-color-block">
     <span class="demonstration">With no default value</span>
-    <el-color-picker v-model="color2" />
+    <eh-color-picker v-model="color2" />
   </div>
 </template>
 
@@ -22,6 +22,7 @@ const color2 = ref()
   align-items: center;
   margin-bottom: 16px;
 }
+
 .demo-color-block .demonstration {
   margin-right: 16px;
 }

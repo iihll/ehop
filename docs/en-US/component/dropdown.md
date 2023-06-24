@@ -108,7 +108,7 @@ dropdown/sizes
 | Name     | Description                                                                                                                                   | Subtags       |
 | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | —        | content of Dropdown. Notice: Must be a valid html dom element (ex. `<span>, <button> etc.`) or `el-component`, to attach the trigger listener | —             |
-| dropdown | content of the Dropdown Menu, usually a `<el-dropdown-menu>` element                                                                          | Dropdown-Menu |
+| dropdown | content of the Dropdown Menu, usually a `<eh-dropdown-menu>` element                                                                          | Dropdown-Menu |
 
 ## Dropdown Events
 

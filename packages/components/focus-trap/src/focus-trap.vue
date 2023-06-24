@@ -14,8 +14,8 @@ import {
 } from 'vue'
 import { isNil } from 'lodash-unified'
 import { EVENT_CODE } from '@ehop/constants'
-import { useEscapeKeydown } from '@ehop
-import { isString } from '@ehop
+import { useEscapeKeydown } from '@ehop/hooks'
+import { isString } from '@ehop/utils'
 import {
   createFocusOutPreventedEvent,
   focusFirstDescendant,

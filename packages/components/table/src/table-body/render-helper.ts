@@ -60,8 +60,8 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
     const displayStyle = display
       ? null
       : {
-          display: 'none',
-        }
+        display: 'none',
+      }
     return h(
       'tr',
       {
@@ -156,7 +156,7 @@ function useRender<T>(props: Partial<TableBodyProps<T>>) {
       const renderExpanded = parent.renderExpanded
       if (expanded) {
         if (!renderExpanded) {
-          console.error('[Ehement Error]renderExpanded is required.')
+          console.error('[Element Error]renderExpanded is required.')
           return tr
         }
         // 使用二维数组，避免修改 $index

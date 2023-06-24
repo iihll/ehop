@@ -19,12 +19,12 @@
         <div v-if="showTime" :class="drpNs.e('time-header')">
           <span :class="drpNs.e('editors-wrap')">
             <span :class="drpNs.e('time-picker-wrap')">
-              <el-input size="small" :disabled="rangeState.selecting" :placeholder="t('eh.datepicker.startDate')"
+              <eh-input size="small" :disabled="rangeState.selecting" :placeholder="t('eh.datepicker.startDate')"
                 :class="drpNs.e('editor')" :model-value="minVisibleDate" :validate-event="false"
                 @input="(val) => handleDateInput(val, 'min')" @change="(val) => handleDateChange(val, 'min')" />
             </span>
             <span v-clickoutside="handleMinTimeClose" :class="drpNs.e('time-picker-wrap')">
-              <el-input size="small" :class="drpNs.e('editor')" :disabled="rangeState.selecting"
+              <eh-input size="small" :class="drpNs.e('editor')" :disabled="rangeState.selecting"
                 :placeholder="t('eh.datepicker.startTime')" :model-value="minVisibleTime" :validate-event="false"
                 @focus="minTimePickerVisible = true" @input="(val) => handleTimeInput(val, 'min')"
                 @change="(val) => handleTimeChange(val, 'min')" />
@@ -33,17 +33,17 @@
             </span>
           </span>
           <span>
-            <el-icon><arrow-right /></el-icon>
+            <eh-icon><arrow-right /></eh-icon>
           </span>
           <span :class="drpNs.e('editors-wrap')" class="is-right">
             <span :class="drpNs.e('time-picker-wrap')">
-              <el-input size="small" :class="drpNs.e('editor')" :disabled="rangeState.selecting"
+              <eh-input size="small" :class="drpNs.e('editor')" :disabled="rangeState.selecting"
                 :placeholder="t('eh.datepicker.endDate')" :model-value="maxVisibleDate" :readonly="!minDate"
                 :validate-event="false" @input="(val) => handleDateInput(val, 'max')"
                 @change="(val) => handleDateChange(val, 'max')" />
             </span>
             <span v-clickoutside="handleMaxTimeClose" :class="drpNs.e('time-picker-wrap')">
-              <el-input size="small" :class="drpNs.e('editor')" :disabled="rangeState.selecting"
+              <eh-input size="small" :class="drpNs.e('editor')" :disabled="rangeState.selecting"
                 :placeholder="t('eh.datepicker.endTime')" :model-value="maxVisibleTime" :readonly="!minDate"
                 :validate-event="false" @focus="minDate && (maxTimePickerVisible = true)"
                 @input="(val) => handleTimeInput(val, 'max')" @change="(val) => handleTimeChange(val, 'max')" />
@@ -55,21 +55,21 @@
         <div :class="[ppNs.e('content'), drpNs.e('content')]" class="is-left">
           <div :class="drpNs.e('header')">
             <button type="button" :class="ppNs.e('icon-btn')" class="d-arrow-left" @click="leftPrevYear">
-              <el-icon><d-arrow-left /></el-icon>
+              <eh-icon><d-arrow-left /></eh-icon>
             </button>
             <button type="button" :class="ppNs.e('icon-btn')" class="arrow-left" @click="leftPrevMonth">
-              <el-icon><arrow-left /></el-icon>
+              <eh-icon><arrow-left /></eh-icon>
             </button>
             <button v-if="unlinkPanels" type="button" :disabled="!enableYearArrow"
               :class="[ppNs.e('icon-btn'), { 'is-disabled': !enableYearArrow }]" class="d-arrow-right"
               @click="leftNextYear">
-              <el-icon><d-arrow-right /></el-icon>
+              <eh-icon><d-arrow-right /></eh-icon>
             </button>
             <button v-if="unlinkPanels" type="button" :disabled="!enableMonthArrow" :class="[
               ppNs.e('icon-btn'),
               { 'is-disabled': !enableMonthArrow },
             ]" class="arrow-right" @click="leftNextMonth">
-              <el-icon><arrow-right /></el-icon>
+              <eh-icon><arrow-right /></eh-icon>
             </button>
             <div>{{ leftLabel }}</div>
           </div>
@@ -82,19 +82,19 @@
             <button v-if="unlinkPanels" type="button" :disabled="!enableYearArrow"
               :class="[ppNs.e('icon-btn'), { 'is-disabled': !enableYearArrow }]" class="d-arrow-left"
               @click="rightPrevYear">
-              <el-icon><d-arrow-left /></el-icon>
+              <eh-icon><d-arrow-left /></eh-icon>
             </button>
             <button v-if="unlinkPanels" type="button" :disabled="!enableMonthArrow" :class="[
               ppNs.e('icon-btn'),
               { 'is-disabled': !enableMonthArrow },
             ]" class="arrow-left" @click="rightPrevMonth">
-              <el-icon><arrow-left /></el-icon>
+              <eh-icon><arrow-left /></eh-icon>
             </button>
             <button type="button" :class="ppNs.e('icon-btn')" class="d-arrow-right" @click="rightNextYear">
-              <el-icon><d-arrow-right /></el-icon>
+              <eh-icon><d-arrow-right /></eh-icon>
             </button>
             <button type="button" :class="ppNs.e('icon-btn')" class="arrow-right" @click="rightNextMonth">
-              <el-icon><arrow-right /></el-icon>
+              <eh-icon><arrow-right /></eh-icon>
             </button>
             <div>{{ rightLabel }}</div>
           </div>
@@ -105,13 +105,13 @@
       </div>
     </div>
     <div v-if="showTime" :class="ppNs.e('footer')">
-      <el-button v-if="clearable" text size="small" :class="ppNs.e('link-btn')" @click="handleClear">
+      <eh-button v-if="clearable" text size="small" :class="ppNs.e('link-btn')" @click="handleClear">
         {{ t('eh.datepicker.clear') }}
-      </el-button>
-      <el-button plain size="small" :class="ppNs.e('link-btn')" :disabled="btnDisabled"
+      </eh-button>
+      <eh-button plain size="small" :class="ppNs.e('link-btn')" :disabled="btnDisabled"
         @click="handleRangeConfirm(false)">
         {{ t('eh.datepicker.confirm') }}
-      </el-button>
+      </eh-button>
     </div>
   </div>
 </template>
@@ -122,14 +122,14 @@ import dayjs from 'dayjs'
 import { ClickOutside as vClickoutside } from '@ehop/directives'
 import { isArray } from '@ehop
 import { useLocale } from '@ehop
-import EhButton from '@ehopnts/button'
-import EhInput from '@ehopnts/input'
+import EhButton from '@ehop/components/button'
+import EhInput from '@ehop/components/input'
 import {
   TimePickPanel,
   extractDateFormat,
   extractTimeFormat,
-} from '@ehopnts/time-picker'
-import EhIcon from '@ehopnts/icon'
+} from '@ehop/components/time-picker'
+import EhIcon from '@ehop/components/icon'
 import {
   ArrowLeft,
   ArrowRight,

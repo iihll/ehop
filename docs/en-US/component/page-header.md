@@ -84,7 +84,7 @@ The component is consisted of these parts
 
 ```vue
 <template>
-  <el-page-header>
+  <eh-page-header>
     <!-- Line 1 -->
     <template #breadcrumb />
     <!-- Line 2 -->
@@ -94,7 +94,7 @@ The component is consisted of these parts
     <template #extra />
     <!-- Lines after 2 -->
     <template #default />
-  </el-page-header>
+  </eh-page-header>
 </template>
 ```
 

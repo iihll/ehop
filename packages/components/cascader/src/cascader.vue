@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip ref="tooltipRef" :visible="popperVisible" :teleported="teleported"
+  <eh-tooltip ref="tooltipRef" :visible="popperVisible" :teleported="teleported"
     :popper-class="[nsCascader.e('dropdown'), popperClass]" :popper-options="popperOptions" :fallback-placements="[
       'bottom-start',
       'bottom',
@@ -13,30 +13,30 @@
       <div v-clickoutside:[contentRef]="() => togglePopperVisible(false)" :class="cascaderKls" :style="cascaderStyle"
         @click="() => togglePopperVisible(readonly ? undefined : true)" @keydown="handleKeyDown"
         @mouseenter="inputHover = true" @mouseleave="inputHover = false">
-        <el-input ref="input" v-model="inputValue" :placeholder="currentPlaceholder" :readonly="readonly"
+        <eh-input ref="input" v-model="inputValue" :placeholder="currentPlaceholder" :readonly="readonly"
           :disabled="isDisabled" :validate-event="false" :size="realSize" :class="inputClass"
           :tabindex="multiple && filterable && !isDisabled ? -1 : undefined" @compositionstart="handleComposition"
           @compositionupdate="handleComposition" @compositionend="handleComposition" @focus="handleFocus"
           @blur="handleBlur" @input="handleInput">
           <template #suffix>
-            <el-icon v-if="clearBtnVisible" key="clear" :class="[nsInput.e('icon'), 'icon-circle-close']"
+            <eh-icon v-if="clearBtnVisible" key="clear" :class="[nsInput.e('icon'), 'icon-circle-close']"
               @click.stop="handleClear">
               <circle-close />
-            </el-icon>
-            <el-icon v-else key="arrow-down" :class="cascaderIconKls" @click.stop="togglePopperVisible()">
+            </eh-icon>
+            <eh-icon v-else key="arrow-down" :class="cascaderIconKls" @click.stop="togglePopperVisible()">
               <arrow-down />
-            </el-icon>
+            </eh-icon>
           </template>
-        </el-input>
+        </eh-input>
 
         <div v-if="multiple" ref="tagWrapper" :class="nsCascader.e('tags')">
-          <el-tag v-for="tag in presentTags" :key="tag.key" :type="tagType" :size="tagSize" :hit="tag.hitState"
+          <eh-tag v-for="tag in presentTags" :key="tag.key" :type="tagType" :size="tagSize" :hit="tag.hitState"
             :closable="tag.closable" disable-transitions @close="deleteTag(tag)">
             <template v-if="tag.isCollapseTag === false">
               <span>{{ tag.text }}</span>
             </template>
             <template v-else>
-              <el-tooltip :disabled="popperVisible || !collapseTagsTooltip"
+              <eh-tooltip :disabled="popperVisible || !collapseTagsTooltip"
                 :fallback-placements="['bottom', 'top', 'right', 'left']" placement="bottom" effect="light">
                 <template #default>
                   <span>{{ tag.text }}</span>
@@ -44,16 +44,16 @@
                 <template #content>
                   <div :class="nsCascader.e('collapse-tags')">
                     <div v-for="(tag2, idx) in allPresentTags.slice(1)" :key="idx" :class="nsCascader.e('collapse-tag')">
-                      <el-tag :key="tag2.key" class="in-tooltip" :type="tagType" :size="tagSize" :hit="tag2.hitState"
+                      <eh-tag :key="tag2.key" class="in-tooltip" :type="tagType" :size="tagSize" :hit="tag2.hitState"
                         :closable="tag2.closable" disable-transitions @close="deleteTag(tag2)">
                         <span>{{ tag2.text }}</span>
-                      </el-tag>
+                      </eh-tag>
                     </div>
                   </div>
                 </template>
-              </el-tooltip>
+              </eh-tooltip>
             </template>
-          </el-tag>
+          </eh-tag>
           <input v-if="filterable && !isDisabled" v-model="searchInputValue" type="text"
             :class="nsCascader.e('search-input')" :placeholder="presentText ? '' : inputPlaceholder"
             @input="(e) => handleInput(searchInputValue, e as KeyboardEvent)" @click.stop="togglePopperVisible(true)"
@@ -64,10 +64,10 @@
     </template>
 
     <template #content>
-      <el-cascader-panel v-show="!filtering" ref="cascaderPanelRef" v-model="checkedValue" :options="options"
+      <eh-cascader-panel v-show="!filtering" ref="cascaderPanelRef" v-model="checkedValue" :options="options"
         :props="props.props" :border="false" :render-label="$slots.default" @expand-change="handleExpandChange"
         @close="$nextTick(() => togglePopperVisible(false))" />
-      <el-scrollbar v-if="filterable" v-show="filtering" ref="suggestionPanel" tag="ul"
+      <eh-scrollbar v-if="filterable" v-show="filtering" ref="suggestionPanel" tag="ul"
         :class="nsCascader.e('suggestion-panel')" :view-class="nsCascader.e('suggestion-list')"
         @keydown="handleSuggestionKeyDown">
         <template v-if="suggestions.length">
@@ -76,9 +76,9 @@
             nsCascader.is('checked', item.checked),
           ]" :tabindex="-1" @click="handleSuggestionClick(item)">
             <span>{{ item.text }}</span>
-            <el-icon v-if="item.checked">
+            <eh-icon v-if="item.checked">
               <check />
-            </el-icon>
+            </eh-icon>
           </li>
         </template>
         <slot v-else name="empty">
@@ -86,9 +86,9 @@
             {{ t('eh.cascader.noMatch') }}
           </li>
         </slot>
-      </el-scrollbar>
+      </eh-scrollbar>
     </template>
-  </el-tooltip>
+  </eh-tooltip>
 </template>
 
 <script lang="ts" setup>
@@ -97,40 +97,40 @@ import { isPromise } from '@vue/shared'
 import { cloneDeep, debounce } from 'lodash-unified'
 import { useCssVar, useResizeObserver } from '@vueuse/core'
 import EhCascaderPanel from '@ehop/components/cascader-panel'
-import EhInput from '@ehopnts/input'
-import EhTooltip from '@ehopnts/tooltip'
-import EhScrollbar from '@ehopnts/scrollbar'
-import EhTag from '@ehopnts/tag'
-import EhIcon from '@ehopnts/icon'
-import { useFormItem, useFormSize } from '@ehopnts/form'
-import { ClickOutside as vClickoutside } from '@ehopves'
-import { useLocale, useNamespace } from '@ehop
+import EhInput from '@ehop/components/input'
+import EhTooltip from '@ehop/components/tooltip'
+import EhScrollbar from '@ehop/components/scrollbar'
+import EhTag from '@ehop/components/tag'
+import EhIcon from '@ehop/components/icon'
+import { useFormItem, useFormSize } from '@ehop/components/form'
+import { ClickOutside as vClickoutside } from '@ehop/directives'
+import { useLocale, useNamespace } from '@ehop/hooks'
 import {
   debugWarn,
   focusNode,
   getSibling,
   isClient,
   isKorean,
-} from '@ehop
+} from '@ehop/utils'
 import {
   CHANGE_EVENT,
   EVENT_CODE,
   UPDATE_MODEL_EVENT,
-} from '@ehopts'
+} from '@ehop/constants'
 import { ArrowDown, Check, CircleClose } from '@ehop/icons-vue'
 import { cascaderEmits, cascaderProps } from './cascader'
 
-import type { Options } from '@ehopnts/popper'
+import type { Options } from '@ehop/components/popper'
 import type { ComputedRef, Ref, StyleValue } from 'vue'
-import type { TooltipInstance } from '@ehopnts/tooltip'
-import type { InputInstance } from '@ehopnts/input'
-import type { ScrollbarInstance } from '@ehopnts/scrollbar'
+import type { TooltipInstance } from '@ehop/components/tooltip'
+import type { InputInstance } from '@ehop/components/input'
+import type { ScrollbarInstance } from '@ehop/components/scrollbar'
 import type {
   CascaderNode,
   CascaderPanelInstance,
   CascaderValue,
   Tag,
-} from '@ehopnts/cascader-panel'
+} from '@ehop/components/cascader-panel'
 
 const popperOptions: Partial<Options> = {
   modifiers: [

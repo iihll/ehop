@@ -18,11 +18,11 @@
       <div :class="ppNs.e('body')">
         <div v-if="showTime" :class="dpNs.e('time-header')">
           <span :class="dpNs.e('editor-wrap')">
-            <el-input :placeholder="t('eh.datepicker.selectDate')" :model-value="visibleDate" size="small"
+            <eh-input :placeholder="t('eh.datepicker.selectDate')" :model-value="visibleDate" size="small"
               :validate-event="false" @input="(val) => (userInputDate = val)" @change="handleVisibleDateChange" />
           </span>
           <span v-click-outside="handleTimePickClose" :class="dpNs.e('editor-wrap')">
-            <el-input :placeholder="t('eh.datepicker.selectTime')" :model-value="visibleTime" size="small"
+            <eh-input :placeholder="t('eh.datepicker.selectTime')" :model-value="visibleTime" size="small"
               :validate-event="false" @focus="onTimePickerInputFocus" @input="(val) => (userInputTime = val)"
               @change="handleVisibleTimeChange" />
             <time-pick-panel :visible="timePickerVisible" :format="timeFormat" :time-arrow-control="arrowControl"
@@ -37,11 +37,11 @@
           <span :class="dpNs.e('prev-btn')">
             <button type="button" :aria-label="t(`el.datepicker.prevYear`)" class="d-arrow-left"
               :class="ppNs.e('icon-btn')" @click="moveByYear(false)">
-              <el-icon><d-arrow-left /></el-icon>
+              <eh-icon><d-arrow-left /></eh-icon>
             </button>
             <button v-show="currentView === 'date'" type="button" :aria-label="t(`el.datepicker.prevMonth`)"
               :class="ppNs.e('icon-btn')" class="arrow-left" @click="moveByMonth(false)">
-              <el-icon><arrow-left /></el-icon>
+              <eh-icon><arrow-left /></eh-icon>
             </button>
           </span>
           <span role="button" :class="dpNs.e('header-label')" aria-live="polite" tabindex="0"
@@ -54,11 +54,11 @@
           <span :class="dpNs.e('next-btn')">
             <button v-show="currentView === 'date'" type="button" :aria-label="t(`el.datepicker.nextMonth`)"
               :class="ppNs.e('icon-btn')" class="arrow-right" @click="moveByMonth(true)">
-              <el-icon><arrow-right /></el-icon>
+              <eh-icon><arrow-right /></eh-icon>
             </button>
             <button type="button" :aria-label="t(`el.datepicker.nextYear`)" :class="ppNs.e('icon-btn')"
               class="d-arrow-right" @click="moveByYear(true)">
-              <el-icon><d-arrow-right /></el-icon>
+              <eh-icon><d-arrow-right /></eh-icon>
             </button>
           </span>
         </div>
@@ -74,12 +74,12 @@
       </div>
     </div>
     <div v-show="footerVisible && currentView === 'date'" :class="ppNs.e('footer')">
-      <el-button v-show="selectionMode !== 'dates'" text size="small" :class="ppNs.e('link-btn')" @click="changeToNow">
+      <eh-button v-show="selectionMode !== 'dates'" text size="small" :class="ppNs.e('link-btn')" @click="changeToNow">
         {{ t('eh.datepicker.now') }}
-      </el-button>
-      <el-button plain size="small" :class="ppNs.e('link-btn')" @click="onConfirm">
+      </eh-button>
+      <eh-button plain size="small" :class="ppNs.e('link-btn')" @click="onConfirm">
         {{ t('eh.datepicker.confirm') }}
-      </el-button>
+      </eh-button>
     </div>
   </div>
 </template>
@@ -97,24 +97,24 @@ import {
 } from 'vue'
 import dayjs from 'dayjs'
 import EhButton from '@ehop/components/button'
-import { ClickOutside as vClickOutside } from '@ehopves'
+import { ClickOutside as vClickOutside } from '@ehop/directives'
 import { useLocale, useNamespace } from '@ehop
-import EhInput from '@ehopnts/input'
+import EhInput from '@ehop/components/input'
 import {
   TimePickPanel,
   extractDateFormat,
   extractTimeFormat,
-} from '@ehopnts/time-picker'
-import { EhIcon } from '@ehopnts/icon'
+} from '@ehop/components/time-picker'
+import { EhIcon } from '@ehop/components/icon'
 import { isArray, isFunction } from '@ehop
-import { EVENT_CODE } from '@ehopts'
+import { EVENT_CODE } from '@ehop/constants'
 import {
   ArrowLeft,
   ArrowRight,
   DArrowLeft,
   DArrowRight,
 } from '@ehop/icons-vue'
-import { TOOLTIP_INJECTION_KEY } from '@ehopnts/tooltip'
+import { TOOLTIP_INJECTION_KEY } from '@ehop/components/tooltip'
 import { panelDatePickProps } from '../props/panel-date-pick'
 import DateTable from './basic-date-table.vue'
 import MonthTable from './basic-month-table.vue'

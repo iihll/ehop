@@ -376,7 +376,7 @@ export function createTablePopper(
   let onOpen = showPopper
   let onClose = removePopper
   if (tooltipOptions.enterable) {
-    ;({ onOpen, onClose } = useDelayedToggle({
+    ({ onOpen, onClose } = useDelayedToggle({
       showAfter: tooltipOptions.showAfter,
       hideAfter: tooltipOptions.hideAfter,
       open: showPopper,

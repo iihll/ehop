@@ -1,45 +1,32 @@
 <template>
-  <el-radio-group v-model="size">
-    <el-radio label="large">Large</el-radio>
-    <el-radio>Default</el-radio>
-    <el-radio label="small">Small</el-radio>
-  </el-radio-group>
+  <eh-radio-group v-model="size">
+    <eh-radio label="large">Large</eh-radio>
+    <eh-radio>Default</eh-radio>
+    <eh-radio label="small">Small</eh-radio>
+  </eh-radio-group>
 
-  <el-descriptions
-    title="Vertical list with border"
-    direction="vertical"
-    :column="4"
-    :size="size"
-    border
-  >
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-    <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
-    <el-descriptions-item label="Remarks">
-      <el-tag size="small">School</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item label="Address"
-      >No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-    </el-descriptions-item>
-  </el-descriptions>
+  <eh-descriptions title="Vertical list with border" direction="vertical" :column="4" :size="size" border>
+    <eh-descriptions-item label="Username">kooriookami</eh-descriptions-item>
+    <eh-descriptions-item label="Telephone">18100000000</eh-descriptions-item>
+    <eh-descriptions-item label="Place" :span="2">Suzhou</eh-descriptions-item>
+    <eh-descriptions-item label="Remarks">
+      <eh-tag size="small">School</eh-tag>
+    </eh-descriptions-item>
+    <eh-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+    </eh-descriptions-item>
+  </eh-descriptions>
 
-  <el-descriptions
-    title="Vertical list without border"
-    :column="4"
-    :size="size"
-    direction="vertical"
-    :style="blockMargin"
-  >
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-    <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
-    <el-descriptions-item label="Remarks">
-      <el-tag size="small">School</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item label="Address"
-      >No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-    </el-descriptions-item>
-  </el-descriptions>
+  <eh-descriptions title="Vertical list without border" :column="4" :size="size" direction="vertical"
+    :style="blockMargin">
+    <eh-descriptions-item label="Username">kooriookami</eh-descriptions-item>
+    <eh-descriptions-item label="Telephone">18100000000</eh-descriptions-item>
+    <eh-descriptions-item label="Place" :span="2">Suzhou</eh-descriptions-item>
+    <eh-descriptions-item label="Remarks">
+      <eh-tag size="small">School</eh-tag>
+    </eh-descriptions-item>
+    <eh-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+    </eh-descriptions-item>
+  </eh-descriptions>
 </template>
 
 <script setup lang="ts">

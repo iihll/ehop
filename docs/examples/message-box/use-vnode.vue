@@ -1,6 +1,6 @@
 <template>
-  <el-button plain @click="open">Common VNode</el-button>
-  <el-button plain @click="open1">Dynamic props</el-button>
+  <eh-button plain @click="open">Common VNode</eh-button>
+  <eh-button plain @click="open1">Dynamic props</eh-button>
 </template>
 
 <script lang="ts" setup>

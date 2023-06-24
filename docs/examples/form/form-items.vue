@@ -1,50 +1,34 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="dynamicValidateForm"
-    label-width="120px"
-    class="demo-dynamic"
-  >
-    <el-form-item
-      prop="email"
-      label="Email"
-      :rules="[
-        {
-          required: true,
-          message: 'Please input email address',
-          trigger: 'blur',
-        },
-        {
-          type: 'email',
-          message: 'Please input correct email address',
-          trigger: ['blur', 'change'],
-        },
-      ]"
-    >
-      <el-input v-model="dynamicValidateForm.email" />
-    </el-form-item>
-    <el-form-item
-      v-for="(domain, index) in dynamicValidateForm.domains"
-      :key="domain.key"
-      :label="'Domain' + index"
-      :prop="'domains.' + index + '.value'"
-      :rules="{
+  <eh-form ref="formRef" :model="dynamicValidateForm" label-width="120px" class="demo-dynamic">
+    <eh-form-item prop="email" label="Email" :rules="[
+      {
+        required: true,
+        message: 'Please input email address',
+        trigger: 'blur',
+      },
+      {
+        type: 'email',
+        message: 'Please input correct email address',
+        trigger: ['blur', 'change'],
+      },
+    ]">
+      <eh-input v-model="dynamicValidateForm.email" />
+    </eh-form-item>
+    <eh-form-item v-for="(domain, index) in dynamicValidateForm.domains" :key="domain.key" :label="'Domain' + index"
+      :prop="'domains.' + index + '.value'" :rules="{
         required: true,
         message: 'domain can not be null',
         trigger: 'blur',
-      }"
-    >
-      <el-input v-model="domain.value" />
-      <el-button class="mt-2" @click.prevent="removeDomain(domain)"
-        >Delete</el-button
-      >
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(formRef)">Submit</el-button>
-      <el-button @click="addDomain">New domain</el-button>
-      <el-button @click="resetForm(formRef)">Reset</el-button>
-    </el-form-item>
-  </el-form>
+      }">
+      <eh-input v-model="domain.value" />
+      <eh-button class="mt-2" @click.prevent="removeDomain(domain)">Delete</eh-button>
+    </eh-form-item>
+    <eh-form-item>
+      <eh-button type="primary" @click="submitForm(formRef)">Submit</eh-button>
+      <eh-button @click="addDomain">New domain</eh-button>
+      <eh-button @click="resetForm(formRef)">Reset</eh-button>
+    </eh-form-item>
+  </eh-form>
 </template>
 
 <script lang="ts" setup>

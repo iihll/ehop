@@ -1,14 +1,8 @@
 <template>
-  <el-tree-select v-model="value" lazy :load="load" :props="props" />
-  <el-divider />
+  <eh-tree-select v-model="value" lazy :load="load" :props="props" />
+  <eh-divider />
   <VersionTag version="2.2.26" /> show lazy load label:
-  <el-tree-select
-    v-model="value2"
-    lazy
-    :load="load"
-    :props="props"
-    :cache-data="cacheData"
-  />
+  <eh-tree-select v-model="value2" lazy :load="load" :props="props" :cache-data="cacheData" />
 </template>
 
 <script lang="ts" setup>

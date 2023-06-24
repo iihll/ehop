@@ -186,7 +186,7 @@ const MESSAGE_BOX_DEFAULT_OPTS: Record<
 }
 
 MESSAGE_BOX_VARIANTS.forEach((boxType) => {
-  ;(MessageBox as IElMessageBox)[boxType] = messageBoxFactory(
+  (MessageBox as IElMessageBox)[boxType] = messageBoxFactory(
     boxType
   ) as EhMessageBoxShortcutMethod
 })

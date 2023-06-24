@@ -1,7 +1,7 @@
 <template>
-  <el-space wrap>
+  <eh-space wrap>
     <div v-for="i in 20" :key="i">
-      <el-button text> Text button </el-button>
+      <eh-button text> Text button </eh-button>
     </div>
-  </el-space>
+  </eh-space>
 </template>

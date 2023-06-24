@@ -1,7 +1,7 @@
 <template>
-  <el-popconfirm title="Are you sure to delete this?">
+  <eh-popconfirm title="Are you sure to delete this?">
     <template #reference>
-      <el-button>Delete</el-button>
+      <eh-button>Delete</eh-button>
     </template>
-  </el-popconfirm>
+  </eh-popconfirm>
 </template>

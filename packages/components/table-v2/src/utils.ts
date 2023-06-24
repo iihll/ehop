@@ -18,7 +18,7 @@ export const tryCall = <T>(
 }
 
 export const enforceUnit = (style: CSSProperties) => {
-  ;(['width', 'maxWidth', 'minWidth', 'height'] as const).forEach((key) => {
+   (['width', 'maxWidth', 'minWidth', 'height'] as const).forEach((key) => {
     style[key] = addUnit(style[key])
   })
 
@@ -26,7 +26,7 @@ export const enforceUnit = (style: CSSProperties) => {
 }
 
 export const componentToSlot = <T>(
-  ComponentLike: JSX.Ehement | ((props: T) => Component<T>) | undefined
+  ComponentLike: JSX.Element | ((props: T) => Component<T>) | undefined
 ) =>
   isVNode(ComponentLike)
     ? (props: T) => h(ComponentLike, props)

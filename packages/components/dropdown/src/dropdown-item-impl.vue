@@ -1,12 +1,27 @@
 <template>
-  <li v-if="divided" role="separator" :class="ns.bem('menu', 'item', 'divided')" v-bind="$attrs" />
-  <li :ref="itemRef" v-bind="{ ...dataset, ...$attrs }" :aria-disabled="disabled"
-    :class="[ns.be('menu', 'item'), ns.is('disabled', disabled)]" :tabindex="tabIndex" :role="role"
-    @click="(e) => $emit('clickimpl', e)" @focus="handleFocus" @keydown.self="handleKeydown" @mousedown="handleMousedown"
-    @pointermove="(e) => $emit('pointermove', e)" @pointerleave="(e) => $emit('pointerleave', e)">
-    <el-icon v-if="icon">
+  <li
+    v-if="divided"
+    role="separator"
+    :class="ns.bem('menu', 'item', 'divided')"
+    v-bind="$attrs"
+  />
+  <li
+    :ref="itemRef"
+    v-bind="{ ...dataset, ...$attrs }"
+    :aria-disabled="disabled"
+    :class="[ns.be('menu', 'item'), ns.is('disabled', disabled)]"
+    :tabindex="tabIndex"
+    :role="role"
+    @click="(e) => $emit('clickimpl', e)"
+    @focus="handleFocus"
+    @keydown.self="handleKeydown"
+    @mousedown="handleMousedown"
+    @pointermove="(e) => $emit('pointermove', e)"
+    @pointerleave="(e) => $emit('pointerleave', e)"
+  >
+    <eh-icon v-if="icon">
       <component :is="icon" />
-    </el-icon>
+    </eh-icon>
     <slot />
   </li>
 </template>
@@ -18,11 +33,11 @@ import {
   ROVING_FOCUS_GROUP_ITEM_INJECTION_KEY,
   ROVING_FOCUS_ITEM_COLLECTION_INJECTION_KEY,
 } from '@ehop/components/roving-focus-group'
-import { COLLECTION_ITEM_SIGN } from '@ehopnts/collection'
-import { EhIcon } from '@ehopnts/icon'
-import { useNamespace } from '@ehop
-import { composeEventHandlers, composeRefs } from '@ehop
-import { EVENT_CODE } from '@ehopts'
+import { COLLECTION_ITEM_SIGN } from '@ehop/components/collection'
+import { EhIcon } from '@ehop/components/icon'
+import { useNamespace } from '@ehop/hooks'
+import { composeEventHandlers, composeRefs } from '@ehop/utils'
+import { EVENT_CODE } from '@ehop/constants'
 import {
   DROPDOWN_COLLECTION_ITEM_INJECTION_KEY,
   dropdownItemProps,

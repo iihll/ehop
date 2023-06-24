@@ -1,4 +1,4 @@
-import { dialogEmits, dialogProps } from '@ehopnts/dialog'
+import { dialogEmits, dialogProps } from '@ehop/components/dialog'
 import { buildProps } from '@ehop/utils'
 import type { ExtractPropTypes } from 'vue'
 

@@ -1,17 +1,10 @@
 <template>
-  <el-table-v2
-    fixed
-    :columns="fixedColumns"
-    :data="data"
-    :header-height="[50, 40, 50]"
-    :header-class="headerClass"
-    :width="700"
-    :height="400"
-  >
+  <eh-table-v2 fixed :columns="fixedColumns" :data="data" :header-height="[50, 40, 50]" :header-class="headerClass"
+    :width="700" :height="400">
     <template #header="props">
       <customized-header v-bind="props" />
     </template>
-  </el-table-v2>
+  </eh-table-v2>
 </template>
 <script lang="tsx" setup>
 import { TableV2FixedDir, TableV2Placeholder } from 'ehop'

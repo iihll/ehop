@@ -9,9 +9,8 @@
     tabindex="-1"
     @click="handleClick"
   >
-    <el-tooltip
-      v-if="
-        parentMenu.type.name === 'EhMenu' &&
+    <eh-tooltip
+      v-if="parentMenu.type.name === 'EhMenu' &&
         rootMenu.props.collapse &&
         $slots.title
       "
@@ -26,7 +25,7 @@
       <div :class="nsMenu.be('tooltip', 'trigger')">
         <slot />
       </div>
-    </el-tooltip>
+    </eh-tooltip>
     <template v-else>
       <slot />
       <slot name="title" />

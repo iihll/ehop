@@ -1,50 +1,24 @@
 <template>
-  <el-popper ref="popperRef" :role="role">
-    <el-tooltip-trigger
-      :disabled="disabled"
-      :trigger="trigger"
-      :trigger-keys="triggerKeys"
-      :virtual-ref="virtualRef"
-      :virtual-triggering="virtualTriggering"
-    >
+  <eh-popper ref="popperRef" :role="role">
+    <eh-tooltip-trigger :disabled="disabled" :trigger="trigger" :trigger-keys="triggerKeys" :virtual-ref="virtualRef"
+      :virtual-triggering="virtualTriggering">
       <slot v-if="$slots.default" />
-    </el-tooltip-trigger>
-    <el-tooltip-content
-      ref="contentRef"
-      :aria-label="ariaLabel"
-      :boundaries-padding="boundariesPadding"
-      :content="content"
-      :disabled="disabled"
-      :effect="effect"
-      :enterable="enterable"
-      :fallback-placements="fallbackPlacements"
-      :hide-after="hideAfter"
-      :gpu-acceleration="gpuAcceleration"
-      :offset="offset"
-      :persistent="persistent"
-      :popper-class="popperClass"
-      :popper-style="popperStyle"
-      :placement="placement"
-      :popper-options="popperOptions"
-      :pure="pure"
-      :raw-content="rawContent"
-      :reference-el="referenceEl"
-      :trigger-target-el="triggerTargetEl"
-      :show-after="showAfter"
-      :strategy="strategy"
-      :teleported="teleported"
-      :transition="transition"
-      :virtual-triggering="virtualTriggering"
-      :z-index="zIndex"
-      :append-to="appendTo"
-    >
+    </eh-tooltip-trigger>
+    <eh-tooltip-content ref="contentRef" :aria-label="ariaLabel" :boundaries-padding="boundariesPadding"
+      :content="content" :disabled="disabled" :effect="effect" :enterable="enterable"
+      :fallback-placements="fallbackPlacements" :hide-after="hideAfter" :gpu-acceleration="gpuAcceleration"
+      :offset="offset" :persistent="persistent" :popper-class="popperClass" :popper-style="popperStyle"
+      :placement="placement" :popper-options="popperOptions" :pure="pure" :raw-content="rawContent"
+      :reference-el="referenceEl" :trigger-target-el="triggerTargetEl" :show-after="showAfter" :strategy="strategy"
+      :teleported="teleported" :transition="transition" :virtual-triggering="virtualTriggering" :z-index="zIndex"
+      :append-to="appendTo">
       <slot name="content">
         <span v-if="rawContent" v-html="content" />
         <span v-else>{{ content }}</span>
       </slot>
-      <el-popper-arrow v-if="showArrow" :arrow-offset="arrowOffset" />
-    </el-tooltip-content>
-  </el-popper>
+      <eh-popper-arrow v-if="showArrow" :arrow-offset="arrowOffset" />
+    </eh-tooltip-content>
+  </eh-popper>
 </template>
 
 <script lang="ts" setup>

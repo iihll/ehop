@@ -1,11 +1,11 @@
 <template>
-  <el-steps :active="active" finish-status="success">
-    <el-step title="Step 1" />
-    <el-step title="Step 2" />
-    <el-step title="Step 3" />
-  </el-steps>
+  <eh-steps :active="active" finish-status="success">
+    <eh-step title="Step 1" />
+    <eh-step title="Step 2" />
+    <eh-step title="Step 3" />
+  </eh-steps>
 
-  <el-button style="margin-top: 12px" @click="next">Next step</el-button>
+  <eh-button style="margin-top: 12px" @click="next">Next step</eh-button>
 </template>
 
 <script lang="ts" setup>

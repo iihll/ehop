@@ -1,25 +1,20 @@
 <template>
   <div class="demo-progress">
-    <el-progress :percentage="50">
-      <el-button text>Content</el-button>
-    </el-progress>
-    <el-progress
-      :text-inside="true"
-      :stroke-width="20"
-      :percentage="50"
-      status="exception"
-    >
+    <eh-progress :percentage="50">
+      <eh-button text>Content</eh-button>
+    </eh-progress>
+    <eh-progress :text-inside="true" :stroke-width="20" :percentage="50" status="exception">
       <span>Content</span>
-    </el-progress>
-    <el-progress type="circle" :percentage="100" status="success">
-      <el-button type="success" :icon="Check" circle />
-    </el-progress>
-    <el-progress type="dashboard" :percentage="80">
+    </eh-progress>
+    <eh-progress type="circle" :percentage="100" status="success">
+      <eh-button type="success" :icon="Check" circle />
+    </eh-progress>
+    <eh-progress type="dashboard" :percentage="80">
       <template #default="{ percentage }">
         <span class="percentage-value">{{ percentage }}%</span>
         <span class="percentage-label">Progressing</span>
       </template>
-    </el-progress>
+    </eh-progress>
   </div>
 </template>
 

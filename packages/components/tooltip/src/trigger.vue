@@ -1,20 +1,9 @@
 <template>
-  <el-popper-trigger
-    :id="id"
-    :virtual-ref="virtualRef"
-    :open="open"
-    :virtual-triggering="virtualTriggering"
-    :class="ns.e('trigger')"
-    @blur="onBlur"
-    @click="onClick"
-    @contextmenu="onContextMenu"
-    @focus="onFocus"
-    @mouseenter="onMouseenter"
-    @mouseleave="onMouseleave"
-    @keydown="onKeydown"
-  >
+  <eh-popper-trigger :id="id" :virtual-ref="virtualRef" :open="open" :virtual-triggering="virtualTriggering"
+    :class="ns.e('trigger')" @blur="onBlur" @click="onClick" @contextmenu="onContextMenu" @focus="onFocus"
+    @mouseenter="onMouseenter" @mouseleave="onMouseleave" @keydown="onKeydown">
     <slot />
-  </el-popper-trigger>
+  </eh-popper-trigger>
 </template>
 <script lang="ts" setup>
 import { inject, ref, toRef, unref } from 'vue'

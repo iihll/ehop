@@ -16,7 +16,7 @@ const getTreeVm = (props = '', options = {}) => {
           'el-tree': Tree,
         },
         template: `
-      <el-tree ref="tree" :data="data" ${props}></el-tree>
+      <eh-tree ref="tree" :data="data" ${props}></eh-tree>
     `,
         data() {
           return {
@@ -93,7 +93,7 @@ const getDisableTreeVm = (props = '', options = {}) => {
           'el-tree': Tree,
         },
         template: `
-      <el-tree ref="tree" :data="data" ${props}></el-tree>
+      <eh-tree ref="tree" :data="data" ${props}></eh-tree>
     `,
         data() {
           return {
@@ -320,7 +320,7 @@ describe('Tree.vue', () => {
     )
 
     const treeWrapper = wrapper.findComponent(Tree)
-    ;(treeWrapper.vm as InstanceType<typeof Tree>).filter('2-1')
+      ; (treeWrapper.vm as InstanceType<typeof Tree>).filter('2-1')
 
     await nextTick()
     expect(treeWrapper.findAll('.el-tree-node.is-hidden').length).toEqual(3)
@@ -838,14 +838,14 @@ describe('Tree.vue', () => {
   test('scoped slot', async () => {
     const { wrapper } = getTreeVm('', {
       template: `
-        <el-tree ref="tree" :data="data">
+        <eh-tree ref="tree" :data="data">
           <template #default="scope">
             <div class="custom-tree-template">
               <span>{{ scope.node.label }}</span>
               <button></button>
             </div>
           </template>
-        </el-tree>
+        </eh-tree>
       `,
       methods: {
         renderContent(h, node) {
@@ -1130,8 +1130,8 @@ describe('Tree.vue', () => {
     const { wrapper, vm } = getTreeVm(``, {
       template: `
         <div>
-          <el-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></el-tree>
-          <el-tree ref="tree2" :data="data" node-key="id" :props="defaultProps"></el-tree>
+          <eh-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></eh-tree>
+          <eh-tree ref="tree2" :data="data" node-key="id" :props="defaultProps"></eh-tree>
         </div>
       `,
     })
@@ -1151,7 +1151,7 @@ describe('Tree.vue', () => {
     const { wrapper } = getTreeVm(``, {
       template: `
         <div>
-          <el-tree default-expand-all ref="tree1" :data="data" node-key="id" :props="defaultProps"></el-tree>
+          <eh-tree default-expand-all ref="tree1" :data="data" node-key="id" :props="defaultProps"></eh-tree>
         </div>
       `,
     })
@@ -1167,7 +1167,7 @@ describe('Tree.vue', () => {
     const { wrapper } = getTreeVm(``, {
       template: `
         <div>
-          <el-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></el-tree>
+          <eh-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></eh-tree>
         </div>
       `,
     })
@@ -1180,7 +1180,7 @@ describe('Tree.vue', () => {
     const targetElement = wrapper.find('div[data-key="3"]').element
     const fromElement = wrapper.find('div[data-key="1"]').element
     defineGetter(targetElement, 'focus', handleFocus)
-    ;(tree.vm as InstanceType<typeof Tree>).setCurrentKey(1)
+      ; (tree.vm as InstanceType<typeof Tree>).setCurrentKey(1)
     expect(fromElement.classList.contains('is-focusable')).toBeTruthy()
     fromElement.dispatchEvent(
       new KeyboardEvent('keydown', {
@@ -1196,7 +1196,7 @@ describe('Tree.vue', () => {
     const { wrapper } = getTreeVm(``, {
       template: `
         <div>
-          <el-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></el-tree>
+          <eh-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></eh-tree>
         </div>
       `,
     })
@@ -1209,7 +1209,7 @@ describe('Tree.vue', () => {
     const targetElement = wrapper.find('div[data-key="2"]').element
     const fromElement = wrapper.find('div[data-key="1"]').element
     defineGetter(targetElement, 'focus', handleFocus)
-    ;(tree.vm as InstanceType<typeof Tree>).setCurrentKey(1)
+      ; (tree.vm as InstanceType<typeof Tree>).setCurrentKey(1)
     expect(fromElement.classList.contains('is-focusable')).toBeTruthy()
     fromElement.dispatchEvent(
       new KeyboardEvent('keydown', {
@@ -1225,7 +1225,7 @@ describe('Tree.vue', () => {
     const wrapper = mount({
       template: `
         <div>
-          <el-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></el-tree>
+          <eh-tree ref="tree1" :data="data" node-key="id" :props="defaultProps"></eh-tree>
         </div>
       `,
       components: {
@@ -1298,7 +1298,7 @@ describe('Tree.vue', () => {
     const targetElement = wrapper.find('div[data-key="3"]').element
     const fromElement = wrapper.find('div[data-key="1"]').element
     defineGetter(targetElement, 'focus', handleFocus)
-    ;(tree.vm as InstanceType<typeof Tree>).setCurrentKey(1)
+      ; (tree.vm as InstanceType<typeof Tree>).setCurrentKey(1)
     expect(fromElement.classList.contains('is-focusable')).toBeTruthy()
     fromElement.dispatchEvent(
       new KeyboardEvent('keydown', {
@@ -1314,12 +1314,12 @@ describe('Tree.vue', () => {
     const wrapper = mount({
       template: `
         <div>
-        <el-tree
+        <eh-tree
           :props="defaultProps"
           :load="loadNode"
           lazy
           show-checkbox>
-        </el-tree>
+        </eh-tree>
         </div>
       `,
       components: {

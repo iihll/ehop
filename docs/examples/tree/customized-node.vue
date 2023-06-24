@@ -1,22 +1,10 @@
 <template>
   <div class="custom-tree-container">
     <p>Using render-content</p>
-    <el-tree
-      :data="dataSource"
-      show-checkbox
-      node-key="id"
-      default-expand-all
-      :expand-on-click-node="false"
-      :render-content="renderContent"
-    />
+    <eh-tree :data="dataSource" show-checkbox node-key="id" default-expand-all :expand-on-click-node="false"
+      :render-content="renderContent" />
     <p>Using scoped slot</p>
-    <el-tree
-      :data="dataSource"
-      show-checkbox
-      node-key="id"
-      default-expand-all
-      :expand-on-click-node="false"
-    >
+    <eh-tree :data="dataSource" show-checkbox node-key="id" default-expand-all :expand-on-click-node="false">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
           <span>{{ node.label }}</span>
@@ -26,7 +14,7 @@
           </span>
         </span>
       </template>
-    </el-tree>
+    </eh-tree>
   </div>
 </template>
 

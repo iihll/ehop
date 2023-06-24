@@ -61,7 +61,7 @@ Do:
 
 ```html
 <template>
-  <el-cascader :props="props" />
+  <eh-cascader :props="props" />
 </template>
 <script lang="ts">
   export default {
@@ -82,7 +82,7 @@ Don't do:
 ```html
 <template>
   <!--  Object literal binging here is invalid syntax for cascader  -->
-  <el-cascader :props="{ multiple: true }" />
+  <eh-cascader :props="{ multiple: true }" />
 </template>
 ```
 

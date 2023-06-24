@@ -1,7 +1,7 @@
 import { computed, provide, ref, watch } from 'vue'
 import { ensureArray } from '@ehop/utils'
 import { useNamespace } from '@ehop
-import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehopts'
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 import { collapseContextKey } from './constants'
 
 import type { SetupContext } from 'vue'

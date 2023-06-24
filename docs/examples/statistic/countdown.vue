@@ -1,32 +1,27 @@
 <template>
-  <el-row>
-    <el-col :span="8">
-      <el-countdown title="Start to grab" :value="value" />
-    </el-col>
-    <el-col :span="8">
-      <el-countdown
-        title="Remaining VIP time"
-        format="HH:mm:ss"
-        :value="value1"
-      />
-      <el-button class="countdown-footer" type="primary" @click="reset"
-        >Reset
-      </el-button>
-    </el-col>
-    <el-col :span="8">
-      <el-countdown format="DD [days] HH:mm:ss" :value="value2">
+  <eh-row>
+    <eh-col :span="8">
+      <eh-countdown title="Start to grab" :value="value" />
+    </eh-col>
+    <eh-col :span="8">
+      <eh-countdown title="Remaining VIP time" format="HH:mm:ss" :value="value1" />
+      <eh-button class="countdown-footer" type="primary" @click="reset">Reset
+      </eh-button>
+    </eh-col>
+    <eh-col :span="8">
+      <eh-countdown format="DD [days] HH:mm:ss" :value="value2">
         <template #title>
           <div style="display: inline-flex; align-items: center">
-            <el-icon style="margin-right: 4px" :size="12">
+            <eh-icon style="margin-right: 4px" :size="12">
               <Calendar />
-            </el-icon>
+            </eh-icon>
             Still to go until next month
           </div>
         </template>
-      </el-countdown>
+      </eh-countdown>
       <div class="countdown-footer">{{ value2.format('YYYY-MM-DD') }}</div>
-    </el-col>
-  </el-row>
+    </eh-col>
+  </eh-row>
 </template>
 
 <script lang="ts" setup>

@@ -1,4 +1,4 @@
-import { CHANGE_EVENT } from '@ehopts'
+import { CHANGE_EVENT } from '@ehop/constants'
 import { buildProps, isBoolean } from '@ehop/utils'
 
 import type CheckTag from './check-tag.vue'

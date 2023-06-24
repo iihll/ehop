@@ -66,7 +66,7 @@ export default defineComponent({
           ref={commonPicker}
           type={type}
           format={format}
-          onUpdate: modelValue={modelUpdater}
+          onUpdate:modelValue={modelUpdater}
         >
           {{
             default: (props: any) => <Panel {...props} />,

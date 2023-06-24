@@ -1,6 +1,6 @@
 <template>
-  <el-switch v-model="value1" loading />
-  <el-switch v-model="value2" loading class="ml-2" />
+  <eh-switch v-model="value1" loading />
+  <eh-switch v-model="value2" loading class="ml-2" />
 </template>
 
 <script lang="ts" setup>

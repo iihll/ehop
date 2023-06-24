@@ -1,52 +1,47 @@
 <template>
-  <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-    <el-radio-button :label="false">expand</el-radio-button>
-    <el-radio-button :label="true">collapse</el-radio-button>
-  </el-radio-group>
-  <el-menu
-    default-active="2"
-    class="el-menu-vertical-demo"
-    :collapse="isCollapse"
-    @open="handleOpen"
-    @close="handleClose"
-  >
-    <el-sub-menu index="1">
+  <eh-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+    <eh-radio-button :label="false">expand</eh-radio-button>
+    <eh-radio-button :label="true">collapse</eh-radio-button>
+  </eh-radio-group>
+  <eh-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
+    @close="handleClose">
+    <eh-sub-menu index="1">
       <template #title>
-        <el-icon>
+        <eh-icon>
           <location />
-        </el-icon>
+        </eh-icon>
         <span>Navigator One</span>
       </template>
-      <el-menu-item-group>
+      <eh-menu-item-group>
         <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
+        <eh-menu-item index="1-1">item one</eh-menu-item>
+        <eh-menu-item index="1-2">item two</eh-menu-item>
+      </eh-menu-item-group>
+      <eh-menu-item-group title="Group Two">
+        <eh-menu-item index="1-3">item three</eh-menu-item>
+      </eh-menu-item-group>
+      <eh-sub-menu index="1-4">
         <template #title><span>item four</span></template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
+        <eh-menu-item index="1-4-1">item one</eh-menu-item>
+      </eh-sub-menu>
+    </eh-sub-menu>
+    <eh-menu-item index="2">
+      <eh-icon><icon-menu /></eh-icon>
       <template #title>Navigator Two</template>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <el-icon>
+    </eh-menu-item>
+    <eh-menu-item index="3" disabled>
+      <eh-icon>
         <document />
-      </el-icon>
+      </eh-icon>
       <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon>
+    </eh-menu-item>
+    <eh-menu-item index="4">
+      <eh-icon>
         <setting />
-      </el-icon>
+      </eh-icon>
       <template #title>Navigator Four</template>
-    </el-menu-item>
-  </el-menu>
+    </eh-menu-item>
+  </eh-menu>
 </template>
 
 <script lang="ts" setup>

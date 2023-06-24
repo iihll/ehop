@@ -11,18 +11,30 @@
     <!-- input -->
     <template v-if="type !== 'textarea'">
       <!-- prepend slot -->
-      <div v-if="$slots.prepend" :class="nsInput.be('group', 'prepend')">
+      <div
+        v-if="$slots.prepend"
+        :class="nsInput.be('group', 'prepend')"
+      >
         <slot name="prepend" />
       </div>
 
       <div :class="wrapperKls">
         <!-- prefix slot -->
-        <span v-if="$slots.prefix || prefixIcon" :class="nsInput.e('prefix')">
-          <span :class="nsInput.e('prefix-inner')" @click="focus">
+        <span
+          v-if="$slots.prefix || prefixIcon"
+          :class="nsInput.e('prefix')"
+        >
+          <span
+            :class="nsInput.e('prefix-inner')"
+            @click="focus"
+          >
             <slot name="prefix" />
-            <el-icon v-if="prefixIcon" :class="nsInput.e('icon')">
+            <eh-icon
+              v-if="prefixIcon"
+              :class="nsInput.e('icon')"
+            >
               <component :is="prefixIcon" />
-            </el-icon>
+            </eh-icon>
           </span>
         </span>
 
@@ -53,37 +65,47 @@
         />
 
         <!-- suffix slot -->
-        <span v-if="suffixVisible" :class="nsInput.e('suffix')">
-          <span :class="nsInput.e('suffix-inner')" @click="focus">
-            <template
-              v-if="!showClear || !showPwdVisible || !isWordLimitVisible"
-            >
+        <span
+          v-if="suffixVisible"
+          :class="nsInput.e('suffix')"
+        >
+          <span
+            :class="nsInput.e('suffix-inner')"
+            @click="focus"
+          >
+            <template v-if="!showClear || !showPwdVisible || !isWordLimitVisible">
               <slot name="suffix" />
-              <el-icon v-if="suffixIcon" :class="nsInput.e('icon')">
+              <eh-icon
+                v-if="suffixIcon"
+                :class="nsInput.e('icon')"
+              >
                 <component :is="suffixIcon" />
-              </el-icon>
+              </eh-icon>
             </template>
-            <el-icon
+            <eh-icon
               v-if="showClear"
               :class="[nsInput.e('icon'), nsInput.e('clear')]"
               @mousedown.prevent="NOOP"
               @click="clear"
             >
               <circle-close />
-            </el-icon>
-            <el-icon
+            </eh-icon>
+            <eh-icon
               v-if="showPwdVisible"
               :class="[nsInput.e('icon'), nsInput.e('password')]"
               @click="handlePasswordVisible"
             >
               <component :is="passwordIcon" />
-            </el-icon>
-            <span v-if="isWordLimitVisible" :class="nsInput.e('count')">
+            </eh-icon>
+            <span
+              v-if="isWordLimitVisible"
+              :class="nsInput.e('count')"
+            >
               <span :class="nsInput.e('count-inner')">
                 {{ textLength }} / {{ attrs.maxlength }}
               </span>
             </span>
-            <el-icon
+            <eh-icon
               v-if="validateState && validateIcon && needStatusIcon"
               :class="[
                 nsInput.e('icon'),
@@ -92,13 +114,16 @@
               ]"
             >
               <component :is="validateIcon" />
-            </el-icon>
+            </eh-icon>
           </span>
         </span>
       </div>
 
       <!-- append slot -->
-      <div v-if="$slots.append" :class="nsInput.be('group', 'append')">
+      <div
+        v-if="$slots.append"
+        :class="nsInput.be('group', 'append')"
+      >
         <slot name="append" />
       </div>
     </template>

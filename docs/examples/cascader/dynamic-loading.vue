@@ -1,5 +1,5 @@
 <template>
-  <el-cascader :props="props" />
+  <eh-cascader :props="props" />
 </template>
 
 <script lang="ts" setup>

@@ -6,7 +6,7 @@ module.exports = defineConfig({
     browser: true,
     node: true,
   },
-  plugins: ['@typescript-eslint', 'prettier', 'unicorn'],
+  plugins: ['@typescript-eslint', 'unicorn'],
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
@@ -15,7 +15,6 @@ module.exports = defineConfig({
     'plugin:markdown/recommended',
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
   ],
   settings: {
     'import/resolver': {
@@ -216,9 +215,6 @@ module.exports = defineConfig({
         math: 'always',
       },
     ],
-
-    // prettier
-    'prettier/prettier': 'error',
 
     // import
     'import/first': 'error',

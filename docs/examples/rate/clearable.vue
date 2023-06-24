@@ -1,5 +1,5 @@
 <template>
-  <el-rate v-model="value" clearable />
+  <eh-rate v-model="value" clearable />
 </template>
 
 <script lang="ts" setup>

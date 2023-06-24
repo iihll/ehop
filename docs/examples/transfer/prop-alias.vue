@@ -1,12 +1,8 @@
 <template>
-  <el-transfer
-    v-model="value"
-    :props="{
-      key: 'value',
-      label: 'desc',
-    }"
-    :data="data"
-  />
+  <eh-transfer v-model="value" :props="{
+    key: 'value',
+    label: 'desc',
+  }" :data="data" />
 </template>
 
 <script lang="ts" setup>

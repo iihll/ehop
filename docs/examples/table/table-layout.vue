@@ -1,13 +1,13 @@
 <template>
-  <el-radio-group v-model="tableLayout">
-    <el-radio-button label="fixed" />
-    <el-radio-button label="auto" />
-  </el-radio-group>
-  <el-table :data="tableData" :table-layout="tableLayout">
-    <el-table-column prop="date" label="Date" />
-    <el-table-column prop="name" label="Name" />
-    <el-table-column prop="address" label="Address" />
-  </el-table>
+  <eh-radio-group v-model="tableLayout">
+    <eh-radio-button label="fixed" />
+    <eh-radio-button label="auto" />
+  </eh-radio-group>
+  <eh-table :data="tableData" :table-layout="tableLayout">
+    <eh-table-column prop="date" label="Date" />
+    <eh-table-column prop="name" label="Name" />
+    <eh-table-column prop="address" label="Address" />
+  </eh-table>
 </template>
 
 <script lang="ts" setup>

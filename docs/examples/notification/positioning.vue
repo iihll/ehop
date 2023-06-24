@@ -1,8 +1,8 @@
 <template>
-  <el-button plain @click="open1"> Top Right </el-button>
-  <el-button plain @click="open2"> Bottom Right </el-button>
-  <el-button plain @click="open3"> Bottom Left </el-button>
-  <el-button plain @click="open4"> Top Left </el-button>
+  <eh-button plain @click="open1"> Top Right </eh-button>
+  <eh-button plain @click="open2"> Bottom Right </eh-button>
+  <eh-button plain @click="open3"> Bottom Left </eh-button>
+  <eh-button plain @click="open4"> Top Left </eh-button>
 </template>
 
 <script lang="ts" setup>

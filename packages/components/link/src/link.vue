@@ -4,14 +4,20 @@
     :href="disabled || !href ? undefined : href"
     @click="handleClick"
   >
-    <el-icon v-if="icon">
+    <eh-icon v-if="icon">
       <component :is="icon" />
-    </el-icon>
-    <span v-if="$slots.default" :class="ns.e('inner')">
+    </eh-icon>
+    <span
+      v-if="$slots.default"
+      :class="ns.e('inner')"
+    >
       <slot />
     </span>
 
-    <slot v-if="$slots.icon" name="icon" />
+    <slot
+      v-if="$slots.icon"
+      name="icon"
+    />
   </a>
 </template>
 

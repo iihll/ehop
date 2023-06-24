@@ -1,15 +1,15 @@
 <template>
   <div class="slider-demo-block">
-    <el-slider v-model="value1" />
+    <eh-slider v-model="value1" />
   </div>
   <div class="slider-demo-block">
-    <el-slider v-model="value2" placement="bottom" />
+    <eh-slider v-model="value2" placement="bottom" />
   </div>
   <div class="slider-demo-block">
-    <el-slider v-model="value3" placement="right" />
+    <eh-slider v-model="value3" placement="right" />
   </div>
   <div class="slider-demo-block">
-    <el-slider v-model="value4" placement="left" />
+    <eh-slider v-model="value4" placement="left" />
   </div>
 </template>
 
@@ -26,6 +26,7 @@ const value4 = ref(0)
   display: flex;
   align-items: center;
 }
+
 .slider-demo-block .el-slider {
   margin-top: 0;
   margin-left: 12px;

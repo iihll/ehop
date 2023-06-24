@@ -34,12 +34,12 @@ describe('table column', () => {
               EhTableColumn,
             },
             template: `
-          <el-table :data="testData" ${tableProps || ''}>
-            <el-table-column prop="name" ${props1 || ''} />
-            <el-table-column prop="release" ${props2 || ''} />
-            <el-table-column prop="director" ${props3 || ''} />
-            <el-table-column prop="runtime" ${props4 || ''} />
-          </el-table>
+          <eh-table :data="testData" ${tableProps || ''}>
+            <eh-table-column prop="name" ${props1 || ''} />
+            <eh-table-column prop="release" ${props2 || ''} />
+            <eh-table-column prop="director" ${props3 || ''} />
+            <eh-table-column prop="runtime" ${props4 || ''} />
+          </eh-table>
         `,
 
             created() {
@@ -195,13 +195,13 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" @selection-change="change">
-            <el-table-column type="selection" :selectable="filterSelect" />
-            <el-table-column prop="name" label="name" />
-            <el-table-column prop="release" label="release" />
-            <el-table-column prop="director" label="director" />
-            <el-table-column prop="runtime" label="runtime" />
-          </el-table>
+          <eh-table :data="testData" @selection-change="change">
+            <eh-table-column type="selection" :selectable="filterSelect" />
+            <eh-table-column prop="name" label="name" />
+            <eh-table-column prop="release" label="release" />
+            <eh-table-column prop="director" label="director" />
+            <eh-table-column prop="runtime" label="runtime" />
+          </eh-table>
         `,
 
         data() {
@@ -234,13 +234,13 @@ describe('table column', () => {
             EhTableColumn,
           },
           template: `
-            <el-table :data="testData" @selection-change="change">
-              <el-table-column type="${type}" />
-              <el-table-column prop="name" label="name" />
-              <el-table-column prop="release" label="release" />
-              <el-table-column prop="director" label="director" />
-              <el-table-column prop="runtime" label="runtime" />
-            </el-table>
+            <eh-table :data="testData" @selection-change="change">
+              <eh-table-column type="${type}" />
+              <eh-table-column prop="name" label="name" />
+              <eh-table-column prop="release" label="release" />
+              <eh-table-column prop="director" label="director" />
+              <eh-table-column prop="runtime" label="runtime" />
+            </eh-table>
           `,
 
           created() {
@@ -312,16 +312,16 @@ describe('table column', () => {
               EhTable,
             },
             template: `
-            <el-table row-key="id" :data="testData" @expand-change="handleExpand" ${extra}>
-              <el-table-column type="expand">
+            <eh-table row-key="id" :data="testData" @expand-change="handleExpand" ${extra}>
+              <eh-table-column type="expand">
                 <template #default="props">
                   <div>{{props.row.name}}</div>
                 </template>
-              </el-table-column>
-              <el-table-column prop="release" label="release" />
-              <el-table-column prop="director" label="director" />
-              <el-table-column prop="runtime" label="runtime" />
-            </el-table>
+              </eh-table-column>
+              <eh-table-column prop="release" label="release" />
+              <eh-table-column prop="director" label="director" />
+              <eh-table-column prop="runtime" label="runtime" />
+            </eh-table>
           `,
 
             data() {
@@ -547,14 +547,14 @@ describe('table column', () => {
                 }
               "
               >-</button>
-            <el-table :data="data">
-              <el-table-column
+            <eh-table :data="data">
+              <eh-table-column
                 v-for="item of cols"
                 :prop="item"
                 :label="item"
                 :key="item"
-              ></el-table-column>
-            </el-table>
+              ></eh-table-column>
+            </eh-table>
           </template>
         `,
 
@@ -590,14 +590,14 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column prop="name" />
-            <el-table-column label="group">
-              <el-table-column prop="release"/>
-              <el-table-column prop="director"/>
-            </el-table-column>
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column prop="name" />
+            <eh-table-column label="group">
+              <eh-table-column prop="release"/>
+              <eh-table-column prop="director"/>
+            </eh-table-column>
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         created() {
@@ -625,17 +625,17 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column prop="name" />
-            <el-table-column label="group">
-              <el-table-column label="group's group">
-                <el-table-column prop="release" />
-                <el-table-column prop="runtime"/>
-              </el-table-column>
-              <el-table-column prop="director" />
-            </el-table-column>
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column prop="name" />
+            <eh-table-column label="group">
+              <eh-table-column label="group's group">
+                <eh-table-column prop="release" />
+                <eh-table-column prop="runtime"/>
+              </eh-table-column>
+              <eh-table-column prop="director" />
+            </eh-table-column>
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         created() {
@@ -668,11 +668,11 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column label="group">
-              <el-table-column prop="release"/>
-            </el-table-column>
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column label="group">
+              <eh-table-column prop="release"/>
+            </eh-table-column>
+          </eh-table>
         `,
 
         created() {
@@ -700,23 +700,23 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column prop="name" />
-            <el-table-column label="group" fixed="left">
-              <el-table-column label="group's group">
-                <el-table-column prop="runtime" width="100" fixed="right"/>
-                <el-table-column prop="director" width="100" fixed="right"/>
-              </el-table-column>
-              <el-table-column prop="director"/>
-            </el-table-column>
-            <el-table-column prop="director"/>
-            <el-table-column prop="runtime"/>
-            <el-table-column label="group2" fixed="right">
-              <el-table-column prop="runtime" width="100" fixed="left"/>
-              <el-table-column prop="director" width="50"/>
-            </el-table-column>
-            <el-table-column prop="runtime"/>
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column prop="name" />
+            <eh-table-column label="group" fixed="left">
+              <eh-table-column label="group's group">
+                <eh-table-column prop="runtime" width="100" fixed="right"/>
+                <eh-table-column prop="director" width="100" fixed="right"/>
+              </eh-table-column>
+              <eh-table-column prop="director"/>
+            </eh-table-column>
+            <eh-table-column prop="director"/>
+            <eh-table-column prop="runtime"/>
+            <eh-table-column label="group2" fixed="right">
+              <eh-table-column prop="runtime" width="100" fixed="left"/>
+              <eh-table-column prop="director" width="50"/>
+            </eh-table-column>
+            <eh-table-column prop="runtime"/>
+          </eh-table>
         `,
 
         created() {
@@ -765,18 +765,18 @@ describe('table column', () => {
           item: Object,
         },
         template: `
-          <el-table-column :prop="item.prop" :label="item.label">
+          <eh-table-column :prop="item.prop" :label="item.label">
             <template v-if="item.children" #default>
               <table-column v-for="c in item.children" :key="c.prop" :item="c"/>
             </template>
-          </el-table-column>
+          </eh-table-column>
         `,
       }
       const App = {
         template: `
-          <el-table :data="data">
+          <eh-table :data="data">
             <table-column v-for="item in column" :key="item.prop" :item="item"/>
-          </el-table>
+          </eh-table>
         `,
         components: {
           EhTable,
@@ -842,11 +842,11 @@ describe('table column', () => {
           Comp,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column prop="name">
+          <eh-table :data="testData">
+            <eh-table-column prop="name">
               <comp></comp>
-            </el-table-column>
-          </el-table>
+            </eh-table-column>
+          </eh-table>
         `,
         data() {
           return {
@@ -867,11 +867,11 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table-column>
+          <eh-table-column>
             <template v-if="$slots.default" #default="scope">
               <slot v-bind="scope" />
             </template>
-          </el-table-column>
+          </eh-table-column>
         `,
       }
       const wrapper = mount({
@@ -881,11 +881,11 @@ describe('table column', () => {
           TableColumn,
         },
         template: `
-          <el-table :data="testData">
+          <eh-table :data="testData">
             <table-column>
               <template #default="{ row }">Hello World</template>
             </table-column>
-          </el-table>
+          </eh-table>
         `,
         data() {
           return {
@@ -908,12 +908,12 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column prop="name" :label="label"/>
-            <el-table-column prop="release" />
-            <el-table-column prop="director" />
-            <el-table-column prop="runtime" />
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column prop="name" :label="label"/>
+            <eh-table-column prop="release" />
+            <eh-table-column prop="director" />
+            <eh-table-column prop="runtime" />
+          </eh-table>
         `,
         data() {
           return {
@@ -944,9 +944,9 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column prop="name" :align="align"/>
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column prop="name" :align="align"/>
+          </eh-table>
         `,
 
         data() {
@@ -977,9 +977,9 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column prop="name" :align="align" :header-align="headerAlign"/>
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column prop="name" :align="align" :header-align="headerAlign"/>
+          </eh-table>
         `,
 
         data() {
@@ -1036,9 +1036,9 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" :fit="false">
-            <el-table-column prop="name" :width="width"/>
-          </el-table>
+          <eh-table :data="testData" :fit="false">
+            <eh-table-column prop="name" :width="width"/>
+          </eh-table>
         `,
 
         data() {
@@ -1078,9 +1078,9 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData" :fit="false">
-            <el-table-column prop="name" :min-width="width"/>
-          </el-table>
+          <eh-table :data="testData" :fit="false">
+            <eh-table-column prop="name" :min-width="width"/>
+          </eh-table>
         `,
 
         data() {
@@ -1120,12 +1120,12 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column :fixed="fixed" />
-            <el-table-column prop="release" />
-            <el-table-column prop="director" />
-            <el-table-column prop="runtime" />
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column :fixed="fixed" />
+            <eh-table-column prop="release" />
+            <eh-table-column prop="director" />
+            <eh-table-column prop="runtime" />
+          </eh-table>
         `,
 
         data() {
@@ -1154,12 +1154,12 @@ describe('table column', () => {
           EhTableColumn,
         },
         template: `
-          <el-table :data="testData">
-            <el-table-column :prop="prop" />
-            <el-table-column prop="release" />
-            <el-table-column prop="director" />
-            <el-table-column prop="runtime" />
-          </el-table>
+          <eh-table :data="testData">
+            <eh-table-column :prop="prop" />
+            <eh-table-column prop="release" />
+            <eh-table-column prop="director" />
+            <eh-table-column prop="runtime" />
+          </eh-table>
         `,
 
         data() {
@@ -1272,7 +1272,7 @@ describe('table column', () => {
             EhTableColumn,
           },
           template: `
-              <el-table
+              <eh-table
                 ref="table"
                 :data="testData"
                 row-key="id"
@@ -1280,26 +1280,26 @@ describe('table column', () => {
                 default-expand-all
                 :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
               >
-                <el-table-column type="index"></el-table-column>
-                <el-table-column type="selection" :selectable="selectable"></el-table-column>
-                <el-table-column prop="id" label="id"></el-table-column>
-                <el-table-column
+                <eh-table-column type="index"></eh-table-column>
+                <eh-table-column type="selection" :selectable="selectable"></eh-table-column>
+                <eh-table-column prop="id" label="id"></eh-table-column>
+                <eh-table-column
                   prop="date"
                   label="Date"
                   sortable
                   width="180">
-                </el-table-column>
-                <el-table-column
+                </eh-table-column>
+                <eh-table-column
                   prop="name"
                   label="Name"
                   sortable
                   width="180">
-                </el-table-column>
-                <el-table-column
+                </eh-table-column>
+                <eh-table-column
                   prop="address"
                   label="Address">
-                </el-table-column>
-              </el-table>
+                </eh-table-column>
+              </eh-table>
           `,
           methods: {
             selectable(row) {

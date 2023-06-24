@@ -1,3 +1,3 @@
 import '@ehop/components/base/style'
 import '@ehop/theme-chalk/src/image.scss'
-import '@ehopnts/image-viewer/style'
+import '@ehop/components/image-viewer/style'

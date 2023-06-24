@@ -8,5 +8,5 @@ export interface EhPaginationContext {
   handleSizeChange?: (val: number) => void
 }
 
-export const elPaginationKey: InjectionKey<EhPaginationContext> =
-  Symbol('elPaginationKey')
+export const ehPaginationKey: InjectionKey<EhPaginationContext> =
+  Symbol('ehPaginationKey')

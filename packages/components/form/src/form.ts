@@ -5,7 +5,7 @@ import {
   isArray,
   isBoolean,
   isString,
-} from '@ehop
+} from '@ehop/utils'
 
 import type { ExtractPropTypes } from 'vue'
 import type { FormItemProp } from './form-item'

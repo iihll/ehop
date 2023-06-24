@@ -1,15 +1,7 @@
 <template>
-  <div
-    :class="[ns.b('panel'), ns.is('bordered', border)]"
-    @keydown="handleKeyDown"
-  >
-    <el-cascader-menu
-      v-for="(menu, index) in menus"
-      :key="index"
-      :ref="(item) => (menuList[index] = item)"
-      :index="index"
-      :nodes="[...menu]"
-    />
+  <div :class="[ns.b('panel'), ns.is('bordered', border)]" @keydown="handleKeyDown">
+    <eh-cascader-menu v-for="(menu, index) in menus" :key="index" :ref="(item) => (menuList[index] = item)" :index="index"
+      :nodes="[...menu]" />
   </div>
 </template>
 

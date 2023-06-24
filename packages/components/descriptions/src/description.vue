@@ -16,7 +16,7 @@
       <table :class="[ns.e('table'), ns.is('bordered', border)]">
         <tbody>
           <template v-for="(row, index) in getRows()" :key="index">
-            <el-descriptions-row :row="row" />
+            <eh-descriptions-row :row="row" />
           </template>
         </tbody>
       </table>

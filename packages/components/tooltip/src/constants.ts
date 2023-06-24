@@ -18,4 +18,4 @@ export type EhTooltipInjectionContext = {
 }
 
 export const TOOLTIP_INJECTION_KEY: InjectionKey<EhTooltipInjectionContext> =
-  Symbol('elTooltip')
+  Symbol('ehTooltip')

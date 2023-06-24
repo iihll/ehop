@@ -1,5 +1,5 @@
 <template>
-  <el-input-number v-model="num" :min="1" :max="10" />
+  <eh-input-number v-model="num" :min="1" :max="10" />
 </template>
 
 <script lang="ts" setup>

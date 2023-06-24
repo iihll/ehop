@@ -271,7 +271,7 @@ class Node {
       }
     }
 
-    ;(child as Node).level = this.level + 1
+    (child as Node).level = this.level + 1
 
     if (typeof index === 'undefined' || index < 0) {
       this.childNodes.push(child as Node)

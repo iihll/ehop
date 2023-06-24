@@ -1,12 +1,6 @@
 <template>
-  <el-tree-v2
-    :data="data"
-    :height="208"
-    :props="props"
-    show-checkbox
-    :default-checked-keys="defaultCheckedKeys"
-    :default-expanded-keys="defaultExpandedKeys"
-  />
+  <eh-tree-v2 :data="data" :height="208" :props="props" show-checkbox :default-checked-keys="defaultCheckedKeys"
+    :default-expanded-keys="defaultExpandedKeys" />
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'

@@ -13,7 +13,7 @@ const component = defineComponent({
 
     // Fix: https://github.com/ehop/ehop/issues/7917
     // `el-option` will delete the cache before unmount,
-    // This is normal for flat arrays `<el-select><el-option v-for="3"></el-select>`,
+    // This is normal for flat arrays `<eh-select><eh-option v-for="3"></eh-select>`,
     // Because the same node key does not create a difference node,
     // But in tree data, the same key at different levels will create diff nodes,
     // So the destruction of `el-option` in `nextTick` will be slower than

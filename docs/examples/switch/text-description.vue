@@ -1,49 +1,15 @@
 <template>
-  <el-switch
-    v-model="value1"
-    class="mb-2"
-    active-text="Pay by month"
-    inactive-text="Pay by year"
-  />
+  <eh-switch v-model="value1" class="mb-2" active-text="Pay by month" inactive-text="Pay by year" />
   <br />
-  <el-switch
-    v-model="value2"
-    class="mb-2"
-    style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949"
-    active-text="Pay by month"
-    inactive-text="Pay by year"
-  />
+  <eh-switch v-model="value2" class="mb-2" style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949"
+    active-text="Pay by month" inactive-text="Pay by year" />
   <br />
-  <el-switch
-    v-model="value3"
-    inline-prompt
-    active-text="是"
-    inactive-text="否"
-  />
-  <el-switch
-    v-model="value4"
-    class="ml-2"
-    inline-prompt
-    style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949"
-    active-text="Y"
-    inactive-text="N"
-  />
-  <el-switch
-    v-model="value6"
-    class="ml-2"
-    width="60"
-    inline-prompt
-    active-text="超出省略"
-    inactive-text="超出省略"
-  />
-  <el-switch
-    v-model="value5"
-    class="ml-2"
-    inline-prompt
-    style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949"
-    active-text="完整展示多个内容"
-    inactive-text="多个内容"
-  />
+  <eh-switch v-model="value3" inline-prompt active-text="是" inactive-text="否" />
+  <eh-switch v-model="value4" class="ml-2" inline-prompt
+    style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949" active-text="Y" inactive-text="N" />
+  <eh-switch v-model="value6" class="ml-2" width="60" inline-prompt active-text="超出省略" inactive-text="超出省略" />
+  <eh-switch v-model="value5" class="ml-2" inline-prompt
+    style="--eh-switch-on-color: #13ce66; --eh-switch-off-color: #ff4949" active-text="完整展示多个内容" inactive-text="多个内容" />
 </template>
 
 <script lang="ts" setup>

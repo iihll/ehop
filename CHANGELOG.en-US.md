@@ -1348,8 +1348,8 @@ _2022-05-09_
 - `type="text"` has been removed from `button`, now you can do this, for more detail see [Documentation](https://ehop.org/en-US/component/button.html#text-button)
 
 ```diff
---- <el-button type="text"/>
-+++ <el-button text />
+--- <eh-button type="text"/>
++++ <eh-button text />
 ```
 
 #### Features

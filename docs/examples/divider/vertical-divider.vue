@@ -1,9 +1,9 @@
 <template>
   <div>
     <span>Rain</span>
-    <el-divider direction="vertical" />
+    <eh-divider direction="vertical" />
     <span>Home</span>
-    <el-divider direction="vertical" border-style="dashed" />
+    <eh-divider direction="vertical" border-style="dashed" />
     <span>Grass</span>
   </div>
 </template>

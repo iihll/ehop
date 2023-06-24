@@ -38,52 +38,40 @@ const onClick = (item: string) => {
     <p v-html="resourceLang.lineTwo" />
     <div class="flex flex-wrap justify-center mt-32px">
       <div class="inline-flex w-full md:w-1/3" p="2" pl-0>
-        <el-card class="card" shadow="hover">
+        <eh-card class="card" shadow="hover">
           <axure-components-svg w="30" alt="axure" />
           <h3>{{ resourceLang.axure }}</h3>
           <p>
             {{ resourceLang.axureIntro }}
           </p>
-          <a
-            target="_blank"
-            :href="resourceUrl.axure"
-            @click="onClick('axure')"
-          >
-            <el-button type="primary">{{ resourceLang.download }}</el-button>
+          <a target="_blank" :href="resourceUrl.axure" @click="onClick('axure')">
+            <eh-button type="primary">{{ resourceLang.download }}</eh-button>
           </a>
-        </el-card>
+        </eh-card>
       </div>
       <div class="inline-flex w-full md:w-1/3" p="2">
-        <el-card class="card" shadow="hover">
+        <eh-card class="card" shadow="hover">
           <sketch-template-svg w="30" alt="Sketch" />
           <h3>{{ resourceLang.sketch }}</h3>
           <p>
             {{ resourceLang.sketchIntro }}
           </p>
-          <a
-            target="_blank"
-            :href="resourceUrl.sketch"
-            @click="onClick('sketch')"
-          >
-            <el-button type="primary">{{ resourceLang.download }}</el-button>
+          <a target="_blank" :href="resourceUrl.sketch" @click="onClick('sketch')">
+            <eh-button type="primary">{{ resourceLang.download }}</eh-button>
           </a>
-        </el-card>
+        </eh-card>
       </div>
       <div class="inline-flex w-full md:w-1/3" p="2">
-        <el-card class="card" shadow="hover">
+        <eh-card class="card" shadow="hover">
           <figma-template-svg w="30" alt="Figma" />
           <h3>{{ resourceLang.figma }}</h3>
           <p>
             {{ resourceLang.figmaIntro }}
           </p>
-          <a
-            href="https://www.figma.com/community/file/1021254029764378306"
-            target="_blank"
-            @click="onClick('figma')"
-          >
-            <el-button type="primary">{{ resourceLang.download }}</el-button>
+          <a href="https://www.figma.com/community/file/1021254029764378306" target="_blank" @click="onClick('figma')">
+            <eh-button type="primary">{{ resourceLang.download }}</eh-button>
           </a>
-        </el-card>
+        </eh-card>
       </div>
     </div>
   </div>

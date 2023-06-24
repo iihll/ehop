@@ -1,11 +1,11 @@
 <template>
-  <el-checkbox-group v-model="checkList">
-    <el-checkbox label="Option A" />
-    <el-checkbox label="Option B" />
-    <el-checkbox label="Option C" />
-    <el-checkbox label="disabled" disabled />
-    <el-checkbox label="selected and disabled" disabled />
-  </el-checkbox-group>
+  <eh-checkbox-group v-model="checkList">
+    <eh-checkbox label="Option A" />
+    <eh-checkbox label="Option B" />
+    <eh-checkbox label="Option C" />
+    <eh-checkbox label="disabled" disabled />
+    <eh-checkbox label="selected and disabled" disabled />
+  </eh-checkbox-group>
 </template>
 
 <script lang="ts" setup>

@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip
+  <eh-tooltip
     ref="refPopper"
     :visible="pickerVisible"
     effect="light"
@@ -21,7 +21,7 @@
     @hide="onHide"
   >
     <template #default>
-      <el-input
+      <eh-input
         v-if="!isRangeInput"
         :id="(id as string | undefined)"
         ref="inputRef"
@@ -52,25 +52,25 @@
         @click.stop
       >
         <template #prefix>
-          <el-icon
+          <eh-icon
             v-if="triggerIcon"
             :class="nsInput.e('icon')"
             @mousedown.prevent="onMouseDownInput"
             @touchstart="onTouchStartInput"
           >
             <component :is="triggerIcon" />
-          </el-icon>
+          </eh-icon>
         </template>
         <template #suffix>
-          <el-icon
+          <eh-icon
             v-if="showClose && clearIcon"
             :class="`${nsInput.e('icon')} clear-icon`"
             @click.stop="onClearIconClick"
           >
             <component :is="clearIcon" />
-          </el-icon>
+          </eh-icon>
         </template>
-      </el-input>
+      </eh-input>
       <div
         v-else
         ref="inputRef"
@@ -82,14 +82,14 @@
         @touchstart="onTouchStartInput"
         @keydown="handleKeydownInput"
       >
-        <el-icon
+        <eh-icon
           v-if="triggerIcon"
           :class="[nsInput.e('icon'), nsRange.e('icon')]"
           @mousedown.prevent="onMouseDownInput"
           @touchstart="onTouchStartInput"
         >
           <component :is="triggerIcon" />
-        </el-icon>
+        </eh-icon>
         <input
           :id="id && id[0]"
           autocomplete="off"
@@ -123,13 +123,13 @@
           @input="handleEndInput"
           @change="handleEndChange"
         />
-        <el-icon
+        <eh-icon
           v-if="clearIcon"
           :class="clearIconKls"
           @click="onClearIconClick"
         >
           <component :is="clearIcon" />
-        </el-icon>
+        </eh-icon>
       </div>
     </template>
     <template #content>
@@ -150,7 +150,7 @@
         @mousedown.stop
       />
     </template>
-  </el-tooltip>
+  </eh-tooltip>
 </template>
 <script lang="ts" setup>
 import {

@@ -25,22 +25,16 @@ const onNavClick = (item: Link) => {
 </script>
 
 <template>
-  <VPLink
-    :class="{
-      'is-menu-link': true,
-      active: isActiveLink(
-        route,
-        item.activeMatch || item.link,
-        !!item.activeMatch
-      ),
-    }"
-    :href="item.link"
-    :no-icon="true"
-    @click="onNavClick(item)"
-  >
-    <el-badge v-if="isNewPage(item) && !isVisited" is-dot class="badge">
-      {{ item.text }}</el-badge
-    >
+  <VPLink :class="{
+    'is-menu-link': true,
+    active: isActiveLink(
+      route,
+      item.activeMatch || item.link,
+      !!item.activeMatch
+    ),
+  }" :href="item.link" :no-icon="true" @click="onNavClick(item)">
+    <eh-badge v-if="isNewPage(item) && !isVisited" is-dot class="badge">
+      {{ item.text }}</eh-badge>
     <template v-else> {{ item.text }}</template>
   </VPLink>
 </template>

@@ -5,7 +5,7 @@ import {
   isString,
   mutable,
 } from '@ehop/utils'
-import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehopts'
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 import type { ExtractPropTypes } from 'vue'
 import type { Arrayable } from '@ehop
 

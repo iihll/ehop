@@ -1,10 +1,6 @@
 <template>
-  <el-autocomplete
-    v-model="state"
-    :fetch-suggestions="querySearchAsync"
-    placeholder="Please input"
-    @select="handleSelect"
-  />
+  <eh-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="Please input"
+    @select="handleSelect" />
 </template>
 
 <script lang="ts" setup>

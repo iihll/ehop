@@ -1,32 +1,19 @@
 <template>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    status-icon
-    :rules="rules"
-    label-width="120px"
-    class="demo-ruleForm"
-  >
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-        v-model="ruleForm.checkPass"
-        type="password"
-        autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Age" prop="age">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-        >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-  </el-form>
+  <eh-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="120px" class="demo-ruleForm">
+    <eh-form-item label="Password" prop="pass">
+      <eh-input v-model="ruleForm.pass" type="password" autocomplete="off" />
+    </eh-form-item>
+    <eh-form-item label="Confirm" prop="checkPass">
+      <eh-input v-model="ruleForm.checkPass" type="password" autocomplete="off" />
+    </eh-form-item>
+    <eh-form-item label="Age" prop="age">
+      <eh-input v-model.number="ruleForm.age" />
+    </eh-form-item>
+    <eh-form-item>
+      <eh-button type="primary" @click="submitForm(ruleFormRef)">Submit</eh-button>
+      <eh-button @click="resetForm(ruleFormRef)">Reset</eh-button>
+    </eh-form-item>
+  </eh-form>
 </template>
 
 <script lang="ts" setup>

@@ -15,7 +15,7 @@
           font-size: 14px;
           margin-bottom: 20px;
         ">{{ fit }}</span>
-      <el-image style="width: 100px; height: 100px" :url="url" :fit="fit" />
+      <eh-image style="width: 100px; height: 100px" :url="url" :fit="fit" />
     </div>
   </div>
 </template>

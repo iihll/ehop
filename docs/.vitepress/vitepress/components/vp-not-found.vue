@@ -15,11 +15,11 @@ const goHome = () => {
 </script>
 
 <template>
-  <el-result icon="error" :title="locale.title" :sub-title="locale.desc">
+  <eh-result icon="error" :title="locale.title" :sub-title="locale.desc">
     <template #extra>
-      <el-button @click="goHome">{{ locale['button-title'] }}</el-button>
+      <eh-button @click="goHome">{{ locale['button-title'] }}</eh-button>
     </template>
-  </el-result>
+  </eh-result>
 </template>
 
 <style scoped>

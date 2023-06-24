@@ -1,28 +1,12 @@
 <template>
   <div :class="switchKls" :style="styles" @click.prevent="switchValue">
-    <input
-      :id="inputId"
-      ref="input"
-      :class="ns.e('input')"
-      type="checkbox"
-      role="switch"
-      :aria-checked="checked"
-      :aria-disabled="switchDisabled"
-      :name="name"
-      :true-value="activeValue"
-      :false-value="inactiveValue"
-      :disabled="switchDisabled"
-      :tabindex="tabindex"
-      @change="handleChange"
-      @keydown.enter="switchValue"
-    />
-    <span
-      v-if="!inlinePrompt && (inactiveIcon || inactiveText)"
-      :class="labelLeftKls"
-    >
-      <el-icon v-if="inactiveIcon">
+    <input :id="inputId" ref="input" :class="ns.e('input')" type="checkbox" role="switch" :aria-checked="checked"
+      :aria-disabled="switchDisabled" :name="name" :true-value="activeValue" :false-value="inactiveValue"
+      :disabled="switchDisabled" :tabindex="tabindex" @change="handleChange" @keydown.enter="switchValue" />
+    <span v-if="!inlinePrompt && (inactiveIcon || inactiveText)" :class="labelLeftKls">
+      <eh-icon v-if="inactiveIcon">
         <component :is="inactiveIcon" />
-      </el-icon>
+      </eh-icon>
       <span v-if="!inactiveIcon && inactiveText" :aria-hidden="checked">{{
         inactiveText
       }}</span>
@@ -30,9 +14,9 @@
     <span ref="core" :class="ns.e('core')" :style="coreStyle">
       <div v-if="inlinePrompt" :class="ns.e('inner')">
         <template v-if="activeIcon || inactiveIcon">
-          <el-icon :class="ns.is('icon')">
+          <eh-icon :class="ns.is('icon')">
             <component :is="checked ? activeIcon : inactiveIcon" />
-          </el-icon>
+          </eh-icon>
         </template>
         <template v-else-if="activeText || inactiveText">
           <span :class="ns.is('text')" :aria-hidden="!checked">
@@ -41,18 +25,15 @@
         </template>
       </div>
       <div :class="ns.e('action')">
-        <el-icon v-if="loading" :class="ns.is('loading')">
+        <eh-icon v-if="loading" :class="ns.is('loading')">
           <loading />
-        </el-icon>
+        </eh-icon>
       </div>
     </span>
-    <span
-      v-if="!inlinePrompt && (activeIcon || activeText)"
-      :class="labelRightKls"
-    >
-      <el-icon v-if="activeIcon">
+    <span v-if="!inlinePrompt && (activeIcon || activeText)" :class="labelRightKls">
+      <eh-icon v-if="activeIcon">
         <component :is="activeIcon" />
-      </el-icon>
+      </eh-icon>
       <span v-if="!activeIcon && activeText" :aria-hidden="!checked">{{
         activeText
       }}</span>

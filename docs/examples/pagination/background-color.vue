@@ -1,3 +1,3 @@
 <template>
-  <el-pagination background layout="prev, pager, next" :total="1000" />
+  <eh-pagination background layout="prev, pager, next" :total="1000" />
 </template>

@@ -37,7 +37,7 @@ const copyContent = async (content) => {
 
 const copySvgIcon = async (name, refs) => {
   if (copyIcon.value) {
-    await copyContent(`<el-icon><${name} /></el-icon>`)
+    await copyContent(`<eh-icon><${name} /></eh-icon>`)
   } else {
     const content = refs[name]?.[0].querySelector('svg')?.outerHTML ?? ''
     await copyContent(content)
@@ -67,22 +67,13 @@ categories.value.push({ name: 'Other', icons: Array.from(iconMap.values()) })
 
 <template>
   <div style="text-align: right">
-    <el-switch
-      v-model="copyIcon"
-      active-text="Copy icon code"
-      inactive-text="Copy SVG content"
-    />
+    <eh-switch v-model="copyIcon" active-text="Copy icon code" inactive-text="Copy SVG content" />
   </div>
   <div v-for="item in categories" :key="item.name" class="demo-icon-item">
     <div class="demo-icon-title">{{ item.name }}</div>
     <ul class="demo-icon-list">
-      <li
-        v-for="component in item.icons"
-        :key="component.name"
-        :ref="component.name"
-        class="icon-item"
-        @click="copySvgIcon(component.name, $refs)"
-      >
+      <li v-for="component in item.icons" :key="component.name" :ref="component.name" class="icon-item"
+        @click="copySvgIcon(component.name, $refs)">
         <span class="demo-svg-icon">
           <ElIcon :size="20">
             <component :is="component" />

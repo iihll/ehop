@@ -1,26 +1,15 @@
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="data"
-    :row-height="40"
-    :width="700"
-    :height="400"
-    :footer-height="50"
-    fixed
-  >
+  <eh-table-v2 :columns="columns" :data="data" :row-height="40" :width="700" :height="400" :footer-height="50" fixed>
     <template #footer>
-      <div
-        class="flex items-center"
-        style="
+      <div class="flex items-center" style="
           justify-content: center;
           height: 100%;
           background-color: var(--eh-color-primary-light-7);
-        "
-      >
+        ">
         Display a message in the footer
       </div>
     </template>
-  </el-table-v2>
+  </eh-table-v2>
 </template>
 
 <script lang="ts" setup>

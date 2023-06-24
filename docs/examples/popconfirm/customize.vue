@@ -1,16 +1,10 @@
 <template>
-  <el-popconfirm
-    width="220"
-    confirm-button-text="OK"
-    cancel-button-text="No, Thanks"
-    :icon="InfoFilled"
-    icon-color="#626AEF"
-    title="Are you sure to delete this?"
-  >
+  <eh-popconfirm width="220" confirm-button-text="OK" cancel-button-text="No, Thanks" :icon="InfoFilled"
+    icon-color="#626AEF" title="Are you sure to delete this?">
     <template #reference>
-      <el-button>Delete</el-button>
+      <eh-button>Delete</eh-button>
     </template>
-  </el-popconfirm>
+  </eh-popconfirm>
 </template>
 
 <script setup lang="ts">

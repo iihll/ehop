@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-config-provider :message="config">
-      <el-button @click="open">OPEN</el-button>
-    </el-config-provider>
+    <eh-config-provider :message="config">
+      <eh-button @click="open">OPEN</eh-button>
+    </eh-config-provider>
   </div>
 </template>
 

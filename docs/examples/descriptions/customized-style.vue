@@ -1,28 +1,16 @@
 <template>
-  <el-descriptions title="Customized style list" :column="3" border>
-    <el-descriptions-item
-      label="Username"
-      label-align="right"
-      align="center"
-      label-class-name="my-label"
-      class-name="my-content"
-      width="150px"
-      >kooriookami</el-descriptions-item
-    >
-    <el-descriptions-item label="Telephone" label-align="right" align="center"
-      >18100000000</el-descriptions-item
-    >
-    <el-descriptions-item label="Place" label-align="right" align="center"
-      >Suzhou</el-descriptions-item
-    >
-    <el-descriptions-item label="Remarks" label-align="right" align="center">
-      <el-tag size="small">School</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item label="Address" label-align="right" align="center"
-      >No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu
-      Province</el-descriptions-item
-    >
-  </el-descriptions>
+  <eh-descriptions title="Customized style list" :column="3" border>
+    <eh-descriptions-item label="Username" label-align="right" align="center" label-class-name="my-label"
+      class-name="my-content" width="150px">kooriookami</eh-descriptions-item>
+    <eh-descriptions-item label="Telephone" label-align="right" align="center">18100000000</eh-descriptions-item>
+    <eh-descriptions-item label="Place" label-align="right" align="center">Suzhou</eh-descriptions-item>
+    <eh-descriptions-item label="Remarks" label-align="right" align="center">
+      <eh-tag size="small">School</eh-tag>
+    </eh-descriptions-item>
+    <eh-descriptions-item label="Address" label-align="right" align="center">No.1188, Wuzhong Avenue, Wuzhong District,
+      Suzhou, Jiangsu
+      Province</eh-descriptions-item>
+  </eh-descriptions>
 </template>
 <style scoped>
 .my-label {

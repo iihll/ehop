@@ -110,7 +110,7 @@ const createTree = (
     ''
   const wrapper = _mount(
     `
-      <el-tree
+      <eh-tree
         ref="tree"
         :data="data"
         :empty-text="emptyText"
@@ -133,7 +133,7 @@ const createTree = (
         @check="onNodeCheck"
         @current-change="onCurrentChange"
         @node-contextmenu="onNodeContextMenu"
-      >${defaultSlot}</el-tree>
+      >${defaultSlot}</eh-tree>
     `,
     {
       data() {

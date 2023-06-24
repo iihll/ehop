@@ -1,24 +1,17 @@
 <template>
-  <el-table :data="filterTableData" style="width: 100%">
-    <el-table-column label="Date" prop="date" />
-    <el-table-column label="Name" prop="name" />
-    <el-table-column align="right">
+  <eh-table :data="filterTableData" style="width: 100%">
+    <eh-table-column label="Date" prop="date" />
+    <eh-table-column label="Name" prop="name" />
+    <eh-table-column align="right">
       <template #header>
-        <el-input v-model="search" size="small" placeholder="Type to search" />
+        <eh-input v-model="search" size="small" placeholder="Type to search" />
       </template>
       <template #default="scope">
-        <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button
-        >
-        <el-button
-          size="small"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button
-        >
+        <eh-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</eh-button>
+        <eh-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</eh-button>
       </template>
-    </el-table-column>
-  </el-table>
+    </eh-table-column>
+  </eh-table>
 </template>
 
 <script lang="ts" setup>

@@ -20,7 +20,7 @@ export const obtainAllFocusableElements = (
   const nodes: HTMLElement[] = []
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, {
     acceptNode: (
-      node: Ehement & {
+      node: Element & {
         disabled: boolean
         hidden: boolean
         type: string

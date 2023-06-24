@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-button @click="show = !show">Click Me</el-button>
+    <eh-button @click="show = !show">Click Me</eh-button>
 
     <div style="margin-top: 20px; height: 200px">
-      <el-collapse-transition>
+      <eh-collapse-transition>
         <div v-show="show">
           <div class="transition-box">el-collapse-transition</div>
           <div class="transition-box">el-collapse-transition</div>
         </div>
-      </el-collapse-transition>
+      </eh-collapse-transition>
     </div>
   </div>
 </template>

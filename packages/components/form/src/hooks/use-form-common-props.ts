@@ -2,7 +2,7 @@ import { computed, inject, ref, unref } from 'vue'
 import { useGlobalSize, useProp } from '@ehop/hooks'
 import { formContextKey, formItemContextKey } from '../constants'
 
-import type { ComponentSize } from '@ehopts'
+import type { ComponentSize } from '@ehop/constants'
 import type { MaybeRef } from '@vueuse/core'
 
 export const useFormSize = (

@@ -1,36 +1,18 @@
 <template>
-  <el-scrollbar
-    :key="menuId"
-    tag="ul"
-    role="menu"
-    :class="ns.b()"
-    :wrap-class="ns.e('wrap')"
-    :view-class="[ns.e('list'), ns.is('empty', isEmpty)]"
-    @mousemove="handleMouseMove"
-    @mouseleave="clearHoverZone"
-  >
-    <el-cascader-node
-      v-for="node in nodes"
-      :key="node.uid"
-      :node="node"
-      :menu-id="menuId"
-      @expand="handleExpand"
-    />
+  <eh-scrollbar :key="menuId" tag="ul" role="menu" :class="ns.b()" :wrap-class="ns.e('wrap')"
+    :view-class="[ns.e('list'), ns.is('empty', isEmpty)]" @mousemove="handleMouseMove" @mouseleave="clearHoverZone">
+    <eh-cascader-node v-for="node in nodes" :key="node.uid" :node="node" :menu-id="menuId" @expand="handleExpand" />
     <div v-if="isLoading" :class="ns.e('empty-text')">
-      <el-icon size="14" :class="ns.is('loading')">
+      <eh-icon size="14" :class="ns.is('loading')">
         <loading />
-      </el-icon>
+      </eh-icon>
       {{ t('eh.cascader.loading') }}
     </div>
     <div v-else-if="isEmpty" :class="ns.e('empty-text')">
       {{ t('eh.cascader.noData') }}
     </div>
-    <svg
-      v-else-if="panel?.isHoverMenu"
-      ref="hoverZone"
-      :class="ns.e('hover-zone')"
-    />
-  </el-scrollbar>
+    <svg v-else-if="panel?.isHoverMenu" ref="hoverZone" :class="ns.e('hover-zone')" />
+  </eh-scrollbar>
 </template>
 
 <script lang="ts">

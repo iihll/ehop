@@ -1,11 +1,11 @@
 <template>
-  <el-button @click="add">Add Item</el-button>
-  <el-button @click="onDelete">Delete Item</el-button>
-  <el-scrollbar max-height="400px">
+  <eh-button @click="add">Add Item</eh-button>
+  <eh-button @click="onDelete">Delete Item</eh-button>
+  <eh-scrollbar max-height="400px">
     <p v-for="item in count" :key="item" class="scrollbar-demo-item">
       {{ item }}
     </p>
-  </el-scrollbar>
+  </eh-scrollbar>
 </template>
 
 <script lang="ts" setup>

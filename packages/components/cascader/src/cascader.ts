@@ -1,13 +1,13 @@
 import { CommonProps } from '@ehop/components/cascader-panel'
 import { buildProps, definePropType, isBoolean } from '@ehop
 import { useSizeProp } from '@ehop
-import { useTooltipContentProps } from '@ehopnts/tooltip'
-import { tagProps } from '@ehopnts/tag'
-import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehopts'
+import { useTooltipContentProps } from '@ehop/components/tooltip'
+import { tagProps } from '@ehop/components/tag'
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 import type {
   CascaderNode,
   CascaderValue,
-} from '@ehopnts/cascader-panel'
+} from '@ehop/components/cascader-panel'
 
 export const cascaderProps = buildProps({
   ...CommonProps,

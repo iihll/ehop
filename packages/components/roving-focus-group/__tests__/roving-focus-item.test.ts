@@ -72,15 +72,15 @@ describe('<EhRovingFocusItem />', () => {
     mount(
       {
         template: `<div>
-        <el-roving-focus-item v-bind="$attrs">
+        <eh-roving-focus-item v-bind="$attrs">
           <focus-item />
-        </el-roving-focus-item>
-        <el-roving-focus-item v-bind="$attrs">
+        </eh-roving-focus-item>
+        <eh-roving-focus-item v-bind="$attrs">
           <focus-item />
-        </el-roving-focus-item>
-        <el-roving-focus-item v-bind="$attrs">
+        </eh-roving-focus-item>
+        <eh-roving-focus-item v-bind="$attrs">
           <focus-item />
-        </el-roving-focus-item>
+        </eh-roving-focus-item>
       </div>`,
         components: {
           EhRovingFocusItem,

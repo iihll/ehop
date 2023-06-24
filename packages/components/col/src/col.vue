@@ -8,7 +8,7 @@
 import { computed, inject } from 'vue'
 import { isNumber, isObject } from '@ehop/utils'
 import { useNamespace } from '@ehop
-import { rowContextKey } from '@ehopnts/row'
+import { rowContextKey } from '@ehop/components/row'
 import { colProps } from './col'
 import type { CSSProperties } from 'vue'
 

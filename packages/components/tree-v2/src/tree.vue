@@ -1,34 +1,13 @@
 <template>
-  <div
-    :class="[ns.b(), { [ns.m('highlight-current')]: highlightCurrent }]"
-    role="tree"
-  >
-    <fixed-size-list
-      v-if="isNotEmpty"
-      :class-name="ns.b('virtual-list')"
-      :data="flattenTree"
-      :total="flattenTree.length"
-      :height="height"
-      :item-size="treeNodeSize"
-      :perf-mode="perfMode"
-    >
+  <div :class="[ns.b(), { [ns.m('highlight-current')]: highlightCurrent }]" role="tree">
+    <fixed-size-list v-if="isNotEmpty" :class-name="ns.b('virtual-list')" :data="flattenTree" :total="flattenTree.length"
+      :height="height" :item-size="treeNodeSize" :perf-mode="perfMode">
       <template #default="{ data, index, style }">
-        <el-tree-node
-          :key="data[index].key"
-          :style="style"
-          :node="data[index]"
-          :expanded="isExpanded(data[index])"
-          :show-checkbox="showCheckbox"
-          :checked="isChecked(data[index])"
-          :indeterminate="isIndeterminate(data[index])"
-          :item-size="treeNodeSize"
-          :disabled="isDisabled(data[index])"
-          :current="isCurrent(data[index])"
-          :hidden-expand-icon="isForceHiddenExpandIcon(data[index])"
-          @click="handleNodeClick"
-          @toggle="toggleExpand"
-          @check="handleNodeCheck"
-        />
+        <eh-tree-node :key="data[index].key" :style="style" :node="data[index]" :expanded="isExpanded(data[index])"
+          :show-checkbox="showCheckbox" :checked="isChecked(data[index])" :indeterminate="isIndeterminate(data[index])"
+          :item-size="treeNodeSize" :disabled="isDisabled(data[index])" :current="isCurrent(data[index])"
+          :hidden-expand-icon="isForceHiddenExpandIcon(data[index])" @click="handleNodeClick" @toggle="toggleExpand"
+          @check="handleNodeCheck" />
       </template>
     </fixed-size-list>
     <div v-else :class="ns.e('empty-block')">

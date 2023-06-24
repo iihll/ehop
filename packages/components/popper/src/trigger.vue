@@ -1,5 +1,5 @@
 <template>
-  <el-only-child
+  <eh-only-child
     v-if="!virtualTriggering"
     v-bind="$attrs"
     :aria-controls="ariaControls"
@@ -8,7 +8,7 @@
     :aria-haspopup="ariaHaspopup"
   >
     <slot />
-  </el-only-child>
+  </eh-only-child>
 </template>
 
 <script lang="ts" setup>
@@ -77,7 +77,7 @@ onMounted(() => {
       virtualTriggerAriaStopWatch?.()
       virtualTriggerAriaStopWatch = undefined
       if (isElement(el)) {
-        ;(
+        (
           [
             'onMouseenter',
             'onMouseleave',
@@ -90,7 +90,7 @@ onMounted(() => {
         ).forEach((eventName) => {
           const handler = props[eventName]
           if (handler) {
-            ;(el as HTMLElement).addEventListener(
+            (el as HTMLElement).addEventListener(
               eventName.slice(2).toLowerCase(),
               handler
             )
@@ -103,7 +103,7 @@ onMounted(() => {
         virtualTriggerAriaStopWatch = watch(
           [ariaControls, ariaDescribedby, ariaHaspopup, ariaExpanded],
           (watches) => {
-            ;[
+            [
               'aria-controls',
               'aria-describedby',
               'aria-haspopup',
@@ -118,7 +118,7 @@ onMounted(() => {
         )
       }
       if (isElement(prevEl)) {
-        ;[
+        [
           'aria-controls',
           'aria-describedby',
           'aria-haspopup',

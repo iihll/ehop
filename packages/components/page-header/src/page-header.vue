@@ -1,6 +1,9 @@
 <template>
   <div :class="kls">
-    <div v-if="$slots.breadcrumb" :class="ns.e('breadcrumb')">
+    <div
+      v-if="$slots.breadcrumb"
+      :class="ns.e('breadcrumb')"
+    >
       <slot name="breadcrumb" />
     </div>
     <div :class="ns.e('header')">
@@ -17,27 +20,37 @@
             :class="ns.e('icon')"
           >
             <slot name="icon">
-              <el-icon v-if="icon">
+              <eh-icon v-if="icon">
                 <component :is="icon" />
-              </el-icon>
+              </eh-icon>
             </slot>
           </div>
           <div :class="ns.e('title')">
-            <slot name="title">{{ title || t('eh.pageHeader.title') }}</slot>
+            <slot name="title">
+              {{ title || t('eh.pageHeader.title') }}
+            </slot>
           </div>
         </div>
-        <el-divider direction="vertical" />
+        <eh-divider direction="vertical" />
         <div :class="ns.e('content')">
-          <slot name="content">{{ content }}</slot>
+          <slot name="content">
+            {{ content }}
+          </slot>
         </div>
       </div>
 
-      <div v-if="$slots.extra" :class="ns.e('extra')">
+      <div
+        v-if="$slots.extra"
+        :class="ns.e('extra')"
+      >
         <slot name="extra" />
       </div>
     </div>
 
-    <div v-if="$slots.default" :class="ns.e('main')">
+    <div
+      v-if="$slots.default"
+      :class="ns.e('main')"
+    >
       <slot />
     </div>
   </div>

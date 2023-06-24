@@ -1,17 +1,11 @@
 <template>
   <div style="height: 400px">
-    <el-auto-resizer>
+    <eh-auto-resizer>
       <template #default="{ height, width }">
-        <el-table-v2
-          :columns="columns"
-          :cell-props="cellProps"
-          :class="kls"
-          :data="data"
-          :width="width"
-          :height="height"
-        />
+        <eh-table-v2 :columns="columns" :cell-props="cellProps" :class="kls" :data="data" :width="width"
+          :height="height" />
       </template>
-    </el-auto-resizer>
+    </eh-auto-resizer>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <el-tree-v2 :data="data" :props="props" show-checkbox :height="208" />
+  <eh-tree-v2 :data="data" :props="props" show-checkbox :height="208" />
 </template>
 <script lang="ts" setup>
 interface Tree {

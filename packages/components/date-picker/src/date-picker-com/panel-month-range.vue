@@ -18,13 +18,13 @@
         <div :class="[ppNs.e('content'), drpNs.e('content')]" class="is-left">
           <div :class="drpNs.e('header')">
             <button type="button" :class="ppNs.e('icon-btn')" class="d-arrow-left" @click="leftPrevYear">
-              <el-icon><d-arrow-left /></el-icon>
+              <eh-icon><d-arrow-left /></eh-icon>
             </button>
             <button v-if="unlinkPanels" type="button" :disabled="!enableYearArrow" :class="[
               ppNs.e('icon-btn'),
               { [ppNs.is('disabled')]: !enableYearArrow },
             ]" class="d-arrow-right" @click="leftNextYear">
-              <el-icon><d-arrow-right /></el-icon>
+              <eh-icon><d-arrow-right /></eh-icon>
             </button>
             <div>{{ leftLabel }}</div>
           </div>
@@ -37,10 +37,10 @@
             <button v-if="unlinkPanels" type="button" :disabled="!enableYearArrow"
               :class="[ppNs.e('icon-btn'), { 'is-disabled': !enableYearArrow }]" class="d-arrow-left"
               @click="rightPrevYear">
-              <el-icon><d-arrow-left /></el-icon>
+              <eh-icon><d-arrow-left /></eh-icon>
             </button>
             <button type="button" :class="ppNs.e('icon-btn')" class="d-arrow-right" @click="rightNextYear">
-              <el-icon><d-arrow-right /></el-icon>
+              <eh-icon><d-arrow-right /></eh-icon>
             </button>
             <div>{{ rightLabel }}</div>
           </div>

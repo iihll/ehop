@@ -1,26 +1,21 @@
 <template>
-  <el-button text @click="outerVisible = true">
+  <eh-button text @click="outerVisible = true">
     open the outer Dialog
-  </el-button>
+  </eh-button>
 
-  <el-dialog v-model="outerVisible" title="Outer Dialog">
+  <eh-dialog v-model="outerVisible" title="Outer Dialog">
     <template #default>
-      <el-dialog
-        v-model="innerVisible"
-        width="30%"
-        title="Inner Dialog"
-        append-to-body
-      />
+      <eh-dialog v-model="innerVisible" width="30%" title="Inner Dialog" append-to-body />
     </template>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="outerVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="innerVisible = true">
+        <eh-button @click="outerVisible = false">Cancel</eh-button>
+        <eh-button type="primary" @click="innerVisible = true">
           open the inner Dialog
-        </el-button>
+        </eh-button>
       </div>
     </template>
-  </el-dialog>
+  </eh-dialog>
 </template>
 
 <script lang="ts" setup>

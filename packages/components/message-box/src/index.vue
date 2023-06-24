@@ -1,6 +1,9 @@
 <template>
-  <transition name="fade-in-linear" @after-leave="$emit('vanish')">
-    <el-overlay
+  <transition
+    name="fade-in-linear"
+    @after-leave="$emit('vanish')"
+  >
+    <eh-overlay
       v-show="visible"
       :z-index="zIndex"
       :overlay-class="[ns.is('message-box'), modalClass]"
@@ -16,7 +19,7 @@
         @mousedown="overlayEvent.onMousedown"
         @mouseup="overlayEvent.onMouseup"
       >
-        <el-focus-trap
+        <eh-focus-trap
           loop
           :trapped="visible"
           :focus-trap-el="rootRef"
@@ -41,12 +44,12 @@
               :class="ns.e('header')"
             >
               <div :class="ns.e('title')">
-                <el-icon
+                <eh-icon
                   v-if="iconComponent && center"
                   :class="[ns.e('status'), typeClass]"
                 >
                   <component :is="iconComponent" />
-                </el-icon>
+                </eh-icon>
                 <span>{{ title }}</span>
               </div>
               <button
@@ -61,20 +64,26 @@
                   handleAction(distinguishCancelAndClose ? 'close' : 'cancel')
                 "
               >
-                <el-icon :class="ns.e('close')">
+                <eh-icon :class="ns.e('close')">
                   <close />
-                </el-icon>
+                </eh-icon>
               </button>
             </div>
-            <div :id="contentId" :class="ns.e('content')">
+            <div
+              :id="contentId"
+              :class="ns.e('content')"
+            >
               <div :class="ns.e('container')">
-                <el-icon
+                <eh-icon
                   v-if="iconComponent && !center && hasMessage"
                   :class="[ns.e('status'), typeClass]"
                 >
                   <component :is="iconComponent" />
-                </el-icon>
-                <div v-if="hasMessage" :class="ns.e('message')">
+                </eh-icon>
+                <div
+                  v-if="hasMessage"
+                  :class="ns.e('message')"
+                >
                   <slot>
                     <component
                       :is="showInput ? 'label' : 'p'"
@@ -92,8 +101,11 @@
                   </slot>
                 </div>
               </div>
-              <div v-show="showInput" :class="ns.e('input')">
-                <el-input
+              <div
+                v-show="showInput"
+                :class="ns.e('input')"
+              >
+                <eh-input
                   :id="inputId"
                   ref="inputRef"
                   v-model="inputValue"
@@ -114,7 +126,7 @@
               </div>
             </div>
             <div :class="ns.e('btns')">
-              <el-button
+              <eh-button
                 v-if="showCancelButton"
                 :loading="cancelButtonLoading"
                 :class="[cancelButtonClass]"
@@ -124,8 +136,8 @@
                 @keydown.prevent.enter="handleAction('cancel')"
               >
                 {{ cancelButtonText || t('eh.messagebox.cancel') }}
-              </el-button>
-              <el-button
+              </eh-button>
+              <eh-button
                 v-show="showConfirmButton"
                 ref="confirmRef"
                 type="primary"
@@ -138,12 +150,12 @@
                 @keydown.prevent.enter="handleAction('confirm')"
               >
                 {{ confirmButtonText || t('eh.messagebox.confirm') }}
-              </el-button>
+              </eh-button>
             </div>
           </div>
-        </el-focus-trap>
+        </eh-focus-trap>
       </div>
-    </el-overlay>
+    </eh-overlay>
   </transition>
 </template>
 <script lang="ts">

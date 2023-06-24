@@ -1,24 +1,24 @@
 <template>
-  <el-space direction="vertical">
-    <el-text>
-      <el-icon>
+  <eh-space direction="vertical">
+    <eh-text>
+      <eh-icon>
         <ElementPlus />
-      </el-icon>
+      </eh-icon>
       ehop
-    </el-text>
-    <el-row>
-      <el-text>Rate</el-text>
-      <el-rate class="ml-1" />
-    </el-row>
-    <el-text>
+    </eh-text>
+    <eh-row>
+      <eh-text>Rate</eh-text>
+      <eh-rate class="ml-1" />
+    </eh-row>
+    <eh-text>
       This is text mixed icon
-      <el-icon>
+      <eh-icon>
         <Bell />
-      </el-icon>
+      </eh-icon>
       and component
-      <el-button>Button</el-button>
-    </el-text>
-  </el-space>
+      <eh-button>Button</eh-button>
+    </eh-text>
+  </eh-space>
 </template>
 
 <script lang="ts" setup>

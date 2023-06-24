@@ -1,16 +1,10 @@
 <template>
-  <button
-    type="button"
-    class="btn-prev"
-    :disabled="internalDisabled"
-    :aria-label="prevText || t('eh.pagination.prev')"
-    :aria-disabled="internalDisabled"
-    @click="$emit('click', $event)"
-  >
+  <button type="button" class="btn-prev" :disabled="internalDisabled" :aria-label="prevText || t('eh.pagination.prev')"
+    :aria-disabled="internalDisabled" @click="$emit('click', $event)">
     <span v-if="prevText">{{ prevText }}</span>
-    <el-icon v-else>
+    <eh-icon v-else>
       <component :is="prevIcon" />
-    </el-icon>
+    </eh-icon>
   </button>
 </template>
 

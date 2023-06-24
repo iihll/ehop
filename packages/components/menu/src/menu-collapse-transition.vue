@@ -1,5 +1,8 @@
 <template>
-  <transition mode="out-in" v-bind="listeners">
+  <transition
+    mode="out-in"
+    v-bind="listeners"
+  >
     <slot />
   </transition>
 </template>
@@ -29,7 +32,7 @@ export default defineComponent({
 
       onBeforeLeave(el) {
         if (!el.dataset) {
-          ;(el as any).dataset = {}
+          (el as any).dataset = {}
         }
 
         if (hasClass(el, ns.m('collapse'))) {

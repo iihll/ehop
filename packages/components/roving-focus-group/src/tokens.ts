@@ -27,7 +27,7 @@ export type RovingFocusGroupItemInjectionContext = {
 }
 
 export const ROVING_FOCUS_GROUP_INJECTION_KEY: InjectionKey<RovingGroupInjectionContext> =
-  Symbol('elRovingFocusGroup')
+  Symbol('ehRovingFocusGroup')
 
 export const ROVING_FOCUS_GROUP_ITEM_INJECTION_KEY: InjectionKey<RovingFocusGroupItemInjectionContext> =
-  Symbol('elRovingFocusGroupItem')
+  Symbol('ehRovingFocusGroupItem')

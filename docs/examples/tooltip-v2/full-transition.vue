@@ -1,12 +1,12 @@
 <template>
-  <el-tooltip-v2 full-transition :transition-props="transitionProps">
+  <eh-tooltip-v2 full-transition :transition-props="transitionProps">
     <template #trigger>
-      <el-button circle
-        ><el-icon> <Plus /> </el-icon
-      ></el-button>
+      <eh-button circle><eh-icon>
+          <Plus />
+        </eh-icon></eh-button>
     </template>
     <div>content</div>
-  </el-tooltip-v2>
+  </eh-tooltip-v2>
 </template>
 
 <script setup lang="ts">

@@ -1,9 +1,9 @@
 import { computed, inject, unref } from 'vue'
-import { componentSizes } from '@ehopts'
+import { componentSizes } from '@ehop/constants'
 import { buildProp } from '@ehop/utils'
 
 import type { InjectionKey, Ref } from 'vue'
-import type { ComponentSize } from '@ehopts'
+import type { ComponentSize } from '@ehop/constants'
 
 export const useSizeProp = buildProp({
   type: String,

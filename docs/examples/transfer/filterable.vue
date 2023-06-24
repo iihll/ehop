@@ -1,11 +1,6 @@
 <template>
-  <el-transfer
-    v-model="value"
-    filterable
-    :filter-method="filterMethod"
-    filter-placeholder="State Abbreviations"
-    :data="data"
-  />
+  <eh-transfer v-model="value" filterable :filter-method="filterMethod" filter-placeholder="State Abbreviations"
+    :data="data" />
 </template>
 
 <script lang="ts" setup>

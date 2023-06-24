@@ -17,7 +17,7 @@ import {
   mutable,
 } from '@ehop/utils'
 import { useLocale, useNamespace } from '@ehop/hooks'
-import { elPaginationKey } from './constants'
+import { ehPaginationKey } from './constants'
 
 import Prev from './components/prev.vue'
 import Next from './components/next.vue'
@@ -189,7 +189,7 @@ export default defineComponent({
     const assertValidUsage = computed(() => {
       // Users have to set either one, otherwise count of pages cannot be determined
       if (isAbsent(props.total) && isAbsent(props.pageCount)) return false
-      // <el-pagination ...otherProps :current-page="xxx" /> without corresponding listener is forbidden now
+      // <eh-pagination ...otherProps :current-page="xxx" /> without corresponding listener is forbidden now
       // Users have to use two way binding of `currentPage`
       // If users just want to provide a default value, `defaultCurrentPage` is here for you
       if (!isAbsent(props.currentPage) && !hasCurrentPageListener) return false
@@ -313,7 +313,7 @@ export default defineComponent({
       }
     }
 
-    provide(elPaginationKey, {
+    provide(ehPaginationKey, {
       pageCount: pageCountBridge,
       disabled: computed(() => props.disabled),
       currentPage: currentPageBridge,

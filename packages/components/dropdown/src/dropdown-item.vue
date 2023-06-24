@@ -1,12 +1,19 @@
 <template>
-  <el-dropdown-collection-item :disabled="disabled" :text-value="textValue ?? textContent">
-    <el-roving-focus-item :focusable="!disabled">
-      <el-dropdown-item-impl v-bind="propsAndAttrs" @pointerleave="handlePointerLeave" @pointermove="handlePointerMove"
-        @clickimpl="handleClick">
+  <eh-dropdown-collection-item
+    :disabled="disabled"
+    :text-value="textValue ?? textContent"
+  >
+    <eh-roving-focus-item :focusable="!disabled">
+      <eh-dropdown-item-impl
+        v-bind="propsAndAttrs"
+        @pointerleave="handlePointerLeave"
+        @pointermove="handlePointerMove"
+        @clickimpl="handleClick"
+      >
         <slot />
-      </el-dropdown-item-impl>
-    </el-roving-focus-item>
-  </el-dropdown-collection-item>
+      </eh-dropdown-item-impl>
+    </eh-roving-focus-item>
+  </eh-dropdown-collection-item>
 </template>
 <script lang="ts">
 import {
@@ -18,7 +25,7 @@ import {
   unref,
 } from 'vue'
 import { EhRovingFocusItem } from '@ehop/components/roving-focus-group'
-import { composeEventHandlers, whenMouse } from '@ehop
+import { composeEventHandlers, whenMouse } from '@ehop/utils'
 import EhDropdownItemImpl from './dropdown-item-impl.vue'
 import { useDropdown } from './useDropdown'
 import {

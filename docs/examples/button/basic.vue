@@ -1,39 +1,39 @@
 <template>
-  <el-row class="mb-4">
-    <el-button>Default</el-button>
-    <el-button type="primary">Primary</el-button>
-    <el-button type="success">Success</el-button>
-    <el-button type="info">Info</el-button>
-    <el-button type="warning">Warning</el-button>
-    <el-button type="danger">Danger</el-button>
-  </el-row>
+  <eh-row class="mb-4">
+    <eh-button>Default</eh-button>
+    <eh-button type="primary">Primary</eh-button>
+    <eh-button type="success">Success</eh-button>
+    <eh-button type="info">Info</eh-button>
+    <eh-button type="warning">Warning</eh-button>
+    <eh-button type="danger">Danger</eh-button>
+  </eh-row>
 
-  <el-row class="mb-4">
-    <el-button plain>Plain</el-button>
-    <el-button type="primary" plain>Primary</el-button>
-    <el-button type="success" plain>Success</el-button>
-    <el-button type="info" plain>Info</el-button>
-    <el-button type="warning" plain>Warning</el-button>
-    <el-button type="danger" plain>Danger</el-button>
-  </el-row>
+  <eh-row class="mb-4">
+    <eh-button plain>Plain</eh-button>
+    <eh-button type="primary" plain>Primary</eh-button>
+    <eh-button type="success" plain>Success</eh-button>
+    <eh-button type="info" plain>Info</eh-button>
+    <eh-button type="warning" plain>Warning</eh-button>
+    <eh-button type="danger" plain>Danger</eh-button>
+  </eh-row>
 
-  <el-row class="mb-4">
-    <el-button round>Round</el-button>
-    <el-button type="primary" round>Primary</el-button>
-    <el-button type="success" round>Success</el-button>
-    <el-button type="info" round>Info</el-button>
-    <el-button type="warning" round>Warning</el-button>
-    <el-button type="danger" round>Danger</el-button>
-  </el-row>
+  <eh-row class="mb-4">
+    <eh-button round>Round</eh-button>
+    <eh-button type="primary" round>Primary</eh-button>
+    <eh-button type="success" round>Success</eh-button>
+    <eh-button type="info" round>Info</eh-button>
+    <eh-button type="warning" round>Warning</eh-button>
+    <eh-button type="danger" round>Danger</eh-button>
+  </eh-row>
 
-  <el-row>
-    <el-button :icon="Search" circle />
-    <el-button type="primary" :icon="Edit" circle />
-    <el-button type="success" :icon="Check" circle />
-    <el-button type="info" :icon="Message" circle />
-    <el-button type="warning" :icon="Star" circle />
-    <el-button type="danger" :icon="Delete" circle />
-  </el-row>
+  <eh-row>
+    <eh-button :icon="Search" circle />
+    <eh-button type="primary" :icon="Edit" circle />
+    <eh-button type="success" :icon="Check" circle />
+    <eh-button type="info" :icon="Message" circle />
+    <eh-button type="warning" :icon="Star" circle />
+    <eh-button type="danger" :icon="Delete" circle />
+  </eh-row>
 </template>
 
 <script lang="ts" setup>

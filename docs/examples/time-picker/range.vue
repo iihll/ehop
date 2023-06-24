@@ -1,20 +1,9 @@
 <template>
   <div class="demo-range">
-    <el-time-picker
-      v-model="value1"
-      is-range
-      range-separator="To"
-      start-placeholder="Start time"
-      end-placeholder="End time"
-    />
-    <el-time-picker
-      v-model="value2"
-      is-range
-      arrow-control
-      range-separator="To"
-      start-placeholder="Start time"
-      end-placeholder="End time"
-    />
+    <eh-time-picker v-model="value1" is-range range-separator="To" start-placeholder="Start time"
+      end-placeholder="End time" />
+    <eh-time-picker v-model="value2" is-range arrow-control range-separator="To" start-placeholder="Start time"
+      end-placeholder="End time" />
   </div>
 </template>
 

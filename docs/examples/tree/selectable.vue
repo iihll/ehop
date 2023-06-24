@@ -1,11 +1,5 @@
 <template>
-  <el-tree
-    :props="props"
-    :load="loadNode"
-    lazy
-    show-checkbox
-    @check-change="handleCheckChange"
-  />
+  <eh-tree :props="props" :load="loadNode" lazy show-checkbox @check-change="handleCheckChange" />
 </template>
 
 <script lang="ts" setup>

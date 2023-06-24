@@ -83,9 +83,9 @@ export default class TreeStore {
         allHidden = !childNodes.some((child) => child.visible)
 
         if ((node as TreeStore).root) {
-          ;(node as TreeStore).root.visible = allHidden === false
+          (node as TreeStore).root.visible = allHidden === false
         } else {
-          ;(node as Node).visible = allHidden === false
+          (node as Node).visible = allHidden === false
         }
       }
       if (!value) return

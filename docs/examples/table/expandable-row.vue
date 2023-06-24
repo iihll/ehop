@@ -1,8 +1,8 @@
 <template>
-  switch parent border: <el-switch v-model="parentBorder" /> switch child
-  border: <el-switch v-model="childBorder" />
-  <el-table :data="tableData" :border="parentBorder" style="width: 100%">
-    <el-table-column type="expand">
+  switch parent border: <eh-switch v-model="parentBorder" /> switch child
+  border: <eh-switch v-model="childBorder" />
+  <eh-table :data="tableData" :border="parentBorder" style="width: 100%">
+    <eh-table-column type="expand">
       <template #default="props">
         <div m="4">
           <p m="t-0 b-2">State: {{ props.row.state }}</p>
@@ -10,19 +10,19 @@
           <p m="t-0 b-2">Address: {{ props.row.address }}</p>
           <p m="t-0 b-2">Zip: {{ props.row.zip }}</p>
           <h3>Family</h3>
-          <el-table :data="props.row.family" :border="childBorder">
-            <el-table-column label="Name" prop="name" />
-            <el-table-column label="State" prop="state" />
-            <el-table-column label="City" prop="city" />
-            <el-table-column label="Address" prop="address" />
-            <el-table-column label="Zip" prop="zip" />
-          </el-table>
+          <eh-table :data="props.row.family" :border="childBorder">
+            <eh-table-column label="Name" prop="name" />
+            <eh-table-column label="State" prop="state" />
+            <eh-table-column label="City" prop="city" />
+            <eh-table-column label="Address" prop="address" />
+            <eh-table-column label="Zip" prop="zip" />
+          </eh-table>
         </div>
       </template>
-    </el-table-column>
-    <el-table-column label="Date" prop="date" />
-    <el-table-column label="Name" prop="name" />
-  </el-table>
+    </eh-table-column>
+    <eh-table-column label="Date" prop="date" />
+    <eh-table-column label="Name" prop="name" />
+  </eh-table>
 </template>
 
 <script lang="ts" setup>

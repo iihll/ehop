@@ -1,19 +1,19 @@
 <template>
-  <el-button @click="visible = true">
+  <eh-button @click="visible = true">
     Open Drawer with customized header
-  </el-button>
-  <el-drawer v-model="visible" :show-close="false">
+  </eh-button>
+  <eh-drawer v-model="visible" :show-close="false">
     <template #header="{ close, titleId, titleClass }">
       <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
-      <el-button type="danger" @click="close">
-        <el-icon class="el-icon--left">
+      <eh-button type="danger" @click="close">
+        <eh-icon class="el-icon--left">
           <CircleCloseFilled />
-        </el-icon>
+        </eh-icon>
         Close
-      </el-button>
+      </eh-button>
     </template>
     This is drawer content.
-  </el-drawer>
+  </eh-drawer>
 </template>
 
 <script lang="ts" setup>

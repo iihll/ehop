@@ -1,42 +1,35 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column label="Date" width="180">
+  <eh-table :data="tableData" style="width: 100%">
+    <eh-table-column label="Date" width="180">
       <template #default="scope">
         <div style="display: flex; align-items: center">
-          <el-icon>
+          <eh-icon>
             <timer />
-          </el-icon>
+          </eh-icon>
           <span style="margin-left: 10px">{{ scope.row.date }}</span>
         </div>
       </template>
-    </el-table-column>
-    <el-table-column label="Name" width="180">
+    </eh-table-column>
+    <eh-table-column label="Name" width="180">
       <template #default="scope">
-        <el-popover effect="light" trigger="hover" placement="top" width="auto">
+        <eh-popover effect="light" trigger="hover" placement="top" width="auto">
           <template #default>
             <div>name: {{ scope.row.name }}</div>
             <div>address: {{ scope.row.address }}</div>
           </template>
           <template #reference>
-            <el-tag>{{ scope.row.name }}</el-tag>
+            <eh-tag>{{ scope.row.name }}</eh-tag>
           </template>
-        </el-popover>
+        </eh-popover>
       </template>
-    </el-table-column>
-    <el-table-column label="Operations">
+    </eh-table-column>
+    <eh-table-column label="Operations">
       <template #default="scope">
-        <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button
-        >
-        <el-button
-          size="small"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button
-        >
+        <eh-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</eh-button>
+        <eh-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</eh-button>
       </template>
-    </el-table-column>
-  </el-table>
+    </eh-table-column>
+  </eh-table>
 </template>
 
 <script lang="ts" setup>

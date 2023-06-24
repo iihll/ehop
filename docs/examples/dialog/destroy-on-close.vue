@@ -1,15 +1,9 @@
 <template>
-  <el-button text @click="centerDialogVisible = true">
+  <eh-button text @click="centerDialogVisible = true">
     Click to open Dialog
-  </el-button>
+  </eh-button>
 
-  <el-dialog
-    v-model="centerDialogVisible"
-    title="Notice"
-    width="30%"
-    destroy-on-close
-    center
-  >
+  <eh-dialog v-model="centerDialogVisible" title="Notice" width="30%" destroy-on-close center>
     <span>
       Notice: before dialog gets opened for the first time this node and the one
       bellow will not be rendered
@@ -19,13 +13,13 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false">
+        <eh-button @click="centerDialogVisible = false">Cancel</eh-button>
+        <eh-button type="primary" @click="centerDialogVisible = false">
           Confirm
-        </el-button>
+        </eh-button>
       </span>
     </template>
-  </el-dialog>
+  </eh-dialog>
 </template>
 
 <script lang="ts" setup>

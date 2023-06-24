@@ -94,9 +94,9 @@ so you need to use an alias in order to render the icon, if you register `Menu` 
 <!-- Use el-icon to provide attributes to SVG icon -->
 <template>
   <div>
-    <el-icon :size="size" :color="color">
+    <eh-icon :size="size" :color="color">
       <Edit />
-    </el-icon>
+    </eh-icon>
     <!-- Or use it independently without derive attributes from parent -->
     <Edit />
   </div>
@@ -126,24 +126,24 @@ import { Edit, Share, Delete, Search, Loading } from '@ehop/icons-vue'
     with extra class <b>is-loading</b>, your icon is able to rotate 360 deg in 2
     seconds, you can also override this
   </p>
-  <el-icon :size="20">
+  <eh-icon :size="20">
     <Edit />
-  </el-icon>
-  <el-icon color="#409EFC" class="no-inherit">
+  </eh-icon>
+  <eh-icon color="#409EFC" class="no-inherit">
     <Share />
-  </el-icon>
-  <el-icon>
+  </eh-icon>
+  <eh-icon>
     <Delete />
-  </el-icon>
-  <el-icon class="is-loading">
+  </eh-icon>
+  <eh-icon class="is-loading">
     <Loading />
-  </el-icon>
-  <el-button type="primary">
-    <el-icon style="vertical-align: middle">
+  </eh-icon>
+  <eh-button type="primary">
+    <eh-icon style="vertical-align: middle">
       <Search />
-    </el-icon>
+    </eh-icon>
     <span style="vertical-align: middle"> Search </span>
-  </el-button>
+  </eh-button>
 </template>
 ```
 

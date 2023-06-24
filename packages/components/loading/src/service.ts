@@ -9,7 +9,7 @@ import {
 } from '@ehop/utils'
 import { createLoadingComponent } from './loading'
 
-import type { UseNamespaceReturn, UseZIndexReturn } from '@ehop
+import type { UseNamespaceReturn, UseZIndexReturn } from '@ehop/hooks'
 import type { LoadingInstance } from './loading'
 import type { LoadingOptionsResolved } from '..'
 import type { LoadingOptions } from './types'

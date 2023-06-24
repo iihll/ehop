@@ -11,7 +11,7 @@
         font-size: 14px;
         margin-bottom: 20px;
       ">Start date time 12:00:00</span>
-    <el-date-picker v-model="value1" type="datetimerange" start-placeholder="Start Date" end-placeholder="End Date"
+    <eh-date-picker v-model="value1" type="datetimerange" start-placeholder="Start Date" end-placeholder="End Date"
       :default-time="defaultTime1" />
   </div>
   <div class="block" style="padding: 30px 0; text-align: center; border-right: none; flex: 1">
@@ -21,7 +21,7 @@
         font-size: 14px;
         margin-bottom: 20px;
       ">Start date time 12:00:00, end date time 08:00:00</span>
-    <el-date-picker v-model="value2" type="datetimerange" start-placeholder="Start Date" end-placeholder="End Date"
+    <eh-date-picker v-model="value2" type="datetimerange" start-placeholder="Start Date" end-placeholder="End Date"
       :default-time="defaultTime2" />
   </div>
 </template>

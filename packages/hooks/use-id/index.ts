@@ -16,7 +16,7 @@ const defaultIdInjection = {
 }
 
 export const ID_INJECTION_KEY: InjectionKey<ElIdInjectionContext> =
-  Symbol('elIdInjection')
+  Symbol('ehIdInjection')
 
 export const useIdInjection = (): ElIdInjectionContext => {
   return getCurrentInstance()

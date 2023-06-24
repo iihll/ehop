@@ -1,14 +1,14 @@
 <template>
   <div class="common-layout">
-    <el-container>
-      <el-header>Header</el-header>
-      <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-container>
-          <el-main>Main</el-main>
-          <el-footer>Footer</el-footer>
-        </el-container>
-      </el-container>
-    </el-container>
+    <eh-container>
+      <eh-header>Header</eh-header>
+      <eh-container>
+        <eh-aside width="200px">Aside</eh-aside>
+        <eh-container>
+          <eh-main>Main</eh-main>
+          <eh-footer>Footer</eh-footer>
+        </eh-container>
+      </eh-container>
+    </eh-container>
   </div>
 </template>
