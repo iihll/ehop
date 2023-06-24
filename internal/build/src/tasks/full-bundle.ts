@@ -9,14 +9,14 @@ import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { parallel } from 'gulp'
 import glob from 'fast-glob'
 import { camelCase, upperFirst } from 'lodash'
-import { epOutput, epRoot, localeRoot } from '@ehoptils'
+import { ehOutput, ehRoot, localeRoot } from '@ehop/build-utils'
 import {
   PKG_BRAND_NAME,
   PKG_CAMELCASE_LOCAL_NAME,
   PKG_CAMELCASE_NAME,
 } from '@ehop/build-constants'
 import { version } from '../../../../packages/ehop/version'
-import { ElementPlusAlias } from '../plugins/ehop-alias'
+import { ElementPlusAlias } from '../plugins/element-plus-alias'
 import {
   formatBundleFilename,
   generateExternal,
@@ -69,7 +69,7 @@ async function buildFullEntry(minify: boolean) {
   }
 
   const bundle = await rollup({
-    input: path.resolve(epRoot, 'index.ts'),
+    input: path.resolve(ehRoot, 'index.ts'),
     plugins,
     external: await generateExternal({ full: true }),
     treeshake: true,
@@ -78,7 +78,7 @@ async function buildFullEntry(minify: boolean) {
     {
       format: 'umd',
       file: path.resolve(
-        epOutput,
+        ehOutput,
         'dist',
         formatBundleFilename('index.full', minify, 'js')
       ),
@@ -93,7 +93,7 @@ async function buildFullEntry(minify: boolean) {
     {
       format: 'esm',
       file: path.resolve(
-        epOutput,
+        ehOutput,
         'dist',
         formatBundleFilename('index.full', minify, 'mjs')
       ),
@@ -127,7 +127,7 @@ async function buildFullLocale(minify: boolean) {
         {
           format: 'umd',
           file: path.resolve(
-            epOutput,
+            ehOutput,
             'dist/locale',
             formatBundleFilename(filename, minify, 'js')
           ),
@@ -139,7 +139,7 @@ async function buildFullLocale(minify: boolean) {
         {
           format: 'esm',
           file: path.resolve(
-            epOutput,
+            ehOutput,
             'dist/locale',
             formatBundleFilename(filename, minify, 'mjs')
           ),

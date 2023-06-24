@@ -1,6 +1,6 @@
 export default {
   name: 'sk',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'OK',
       clear: 'Zmazať',

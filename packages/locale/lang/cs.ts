@@ -1,6 +1,6 @@
 export default {
   name: 'cs',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'OK',
       clear: 'Vymazat',

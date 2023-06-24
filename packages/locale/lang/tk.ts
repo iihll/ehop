@@ -1,6 +1,6 @@
 export default {
   name: 'tk',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'OK',
       clear: 'Arassala',

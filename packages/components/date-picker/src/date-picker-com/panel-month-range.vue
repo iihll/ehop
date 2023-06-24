@@ -57,7 +57,7 @@
 import { computed, inject, ref, toRef } from 'vue'
 import dayjs from 'dayjs'
 import EhIcon from '@ehop/components/icon'
-import { useLocale } from '@ehop
+import { useLocale } from '@ehop/hooks'
 import { DArrowLeft, DArrowRight } from '@ehop/icons-vue'
 import {
   panelMonthRangeEmits,

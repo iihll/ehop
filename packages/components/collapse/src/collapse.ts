@@ -7,7 +7,7 @@ import {
 } from '@ehop/utils'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'
 import type { ExtractPropTypes } from 'vue'
-import type { Arrayable } from '@ehop
+import type { Arrayable } from '@ehop/utils'
 
 export type CollapseActiveName = string | number
 export type CollapseModelValue = Arrayable<CollapseActiveName>

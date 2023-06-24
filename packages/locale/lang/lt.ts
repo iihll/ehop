@@ -1,6 +1,6 @@
 export default {
   name: 'lt',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'OK',
       clear: 'Valyti',

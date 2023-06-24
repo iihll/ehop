@@ -1,6 +1,6 @@
 export default {
   name: 'km',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'យល់ព្រម',
       clear: 'លុប',

@@ -1,6 +1,6 @@
 export default {
   name: 'fa',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'تایید',
       clear: 'حذف',

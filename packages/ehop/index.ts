@@ -2,7 +2,7 @@ import installer from './defaults'
 export * from '@ehop/components'
 export * from '@ehop/constants'
 export * from '@ehop/directives'
-export * from '@ehop
+export * from '@ehop/hooks'
 export * from './make-installer'
 
 export const install = installer.install

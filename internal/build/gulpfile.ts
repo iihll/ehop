@@ -2,21 +2,21 @@ import path from 'path'
 import { copyFile, mkdir } from 'fs/promises'
 import { copy } from 'fs-extra'
 import { parallel, series } from 'gulp'
-import { buildOutput, epOutput, epPackage, projRoot } from '@ehop/build-utils'
+import { buildOutput, ehOutput, ehPackage, projRoot } from '@ehop/build-utils'
 import { buildConfig, run, runTask, withTaskName } from './src'
 import type { TaskFunction } from 'gulp'
 import type { Module } from './src'
 
 export const copyFiles = () =>
   Promise.all([
-    copyFile(epPackage, path.join(epOutput, 'package.json')),
+    copyFile(ehPackage, path.join(ehOutput, 'package.json')),
     copyFile(
       path.resolve(projRoot, 'README.md'),
-      path.resolve(epOutput, 'README.md')
+      path.resolve(ehOutput, 'README.md')
     ),
     copyFile(
       path.resolve(projRoot, 'global.d.ts'),
-      path.resolve(epOutput, 'global.d.ts')
+      path.resolve(ehOutput, 'global.d.ts')
     ),
   ])
 
@@ -31,16 +31,16 @@ export const copyTypesDefinitions: TaskFunction = (done) => {
 }
 
 export const copyFullStyle = async () => {
-  await mkdir(path.resolve(epOutput, 'dist'), { recursive: true })
+  await mkdir(path.resolve(ehOutput, 'dist'), { recursive: true })
   await copyFile(
-    path.resolve(epOutput, 'theme-chalk/index.css'),
-    path.resolve(epOutput, 'dist/index.css')
+    path.resolve(ehOutput, 'theme-chalk/index.css'),
+    path.resolve(ehOutput, 'dist/index.css')
   )
 }
 
 export default series(
   withTaskName('clean', () => run('pnpm run clean')),
-  withTaskName('createOutput', () => mkdir(epOutput, { recursive: true })),
+  withTaskName('createOutput', () => mkdir(ehOutput, { recursive: true })),
 
   parallel(
     runTask('buildModules'),

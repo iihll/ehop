@@ -7,10 +7,10 @@ import autoprefixer from 'gulp-autoprefixer'
 import cleanCSS from 'gulp-clean-css'
 import rename from 'gulp-rename'
 import consola from 'consola'
-import { epOutput } from '@ehop/build-utils'
+import { ehOutput } from '@ehop/build-utils'
 
 const distFolder = path.resolve(__dirname, 'dist')
-const distBundle = path.resolve(epOutput, 'theme-chalk')
+const distBundle = path.resolve(ehOutput, 'theme-chalk')
 
 /**
  * compile theme-chalk scss & minify

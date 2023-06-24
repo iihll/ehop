@@ -1,6 +1,6 @@
 export default {
   name: 'eo',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'Bone',
       clear: 'Malplenigi',

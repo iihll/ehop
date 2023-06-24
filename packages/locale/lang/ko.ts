@@ -1,6 +1,6 @@
 export default {
   name: 'ko',
-  el: {
+  eh: {
     colorpicker: {
       confirm: '확인',
       clear: '초기화',

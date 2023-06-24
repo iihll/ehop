@@ -40,7 +40,7 @@
 import { computed, unref } from 'vue'
 import { EhIcon } from '@ehop/components/icon'
 import { ArrowLeft, ArrowRight } from '@ehop/icons-vue'
-import { useNamespace } from '@ehop
+import { useNamespace } from '@ehop/hooks'
 import { carouselEmits, carouselProps } from './carousel'
 import { useCarousel } from './use-carousel'
 

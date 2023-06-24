@@ -7,7 +7,7 @@ import {
   watch,
 } from 'vue'
 import { addUnit, getClientXY } from '@ehop/utils'
-import { useNamespace } from '@ehop
+import { useNamespace } from '@ehop/hooks'
 import { draggable } from '../utils/draggable'
 
 import type { AlphaSliderProps } from '../props/alpha-slider'

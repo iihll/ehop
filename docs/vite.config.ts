@@ -11,7 +11,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import {
   docPackage,
-  epPackage,
+  ehPackage,
   getPackageDependencies,
   projRoot,
 } from '@ehop/build-utils'
@@ -41,7 +41,7 @@ if (process.env.DOC_ENV !== 'production') {
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
-  const { dependencies: epDeps } = getPackageDependencies(epPackage)
+  const { dependencies: epDeps } = getPackageDependencies(ehPackage)
   const { dependencies: docsDeps } = getPackageDependencies(docPackage)
 
   const optimizeDeps = [...new Set([...epDeps, ...docsDeps])].filter(

@@ -2,8 +2,8 @@
 import { computed, inject, ref } from 'vue'
 import { addClass, generateId } from '@ehop/utils'
 import { EVENT_CODE } from '@ehop/constants'
-import { useNamespace } from '@ehop
-import type { Nullable } from '@ehop
+import { useNamespace } from '@ehop/hooks'
+import type { Nullable } from '@ehop/utils'
 import type { IElDropdownInstance } from './dropdown'
 
 export const useDropdown = () => {

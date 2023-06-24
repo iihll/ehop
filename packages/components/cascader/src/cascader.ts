@@ -1,6 +1,6 @@
 import { CommonProps } from '@ehop/components/cascader-panel'
-import { buildProps, definePropType, isBoolean } from '@ehop
-import { useSizeProp } from '@ehop
+import { buildProps, definePropType, isBoolean } from '@ehop/utils'
+import { useSizeProp } from '@ehop/hooks'
 import { useTooltipContentProps } from '@ehop/components/tooltip'
 import { tagProps } from '@ehop/components/tag'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@ehop/constants'

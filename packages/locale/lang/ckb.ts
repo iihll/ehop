@@ -1,6 +1,6 @@
 export default {
   name: 'ckb',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'باشە',
       clear: 'پاککردنەوە',

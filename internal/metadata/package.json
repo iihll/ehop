@@ -19,9 +19,9 @@
     "dev": "DEV=1 pnpm run build"
   },
   "devDependencies": {
-    "@ehop/build": "^0.0.1",
-    "@ehop/build-constants": "^0.0.1",
-    "@ehop/build-utils": "^0.0.1",
+    "@ehop/build": "workspace:*",
+    "@ehop/build-constants": "workspace:*",
+    "@ehop/build-utils": "workspace:*",
     "@types/lodash-es": "^4.17.6",
     "chalk": "^5.0.1",
     "consola": "^2.15.3",

@@ -1,7 +1,7 @@
 import { writeFile } from 'fs/promises'
 import path from 'path'
 import consola from 'consola'
-import { epRoot } from '@ehop/build-utils'
+import { ehRoot } from '@ehop/build-utils'
 import pkg from '../packages/ehop/package.json' // need to be checked
 
 function getVersion() {
@@ -18,7 +18,7 @@ const version = getVersion()
 async function main() {
   consola.info(`Version: ${version}`)
   await writeFile(
-    path.resolve(epRoot, 'version.ts'),
+    path.resolve(ehRoot, 'version.ts'),
     `export const version = '${version}'\n`
   )
 }

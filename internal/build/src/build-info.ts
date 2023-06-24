@@ -1,5 +1,5 @@
 import path from 'path'
-import { epOutput } from '@ehoptils'
+import { ehOutput } from '@ehop/build-utils'
 import { PKG_NAME } from '@ehop/build-constants'
 
 import type { ModuleFormat } from 'rollup'
@@ -30,7 +30,7 @@ export const buildConfig: Record<Module, BuildInfo> = {
     ext: 'mjs',
     output: {
       name: 'es',
-      path: path.resolve(epOutput, 'es'),
+      path: path.resolve(ehOutput, 'es'),
     },
     bundle: {
       path: `${PKG_NAME}/es`,
@@ -42,7 +42,7 @@ export const buildConfig: Record<Module, BuildInfo> = {
     ext: 'js',
     output: {
       name: 'lib',
-      path: path.resolve(epOutput, 'lib'),
+      path: path.resolve(ehOutput, 'lib'),
     },
     bundle: {
       path: `${PKG_NAME}/lib`,

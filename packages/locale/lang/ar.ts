@@ -1,6 +1,6 @@
 export default {
   name: 'ar',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'موافق',
       clear: 'إزالة',

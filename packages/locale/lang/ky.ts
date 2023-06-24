@@ -1,6 +1,6 @@
 export default {
   name: 'ky',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'Мурунку',
       clear: 'ачык',

@@ -8,7 +8,7 @@ import chalk from 'chalk'
 import { Project } from 'ts-morph'
 import {
   buildOutput,
-  epRoot,
+  ehRoot,
   excludeFiles,
   pkgRoot,
   projRoot,
@@ -99,7 +99,7 @@ async function addSourceFiles(project: Project) {
   )
   const epPaths = excludeFiles(
     await glob(globSourceFile, {
-      cwd: epRoot,
+      cwd: ehRoot,
       onlyFiles: true,
     })
   )
@@ -137,7 +137,7 @@ async function addSourceFiles(project: Project) {
       }
     }),
     ...epPaths.map(async (file) => {
-      const content = await readFile(path.resolve(epRoot, file), 'utf-8')
+      const content = await readFile(path.resolve(ehRoot, file), 'utf-8')
       sourceFiles.push(
         project.createSourceFile(path.resolve(pkgRoot, file), content)
       )

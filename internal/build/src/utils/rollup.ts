@@ -1,9 +1,9 @@
-import { epPackage, getPackageDependencies } from '@ehop/build-utils'
+import { ehPackage, getPackageDependencies } from '@ehop/build-utils'
 
 import type { OutputOptions, RollupBuild } from 'rollup'
 
 export const generateExternal = async (options: { full: boolean }) => {
-  const { dependencies, peerDependencies } = getPackageDependencies(epPackage)
+  const { dependencies, peerDependencies } = getPackageDependencies(ehPackage)
 
   return (id: string) => {
     const packages: string[] = [...peerDependencies]

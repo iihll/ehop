@@ -1,6 +1,6 @@
 export default {
   name: 'bn',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'ঠিক আছে',
       clear: 'ক্লিয়ার',

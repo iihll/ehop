@@ -1,6 +1,6 @@
 export default {
   name: 'bg',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'OK',
       clear: 'Изчисти',

@@ -120,8 +120,8 @@
 import { computed, inject, ref, toRef, unref } from 'vue'
 import dayjs from 'dayjs'
 import { ClickOutside as vClickoutside } from '@ehop/directives'
-import { isArray } from '@ehop
-import { useLocale } from '@ehop
+import { isArray } from '@ehop/utils'
+import { useLocale } from '@ehop/hooks'
 import EhButton from '@ehop/components/button'
 import EhInput from '@ehop/components/input'
 import {

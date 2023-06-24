@@ -41,7 +41,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { EhButton, EhButtonGroup } from '@ehop/components/button'
-import { useLocale, useNamespace } from '@ehop
+import { useLocale, useNamespace } from '@ehop/hooks'
 
 import DateTable from './date-table.vue'
 import { useCalendar } from './use-calendar'

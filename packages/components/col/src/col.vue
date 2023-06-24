@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { isNumber, isObject } from '@ehop/utils'
-import { useNamespace } from '@ehop
+import { useNamespace } from '@ehop/hooks'
 import { rowContextKey } from '@ehop/components/row'
 import { colProps } from './col'
 import type { CSSProperties } from 'vue'

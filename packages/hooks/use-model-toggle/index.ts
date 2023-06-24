@@ -6,7 +6,7 @@ import {
   isBoolean,
   isClient,
 } from '@ehop/utils'
-import type { ExtractPropType } from '@ehop
+import type { ExtractPropType } from '@ehop/utils'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 import type { ComponentPublicInstance, ExtractPropTypes, Ref } from 'vue'

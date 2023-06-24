@@ -1,6 +1,6 @@
 import { computed, inject, ref, unref } from 'vue'
 import { useNamespace } from '@ehop/hooks'
-import { generateId } from '@ehop
+import { generateId } from '@ehop/utils'
 import { collapseContextKey } from './constants'
 
 import type { CollapseItemProps } from './collapse-item'

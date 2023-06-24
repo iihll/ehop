@@ -4,7 +4,7 @@ import English from '@ehop/locale/lang/en'
 
 import type { MaybeRef } from '@vueuse/core'
 import type { InjectionKey, Ref } from 'vue'
-import type { Language } from '@ehop
+import type { Language } from '@ehop/locale'
 
 export type TranslatorOption = Record<string, string | number>
 export type Translator = (path: string, option?: TranslatorOption) => string

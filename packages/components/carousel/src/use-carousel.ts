@@ -12,7 +12,7 @@ import {
 import { throttle } from 'lodash-unified'
 import { useResizeObserver } from '@vueuse/core'
 import { debugWarn, isString } from '@ehop/utils'
-import { useOrderedChildren } from '@ehop
+import { useOrderedChildren } from '@ehop/hooks'
 import { carouselContextKey } from './constants'
 
 import type { SetupContext } from 'vue'

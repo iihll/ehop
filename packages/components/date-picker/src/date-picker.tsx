@@ -76,7 +76,7 @@ export default defineComponent({
           format={format}
           type={props.type}
           ref={commonPicker}
-          onUpdate: modelValue={onModelValueUpdated}
+          onUpdate:modelValue={onModelValueUpdated}
         >
           {{
             default: (scopedProps: /**FIXME: remove any type */ any) => (

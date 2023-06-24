@@ -208,7 +208,7 @@ export default class Color {
       return
     }
 
-    ;(this as any)[`_${prop}`] = value
+    (this as any)[`_${prop}`] = value
     this.doOnChange()
   }
 

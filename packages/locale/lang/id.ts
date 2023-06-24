@@ -1,6 +1,6 @@
 export default {
   name: 'id',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'Pilih',
       clear: 'Kosongkan',

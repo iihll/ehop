@@ -98,7 +98,7 @@ import {
 import dayjs from 'dayjs'
 import EhButton from '@ehop/components/button'
 import { ClickOutside as vClickOutside } from '@ehop/directives'
-import { useLocale, useNamespace } from '@ehop
+import { useLocale, useNamespace } from '@ehop/hooks'
 import EhInput from '@ehop/components/input'
 import {
   TimePickPanel,
@@ -106,7 +106,7 @@ import {
   extractTimeFormat,
 } from '@ehop/components/time-picker'
 import { EhIcon } from '@ehop/components/icon'
-import { isArray, isFunction } from '@ehop
+import { isArray, isFunction } from '@ehop/utils'
 import { EVENT_CODE } from '@ehop/constants'
 import {
   ArrowLeft,

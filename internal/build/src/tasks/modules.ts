@@ -6,9 +6,9 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
 import glob from 'fast-glob'
-import { epRoot, excludeFiles, pkgRoot } from '@ehop/build-utils'
+import { ehRoot, excludeFiles, pkgRoot } from '@ehop/build-utils'
 import { generateExternal, writeBundles } from '../utils'
-import { ElementPlusAlias } from '../plugins/ehop-alias'
+import { ElementPlusAlias } from '../plugins/element-plus-alias'
 import { buildConfigEntries, target } from '../build-info'
 
 import type { OutputOptions } from 'rollup'
@@ -58,7 +58,7 @@ export const buildModules = async () => {
         dir: config.output.path,
         exports: module === 'cjs' ? 'named' : undefined,
         preserveModules: true,
-        preserveModulesRoot: epRoot,
+        preserveModulesRoot: ehRoot,
         sourcemap: true,
         entryFileNames: `[name].${config.ext}`,
       }

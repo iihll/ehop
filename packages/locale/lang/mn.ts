@@ -1,6 +1,6 @@
 export default {
   name: 'mn',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'Тийм',
       clear: 'Цэвэрлэх',

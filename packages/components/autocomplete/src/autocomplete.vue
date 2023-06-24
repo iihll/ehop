@@ -44,16 +44,28 @@
         @keydown.esc="handleKeyEscape"
         @mousedown="handleMouseDown"
       >
-        <template v-if="$slots.prepend" #prepend>
+        <template
+          v-if="$slots.prepend"
+          #prepend
+        >
           <slot name="prepend" />
         </template>
-        <template v-if="$slots.append" #append>
+        <template
+          v-if="$slots.append"
+          #append
+        >
           <slot name="append" />
         </template>
-        <template v-if="$slots.prefix" #prefix>
+        <template
+          v-if="$slots.prefix"
+          #prefix
+        >
           <slot name="prefix" />
         </template>
-        <template v-if="$slots.suffix" #suffix>
+        <template
+          v-if="$slots.suffix"
+          #suffix
+        >
           <slot name="suffix" />
         </template>
       </eh-input>
@@ -90,7 +102,9 @@
               :aria-selected="highlightedIndex === index"
               @click="handleSelect(item)"
             >
-              <slot :item="item">{{ item[valueKey] }}</slot>
+              <slot :item="item">
+                {{ item[valueKey] }}
+              </slot>
             </li>
           </template>
         </eh-scrollbar>
@@ -355,7 +369,7 @@ onClickOutside(listboxRef, () => {
 
 onMounted(() => {
   // TODO: use Volar generate dts to fix it.
-  ;(inputRef.value as any).ref!.setAttribute('role', 'textbox')
+  (inputRef.value as any).ref!.setAttribute('role', 'textbox')
   ;(inputRef.value as any).ref!.setAttribute('aria-autocomplete', 'list')
   ;(inputRef.value as any).ref!.setAttribute('aria-controls', 'id')
   ;(inputRef.value as any).ref!.setAttribute(

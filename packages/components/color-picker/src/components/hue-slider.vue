@@ -18,7 +18,7 @@ import {
   watch,
 } from 'vue'
 import { getClientXY } from '@ehop/utils'
-import { useNamespace } from '@ehop
+import { useNamespace } from '@ehop/hooks'
 import { draggable } from '../utils/draggable'
 
 import type { PropType } from 'vue'

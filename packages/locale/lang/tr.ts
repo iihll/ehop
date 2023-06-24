@@ -1,6 +1,6 @@
 export default {
   name: 'tr',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'Onayla',
       clear: 'Temizle',

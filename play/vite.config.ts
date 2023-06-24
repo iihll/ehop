@@ -10,8 +10,8 @@ import glob from 'fast-glob'
 import VueMacros from 'unplugin-vue-macros/vite'
 import esbuild from 'rollup-plugin-esbuild'
 import {
-  epPackage,
-  epRoot,
+  ehPackage,
+  ehRoot,
   getPackageDependencies,
   pkgRoot,
   projRoot,
@@ -32,7 +32,7 @@ const esbuildPlugin = (): Plugin => ({
 
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  let { dependencies } = getPackageDependencies(epPackage)
+  let { dependencies } = getPackageDependencies(ehPackage)
   dependencies = dependencies.filter((dep) => !dep.startsWith('@types/')) // exclude dts deps
   const optimizeDeps = (
     await glob(['dayjs/(locale|plugin)/*.js'], {
@@ -45,7 +45,7 @@ export default defineConfig(async ({ mode }) => {
       alias: [
         {
           find: /^ehop(\/(es|lib))?$/,
-          replacement: path.resolve(epRoot, 'index.ts'),
+          replacement: path.resolve(ehRoot, 'index.ts'),
         },
         {
           find: /^ehop\/(es|lib)\/(.*)$/,

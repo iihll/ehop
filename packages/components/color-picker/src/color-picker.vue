@@ -1,44 +1,109 @@
 <template>
-  <eh-tooltip ref="popper" :visible="showPicker" :show-arrow="false"
-    :fallback-placements="['bottom', 'top', 'right', 'left']" :offset="0" :gpu-acceleration="false"
-    :popper-class="[ns.be('picker', 'panel'), ns.b('dropdown'), popperClass]" :stop-popper-mouse-event="false"
-    effect="light" trigger="click" :transition="`${ns.namespace.value}-zoom-in-top`" persistent>
+  <eh-tooltip
+    ref="popper"
+    :visible="showPicker"
+    :show-arrow="false"
+    :fallback-placements="['bottom', 'top', 'right', 'left']"
+    :offset="0"
+    :gpu-acceleration="false"
+    :popper-class="[ns.be('picker', 'panel'), ns.b('dropdown'), popperClass]"
+    :stop-popper-mouse-event="false"
+    effect="light"
+    trigger="click"
+    :transition="`${ns.namespace.value}-zoom-in-top`"
+    persistent
+  >
     <template #content>
       <div v-click-outside="hide">
         <div :class="ns.be('dropdown', 'main-wrapper')">
-          <hue-slider ref="hue" class="hue-slider" :color="color" vertical />
-          <sv-panel ref="svPanel" :color="color" />
+          <hue-slider
+            ref="hue"
+            class="hue-slider"
+            :color="color"
+            vertical
+          />
+          <sv-panel
+            ref="svPanel"
+            :color="color"
+          />
         </div>
-        <alpha-slider v-if="showAlpha" ref="alpha" :color="color" />
-        <predefine v-if="predefine" ref="predefine" :color="color" :colors="predefine" />
+        <alpha-slider
+          v-if="showAlpha"
+          ref="alpha"
+          :color="color"
+        />
+        <predefine
+          v-if="predefine"
+          ref="predefine"
+          :color="color"
+          :colors="predefine"
+        />
         <div :class="ns.be('dropdown', 'btns')">
           <span :class="ns.be('dropdown', 'value')">
-            <eh-input v-model="customInput" :validate-event="false" size="small" @keyup.enter="handleConfirm"
-              @blur="handleConfirm" />
+            <eh-input
+              v-model="customInput"
+              :validate-event="false"
+              size="small"
+              @keyup.enter="handleConfirm"
+              @blur="handleConfirm"
+            />
           </span>
-          <eh-button :class="ns.be('dropdown', 'link-btn')" text size="small" @click="clear">
+          <eh-button
+            :class="ns.be('dropdown', 'link-btn')"
+            text
+            size="small"
+            @click="clear"
+          >
             {{ t('eh.colorpicker.clear') }}
           </eh-button>
-          <eh-button plain size="small" :class="ns.be('dropdown', 'btn')" @click="confirmValue">
+          <eh-button
+            plain
+            size="small"
+            :class="ns.be('dropdown', 'btn')"
+            @click="confirmValue"
+          >
             {{ t('eh.colorpicker.confirm') }}
           </eh-button>
         </div>
       </div>
     </template>
     <template #default>
-      <div :id="buttonId" :class="btnKls" role="button" :aria-label="buttonAriaLabel"
-        :aria-labelledby="buttonAriaLabelledby" :aria-description="t('eh.colorpicker.description', { color: modelValue || '' })
-          " :tabindex="tabindex" @keydown.enter="handleTrigger">
-        <div v-if="colorDisabled" :class="ns.be('picker', 'mask')" />
-        <div :class="ns.be('picker', 'trigger')" @click="handleTrigger">
+      <div
+        :id="buttonId"
+        :class="btnKls"
+        role="button"
+        :aria-label="buttonAriaLabel"
+        :aria-labelledby="buttonAriaLabelledby"
+        :aria-description="t('eh.colorpicker.description', { color: modelValue || '' })
+        "
+        :tabindex="tabindex"
+        @keydown.enter="handleTrigger"
+      >
+        <div
+          v-if="colorDisabled"
+          :class="ns.be('picker', 'mask')"
+        />
+        <div
+          :class="ns.be('picker', 'trigger')"
+          @click="handleTrigger"
+        >
           <span :class="[ns.be('picker', 'color'), ns.is('alpha', showAlpha)]">
-            <span :class="ns.be('picker', 'color-inner')" :style="{
-              backgroundColor: displayedColor,
-            }">
-              <eh-icon v-show="modelValue || showPanelColor" :class="[ns.be('picker', 'icon'), ns.is('icon-arrow-down')]">
+            <span
+              :class="ns.be('picker', 'color-inner')"
+              :style="{
+                backgroundColor: displayedColor,
+              }"
+            >
+              <eh-icon
+                v-show="modelValue || showPanelColor"
+                :class="[ns.be('picker', 'icon'), ns.is('icon-arrow-down')]"
+              >
                 <arrow-down />
               </eh-icon>
-              <eh-icon v-if="!modelValue && !showPanelColor" :class="[ns.be('picker', 'empty'), ns.is('icon-close')]">
+              <eh-icon
+                v-if="!modelValue && !showPanelColor"
+                :class="[ns.be('picker', 'empty'), ns.is('icon-close')]"
+              >
                 <close />
               </eh-icon>
             </span>
@@ -71,9 +136,9 @@ import {
   useFormItemInputId,
   useFormSize,
 } from '@ehop/components/form'
-import { useLocale, useNamespace } from '@ehop
+import { useLocale, useNamespace } from '@ehop/hooks'
 import { UPDATE_MODEL_EVENT } from '@ehop/constants'
-import { debugWarn } from '@ehop
+import { debugWarn } from '@ehop/utils'
 import { ArrowDown, Close } from '@ehop/icons-vue'
 import AlphaSlider from './components/alpha-slider.vue'
 import HueSlider from './components/hue-slider.vue'

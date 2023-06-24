@@ -1,6 +1,6 @@
 export default {
   name: 'ca',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'Confirmar',
       clear: 'Netejar',

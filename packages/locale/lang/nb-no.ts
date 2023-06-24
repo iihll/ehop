@@ -1,6 +1,6 @@
 export default {
   name: 'nb-no',
-  el: {
+  eh: {
     colorpicker: {
       confirm: 'OK',
       clear: 'Tøm',

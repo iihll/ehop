@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { CHANGE_EVENT } from '@ehop/constants'
-import { useNamespace } from '@ehop
+import { useNamespace } from '@ehop/hooks'
 import { checkTagEmits, checkTagProps } from './check-tag'
 
 defineOptions({
