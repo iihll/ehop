@@ -9,6 +9,7 @@ import { EhMain } from '@ehop/components/main'
 import { EhIcon } from '@ehop/components/icon'
 import { EhLink } from '@ehop/components/link'
 import { EhRow } from '@ehop/components/row'
+import { EhTable, EhTableColumn } from '@ehop/components/table'
 
 import type { Plugin } from 'vue'
 
@@ -24,4 +25,6 @@ export default [
   EhIcon,
   EhLink,
   EhRow,
+  EhTable,
+  EhTableColumn,
 ] as Plugin[]

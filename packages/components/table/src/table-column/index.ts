@@ -20,6 +20,7 @@ import useWatcher from './watcher-helper'
 import useRender from './render-helper'
 import defaultProps from './defaults'
 import type { TableColumn, TableColumnCtx } from './defaults'
+import '../../../table-column/style'
 
 let columnIdSeed = 1
 
@@ -115,6 +116,7 @@ export default defineComponent({
       let column = getPropsData(basicProps, sortProps, selectProps, filterProps)
 
       column = mergeOptions(defaults, column)
+
       // 注意 compose 中函数执行的顺序是从右到左
       const chains = compose(
         setColumnRenders,

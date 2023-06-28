@@ -31,7 +31,7 @@ declare module '@vue/runtime-core' {
     EhRadioButton: typeof import('../packages/ehop')['EhRadioButton']
     EhRadioGroup: typeof import('../packages/ehop')['EhRadioGroup']
     EhTable: typeof import('../packages/ehop')['EhTable']
-    EhTableColumn: typeof import('../packages/ehop')['EhTable']
+    EhTableColumn: typeof import('../packages/ehop')['EhTableColumn']
     EhCheckbox: typeof import('../packages/ehop')['EhCheckbox']
     EhCheckboxButton: typeof import('../packages/ehop')['EhCheckboxButton']
     EhCheckboxGroup: typeof import('../packages/ehop')['EhCheckboxGroup']
